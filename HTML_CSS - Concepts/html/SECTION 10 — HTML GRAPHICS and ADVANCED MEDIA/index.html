@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>HTML Graphics & Media Demo</h1>
+
+<h2>SVG</h2>
+<svg width="200" height="200">
+    <circle cx="100" cy="100" r="80" fill="tomato" />
+</svg>
+
+<h2>Canvas</h2>
+<canvas id="myCanvas" width="300" height="200"></canvas>
+
+<script>
+const c = document.getElementById("myCanvas");
+const ctx = c.getContext("2d");
+ctx.fillStyle = "blue";
+ctx.fillRect(30, 30, 150, 80);
+</script>
+
+<h2>Responsive Image</h2>
+<picture>
+    <source srcset="large.jpg" media="(min-width:800px)">
+    <img src="small.jpg" alt="">
+</picture>
+
+<h2>Video</h2>
+<video controls width="300">
+    <source src="movie.mp4" type="video/mp4">
+</video>
+
+</body>
+</html>

@@ -1,0 +1,16 @@
+<button id="copyBtn">Copy Message</button>
+<p id="status"></p>
+
+<script>
+// Clipboard API
+document.getElementById("copyBtn").onclick = () => {
+    navigator.clipboard.writeText("Hello World")
+    document.getElementById("status").textContent = "Copied!"
+}
+
+// Web Storage API
+localStorage.setItem("visited", "true")
+
+// DOM API
+document.body.style.background = localStorage.getItem("visited") ? "lightyellow" : "white"
+</script>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Direct Children Selector Demo</title>
+
+  <style>
+    /* ============================================================
+       Selecting ALL DIRECT CHILDREN of a specific type
+       Using CHILD COMBINATOR: parent > child
+
+       Syntax:
+       ul > li  = selects only <li> tags directly inside <ul>
+       ============================================================ */
+
+    ul > li {
+      color: blue;
+      font-weight: bold;
+      padding: 4px;
+    }
+
+    /* Visual styling to show what is not selected */
+    ul li {
+      margin: 2px 0;
+    }
+
+    div li {
+      color: black;
+      font-weight: normal;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h2>Direct Children Selection (ul > li)</h2>
+
+  <ul>
+    <li>Item 1 (selected)</li>
+    <li>Item 2 (selected)</li>
+
+    <div>
+      <li>Nested Item (NOT selected)</li>
+    </div>
+  </ul>
+
+</body>
+</html>

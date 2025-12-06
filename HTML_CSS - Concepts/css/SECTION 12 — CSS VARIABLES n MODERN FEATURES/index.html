@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+
+/* Global variables */
+:root {
+    --primary: #4a6cff;
+    --text: #222;
+    --bg: #fff;
+    --radius: 12px;
+    --space: 20px;
+}
+
+/* Dark mode overrides */
+.dark {
+    --primary: #89a2ff;
+    --text: #eee;
+    --bg: #0f1115;
+}
+
+/* Base styles using variables */
+body {
+    background: var(--bg);
+    color: var(--text);
+    padding: var(--space);
+    font-family: Arial;
+    transition: 0.3s;
+}
+
+/* Card component */
+.card {
+    background: var(--primary);
+    padding: calc(var(--space) * 2);
+    border-radius: var(--radius);
+    color: white;
+    width: min(90%, 400px);
+    margin: auto;
+}
+
+button {
+    padding: 10px 18px;
+    border: none;
+    border-radius: var(--radius);
+    background: var(--text);
+    color: var(--bg);
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: var(--primary);
+}
+
+</style>
+</head>
+
+<body class="dark">
+
+<div class="card">
+    <h2>CSS Variables Demo</h2>
+    <p>This card demonstrates theme switching using CSS variables.</p>
+    <button>Toggle Mode</button>
+</div>
+
+</body>
+</html>
