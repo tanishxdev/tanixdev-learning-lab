@@ -1,0 +1,99 @@
+# Quiz 1 : React Fundamentals
+
+(Concept-check + Understanding-check + Real interview style)
+
+This quiz is designed to verify your clarity on all core topics we covered:
+Introduction → JSX → Components → Props → State → Virtual DOM → Context → Redux.
+
+---
+
+## ✅ SECTION A: Basics (Concept Understanding)
+
+1. What is React and why is it called a library, not a framework?
+2. What problem does React mainly solve in UI development?
+3. What does the statement mean:
+   **UI = f(state)** ?
+4. What is the difference between Real DOM and Virtual DOM?
+5. Is JSX HTML? Explain why or why not.
+6. What is a component in React?
+7. Why must component names start with a capital letter?
+8. What is the root element in a React app?
+
+---
+
+## ✅ SECTION B: JSX & Rendering
+
+9. Why does JSX require only one parent element?
+10. What happens behind the scenes when JSX is compiled?
+11. What does this code become internally?
+
+```jsx
+<h1>Hello</h1>
+```
+
+12. What is the purpose of React Fragment (`<> </>`)?
+13. Why do we use `{}` in JSX?
+
+---
+
+## ✅ SECTION C: Props & State
+
+14. What are props?
+15. Are props mutable or immutable?
+16. Difference between Props and State?
+17. Who owns state: Parent or Child?
+18. What does `useState()` return?
+19. Why should state never be updated directly?
+20. What triggers a re-render in React?
+
+---
+
+## ✅ SECTION D: Advanced Core Concepts
+
+21. What is Prop Drilling?
+22. Why is Prop Drilling considered bad practice?
+23. How does Context API solve Prop Drilling?
+24. What are the 3 main parts of Context API?
+25. When should Context API NOT be used?
+
+---
+
+## ✅ SECTION E: Virtual DOM
+
+26. Explain the Virtual DOM in your own words.
+27. What is reconciliation?
+28. Why is Virtual DOM faster than Real DOM?
+29. Does React update the entire DOM every time?
+
+---
+
+## ✅ SECTION F: Redux
+
+30. What problem does Redux solve?
+31. What are the core elements of Redux?
+32. What is the role of a reducer?
+33. What is an action?
+34. Why is Redux called predictable?
+
+---
+
+## ✅ SECTION G: Scenario Based
+
+35. If a value is used by 10 deeply nested components, should you use props or context? Why?
+36. If your app is small, should you use Redux? Why or why not?
+37. What happens if you use array index as key in dynamic list?
+38. Why is state inside Redux read-only?
+39. How do components access Redux state?
+
+---
+
+## ✅ Final Self-Check Scoring
+
+Score Guide:
+
+* 35–39 correct → Excellent mastery
+* 25–34 correct → Strong fundamentals
+* 15–24 correct → Needs revision
+* Below 15 → Relearn basics
+
+---

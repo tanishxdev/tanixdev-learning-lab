@@ -1,0 +1,59 @@
+@import "tailwindcss";
+
+/* =========================================
+   GLOBAL RESET + BASE STYLES
+   ========================================= */
+
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  --bg-dark: #0f172a;
+  --bg-light: #f8fafc;
+  --text-dark: #0f172a;
+  --text-light: #f8fafc;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Body styling for centered layout */
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: var(--bg-dark);
+  color: var(--text-light);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Headings */
+h1, h2, h3 {
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* Links */
+a {
+  text-decoration: none;
+  font-weight: 500;
+}
+
+/* Buttons base */
+button {
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+/* Light mode compatibility */
+@media (prefers-color-scheme: light) {
+  body {
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+  }
+}
