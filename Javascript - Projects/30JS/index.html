@@ -1,38 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>JS Projects Dashboard</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>JS Mini Projects — Dashboard</title>
 
-  <!-- Linking CSS -->
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
+  <meta name="description" content="30 HTML, CSS & JavaScript mini-projects to practice JS, DOM, APIs, UI components, and interview-level logic." />
 </head>
+
 <body>
+  <main class="app">
+    
+    <!-- Header -->
+    <header class="header">
+      <div class="brand">
+        <h1>JS Mini Projects</h1>
+        <p class="subtitle">30 HTML • CSS • JS projects — practise core logic, UI, DOM & patterns.</p>
+      </div>
 
-  <!-- Header Section -->
-  <header>
-    <h1>JavaScript Mini Projects</h1>
-    <p>Learning JS through hands-on projects</p>
-  </header>
+      <div class="controls">
+        <label for="project-search" class="visually-hidden">Search Projects</label>
+        <input id="project-search" class="search" type="search" placeholder="Search projects: quiz, todo, api..." aria-label="Search projects" />
+        <button id="sort-toggle" class="btn small" aria-pressed="false">Sort: Default</button>
+      </div>
+    </header>
 
-  <!-- Project Container -->
-  <section class="project-container">
-    <!-- Each project card will link to its folder -->
-    <a href="./accordion/index.html" class="project-card">Accordion</a>
-    <a href="./random-color-generator/index.html" class="project-card">Random Color Generator</a>
-    <a href="./star-rating/index.html" class="project-card">Star Rating Component</a>
-    <a href="./api-call/index.html" class="project-card">API Call (XHR/Fetch)</a>
-    <a href="./image-slider/index.html" class="project-card">Image Slider</a>
-    <!-- You’ll keep adding more as you go -->
-  </section>
+    <!-- Info -->
+    <section class="intro">
+      <p>All project folders live under <code>/projects/&lt;slug&gt;/</code>.  
+         Start with v1 → improve → build real machine coding level versions.</p>
+    </section>
 
-  <!-- Footer -->
-  <footer>
-    <p>Created by Tanish Kumar | #100DaysOfCode</p>
-  </footer>
+    <!-- Projects grid -->
+    <section id="projects" class="projects" aria-live="polite"></section>
 
-  <!-- Linking JS -->
+    <!-- Footer -->
+    <footer class="footer">
+      <p>Designed for learning. Build from v1 → v2 → v3 to master front-end.</p>
+    </footer>
+
+  </main>
+
   <script src="main.js"></script>
 </body>
 </html>

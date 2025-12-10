@@ -1,0 +1,200 @@
+/* Basic Reset: removes default browser spacing and standardizes box model */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Page Background and Centering Layout */
+body {
+  background: linear-gradient(135deg, #1a1f26, #222831); /* clean premium dark */
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  min-height: 100vh;
+  padding: 1rem;
+  font-family: sans-serif;
+}
+
+/* Main Container: elevated dark card */
+.container {
+  background-color: #2e3440; /* dark bluish-neutral */
+  border-radius: 1rem;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+  width: 100%;
+  max-width: 600px;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Screens: hidden by default, shown only when active */
+.screen {
+  display: none;
+  padding: 2rem;
+  text-align: center;
+}
+
+.screen.active {
+  display: block;
+}
+
+/* START SCREEN STYLING */
+#start-screen h1 {
+  color: #ff8c42; /* premium orange accent */
+  margin-bottom: 20px;
+  font-size: 2.5rem;
+}
+
+#start-screen p {
+  color: #bfc5d2; /* muted grey-blue */
+  margin-bottom: 30px;
+  font-size: 1.1rem;
+}
+
+/* Quiz Header: wraps question text + info row */
+.quiz-header {
+  margin-bottom: 1rem;
+}
+
+/* Dynamic Question Text */
+#question-text {
+  color: #f2f4f8;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  line-height: 1.4;
+}
+
+/* Quiz Info Row: shows current question number and score */
+.quiz-info {
+  display: flex;
+  justify-content: space-between;
+  color: #bfc5d2;
+  margin-bottom: 10px;
+}
+
+/* Answer Buttons Container */
+.answers-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+/* Answer Button Styling */
+.answer-btn {
+  background-color: #3b4252; /* soft slate */
+  color: #eceff4;
+  border: 2px solid #4c566a;
+  border-radius: 10px;
+  padding: 1rem;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.3s ease;
+}
+
+/* Answer Hover Effect */
+.answer-btn:hover {
+  background-color: #434c5e;
+  border-color: #5e81ac; /* blue premium border */
+}
+
+/* Correct Answer Highlight */
+.answer-btn.correct {
+  background-color: #2e7d32; /* deep green */
+  border-color: #66bb6a;
+  color: #d7ffd9;
+}
+
+/* Incorrect Answer Highlight */
+.answer-btn.incorrect {
+  background-color: #8b1e24; /* dark red */
+  border-color: #ff6b6b;
+  color: #ffe4e4;
+}
+
+/* Progress Bar Wrapper */
+.progress-bar {
+  height: 10px;
+  background-color: #3b4252;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-top: 20px;
+}
+
+/* Actual Progress Fill Line */
+.progress {
+  height: 100%;
+  background-color: #ff8c42; /* premium orange accent */
+  width: 0%;
+  transition: width 0.3s ease;
+}
+
+/* RESULT SCREEN STYLING */
+#result-screen h1 {
+  color: #ff8c42;
+  margin-bottom: 30px;
+}
+
+/* Result Box Styling */
+.result-info {
+  background-color: #3b4252;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 30px;
+}
+
+/* Result Score Text */
+.result-info p {
+  font-size: 1.2rem;
+  color: #f2f4f8;
+  margin-bottom: 1rem;
+}
+
+/* Dynamic Result Message Styling */
+#result-message {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #ff8c42;
+}
+
+/* Global Button Styling */
+button {
+  background-color: #ff8c42;
+  color: #1a1f26;
+  border: none;
+  border-radius: 10px;
+  padding: 15px 30px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-weight: 600;
+}
+
+/* Button Hover */
+button:hover {
+  background-color: #e5782e;
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 500px) {
+  .screen {
+    padding: 1rem;
+  }
+
+  #start-screen h1 {
+    font-size: 2rem;
+  }
+
+  #question-text {
+    font-size: 1.3rem;
+  }
+
+  .answer-btn {
+    padding: 12px;
+  }
+
+  button {
+    padding: 12px 25px;
+    font-size: 1rem;
+  }
+}
