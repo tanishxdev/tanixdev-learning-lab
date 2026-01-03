@@ -1,0 +1,63 @@
+/*
+Basic reset for predictable styling
+*/
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/*
+Page wrapper
+*/
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+}
+
+.app {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+.app-title {
+  margin-bottom: 20px;
+}
+
+/*
+Accordion item wrapper
+*/
+.accordion-item {
+  border: 1px solid #ddd;
+  margin-bottom: 10px;
+}
+
+/*
+Clickable header
+*/
+.accordion-header {
+  padding: 12px;
+  background-color: #eee;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/*
+Content section
+IMPORTANT:
+Hidden by default
+*/
+.accordion-content {
+  padding: 12px;
+  display: none;
+  background-color: #fff;
+}
+
+/*
+When accordion item is active,
+show its content
+*/
+.accordion-item.active .accordion-content {
+  display: block;
+}

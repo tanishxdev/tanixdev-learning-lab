@@ -1,0 +1,97 @@
+/* Reset default browser spacing */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Page background and font */
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  /* Dark background */
+  background-color: #121212;
+}
+
+/* Main container */
+.container {
+  background-color: #1e1e1e;
+  padding: 20px 24px;
+  width: 320px;
+
+  border-radius: 8px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6);
+
+  text-align: center;
+}
+
+/* Heading */
+.container h1 {
+  margin-bottom: 16px;
+  font-size: 20px;
+
+  /* Light text */
+  color: #f1f1f1;
+}
+
+/* Input field */
+#qrInput {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 12px;
+
+  font-size: 14px;
+
+  background-color: #2a2a2a;
+  color: #ffffff;
+
+  border: 1px solid #444;
+  border-radius: 4px;
+}
+
+/* Placeholder color */
+#qrInput::placeholder {
+  color: #aaaaaa;
+}
+
+/* Button */
+#generateBtn {
+  width: 100%;
+  padding: 10px;
+
+  background-color: #0d6efd;
+  color: #ffffff;
+
+  font-size: 14px;
+  font-weight: bold;
+
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Disabled button state */
+#generateBtn:disabled {
+  background-color: #555;
+  cursor: not-allowed;
+}
+
+/* QR output container */
+#qrOutput {
+  margin-top: 20px;
+}
+
+/* QR image */
+#qrOutput img {
+  width: 200px;
+  height: 200px;
+
+  background-color: #ffffff;
+  padding: 8px;
+  border-radius: 6px;
+}

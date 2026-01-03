@@ -1,0 +1,101 @@
+/* =========================
+   Global Reset
+========================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* =========================
+   Page Base (Dark Theme)
+========================= */
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  background-color: #121212; /* dark background */
+  color: #eaeaea; /* default text color */
+}
+
+/* =========================
+   Main Container
+========================= */
+.container {
+  width: 320px;
+  padding: 22px 24px;
+
+  background-color: #1e1e1e; /* card surface */
+  border-radius: 8px;
+
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+  text-align: center;
+}
+
+/* =========================
+   Heading
+========================= */
+.container h1 {
+  font-size: 20px;
+  margin-bottom: 16px;
+  color: #f5f5f5;
+}
+
+/* =========================
+   Password Input
+========================= */
+#passwordInput {
+  width: 100%;
+  padding: 10px;
+
+  background-color: #2a2a2a;
+  color: #ffffff;
+
+  border: 1px solid #444;
+  border-radius: 4px;
+
+  font-size: 14px;
+  outline: none;
+}
+
+/* Placeholder color */
+#passwordInput::placeholder {
+  color: #aaaaaa;
+}
+
+/* Input focus state */
+#passwordInput:focus {
+  border-color: #0d6efd;
+}
+
+/* =========================
+   Strength Text Base
+========================= */
+.strength {
+  margin-top: 12px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+/* =========================
+   Strength States
+========================= */
+
+/* Weak password */
+.strength.weak {
+  color: #ff4d4f; /* soft red */
+}
+
+/* Medium password */
+.strength.medium {
+  color: #ffa940; /* orange */
+}
+
+/* Strong password */
+.strength.strong {
+  color: #52c41a; /* green */
+}
