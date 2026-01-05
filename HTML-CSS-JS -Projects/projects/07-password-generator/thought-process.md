@@ -1,9 +1,3 @@
-Good. I see **exactly what you did** and what you want now.
-
-Let me be very clear and structured.
-
----
-
 ## First: What you pasted (important observation)
 
 You pasted **everything mixed together**:

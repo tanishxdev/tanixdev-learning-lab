@@ -1,70 +1,357 @@
-/* ===== Global reset & base theme ===== */
-body {
+/* ===============================
+   GLOBAL RESET & BASE
+   =============================== */
+* {
+  box-sizing: border-box;
   margin: 0;
-  padding: 40px 0;
-  font-family: Arial, Helvetica, sans-serif;
-  background-color: #121212;
-  color: #e0e0e0;
-
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
+  padding: 0;
 }
 
-/* ===== Hub container ===== */
+:root {
+  --primary-dark: #0f172a;
+  --secondary-dark: #1e293b;
+  --accent-blue: #3b82f6;
+  --accent-green: #10b981;
+  --accent-purple: #8b5cf6;
+  --text-light: #f8fafc;
+  --text-muted: #94a3b8;
+  --card-bg: #1e293b;
+  --border-color: #334155;
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, sans-serif;
+  background: linear-gradient(135deg, var(--primary-dark), #1e293b);
+  color: var(--text-light);
+  min-height: 100vh;
+  line-height: 1.6;
+  padding: 20px;
+}
+
+/* ===============================
+   HUB CONTAINER
+   =============================== */
 .hub-container {
-  width: 100%;
-  max-width: 700px;
-  padding: 30px;
-
-  background-color: #1e1e1e;
-  border: 1px solid #333;
-  border-radius: 8px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
-/* ===== Headings ===== */
-h1 {
-  margin-top: 0;
-  color: #ffffff;
+/* ===============================
+   HEADER
+   =============================== */
+.hub-header {
+  text-align: center;
+  margin-bottom: 40px;
+  padding-top: 30px;
+}
+
+.hub-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  color: var(--text-light);
+}
+
+.hub-header h1 i {
+  color: var(--accent-blue);
+  margin-right: 10px;
 }
 
 .subtitle {
-  color: #b0b0b0;
-  margin-bottom: 30px;
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  margin-bottom: 25px;
 }
 
-/* ===== Project list ===== */
-.project-list {
+.stats {
   display: flex;
-  flex-direction: column;
-  gap: 15px;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 20px;
+  flex-wrap: wrap;
 }
 
-/* ===== Project card ===== */
+.stat-item {
+  background: var(--secondary-dark);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.stat-item i {
+  color: var(--accent-blue);
+}
+
+/* ===============================
+   CATEGORY FILTER
+   =============================== */
+.category-filter {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  background: var(--secondary-dark);
+  border: 1px solid var(--border-color);
+  color: var(--text-light);
+  padding: 10px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.filter-btn:hover {
+  background: var(--border-color);
+  transform: translateY(-2px);
+}
+
+.filter-btn.active {
+  background: var(--accent-blue);
+  border-color: var(--accent-blue);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+/* ===============================
+   PROJECT LIST
+   =============================== */
+.project-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 25px;
+  margin-bottom: 60px;
+}
+
 .project-card {
-  padding: 15px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 25px;
   text-decoration: none;
-
-  background-color: #2a2a2a;
-  border: 1px solid #444;
-  border-radius: 6px;
-
-  color: #e0e0e0;
-  transition: border-color 0.2s, background-color 0.2s;
-}
-
-.project-card h3 {
-  margin: 0 0 5px 0;
-  color: #ffffff;
-}
-
-.project-card p {
-  margin: 0;
-  font-size: 14px;
-  color: #c0c0c0;
+  color: var(--text-light);
+  transition: all 0.3s ease;
+  display: block;
+  height: 100%;
 }
 
 .project-card:hover {
-  background-color: #333;
-  border-color: #4f8cff;
+  transform: translateY(-5px);
+  border-color: var(--accent-blue);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.project-number {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.project-badge {
+  font-size: 0.75rem;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+.dom-badge {
+  background: rgba(59, 130, 246, 0.2);
+  color: #60a5fa;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.logic-badge {
+  background: rgba(16, 185, 129, 0.2);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.ui-badge {
+  background: rgba(139, 92, 246, 0.2);
+  color: #a78bfa;
+  border: 1px solid rgba(139, 92, 246, 0.3);
+}
+
+.project-card h3 {
+  font-size: 1.3rem;
+  margin-bottom: 12px;
+  color: var(--text-light);
+}
+
+.project-card p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.card-footer {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.tech-tag {
+  background: rgba(148, 163, 184, 0.1);
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  padding: 4px 10px;
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+}
+
+/* ===============================
+   FOOTER
+   =============================== */
+.hub-footer {
+  text-align: center;
+  padding: 30px 0;
+  border-top: 1px solid var(--border-color);
+  margin-top: 40px;
+  color: var(--text-muted);
+}
+
+.hub-footer p {
+  margin-bottom: 10px;
+  line-height: 1.6;
+}
+
+.hub-footer i {
+  color: #ef4444;
+  margin: 0 5px;
+  animation: heartbeat 1.5s ease-in-out infinite;
+}
+
+/* GitHub link styling - SIMPLIFIED */
+.hub-footer a {
+  color: var(--accent-blue);
+  text-decoration: none;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  display: inline-block; /* Makes padding work properly */
+}
+
+.hub-footer a:hover {
+  color: #60a5fa;
+  background: rgba(59, 130, 246, 0.1);
+  transform: translateY(-1px);
+}
+
+/* Remove ALL span hover effects - this was causing double boxes */
+.hub-footer span {
+  display: inline;
+  padding: 0;
+  margin: 0;
+  background: transparent !important;
+}
+
+.hub-footer span:hover {
+  background: transparent !important;
+}
+
+.footer-note {
+  font-size: 0.9rem;
+  margin-top: 10px;
+  opacity: 0.8;
+  font-style: italic;
+}
+
+/* Heartbeat animation for the heart icon */
+@keyframes heartbeat {
+  0% {
+    transform: scale(1);
+  }
+  5% {
+    transform: scale(1.1);
+  }
+  10% {
+    transform: scale(1);
+  }
+  15% {
+    transform: scale(1.1);
+  }
+  20% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Responsive adjustments for footer */
+@media (max-width: 768px) {
+  .hub-footer {
+    padding: 20px 0;
+  }
+
+  .hub-footer p {
+    font-size: 0.95rem;
+  }
+
+  .footer-note {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hub-footer p {
+    font-size: 0.9rem;
+  }
+}
+
+/* ===============================
+   RESPONSIVE
+   =============================== */
+@media (max-width: 768px) {
+  .hub-header h1 {
+    font-size: 2rem;
+  }
+
+  .project-list {
+    grid-template-columns: 1fr;
+  }
+
+  .stats {
+    gap: 15px;
+  }
+
+  .stat-item {
+    font-size: 0.8rem;
+    padding: 6px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hub-container {
+    padding: 0 10px;
+  }
+
+  .category-filter {
+    gap: 8px;
+  }
+
+  .filter-btn {
+    padding: 8px 16px;
+    font-size: 0.85rem;
+  }
+
+  .project-card {
+    padding: 20px;
+  }
 }

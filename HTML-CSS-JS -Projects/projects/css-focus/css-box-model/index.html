@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS Box Model Explorer</title>
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <header class="header">
+      <h1>📦 CSS Box Model Explorer</h1>
+      <p class="subtitle">
+        Click each layer to toggle visibility. Adjust values with sliders.
+      </p>
+    </header>
+
+    <main class="container">
+      <!-- Visual Demonstration Area -->
+      <section class="demo-area">
+        <h2>Visual Demonstration</h2>
+
+        <!-- Margin Layer -->
+        <div class="box-layer margin-layer" data-layer="margin">
+          <div class="layer-label">Margin</div>
+
+          <!-- Border Layer -->
+          <div class="box-layer border-layer" data-layer="border">
+            <div class="layer-label">Border</div>
+
+            <!-- Padding Layer -->
+            <div class="box-layer padding-layer" data-layer="padding">
+              <div class="layer-label">Padding</div>
+
+              <!-- Content Layer -->
+              <div class="content-box" data-layer="content">
+                <div class="layer-label">Content</div>
+                <p>Hello, Box Model!</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Controls Section -->
+      <section class="controls">
+        <h2>Interactive Controls</h2>
+
+        <div class="box-sizing-control">
+          <h3>Box-Sizing Mode</h3>
+          <div class="toggle-buttons">
+            <button class="active" data-mode="content-box">content-box</button>
+            <button data-mode="border-box">border-box</button>
+          </div>
+          <p class="explanation" id="box-sizing-explanation">
+            <strong>content-box:</strong> Width/height only affect content area
+          </p>
+        </div>
+
+        <div class="sliders">
+          <!-- We'll add sliders in Step 3 -->
+          <!-- Add this inside the .sliders div (replace the comment in HTML) -->
+          <div class="sliders">
+            <h3>Adjust Values</h3>
+
+            <div class="slider-group">
+              <label for="margin-slider"
+                >Margin: <span id="margin-value">40px</span></label
+              >
+              <input
+                type="range"
+                id="margin-slider"
+                min="0"
+                max="100"
+                value="40"
+              />
+            </div>
+
+            <div class="slider-group">
+              <label for="border-slider"
+                >Border: <span id="border-value">3px</span></label
+              >
+              <input
+                type="range"
+                id="border-slider"
+                min="0"
+                max="20"
+                value="3"
+              />
+            </div>
+
+            <div class="slider-group">
+              <label for="padding-slider"
+                >Padding: <span id="padding-value">20px</span></label
+              >
+              <input
+                type="range"
+                id="padding-slider"
+                min="0"
+                max="60"
+                value="20"
+              />
+            </div>
+
+            <div class="slider-group">
+              <label for="content-width"
+                >Content Width: <span id="width-value">200px</span></label
+              >
+              <input
+                type="range"
+                id="content-width"
+                min="100"
+                max="400"
+                value="200"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Information Section -->
+      <section class="info">
+        <h2>How the Box Model Works</h2>
+        <div class="info-grid">
+          <div class="info-card">
+            <h3>Content</h3>
+            <p>The actual content of the box (text, images, etc.)</p>
+            <code>width: 200px;<br />height: 150px;</code>
+          </div>
+          <div class="info-card">
+            <h3>Padding</h3>
+            <p>Space between content and border. Affects background.</p>
+            <code>padding: 20px;</code>
+          </div>
+          <div class="info-card">
+            <h3>Border</h3>
+            <p>Edge around padding. Can have style, width, and color.</p>
+            <code>border: 3px solid #3b82f6;</code>
+          </div>
+          <div class="info-card">
+            <h3>Margin</h3>
+            <p>
+              Space outside border. Transparent, separates from other elements.
+            </p>
+            <code>margin: 30px;</code>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>
+        🔍 <strong>Tip:</strong> Right-click the box → "Inspect" to see the box
+        model in DevTools!
+      </p>
+    </footer>
+
+    <script src="./js/script.js"></script>
+  </body>
+</html>

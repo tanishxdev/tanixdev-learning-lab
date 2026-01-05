@@ -1,0 +1,90 @@
+/* ===============================
+   Global Reset
+   =============================== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ===============================
+   Page Layout (Center Both Ways)
+   =============================== */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #0f1115;
+  color: #e5e7eb;
+
+  min-height: 100vh;
+
+  display: flex;
+  align-items: center;     /* vertical center */
+  justify-content: center; /* horizontal center */
+}
+
+/* ===============================
+   App Container
+   =============================== */
+.app {
+  width: 100%;
+  max-width: 420px;
+  padding: 24px;
+
+  background-color: #161a22;
+  border-radius: 10px;
+
+  border: 1px solid #232836;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* ===============================
+   Title
+   =============================== */
+.app-title {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 20px;
+  color: #f9fafb;
+}
+
+/* ===============================
+   Input Section
+   =============================== */
+.input-section {
+  margin-bottom: 20px;
+}
+
+/* ===============================
+   Textarea
+   =============================== */
+textarea {
+  width: 100%;
+  padding: 12px;
+  font-size: 14px;
+
+  background-color: #0f1320;
+  color: #e5e7eb;
+
+  border: 1px solid #2a2f3d;
+  border-radius: 6px;
+  outline: none;
+
+  resize: none;
+}
+
+textarea:focus {
+  border-color: #4f46e5;
+}
+
+/* ===============================
+   Output Section
+   =============================== */
+.output-section {
+  font-size: 15px;
+  color: #cbd5e1;
+}
+
+.output-section span {
+  font-weight: bold;
+  color: #f9fafb;
+}
