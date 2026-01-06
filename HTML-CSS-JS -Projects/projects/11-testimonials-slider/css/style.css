@@ -1,0 +1,178 @@
+/*
+Basic reset
+Keeps layout predictable across browsers
+*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/*
+Page background and font - DARK THEME
+*/
+body {
+  font-family: Arial, sans-serif;
+  background-color: #0f172a; /* Dark blue-gray background */
+  color: #e5e7eb; /* Light text color */
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+/*
+Main app container
+Centers content
+*/
+.app {
+  max-width: 500px;
+  width: 100%;
+  text-align: center;
+}
+
+/*
+Page heading
+*/
+.app-title {
+  margin-bottom: 20px;
+  color: #f8fafc; /* Bright white for heading */
+}
+
+/*
+Testimonial container - FIXED HEIGHT CONTAINER
+*/
+#testimonial-container {
+  min-height: 300px; /* Fixed minimum height */
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/*
+Testimonial card - FIXED SIZE VERSION
+*/
+.testimonial-card {
+  background-color: #1e293b; /* Dark card background */
+  padding: 20px;
+  border: 1px solid #334155; /* Dark border */
+  border-radius: 8px; /* Slightly rounded corners */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Subtle shadow */
+  width: 100%;
+  max-width: 450px;
+  min-height: 250px; /* Fixed minimum height */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center content vertically */
+}
+
+/*
+Name styling
+*/
+.testimonial-card h3 {
+  margin-bottom: 5px;
+  color: #f8fafc; /* Bright white for names */
+  font-size: 18px;
+}
+
+/*
+Role styling
+*/
+.testimonial-card .role {
+  font-size: 14px;
+  color: #94a3b8; /* Muted blue-gray for role */
+  margin-bottom: 15px;
+  font-style: italic;
+}
+
+/*
+Message styling with FIXED HEIGHT and SCROLL
+*/
+.testimonial-card .message {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #cbd5e1; /* Light gray for message text */
+  max-height: 150px; /* Fixed maximum height */
+  overflow-y: auto; /* Add scroll if text is too long */
+  padding: 10px;
+  border-radius: 6px;
+}
+
+/* Custom scrollbar for message */
+.testimonial-card .message::-webkit-scrollbar {
+  width: 6px;
+}
+
+.testimonial-card .message::-webkit-scrollbar-track {
+  background: rgba(30, 41, 59, 0.5);
+  border-radius: 3px;
+}
+
+.testimonial-card .message::-webkit-scrollbar-thumb {
+  background: #475569;
+  border-radius: 3px;
+}
+
+.testimonial-card .message::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
+
+/*
+Buttons container
+*/
+.controls {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px; /* Space between buttons */
+}
+
+/*
+Buttons - DARK THEME
+*/
+.controls button {
+  padding: 10px 20px;
+  cursor: pointer;
+  background-color: #334155; /* Dark button background */
+  color: #e5e7eb; /* Light text */
+  border: 1px solid #475569; /* Slightly lighter border */
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  font-size: 16px;
+  flex: 1; /* Make buttons equal width */
+  min-width: 100px;
+}
+
+.controls button:hover {
+  background-color: #475569; /* Lighter on hover */
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.controls button:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* Optional: Add index indicator */
+.index-indicator {
+  margin-top: 15px;
+  color: #94a3b8;
+  font-size: 14px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 500px) {
+  .testimonial-card {
+    min-height: 280px; /* Slightly taller on mobile */
+  }
+
+  .testimonial-card .message {
+    max-height: 130px;
+  }
+
+  body {
+    padding: 10px;
+  }
+}

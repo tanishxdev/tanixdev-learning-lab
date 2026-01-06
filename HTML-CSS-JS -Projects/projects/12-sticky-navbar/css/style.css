@@ -1,0 +1,98 @@
+/*
+=====================================
+GLOBAL RESET
+Keeps layout consistent across browsers
+=====================================
+*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/*
+=====================================
+PAGE BASE STYLES (DARK THEME)
+=====================================
+*/
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  background-color: #0f172a; /* dark blue-gray */
+  color: #e5e7eb; /* light text */
+}
+
+/*
+=====================================
+NAVBAR (NORMAL FLOW)
+IMPORTANT:
+- NOT sticky by default
+=====================================
+*/
+.navbar {
+  background-color: #1e293b;
+  padding: 16px 24px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/*
+Logo text
+*/
+.logo {
+  font-size: 20px;
+  color: #f8fafc;
+}
+
+/*
+Navigation links
+*/
+.nav-links a {
+  color: #e5e7eb;
+  text-decoration: none;
+  margin-left: 16px;
+  font-size: 14px;
+}
+
+.nav-links a:hover {
+  color: #f8fafc;
+}
+
+/*
+=====================================
+MAIN CONTENT
+=====================================
+*/
+.content {
+  padding: 24px;
+}
+
+/*
+Spacer to create scrollable page
+(simulates real page content)
+*/
+.spacer {
+  height: 2000px;
+  margin-top: 20px;
+  background: linear-gradient(#1e293b, #020617);
+}
+
+/*
+=====================================
+STICKY NAVBAR STATE
+Applied via JavaScript
+=====================================
+*/
+.navbar.sticky {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+
+  background-color: #020617;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+
+  z-index: 1000;
+}
