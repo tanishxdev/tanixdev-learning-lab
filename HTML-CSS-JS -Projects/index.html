@@ -1,14 +1,357 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>New HTML Document</title>
-    <link rel="stylesheet" href="./css/style.css">
-</head>
-<body>
-    <h1>Hello, World!</h1>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML • CSS • JS Projects</title>
 
-    <script src="./js/script.js"></script>
-</body>
+    <!-- Shared global styles -->
+    <link rel="stylesheet" href="./shared/style.css" />
+
+    <!-- Font Awesome for icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="hub-container">
+      <header class="hub-header">
+        <h1><i class="fas fa-code"></i> HTML / CSS / JS Practice Hub</h1>
+        <p class="subtitle">
+          Small projects • Machine-round prep • Learning by building
+        </p>
+        <div class="stats">
+          <span class="stat-item"
+            ><i class="fas fa-project-diagram"></i> 16 Projects</span
+          >
+          <span class="stat-item"
+            ><i class="fas fa-layer-group"></i> 3 Categories</span
+          >
+          <span class="stat-item"
+            ><i class="fas fa-graduation-cap"></i> Beginner to
+            Intermediate</span
+          >
+        </div>
+      </header>
+
+      <!-- ================= CATEGORY FILTER ================= -->
+      <div class="category-filter">
+        <button class="filter-btn active" data-filter="all">
+          All Projects
+        </button>
+        <button class="filter-btn" data-filter="dom">DOM Manipulation</button>
+        <button class="filter-btn" data-filter="logic">
+          Logic & Algorithms
+        </button>
+        <button class="filter-btn" data-filter="ui">UI/UX Patterns</button>
+      </div>
+
+      <!-- ================= PROJECT LIST ================= -->
+      <div class="project-list">
+        <!-- 01 Accordion -->
+        <a class="project-card dom" href="./projects/01-accordion/index.html">
+          <div class="card-header">
+            <span class="project-number">01</span>
+            <span class="project-badge dom-badge">DOM</span>
+          </div>
+          <h3>Accordion</h3>
+          <p>DOM traversal, event handling, controlled open/close state.</p>
+          <div class="card-footer">
+            <span class="tech-tag">HTML</span>
+            <span class="tech-tag">CSS</span>
+            <span class="tech-tag">JS</span>
+          </div>
+        </a>
+
+        <!-- 02 QR Code Generator -->
+        <a
+          class="project-card logic"
+          href="./projects/02-qr-code-generator/index.html"
+        >
+          <div class="card-header">
+            <span class="project-number">02</span>
+            <span class="project-badge logic-badge">Logic</span>
+          </div>
+          <h3>QR Code Generator</h3>
+          <p>User input handling, dynamic DOM updates, external API usage.</p>
+          <div class="card-footer">
+            <span class="tech-tag">API</span>
+            <span class="tech-tag">Validation</span>
+            <span class="tech-tag">Dynamic UI</span>
+          </div>
+        </a>
+
+        <!-- 03 Star Rating -->
+        <a class="project-card ui" href="./projects/03-star-rating/index.html">
+          <div class="card-header">
+            <span class="project-number">03</span>
+            <span class="project-badge ui-badge">UI</span>
+          </div>
+          <h3>Star Rating</h3>
+          <p>Hover preview, click-based state, visual feedback logic.</p>
+          <div class="card-footer">
+            <span class="tech-tag">CSS</span>
+            <span class="tech-tag">Events</span>
+            <span class="tech-tag">Feedback</span>
+          </div>
+        </a>
+
+        <!-- 04 Password Strength Checker -->
+        <a
+          class="project-card logic"
+          href="./projects/04-password-strength/index.html"
+        >
+          <div class="card-header">
+            <span class="project-number">04</span>
+            <span class="project-badge logic-badge">Logic</span>
+          </div>
+          <h3>Password Strength</h3>
+          <p>String analysis, conditional logic, real-time validation.</p>
+          <div class="card-footer">
+            <span class="tech-tag">Regex</span>
+            <span class="tech-tag">Validation</span>
+            <span class="tech-tag">Security</span>
+          </div>
+        </a>
+
+        <!-- 05 Jumping Letter Animation -->
+        <a
+          class="project-card ui"
+          href="./projects/05-jumping-letter-animation/index.html"
+        >
+          <div class="card-header">
+            <span class="project-number">05</span>
+            <span class="project-badge ui-badge">UI</span>
+          </div>
+          <h3>Jumping Letter Animation</h3>
+          <p>
+            CSS animations triggered via JavaScript, character-level control.
+          </p>
+          <div class="card-footer">
+            <span class="tech-tag">CSS Animations</span>
+            <span class="tech-tag">JS Events</span>
+            <span class="tech-tag">Visual Effects</span>
+          </div>
+        </a>
+
+        <!-- 06 Quiz App -->
+        <a class="project-card logic" href="./projects/06-quiz-app/index.html">
+          <div class="card-header">
+            <span class="project-number">06</span>
+            <span class="project-badge logic-badge">Logic</span>
+          </div>
+          <h3>Quiz App</h3>
+          <p>Data-driven UI, score tracking, state transitions.</p>
+          <div class="card-footer">
+            <span class="tech-tag">State</span>
+            <span class="tech-tag">Score</span>
+            <span class="tech-tag">Data</span>
+          </div>
+        </a>
+
+        <!-- 07 Password Generator -->
+        <a
+          class="project-card logic"
+          href="./projects/07-password-generator/index.html"
+        >
+          <div class="card-header">
+            <span class="project-number">07</span>
+            <span class="project-badge logic-badge">Logic</span>
+          </div>
+          <h3>Password Generator</h3>
+          <p>Randomization logic, config-based generation, UX controls.</p>
+          <div class="card-footer">
+            <span class="tech-tag">Random</span>
+            <span class="tech-tag">Config</span>
+            <span class="tech-tag">Security</span>
+          </div>
+        </a>
+
+        <!-- 08 Weight Converter -->
+        <a
+          class="project-card logic"
+          href="./projects/08-weight-converter/index.html"
+        >
+          <div class="card-header">
+            <span class="project-number">08</span>
+            <span class="project-badge logic-badge">Logic</span>
+          </div>
+          <h3>Weight Converter</h3>
+          <p>Unit conversion, mathematical logic, real-time calculation.</p>
+          <div class="card-footer">
+            <span class="tech-tag">Math</span>
+            <span class="tech-tag">Conversion</span>
+            <span class="tech-tag">Real-time</span>
+          </div>
+        </a>
+
+        <!-- 09 Temperature Converter -->
+        <a
+          class="project-card logic"
+          href="./projects/09-temperature-converter/index.html"
+        >
+          <div class="card-header">
+            <span class="project-number">09</span>
+            <span class="project-badge logic-badge">Logic</span>
+          </div>
+          <h3>Temperature Converter</h3>
+          <p>Formula-based conversion, offset logic, scientific accuracy.</p>
+          <div class="card-footer">
+            <span class="tech-tag">Formulas</span>
+            <span class="tech-tag">Science</span>
+            <span class="tech-tag">Precision</span>
+          </div>
+        </a>
+
+        <!-- 10 Vowel Counter -->
+        <a
+          class="project-card logic"
+          href="./projects/10-vowel-counter/index.html"
+        >
+          <div class="card-header">
+            <span class="project-number">10</span>
+            <span class="project-badge logic-badge">Logic</span>
+          </div>
+          <h3>Vowel Counter</h3>
+          <p>String processing, character iteration, real-time analysis.</p>
+          <div class="card-footer">
+            <span class="tech-tag">Strings</span>
+            <span class="tech-tag">Loops</span>
+            <span class="tech-tag">Analysis</span>
+          </div>
+        </a>
+
+        <!-- 11 Testimonials Slider -->
+        <a
+          class="project-card logic"
+          href="./projects/11-testimonials-slider/index.html"
+        >
+          <div class="card-header">
+            <span class="project-number">11</span>
+            <span class="project-badge logic-badge">Logic</span>
+          </div>
+          <h3>Testimonials Slider</h3>
+          <p>Index-based state management, dynamic rendering, boundary handling.</p>
+          <div class="card-footer">
+            <span class="tech-tag">State</span>
+            <span class="tech-tag">Arrays</span>
+            <span class="tech-tag">Navigation</span>
+          </div>
+        </a>
+
+        <!-- 12 Sticky Navbar -->
+        <a
+          class="project-card dom"
+          href="./projects/12-sticky-navbar/index.html"
+        >
+          <div class="card-header">
+            <span class="project-number">12</span>
+            <span class="project-badge dom-badge">DOM</span>
+          </div>
+          <h3>Sticky Navbar</h3>
+          <p>Scroll event handling, threshold detection, layout shift prevention.</p>
+          <div class="card-footer">
+            <span class="tech-tag">Scroll</span>
+            <span class="tech-tag">Events</span>
+            <span class="tech-tag">CSS Classes</span>
+          </div>
+        </a>
+
+        <!-- 13 Scroll Progress Indicator -->
+        <a
+          class="project-card ui"
+          href="./projects/13-scroll-progress-project/index.html"
+        >
+          <div class="card-header">
+            <span class="project-number">13</span>
+            <span class="project-badge ui-badge">UI</span>
+          </div>
+          <h3>Scroll Progress</h3>
+          <p>Scroll tracking, percentage calculation, visual feedback.</p>
+          <div class="card-footer">
+            <span class="tech-tag">Scroll</span>
+            <span class="tech-tag">Progress</span>
+            <span class="tech-tag">Visual</span>
+          </div>
+        </a>
+
+        <!-- 14 Multiplication Game -->
+        <a
+          class="project-card logic"
+          href="./projects/14-multiplication-game/index.html"
+        >
+          <div class="card-header">
+            <span class="project-number">14</span>
+            <span class="project-badge logic-badge">Logic</span>
+          </div>
+          <h3>Multiplication Game</h3>
+          <p>Game logic, random generation, score tracking.</p>
+          <div class="card-footer">
+            <span class="tech-tag">Game</span>
+            <span class="tech-tag">Math</span>
+            <span class="tech-tag">Score</span>
+          </div>
+        </a>
+
+        <!-- 15 Mini Calendar -->
+        <a
+          class="project-card dom"
+          href="./projects/15-mini-calendar/index.html"
+        >
+          <div class="card-header">
+            <span class="project-number">15</span>
+            <span class="project-badge dom-badge">DOM</span>
+          </div>
+          <h3>Mini Calendar</h3>
+          <p>Date object manipulation, dynamic rendering, month navigation.</p>
+          <div class="card-footer">
+            <span class="tech-tag">Date</span>
+            <span class="tech-tag">Calendar</span>
+            <span class="tech-tag">Dynamic</span>
+          </div>
+        </a>
+
+        <!-- 16 New Year Countdown -->
+        <a
+          class="project-card logic"
+          href="./projects/16-new-year-countdown/index.html"
+        >
+          <div class="card-header">
+            <span class="project-number">16</span>
+            <span class="project-badge logic-badge">Logic</span>
+          </div>
+          <h3>New Year Countdown</h3>
+          <p>Time calculations, countdown logic, real-time updates.</p>
+          <div class="card-footer">
+            <span class="tech-tag">Time</span>
+            <span class="tech-tag">Countdown</span>
+            <span class="tech-tag">Real-time</span>
+          </div>
+        </a>
+      </div>
+      <!-- ================= END PROJECT LIST ================= -->
+
+      <footer class="hub-footer">
+        <p>
+          Built with <i class="fas fa-heart"></i> for learning Vanilla
+          JavaScript by
+          <span
+            ><a
+              href="https://github.com/tanishxdev"
+              target="_blank"
+              rel="noopener noreferrer"
+              >tanishxdev</a
+            ></span
+          >
+        </p>
+        <p class="footer-note">
+          Each project focuses on core concepts without frameworks
+        </p>
+      </footer>
+    </div>
+
+    <!-- Shared global JS -->
+    <script src="./shared/script.js"></script>
+  </body>
 </html>
