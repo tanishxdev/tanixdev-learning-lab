@@ -16,6 +16,9 @@ import ComingSoon from "./core/ComingSoon";
 // Implemented project components
 import Counter from "./projects/Project1_Counter/Counter";
 import ScreenBgColor from "./projects/Project2_ScreenBgColor/ScreenBgColor";
+import TextMirror from "./projects/Project3_TextMirror/TextMirror";
+import CharCounter from "./projects/Project4_CharCounter/CharCounter";
+import ToggleSwitch from "./projects/Project5_ToggleSwitch/ToggleSwitch";
 
 function App() {
   /**
@@ -43,6 +46,9 @@ function App() {
   const projectComponents = {
     counter: Counter,
     ScreenBgColor: ScreenBgColor,
+    TextMirror: TextMirror,
+    CharCounter: CharCounter,
+    ToggleSwitch: ToggleSwitch,
   };
 
   /**

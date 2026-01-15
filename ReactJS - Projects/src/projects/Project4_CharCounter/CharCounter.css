@@ -1,0 +1,50 @@
+/* CharCounter.css */
+
+.char-counter-container {
+  min-height: calc(100vh - 80px); /* space for header/back */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 28px;
+
+  background-color: #121212;
+  color: #ffffff;
+
+  border-radius: 10px;
+  box-shadow: 0 0 0 1px #1f1f1f;
+}
+
+/* Title */
+.char-counter-container h2 {
+  margin-bottom: 16px;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+/* Input */
+.char-counter-container input {
+  width: 100%;
+  padding: 12px;
+
+  background-color: #1e1e1e;
+  color: #ffffff;
+
+  border: 1px solid #333;
+  border-radius: 6px;
+
+  font-size: 14px;
+}
+
+.char-counter-container input::placeholder {
+  color: #888;
+}
+
+/* Counter text */
+.char-counter-container p {
+  margin-top: 16px;
+  font-size: 14px;
+  color: #bbbbbb;
+}
