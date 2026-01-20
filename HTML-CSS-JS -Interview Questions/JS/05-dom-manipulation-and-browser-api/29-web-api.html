@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Web API Demo</title>
+  </head>
+  <body>
+    <h2 id="title">Waiting...</h2>
+    <button id="btn">Click Me</button>
+
+    <script>
+      // ==============================
+      // DOM API (Web API)
+      // ==============================
+
+      const title = document.getElementById("title"); // DOM API
+      const button = document.getElementById("btn"); // DOM API
+
+      // ==============================
+      // Event Handling (Web API)
+      // ==============================
+
+      button.addEventListener("click", () => {
+        console.log("Button clicked");
+
+        title.innerText = "Timer started..."; // DOM API
+
+        // ==============================
+        // Timer API (Web API)
+        // ==============================
+
+        setTimeout(() => {
+          title.innerText = "Done after 2 seconds";
+          console.log("Timer finished");
+        }, 2000);
+      });
+
+      console.log("Script loaded");
+    </script>
+  </body>
+</html>
+
+<!-- 
+
+### Small HTML + JS Example (Web APIs working together)
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Web API Demo</title>
+</head>
+<body>
+
+  <h2 id="title">Waiting...</h2>
+  <button id="btn">Click Me</button>
+
+  <script>
+    // ==============================
+    // DOM API (Web API)
+    // ==============================
+
+    const title = document.getElementById("title"); // DOM API
+    const button = document.getElementById("btn"); // DOM API
+
+    // ==============================
+    // Event Handling (Web API)
+    // ==============================
+
+    button.addEventListener("click", () => {
+      console.log("Button clicked");
+
+      title.innerText = "Timer started..."; // DOM API
+
+      // ==============================
+      // Timer API (Web API)
+      // ==============================
+
+      setTimeout(() => {
+        title.innerText = "Done after 2 seconds";
+        console.log("Timer finished");
+      }, 2000);
+    });
+
+    console.log("Script loaded");
+  </script>
+
+</body>
+</html>
+```
+
+---
+
+### What is happening here (step-by-step)
+
+1. **JavaScript engine starts**
+
+   * Executes `console.log("Script loaded")`
+
+2. **DOM API**
+
+   * `document.getElementById` accesses HTML
+   * JavaScript alone cannot do this → browser helps via Web API
+
+3. **Event Listener**
+
+   * `addEventListener` is a Web API
+   * Browser listens for user click
+
+4. **Timer API**
+
+   * `setTimeout` is sent to browser
+   * Browser runs the timer
+   * Callback goes to queue
+   * Event loop runs it later
+
+---
+
+### Mapping to your notes (very important)
+
+| Code Part                 | What it is      |
+| ------------------------- | --------------- |
+| `document.getElementById` | DOM Web API     |
+| `addEventListener`        | Event Web API   |
+| `setTimeout`              | Timer Web API   |
+| `console.log`             | Console Web API |
+| Callback execution        | Event Loop      |
+
+---
+
+### One-line mental model
+
+> JavaScript asks → Web API works → result comes back → event loop runs it.
+
+---
+
+### Interview-safe takeaway
+
+* DOM access ❌ not JavaScript
+* Timers ❌ not JavaScript
+* Events ❌ not JavaScript
+  👉 All are **Web APIs provided by the browser**
+
+-->

@@ -181,6 +181,21 @@ Why?
 
 A higher-order function in JavaScript is a function that either takes other functions as arguments or returns a function. This is possible because functions are treated as first-class citizens. Higher-order functions are widely used in array methods like `map`, `filter`, and `reduce`, as well as in event handling and functional programming patterns, making code more reusable and expressive.
 
+
+*first-class*
+
+What does “first-class citizens” mean?
+
+In JavaScript, functions are values, just like:
+* numbers
+* strings
+* objects
+
+That means a function can:
+* Be stored in a variable
+* Be passed as an argument to another function
+* Be returned from a function
+* Be stored in arrays or objects
 ---
 
 ### 10. Quick Practice Interview Questions
