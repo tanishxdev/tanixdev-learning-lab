@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Local Storage – Complete Guide</title>
+
+    <style>
+      body {
+        padding: 0;
+        margin: 0;
+        background-color: black;
+        color: white;
+        font-family: Arial, sans-serif;
+      }
+
+      .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        background-color: rgb(35, 65, 55);
+      }
+
+      .content {
+        padding: 20px;
+      }
+
+      h2 {
+        margin-top: 30px;
+        color: #9ef0c8;
+      }
+
+      code {
+        color: #ffd479;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <h1>Local Storage – Complete Learning File</h1>
+    </div>
+
+    <div class="content">
+      <p>Open DevTools Console to see outputs.</p>
+    </div>
+
+    <script>
+      /************************************************************
+       * 1. WHAT IS LOCAL STORAGE
+       ************************************************************
+       * - Browser storage (key-value)
+       * - Stores data as strings
+       * - Persistent (survives page reload & browser restart)
+       * - Size ~5MB
+       * - Same-origin based
+       ************************************************************/
+
+      console.log(
+        "LocalStorage available:",
+        typeof localStorage !== "undefined",
+      );
+
+      /************************************************************
+       * 2. BASIC SET & GET
+       ************************************************************/
+
+      localStorage.setItem("username", "john_doe");
+      localStorage.setItem("theme", "dark");
+      localStorage.setItem("fontSize", "16");
+
+      console.log(localStorage.getItem("username")); // john_doe
+      console.log(localStorage.getItem("theme")); // dark
+      console.log(localStorage.getItem("fontSize")); // 16
+
+      /************************************************************
+       * 3. DATA IS ALWAYS STRING
+       ************************************************************/
+
+      localStorage.setItem("isLoggedIn", true);
+      localStorage.setItem("count", 10);
+
+      console.log(typeof localStorage.getItem("isLoggedIn")); // string
+      console.log(typeof localStorage.getItem("count")); // string
+
+      /************************************************************
+       * 4. STORING OBJECTS (JSON)
+       ************************************************************/
+
+      const userSettings = {
+        username: "john_doe",
+        theme: "dark",
+        fontSize: 16,
+      };
+
+      // Convert object → string
+      localStorage.setItem("userSettings", JSON.stringify(userSettings));
+
+      // Retrieve string → object
+      const storedSettings = JSON.parse(localStorage.getItem("userSettings"));
+
+      console.log(storedSettings);
+      console.log(storedSettings.theme);
+
+      /************************************************************
+       * 5. UPDATING STORED OBJECT
+       ************************************************************/
+
+      const updatedSettings = {
+        ...storedSettings,
+        theme: "light",
+      };
+
+      localStorage.setItem("userSettings", JSON.stringify(updatedSettings));
+      console.log("Updated:", JSON.parse(localStorage.getItem("userSettings")));
+
+      /************************************************************
+       * 6. CHECK IF KEY EXISTS
+       ************************************************************/
+
+      if (localStorage.getItem("token") === null) {
+        console.log("Token does not exist");
+      }
+
+      /************************************************************
+       * 7. REMOVE SPECIFIC KEY
+       ************************************************************/
+
+      localStorage.removeItem("fontSize");
+      console.log("fontSize:", localStorage.getItem("fontSize")); // null
+
+      /************************************************************
+       * 8. CLEAR ENTIRE LOCAL STORAGE
+       ************************************************************
+       * WARNING: Removes ALL keys for this origin
+       ************************************************************/
+
+      // localStorage.clear();
+
+      /************************************************************
+       * 9. TOTAL KEYS COUNT
+       ************************************************************/
+
+      console.log("Total keys:", localStorage.length);
+
+      /************************************************************
+       * 10. ACCESS KEY BY INDEX
+       ************************************************************/
+
+      console.log("First key:", localStorage.key(0));
+
+      /************************************************************
+       * 11. LOOP THROUGH LOCAL STORAGE
+       ************************************************************/
+
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        const value = localStorage.getItem(key);
+        console.log(key, "=>", value);
+      }
+
+      /************************************************************
+       * 12. COMMON REAL-WORLD USE CASES
+       ************************************************************
+       * - Auth tokens
+       * - Theme preference
+       * - Language selection
+       * - Feature flags
+       * - Draft forms
+       ************************************************************/
+
+      /************************************************************
+       * 13. LOCAL STORAGE VS SESSION STORAGE
+       ************************************************************
+       * localStorage  → persistent
+       * sessionStorage → cleared on tab close
+       ************************************************************/
+
+      sessionStorage.setItem("tempData", "will disappear");
+
+      /************************************************************
+       * 14. STORAGE EVENT (MULTI-TAB SYNC)
+       ************************************************************
+       * Fires when storage is changed in another tab
+       ************************************************************/
+
+      window.addEventListener("storage", (event) => {
+        console.log("Storage changed:");
+        console.log("Key:", event.key);
+        console.log("Old:", event.oldValue);
+        console.log("New:", event.newValue);
+      });
+
+      /************************************************************
+       * 15. ERROR HANDLING (QUOTA EXCEEDED)
+       ************************************************************/
+
+      try {
+        localStorage.setItem("test", "x".repeat(10_000_000));
+      } catch (err) {
+        console.log("Storage quota exceeded");
+      }
+
+      /************************************************************
+       * 16. IMPORTANT RULES & PITFALLS
+       ************************************************************
+       * - Never store passwords
+       * - Accessible via JS → XSS risk
+       * - Strings only
+       * - Blocking (sync API)
+       ************************************************************/
+    </script>
+  </body>
+</html>

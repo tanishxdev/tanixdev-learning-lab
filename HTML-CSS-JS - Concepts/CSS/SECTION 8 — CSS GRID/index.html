@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSS Grid Example</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #000000;
+  
+}
+/* Grid Container */
+.container {
+    margin: 10px;
+    display: grid;                            
+    grid-template-columns: repeat(3, 1fr);     /* 3 equal columns */
+    grid-template-rows: 120px auto 120px;      /* 3 rows */
+    gap: 20px;                                  /* spacing between grid items */
+    padding: 20px;
+    background: #373636;
+}
+
+/* Grid Items */
+.box {
+    background: steelblue;
+    color: white;
+    padding: 20px;
+    font-size: 20px;
+}
+
+/* Header spans all columns */
+.header {
+    grid-column: 1 / 4;
+    background: darkslateblue;
+}
+
+/* Footer spans all columns */
+.footer {
+    grid-column: 1 / 4;
+    background: darkgreen;
+}
+
+/* Sidebar spans 2 rows */
+.sidebar {
+    grid-row: 2 / 4;
+    background: darkred;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>CSS Grid Layout Demo</h1>
+
+<div class="container">
+
+    <div class="box header">Header</div>
+    <div class="box">Content 1</div>
+    <div class="box">Content 2</div>
+    <div class="box">Content 3</div>
+
+    <div class="box sidebar">Sidebar (spans 2 rows)</div>
+
+    <div class="box footer">Footer</div>
+
+</div>
+
+</body>
+</html>
