@@ -3,6 +3,7 @@
 ## **Beginner Level Questions**
 
 ### **Coding Questions**
+
 1. **Array Sum**: Write a function `sumArray(arr)` that returns the **sum** of all elements in an array.
 2. **Palindrome Check**: Write a function `isPalindrome(str)` to check if a string is a palindrome.
 3. **String Reversal**: Write a function `reversestring(str)` that reverses a given string.
@@ -20,6 +21,7 @@
 15. **Multiplication Function**: Write a function `multiply(a, b)` that takes two parameters and returns their product.
 
 ### **Theory Questions**
+
 1. **Variable Declaration**: What is the difference between `var`, `let`, and `const`?
 2. **Type Coercion**: Explain type coercion in JavaScript with an example.
 3. **Object Type Check**: How do you check if a data type is an object type?
@@ -38,6 +40,7 @@
 ## **Mid-Level Questions**
 
 ### **Coding Questions**
+
 1. **Debounce Function**: Implement a function to debounce a series of function calls.
 2. **Private Variables**: Create a private variable using a closure - show a function that returns a function/object with methods.
 3. **Object Value by Key**: Write a function `getValueByKey(obj, key)` that takes an object and a key, and returns the value.
@@ -52,6 +55,7 @@
 12. **Sum with Reduce**: Write a function `sumAll(arr)` that takes an array of numbers and returns their sum using `reduce`.
 
 ### **Theory Questions**
+
 1. **Event Loop**: What is the event loop and how does it relate to asynchronous JavaScript?
 2. **Function Types**: Explain the difference between a function declaration and a function expression.
 3. **`this` Keyword**: How does the `this` keyword work in a regular function vs an arrow function?
@@ -72,6 +76,7 @@
 ## **Advanced Level Questions**
 
 ### **Coding Questions**
+
 1. **Deep Clone with Circular References**: Create a deep clone of a complex object containing circular references.
 2. **Custom Promise.race**: Write a function to implement `Promise.race()` from scratch.
 3. **Currying Implementation**: Implement currying in JavaScript.
@@ -80,6 +85,7 @@
 6. **Safe Property Access**: Solve accessing properties safely in a large, deeply nested object.
 
 ### **Theory Questions**
+
 1. **Prototypal Inheritance**: Explain how Prototypal Inheritance works in JavaScript.
 2. **Event Queues**: Explain the role of Microtask Queue and Macrotask Queue in the Event Loop.
 3. **Event Propagation**: What is the difference between Event Bubbling and Event Capturing?

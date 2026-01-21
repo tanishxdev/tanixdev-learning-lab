@@ -1,36 +1,30 @@
-// Version 1
+// brute force
+function sumArr1(arr) {
+  let sum = 0;
+  for (let i = 0; i < arr.length; i++) {
+    sum += arr[i];
+  }
+  return sum;
+}
+// test
+console.log(sumArr1([1, 2, 3, 4, 5]));
 
-// let numbers = [1, 2, 3, 4, 5];
-// let sum = 0;
-
-// for (let i = 0; i < numbers.length; i++) {
-//   sum += numbers[i];
-// }
-
-// console.log(sum);
-
-// Version 2
-function sumArray(arr) {
-  // Step 1: Validate input
+// better
+function sumArr2(arr) {
   if (!Array.isArray(arr)) {
-    throw new TypeError("Input must be an array");
+    throw new Error("Input must be an array");
   }
 
-  // Step 2: Use reduce to accumulate sum
-  return arr.reduce((accumulator, currentValue) => {
-    // Step 3: Convert value to number (handles "2" → 2)
-    const num = Number(currentValue);
+  return arr.reduce((sum, current) => {
+    const num = Number(current);
 
-    // Step 4: Validate number
     if (isNaN(num)) {
-      throw new TypeError("Array must contain only numbers");
+      throw new Error(`Invalid array element: "${current}" is not a number`);
     }
 
-    // Step 5: Add to total
-    return accumulator + num;
-  }, 0); // 0 handles empty array case
+    return sum + num;
+  }, 0);
 }
 
-const numbers = [1, 2, 3, 4, 5];
-const sum = sumArray(numbers);
-console.log(sum);
+// test
+console.log(sumArr2([1, 2, 3, 4, 5]));

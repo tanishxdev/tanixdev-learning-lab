@@ -12,7 +12,7 @@ Use the checkboxes below to mark questions you've reviewed or mastered. This hel
 ### HTML Interview Questions (100)
 
 #### HTML Basics
-- [x] 1. What does HTML stand for and what is its purpose?
+- [ ] 1. What does HTML stand for and what is its purpose?
 - [ ] 2. Describe the basic structure of an HTML document.
 - [ ] 3. What do DOCTYPE and html lang attributes do?
 - [ ] 4. What is the difference between head and body tags?
@@ -304,16 +304,16 @@ Use the checkboxes below to mark questions you've reviewed or mastered. This hel
 ### JavaScript Interview Questions (100)
 
 #### JavaScript Fundamentals
-- [ ] 1. What are the data types present in JavaScript?
-- [ ] 2. What is the difference between null and undefined?
-- [ ] 3. How does JavaScript handle type coercion?
-- [ ] 4. Explain the concept of hoisting in JavaScript.
-- [ ] 5. What is the scope in JavaScript?
-- [ ] 6. What is the difference between == and ===?
-- [ ] 7. Describe closure in JavaScript. Can you give an example?
-- [ ] 8. What is the 'this keyword' and how does its context change?
-- [ ] 9. What are arrow functions and how do they differ from regular functions?
-- [ ] 10. What are template literals in JavaScript?
+- [x] 1. What are the data types present in JavaScript?
+- [x] 2. What is the difference between null and undefined?
+- [x] 3. How does JavaScript handle type coercion?
+- [x] 4. Explain the concept of hoisting in JavaScript.
+- [x] 5. What is the scope in JavaScript?
+- [x] 6. What is the difference between == and ===?
+- [x] 7. Describe closure in JavaScript. Can you give an example?
+- [x] 8. What is the 'this keyword' and how does its context change?
+- [x] 9. What are arrow functions and how do they differ from regular functions?
+- [x] 10. What are template literals in JavaScript?
 
 #### JavaScript Functions and Higher-Order Functions
 - [ ] 11. What is a higher-order function in JavaScript?
