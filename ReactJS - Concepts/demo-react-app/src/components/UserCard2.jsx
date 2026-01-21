@@ -1,9 +1,7 @@
 // UserCard2.jsx
 // Demonstrates prop destructuring.
 
-import React from 'react'
-
-const UserCard2 = ({name, age, role, exp}) => {
+const UserCard2 = ({ name, age, role, exp }) => {
   return (
     <div>
       <h3>User Information</h3>
@@ -12,7 +10,7 @@ const UserCard2 = ({name, age, role, exp}) => {
       <p>Role: {role}</p>
       <p>Experience: {exp}</p>
     </div>
-  )
-}
+  );
+};
 
-export default UserCard2
+export default UserCard2;

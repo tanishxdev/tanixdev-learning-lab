@@ -4,7 +4,6 @@
 import { useState } from "react";
 
 function StateDemo() {
-
   // Creating state
   const [count, setCount] = useState(0);
 
@@ -16,7 +15,10 @@ function StateDemo() {
       <p>Count: {count}</p>
 
       {/* Update state on button click */}
-      <button onClick={() => setCount(count + 1)}>
+      <button
+        onClick={() => setCount(count + 1)}
+        className="bg-gray-500 p-1  m-2"
+      >
         Increase Count
       </button>
     </div>

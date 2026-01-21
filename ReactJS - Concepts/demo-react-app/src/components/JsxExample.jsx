@@ -5,6 +5,7 @@ const JsxExample = () => {
     <>
       <div>Understanding JSX</div>
       <p>This is written using JSX syntax.</p>
+      <p>{2 + 2}</p>
     </>
   );
 };

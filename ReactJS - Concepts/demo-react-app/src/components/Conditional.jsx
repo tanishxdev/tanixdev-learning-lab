@@ -2,7 +2,6 @@
 // Demonstrates rendering UI based on conditions.
 
 function Conditional() {
-
   const isLoggedIn = true;
   const userRole = "admin";
 
@@ -11,15 +10,10 @@ function Conditional() {
       <h2>Conditional Rendering Example</h2>
 
       {/* Using if-like logic with ternary */}
-      {isLoggedIn 
-        ? <p>Welcome back, user!</p>
-        : <p>Please login</p>
-      }
+      {isLoggedIn ? <p>Welcome back, user!</p> : <p>Please login</p>}
 
       {/* Logical AND rendering */}
-      {userRole === "admin" && (
-        <p>Admin Dashboard Access Granted</p>
-      )}
+      {userRole === "admin" && <p>Admin Dashboard Access Granted</p>}
     </div>
   );
 }
