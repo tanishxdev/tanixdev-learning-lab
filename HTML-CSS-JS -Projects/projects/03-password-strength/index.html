@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Password Strength Indicator</title>
+
+    <!-- Style only -->
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+
+  <body>
+    <!-- Main wrapper -->
+    <main class="app">
+      <h1 class="app-title">Password Strength Indicator</h1>
+
+      <!-- Password input -->
+      <div class="input-group">
+        <label for="password">Enter Password</label>
+        <input type="password" id="password" placeholder="Type your password" />
+      </div>
+
+      <!-- Strength text -->
+      <p id="strength-text">Strength: —</p>
+
+      <!-- Strength bar container -->
+      <div class="strength-bar">
+        <div id="strength-fill"></div>
+      </div>
+    </main>
+
+    <!-- JavaScript logic -->
+    <script src="./js/password.js"></script>
+  </body>
+</html>

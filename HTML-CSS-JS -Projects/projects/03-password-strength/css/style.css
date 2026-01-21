@@ -1,0 +1,105 @@
+/* ===============================
+   GLOBAL RESET
+   =============================== */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ===============================
+   BASE DARK MODE
+   =============================== */
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #0f172a;
+  color: #e5e7eb;
+}
+
+/* ===============================
+   APP CONTAINER
+   =============================== */
+
+.app {
+  max-width: 400px;
+  margin: 60px auto;
+  padding: 20px;
+}
+
+.app-title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* ===============================
+   INPUT GROUP
+   =============================== */
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+}
+
+.input-group label {
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+.input-group input {
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #334155;
+  background-color: #020617;
+  color: #e5e7eb;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: #64748b;
+}
+
+/* ===============================
+   STRENGTH TEXT
+   =============================== */
+
+#strength-text {
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+/* ===============================
+   STRENGTH BAR
+   =============================== */
+
+.strength-bar {
+  width: 100%;
+  height: 10px;
+  background-color: #1e293b;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+#strength-fill {
+  height: 100%;
+  width: 0%;
+  transition: width 0.2s ease;
+}
+
+/* ===============================
+   STRENGTH STATES
+   =============================== */
+
+#strength-fill.weak {
+  background-color: #ef4444; /* red */
+}
+
+#strength-fill.medium {
+  background-color: #facc15; /* yellow */
+}
+
+#strength-fill.strong {
+  background-color: #22c55e; /* green */
+}

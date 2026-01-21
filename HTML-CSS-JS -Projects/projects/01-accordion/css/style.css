@@ -1,19 +1,26 @@
-/*
-Basic reset for predictable styling
-*/
+/* ===============================
+   GLOBAL RESET
+   =============================== */
+
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-/*
-Page wrapper
-*/
+/* ===============================
+   PAGE BASE (DARK MODE)
+   =============================== */
+
 body {
   font-family: Arial, sans-serif;
-  background-color: #f9f9f9;
+  background-color: #0f172a; /* dark navy */
+  color: #e5e7eb; /* light text */
 }
+
+/* ===============================
+   APP CONTAINER
+   =============================== */
 
 .app {
   max-width: 600px;
@@ -23,40 +30,54 @@ body {
 
 .app-title {
   margin-bottom: 20px;
+  text-align: center;
 }
 
-/*
-Accordion item wrapper
-*/
+/* ===============================
+   ACCORDION ITEM
+   =============================== */
+
 .accordion-item {
-  border: 1px solid #ddd;
-  margin-bottom: 10px;
+  border: 1px solid #334155;
+  border-radius: 6px;
+  margin-bottom: 12px;
+  overflow: hidden;
 }
 
-/*
-Clickable header
-*/
+/* ===============================
+   ACCORDION HEADER
+   =============================== */
+
 .accordion-header {
-  padding: 12px;
-  background-color: #eee;
+  padding: 14px;
+  background-color: #1e293b;
   cursor: pointer;
   font-weight: bold;
 }
 
-/*
-Content section
-IMPORTANT:
-Hidden by default
-*/
-.accordion-content {
-  padding: 12px;
-  display: none;
-  background-color: #fff;
-}
+/* ===============================
+   ACCORDION CONTENT
+   =============================== */
 
 /*
-When accordion item is active,
-show its content
+  IMPORTANT:
+  Content is hidden by default.
+  JS does NOT hide it.
+*/
+.accordion-content {
+  padding: 14px;
+  background-color: #020617;
+  display: none;
+  line-height: 1.5;
+}
+
+/* ===============================
+   ACTIVE STATE
+   =============================== */
+
+/*
+  When JS adds `.active`,
+  CSS reacts and shows content
 */
 .accordion-item.active .accordion-content {
   display: block;

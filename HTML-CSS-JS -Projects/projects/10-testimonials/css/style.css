@@ -23,62 +23,63 @@ body {
    =============================== */
 
 .app {
-  max-width: 420px;
+  max-width: 600px;
   margin: 60px auto;
   padding: 20px;
   text-align: center;
 }
 
 .app-title {
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
 /* ===============================
-   INPUT GROUP
+   TESTIMONIAL
    =============================== */
 
-.input-group {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
-#qr-input {
-  flex: 1;
-  padding: 10px;
-  border-radius: 4px;
-  border: 1px solid #334155;
+.testimonial {
   background-color: #020617;
-  color: #e5e7eb;
+  padding: 24px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  min-height: 220px;
 }
 
-#qr-input::placeholder {
+.testimonial .message {
+  font-style: italic;
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+.testimonial .name {
+  font-size: 18px;
+  margin-bottom: 4px;
+}
+
+.testimonial .role {
+  font-size: 14px;
   color: #94a3b8;
 }
 
-#generate-btn {
-  padding: 10px 14px;
-  border-radius: 4px;
-  border: none;
-  background-color: #2563eb;
-  color: #ffffff;
+/* ===============================
+   CONTROLS
+   =============================== */
+
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.controls button {
+  padding: 10px 18px;
+  background-color: #1e293b;
+  color: #e5e7eb;
+  border: 1px solid #334155;
+  border-radius: 6px;
   cursor: pointer;
 }
 
-#generate-btn:hover {
-  background-color: #1d4ed8;
-}
-
-/* ===============================
-   QR OUTPUT
-   =============================== */
-
-#qr-output {
-  margin-top: 20px;
-}
-
-#qr-output img {
-  border: 1px solid #334155;
-  padding: 10px;
-  background-color: #ffffff; /* QR needs white bg */
+.controls button:hover {
+  background-color: #334155;
 }

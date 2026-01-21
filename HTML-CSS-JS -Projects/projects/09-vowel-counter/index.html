@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Vowel Counter — Vanilla JS</title>
+
+    <!-- CSS: styling only (dark mode later) -->
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+
+  <body>
+    <!--
+      App wrapper
+      HTML provides structure only
+    -->
+    <main class="app">
+      <h1 class="app-title">Vowel Counter</h1>
+
+      <!--
+        User input
+        JS will READ value from here
+      -->
+      <textarea id="text-input" placeholder="Type your text here..."></textarea>
+
+      <!--
+        Result area
+        JS will UPDATE this
+      -->
+      <div id="result">Vowel Count: <span id="vowel-count">0</span></div>
+    </main>
+
+    <!-- JavaScript logic -->
+    <script src="./js/script.js"></script>
+  </body>
+</html>

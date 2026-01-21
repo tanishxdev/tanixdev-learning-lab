@@ -6,18 +6,18 @@ A curated collection of **50+ Vanilla JavaScript projects** to master frontend d
 
 #### **DOM Manipulation** (12 projects)
 
-- [x] **01. Accordion** (00:00:00 - 00:01:28) - DOM manipulation, event handling
-- [x] **02. QR Code Generator** (00:01:30 - 00:14:47) - API integration, dynamic UI
-- [x] **03. Password Strength Indicator** (00:14:49 - 00:29:24) - Regex validation, real-time feedback
-- [x] **04. Jumping Letter Animation** (00:29:25 - 00:37:57) - CSS animations, JS triggers
-- [x] **05. Quiz App** (00:37:59 - 01:07:00) - State management, data-driven UI
-- [x] **06. Password Generator** (01:07:01 - 01:54:13) - Randomization, config-based logic
-- [x] **07. Weight Converter** (01:54:14 - 02:04:14) - Mathematical logic, real-time calculation
-- [x] **08. Temperature Converter** (02:04:15 - 02:16:14) - Formula-based conversions, offset logic
-- [x] **09. Vowel Counter** (02:16:15 - 02:27:09) - String processing, character iteration
-- [x] **10. Testimonials Slider** (02:27:10 - 02:51:10) - Index-based state, boundary handling
-- [x] **11. Sticky Navbar** (02:51:12 - 03:06:50) - Scroll detection, layout management
-- [x] **12. Scroll Progress Indicator** (03:06:52 - 03:18:30) - Scroll tracking, visual feedback
+- [ ] **01. Accordion** (00:00:00 - 00:01:28) - DOM manipulation, event handling
+- [ ] **02. QR Code Generator** (00:01:30 - 00:14:47) - API integration, dynamic UI
+- [ ] **03. Password Strength Indicator** (00:14:49 - 00:29:24) - Regex validation, real-time feedback
+- [ ] **04. Jumping Letter Animation** (00:29:25 - 00:37:57) - CSS animations, JS triggers
+- [ ] **05. Quiz App** (00:37:59 - 01:07:00) - State management, data-driven UI
+- [ ] **06. Password Generator** (01:07:01 - 01:54:13) - Randomization, config-based logic
+- [ ] **07. Weight Converter** (01:54:14 - 02:04:14) - Mathematical logic, real-time calculation
+- [ ] **08. Temperature Converter** (02:04:15 - 02:16:14) - Formula-based conversions, offset logic
+- [ ] **09. Vowel Counter** (02:16:15 - 02:27:09) - String processing, character iteration
+- [ ] **10. Testimonials Slider** (02:27:10 - 02:51:10) - Index-based state, boundary handling
+- [ ] **11. Sticky Navbar** (02:51:12 - 03:06:50) - Scroll detection, layout management
+- [ ] **12. Scroll Progress Indicator** (03:06:52 - 03:18:30) - Scroll tracking, visual feedback
 
 #### **DOM & UI Manipulation** (11 projects)
 
@@ -145,12 +145,12 @@ HTML-CSS-JS-Projects/
 
 Each project includes:
 
-- [x] Complete source code
-- [x] Step-by-step explanation
-- [x] Thought process documentation
-- [x] Interview talking points
-- [x] Scalability suggestions
-- [x] Testing scenarios
+- [ ] Complete source code
+- [ ] Step-by-step explanation
+- [ ] Thought process documentation
+- [ ] Interview talking points
+- [ ] Scalability suggestions
+- [ ] Testing scenarios
 
 ## 🚀 Getting Started
 

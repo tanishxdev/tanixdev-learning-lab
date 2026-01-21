@@ -1,33 +1,36 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Page title -->
-    <title>QR Code Generator</title>
+    <title>QR Code Generator — Vanilla JS</title>
 
-    <!-- Linking CSS (styling later) -->
+    <!-- Style only -->
     <link rel="stylesheet" href="./css/style.css" />
   </head>
 
   <body>
-    <!-- Main container -->
-    <div class="container">
-      <!-- Heading -->
-      <h1>QR Code Generator</h1>
+    <!-- App wrapper -->
+    <main class="app">
+      <h1 class="app-title">QR Code Generator</h1>
 
-      <!-- Input field for text or URL -->
-      <input type="text" id="qrInput" placeholder="Enter text or URL" />
+      <!-- User input -->
+      <div class="input-group">
+        <input type="text" id="qr-input" placeholder="Enter text or URL" />
+        <button id="generate-btn">Generate QR</button>
+      </div>
 
-      <!-- Button to generate QR -->
-      <button id="generateBtn">Generate QR</button>
+      <!--
+        QR output container
+        IMPORTANT:
+        - Empty by default
+        - JavaScript will inject QR here
+      -->
+      <div id="qr-output"></div>
+    </main>
 
-      <!-- QR code will be shown here -->
-      <div id="qrOutput"></div>
-    </div>
-
-    <!-- Linking JavaScript -->
-    <script src="./js/script.js"></script>
+    <!-- Main JS logic -->
+    <script src="./js/qr.js"></script>
   </body>
 </html>

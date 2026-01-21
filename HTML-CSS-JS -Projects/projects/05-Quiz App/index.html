@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Quiz App — Vanilla JS</title>
+
+    <!-- CSS: style only -->
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <!-- Main quiz container -->
+    <main class="quiz-app">
+      <!-- Quiz title -->
+      <h1 class="quiz-title">Quiz App</h1>
+
+      <!-- Question container (JS will inject question text) -->
+      <div id="question-container"></div>
+
+      <!-- Options container (JS will inject options) -->
+      <div id="options-container"></div>
+
+      <!-- Action button (Next / Submit) -->
+      <button id="next-btn">Next</button>
+
+      <!-- Score / feedback area -->
+      <div id="result-container"></div>
+    </main>
+
+    <!-- Quiz data (questions & answers) -->
+    <script src="./data/quizData.js"></script>
+
+    <!-- Quiz logic -->
+    <script src="./js/quiz.js"></script>
+  </body>
+</html>

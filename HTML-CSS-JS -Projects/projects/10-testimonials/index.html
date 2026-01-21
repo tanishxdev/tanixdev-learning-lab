@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Testimonials Slider — Vanilla JS</title>
+
+    <!-- CSS (dark mode, style only) -->
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+
+  <body>
+    <!-- Main app wrapper -->
+    <main class="app">
+      <h1 class="app-title">What People Say</h1>
+
+      <!--
+        Testimonial container
+        JS will inject testimonial content here
+      -->
+      <section id="testimonial-container"></section>
+
+      <!-- Navigation buttons -->
+      <div class="controls">
+        <button id="prev-btn">Prev</button>
+        <button id="next-btn">Next</button>
+      </div>
+    </main>
+
+    <!-- Data file -->
+    <script src="./data/testimonialsData.js"></script>
+
+    <!-- Logic file -->
+    <script src="./js/testimonials.js"></script>
+  </body>
+</html>

@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Weight Converter</title>
+
+    <!-- Dark mode styling -->
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+
+  <body>
+    <main class="app">
+      <h1 class="app-title">Weight Converter</h1>
+
+      <!-- Input section -->
+      <section class="input-section">
+        <!-- User enters value -->
+        <input type="number" id="weight-input" placeholder="Enter weight" />
+
+        <!-- User selects unit -->
+        <select id="unit-select">
+          <option value="kg">Kilograms</option>
+          <option value="g">Grams</option>
+          <option value="lb">Pounds</option>
+        </select>
+      </section>
+
+      <!-- Output section -->
+      <section class="output-section">
+        <!-- JS will update this -->
+        <p id="result-text">Converted value will appear here</p>
+      </section>
+    </main>
+
+    <!-- Main logic -->
+    <script src="./js/converter.js"></script>
+  </body>
+</html>

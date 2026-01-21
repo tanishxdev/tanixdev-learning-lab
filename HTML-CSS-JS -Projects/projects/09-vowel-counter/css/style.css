@@ -23,62 +23,44 @@ body {
    =============================== */
 
 .app {
-  max-width: 420px;
+  max-width: 600px;
   margin: 60px auto;
   padding: 20px;
-  text-align: center;
 }
 
 .app-title {
+  text-align: center;
   margin-bottom: 20px;
 }
 
 /* ===============================
-   INPUT GROUP
+   TEXT INPUT
    =============================== */
 
-.input-group {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-}
+#text-input {
+  width: 100%;
+  min-height: 120px;
+  padding: 12px;
+  margin-bottom: 16px;
 
-#qr-input {
-  flex: 1;
-  padding: 10px;
-  border-radius: 4px;
-  border: 1px solid #334155;
   background-color: #020617;
   color: #e5e7eb;
-}
 
-#qr-input::placeholder {
-  color: #94a3b8;
-}
+  border: 1px solid #334155;
+  border-radius: 6px;
 
-#generate-btn {
-  padding: 10px 14px;
-  border-radius: 4px;
-  border: none;
-  background-color: #2563eb;
-  color: #ffffff;
-  cursor: pointer;
-}
-
-#generate-btn:hover {
-  background-color: #1d4ed8;
+  font-size: 16px;
+  resize: vertical;
 }
 
 /* ===============================
-   QR OUTPUT
+   RESULT DISPLAY
    =============================== */
 
-#qr-output {
-  margin-top: 20px;
+#result {
+  font-size: 18px;
 }
 
-#qr-output img {
-  border: 1px solid #334155;
-  padding: 10px;
-  background-color: #ffffff; /* QR needs white bg */
+#vowel-count {
+  font-weight: bold;
 }
