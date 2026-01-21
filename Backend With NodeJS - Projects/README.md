@@ -175,24 +175,3 @@ This order is **deliberate**. Do not skip.
     "If it can't run reliably, it's incomplete."
 
 ---
-
-## Daily Practice Rule
-
-For any project day:
-* **60%** thinking + building
-* **20%** explaining out loud
-* **20%** refactoring & cleanup
-
----
-
-## Final Prompt (Use With GPT / Mentor)
-
-"Teach me this project using a **builder-first approach**. Start with the problem and mental model, then design, then build in small steps with explanations. Avoid big code dumps. Assume I want to **explain this in interviews**, not just run it."
-
----
-
-## Final Motto of This Folder
-
-**Clarity over cleverness**
-**Understanding over speed**
-**Explainability over output**
