@@ -1,28 +1,30 @@
-// TextMirror.jsx
 import { useState } from "react";
 import "./TextMirror.css";
 
 function TextMirror() {
+  // State to store input text
   const [text, setText] = useState("");
 
-  function handleChange(event) {
-    setText(event.target.value);
+  // Input change handler
+  function handleChange(e) {
+    setText(e.target.value); // input value → state
   }
 
   return (
-    <div className="text-mirror-container">
-      <h2>Live Text Mirror</h2>
+    <div className="mirror-container">
+      <h1>Live Text Mirror</h1>
 
-      {/* Input box (not connected yet) */}
+      {/* Input controlled by state */}
       <input
         type="text"
         placeholder="Type something..."
-        value={text}
-        onChange={handleChange}
+        value={text} // state → input
+        onChange={handleChange} // input → state
       />
 
-      {/* This will show mirrored text later */}
-      <p>{text.length === 0 ? "Start typing to see live preview..." : text}</p>
+      <h1>Output 👇</h1>
+      {/* Live mirror */}
+      <div className="mirror-output">{text}</div>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-.toggle-container {
+.char-container {
   min-height: 100vh;
   background: #0f0f0f;
   color: #fff;
@@ -9,27 +9,18 @@
   gap: 16px;
   font-family: system-ui, sans-serif;
 }
-
-.toggle-btn {
-  padding: 14px 32px;
-  font-size: 18px;
+.char-container input {
+  padding: 12px 16px;
+  width: 280px;
   background: #1a1a1a;
-  color: #fff;
   border: 1px solid #333;
+  color: #fff;
   border-radius: 6px;
-  cursor: pointer;
+  outline: none;
 }
-
-.toggle-status {
-  font-size: 16px;
-  background: #b90e0e;
+.char-count {
   padding: 10px 16px;
+  background: #1a1a1a;
   border-radius: 6px;
-}
-.toggle-status.on {
-  background: #1faa59; /* green */
-}
-
-.toggle-status.off {
-  background: #b90e0e; /* red */
+  font-size: 14px;
 }

@@ -2,31 +2,21 @@ import { useState } from "react";
 import "./ScreenBgColor.css";
 
 function ScreenBgColor() {
-  // State controls the background color of the screen
-  const [bgColor, setBgColor] = useState("#121212");
-
-  // Toggle between dark and light background
-  function handleChangeColor() {
-    setBgColor((prev) => (prev === "#121212" ? "#f5f5f5" : "#121212"));
-  }
-
-  // Decide text color based on background (basic contrast handling)
-  const textColor = bgColor === "#121212" ? "#eaeaea" : "#121212";
+  // State jo background color store karega
+  const [bgColor, setBgColor] = useState("#524f4d"); // default dark
 
   return (
-    <div
-      className="screen-bg-container"
-      style={{ backgroundColor: bgColor, color: textColor }}
-    >
-      <h2>Screen Background Color</h2>
+    // Inline style me state use ho raha hai
+    <div className="screen-container" style={{ backgroundColor: bgColor }}>
+      <h1>Screen Background Color</h1>
 
-      <p className="description">
-        This project demonstrates how React State controls UI appearance.
-      </p>
-
-      <button onClick={handleChangeColor} className="toggle-btn">
-        Toggle Background
-      </button>
+      <div className="color-buttons">
+        {/* Buttons state ko change kar rahe hain */}
+        <button onClick={() => setBgColor("red")}>Red</button>
+        <button onClick={() => setBgColor("blue")}>Blue</button>
+        <button onClick={() => setBgColor("green")}>Green</button>
+        <button onClick={() => setBgColor("Pink")}>Pink</button>
+      </div>
     </div>
   );
 }

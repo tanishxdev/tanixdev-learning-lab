@@ -1,54 +1,29 @@
-/* TextMirror.css */
-
-/* Page-level centering */
-.text-mirror-container {
-  min-height: calc(100vh - 80px); /* leaves space for Back button/header */
+.mirror-container {
+  min-height: 100vh;
+  background: #0f0f0f;
+  color: #fff;
   display: flex;
   flex-direction: column;
   justify-content: center;
-
-  max-width: 100%;
-  margin: 0 auto;
-
-  background-color: #121212;
-  color: #ffffff;
-
-  padding: 28px;
-  border-radius: 10px;
-
-  box-shadow: 0 0 0 1px #1f1f1f;
+  align-items: center;
+  gap: 16px;
+  font-family: system-ui, sans-serif;
 }
 
-/* Title */
-.text-mirror-container h2 {
-  margin-bottom: 16px;
-  font-size: 20px;
-  font-weight: 600;
-  text-align: center;
-}
-
-/* Input field */
-.text-mirror-container input {
-  width: 100%;
-  padding: 12px;
-
-  background-color: #1e1e1e;
-  color: #ffffff;
-
+.mirror-container input {
+  padding: 12px 16px;
+  width: 280px;
+  background: #1a1a1a;
   border: 1px solid #333;
+  color: #fff;
   border-radius: 6px;
-
-  font-size: 14px;
+  outline: none;
 }
 
-.text-mirror-container input::placeholder {
-  color: #888;
-}
-
-/* Mirrored text */
-.text-mirror-container p {
-  margin-top: 38px;
-  font-size: 14px;
-  color: #bbbbbb;
-  word-break: break-word;
+.mirror-output {
+  min-height: 40px;
+  padding: 12px 16px;
+  background: #1a1a1a;
+  border-radius: 6px;
+  font-size: 16px;
 }

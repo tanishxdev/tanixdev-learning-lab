@@ -3,27 +3,24 @@ import "./Counter.css";
 
 function Counter() {
   const [count, setCount] = useState(0);
-  const handleIncreament = () => {
+
+  function increment() {
     setCount(count + 1);
-  };
-  const hadnleDecrement = () => {
-    if (count > 0) {
-      setCount(count - 1);
-    } 
-  };
-  const handleRest = () => {
-    setCount(0);
-  };
+  }
+
+  function decrement() {
+    setCount(count - 1);
+  }
 
   return (
     <div className="counter-container">
       <h1>Counter App</h1>
-      <p>{count}</p>
 
-      <div className="btn-group">
-        <button onClick={handleIncreament}>+</button>
-        <button onClick={hadnleDecrement}>-</button>
-        <button onClick={handleRest}>Reset</button>
+      <div className="counter-value">{count}</div>
+
+      <div className="counter-buttons">
+        <button onClick={decrement}>-</button>
+        <button onClick={increment}>+</button>
       </div>
     </div>
   );
