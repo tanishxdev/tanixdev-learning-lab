@@ -1,6 +1,25 @@
-import { createContext } from "react";
+import { createContext, useContext } from "react";
 
-// Creating a context object
+/*
+  Step 1: Create context object
+*/
 const UserContext = createContext();
 
-export default UserContext;
+/*
+  Step 2: Provider component
+  This will wrap the app and provide data
+*/
+export function UserProvider({ children }) {
+  const userName = "Tanish";
+
+  return (
+    <UserContext.Provider value={{ userName }}>{children}</UserContext.Provider>
+  );
+}
+
+/*
+  Step 3: Custom hook for clean access
+*/
+export function useUser() {
+  return useContext(UserContext);
+}

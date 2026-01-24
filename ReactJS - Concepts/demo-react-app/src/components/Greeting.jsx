@@ -1,5 +1,11 @@
-const Greeting = () => {
-  return <h2>Welcome to React</h2>;
-};
+// Greeting.jsx
+// This component displays a simple message.
+// Components must start with capital letters.
 
-export default Greeting;
+export const Greeting = () => {
+  return (
+    <>
+      <h2>Welcome to React Components</h2>
+    </>
+  );
+};

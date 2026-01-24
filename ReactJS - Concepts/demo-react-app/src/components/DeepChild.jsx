@@ -1,13 +1,11 @@
-import { useContext } from "react";
-import UserContext from "../context/UserContext";
+import { useUser } from "../context/UserContext";
 
 function DeepChild() {
-
-  const userName = useContext(UserContext);
+  const { userName } = useUser(); // Direct access
 
   return (
     <div>
-      <h3>Deep Child Component</h3>
+      <h4>Deep Child Component</h4>
       <p>Received User: {userName}</p>
     </div>
   );

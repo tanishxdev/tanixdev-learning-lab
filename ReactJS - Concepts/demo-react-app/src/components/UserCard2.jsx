@@ -1,7 +1,4 @@
-// UserCard2.jsx
-// Demonstrates prop destructuring.
-
-const UserCard2 = ({ name, age, role, exp }) => {
+export const UserCard2 = ({ name, age, role, exp }) => {
   return (
     <div>
       <h3>User Information</h3>
@@ -12,5 +9,3 @@ const UserCard2 = ({ name, age, role, exp }) => {
     </div>
   );
 };
-
-export default UserCard2;
