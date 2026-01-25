@@ -1,0 +1,111 @@
+/* ================================
+   GLOBAL RESET + BASE THEME
+   ================================ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Dark mode base */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #0f0f0f; /* main dark background */
+  color: #eaeaea; /* light text */
+  line-height: 1.6;
+}
+
+/* ================================
+   NAVBAR SECTION
+   ================================ */
+
+.nav-container {
+  position: sticky; /* makes navbar stick on top */
+  top: 0;
+  z-index: 1000;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 15px 40px;
+
+  background-color: #141414; /* dark navbar */
+  border-bottom: 1px solid #222;
+}
+
+/* Logo */
+.logo h1 {
+  font-size: 22px;
+  color: #ffffff;
+}
+
+/* Navbar links container */
+.navbar {
+  display: flex;
+  gap: 25px;
+}
+
+/* Links */
+.navbar a {
+  text-decoration: none;
+  color: #cfcfcf;
+  font-size: 14px;
+  letter-spacing: 1px;
+  transition: color 0.3s ease;
+}
+
+/* Hover effect */
+.navbar a:hover {
+  color: #ffffff;
+}
+
+/* ================================
+   HERO IMAGE SECTION
+   ================================ */
+
+.img-container {
+  position: relative; /* needed for text overlay */
+  width: 100%;
+  height: 350px;
+  overflow: hidden;
+}
+
+/* Image styling */
+.img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* image fits nicely */
+  filter: brightness(0.5); /* dark overlay effect */
+}
+
+/* Text on image */
+#coffee {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  font-size: 48px;
+  color: #ffffff;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* ================================
+   CONTENT SECTION
+   ================================ */
+
+.content-container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+
+  background-color: #141414;
+  border: 1px solid #222;
+  border-radius: 6px;
+
+  color: #dcdcdc;
+  font-size: 15px;
+}

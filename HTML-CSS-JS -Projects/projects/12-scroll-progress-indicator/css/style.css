@@ -1,0 +1,72 @@
+/* =========================
+   GLOBAL RESET
+   ========================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* =========================
+   DARK MODE BASE THEME
+   ========================= */
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #0f0f0f; /* dark background */
+  color: #eaeaea; /* light text */
+}
+
+/* =========================
+   PROGRESS BAR
+   ========================= */
+
+/* Track (background bar) */
+.progress-container {
+  position: fixed; /* always visible */
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 6px;
+
+  background-color: #1f1f1f; /* dark track */
+  z-index: 9999;
+}
+
+/* Actual progress bar */
+.progress-bar {
+  height: 100%;
+  width: 0%; /* JS will control this */
+  background-color: #4cafef; /* progress color */
+}
+
+/* =========================
+   CONTENT AREA
+   ========================= */
+
+.content {
+  padding-top: 30px; /* space so content doesn't hide under bar */
+}
+
+/* Section blocks */
+.section {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+
+  background-color: #141414;
+  border: 1px solid #222;
+  border-radius: 6px;
+}
+
+.section h1 {
+  margin-bottom: 15px;
+}
+
+.section p {
+  line-height: 1.7;
+  font-size: 15px;
+  color: #dcdcdc;
+}
