@@ -164,7 +164,7 @@ The README documents three potential issues:
 
 ## Answer to Original Question
 
-**"Is this issues resolved or not?"**
+**"Are these issues resolved or not?"**
 
 **Answer: YES** - The documented issues are effectively resolved:
 
