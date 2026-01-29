@@ -1,9 +1,11 @@
-const ButtonClick = () => {
-  function handleClick(e) {
-    e.preventDefault(); // stops page reload
-    console.log("Button Clicked!");
+export const ButtonClick = () => {
+  function handleClick() {
+    console.log("Button clicked");
   }
-  return <button onClick={handleClick}>Click Me</button>;
+  return (
+    <div>
+      {" "}
+      <button onClick={handleClick}>Click me</button>
+    </div>
+  );
 };
-
-export default ButtonClick;
