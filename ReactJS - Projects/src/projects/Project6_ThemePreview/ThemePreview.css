@@ -1,0 +1,19 @@
+.theme-container {
+  padding: 20px;
+}
+
+.controls {
+  margin-bottom: 16px;
+}
+
+.controls button {
+  margin-right: 8px;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.preview-box {
+  padding: 20px;
+  border: 2px solid;
+  border-radius: 6px;
+}

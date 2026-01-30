@@ -1,0 +1,15 @@
+.greeting-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  height: 100vh;
+  background-color: #162634;
+  font-family: Arial, sans-serif;
+}
+
+h2 {
+  color: #ffffff;
+  font-size: 25px;
+}

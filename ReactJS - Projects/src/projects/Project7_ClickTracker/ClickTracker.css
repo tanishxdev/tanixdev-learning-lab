@@ -1,0 +1,21 @@
+.click-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+button {
+  padding: 8px 14px;
+  cursor: pointer;
+}
+
+.click-btn {
+  background-color: rgb(59, 139, 113);
+  color: #fff;
+  border-radius: 6px;
+  max-width: max-content;
+  padding: 5px;
+  margin: 15px 5px;
+}

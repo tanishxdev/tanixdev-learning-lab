@@ -19,6 +19,10 @@ import ScreenBgColor from "./projects/Project2_ScreenBgColor/ScreenBgColor";
 import TextMirror from "./projects/Project3_TextMirror/TextMirror";
 import CharCounter from "./projects/Project4_CharacterCounter/CharCounter";
 import ToggleSwitch from "./projects/Project5_ToggleSwitch/ToggleSwitch";
+import ThemePreview from "./projects/Project6_ThemePreview/ThemePreview";
+import { ClickTracker } from "./projects/Project7_ClickTracker/ClickTracker";
+import GreetingByTime from "./projects/Project8_GreetingByTime/GreetingByTime";
+import { ShowHideText } from "./projects/Project9_ShowHideText/ShowHideText";
 
 function App() {
   /**
@@ -49,6 +53,10 @@ function App() {
     TextMirror: TextMirror,
     CharCounter: CharCounter,
     ToggleSwitch: ToggleSwitch,
+    ThemePreview: ThemePreview,
+    ClickTracker: ClickTracker,
+    GreetingByTime: GreetingByTime,
+    ShowHideText: ShowHideText,
   };
 
   /**
