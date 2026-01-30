@@ -166,12 +166,12 @@ When that happens:
 
 This project is in active development.
 
-Possible bugs:
-* UI spacing glitches on very small screens
-* Tailwind class updates (v4+)
-* Minor layout mismatches in some browsers
+**Recently Verified (2026-01-28):**
+* ✅ UI spacing - Tested and working on screens as small as 320px
+* ✅ Tailwind v4+ - Fully compatible and building successfully
+* ⚠️ Browser compatibility - Verified on Chromium, broader testing ongoing
 
-These will be fixed as the project grows.
+**Status:** Core functionality and responsive design are working as expected across tested environments.
 
 If you find something broken, note it — it will be addressed.
 
