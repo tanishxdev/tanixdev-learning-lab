@@ -6,6 +6,12 @@ import Parent from "./components/Parent";
 import { UserCard } from "./components/UserCard";
 import { UserCard2 } from "./components/UserCard2";
 import { UserCard3_ProtoTypes } from "./components/UserCard3_ProtoTypes";
+import StyledBox from "./components/StyledBox";
+import Effect1_PageLoad from "./components/Effect1_PageLoad";
+import Effect2_Dependency from "./components/Effect2_Dependency";
+import Effect3_API from "./components/Effect3_API";
+import Reducer1_Counter from "./components/Reducer1_Counter";
+import Example1_Focus from "./components/Example1_Focus";
 
 const user = {
   name: "Tanish",
@@ -78,6 +84,17 @@ function App() {
         <h1>Context API Example</h1>
         <Parent />
       </div>
+
+      {/* Module 03. Styling in React */}
+      <StyledBox />
+
+      {/* Module 07. Hooks */}
+      <Effect1_PageLoad />
+      <Effect2_Dependency />
+      <Effect3_API />
+
+      <Reducer1_Counter />
+      <Example1_Focus />
     </>
   );
 }

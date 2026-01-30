@@ -17,6 +17,7 @@ const Reducer1_Counter = () => {
   const [count, dispatch] = useReducer(reducer, initialState);
   return (
     <div>
+      <h1>useReducer Counter</h1>
       <p>Count : {count}</p>
 
       <button onClick={() => dispatch({ type: "INCREMENT" })}>+</button>
