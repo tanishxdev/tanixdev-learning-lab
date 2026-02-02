@@ -1,4 +1,4 @@
-# 📚 Learning Repository
+# Learning Repository
 
 #### ⚠️ Disclaimer
 
