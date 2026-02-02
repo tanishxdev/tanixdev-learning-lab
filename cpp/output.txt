@@ -1,0 +1,4 @@
+Parent.func()
+Parent.func(int): 10
+Child.func(int): 20
+Child.func(int): 30
