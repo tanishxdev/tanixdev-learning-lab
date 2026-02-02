@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Mini Calendar</title>
+
+    <!-- CSS file -->
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <div class="calendar-container">
+      <!-- Header section -->
+      <div class="calendar-header">
+        <button id="prevBtn">Prev</button>
+
+        <!-- Month + Year shown by JS -->
+        <h2 id="monthYear"></h2>
+
+        <button id="nextBtn">Next</button>
+      </div>
+
+      <!-- Days name row -->
+      <div class="day-names">
+        <span>Sun</span>
+        <span>Mon</span>
+        <span>Tue</span>
+        <span>Wed</span>
+        <span>Thu</span>
+        <span>Fri</span>
+        <span>Sat</span>
+      </div>
+
+      <!-- Calendar dates grid (JS injects dates) -->
+      <div id="dates" class="dates-grid"></div>
+    </div>
+
+    <!-- JS file -->
+    <script src="./js/calendar.js"></script>
+  </body>
+</html>

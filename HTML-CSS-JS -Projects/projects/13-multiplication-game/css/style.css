@@ -1,0 +1,57 @@
+/* Reset default browser styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Center content on screen */
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #10182b;
+  font-family: Arial, sans-serif;
+}
+
+/* Game container styling */
+.game-container {
+  background: #7a8392;
+  padding: 30px;
+  width: 350px;
+  text-align: center;
+  border-radius: 6px;
+}
+
+/* Question text */
+#question {
+  margin: 15px 0;
+  font-size: 28px;
+  color: #272222;
+}
+
+/* Input field */
+input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+}
+
+/* Button styling */
+button {
+  width: 100%;
+  padding: 8px;
+  cursor: pointer;
+}
+
+/* Result text */
+#result {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+/* Score display */
+#score {
+  margin-top: 10px;
+}

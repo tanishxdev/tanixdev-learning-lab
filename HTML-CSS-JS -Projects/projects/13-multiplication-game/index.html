@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Multiplication Game</title>
+
+    <!-- CSS file link -->
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <!-- Game wrapper -->
+    <div class="game-container">
+      <h1>Multiplication Game</h1>
+
+      <!-- Question announced properly -->
+      <p id="question" aria-live="polite"></p>
+
+      <!-- Label for screen readers -->
+      <label for="answerInput">Your Answer</label>
+
+      <input type="number" id="answerInput" aria-describedby="hint" />
+
+      <!-- Hint text -->
+      <small id="hint">Enter the multiplication result</small>
+
+      <!-- Button -->
+      <button id="submitBtn" type="button">Submit</button>
+
+      <!-- Result announced automatically -->
+      <div id="result" role="status" aria-live="assertive"></div>
+
+      <p id="score"></p>
+    </div>
+
+    <!-- JS file link -->
+    <script src="./js/game.js"></script>
+  </body>
+</html>
