@@ -619,3 +619,1044 @@ Server → `500 Internal Server Error`
 - **3xx:** “Go somewhere else”
 - **4xx:** “You did something wrong”
 - **5xx:** “I messed up”
+
+## Question 9: What are request headers and response headers? Why are they important?
+
+### Concepts
+
+**Headers** are key–value metadata sent along with HTTP requests and responses.
+They control **how data is sent, interpreted, secured, and cached**.
+
+---
+
+**Request Headers**
+
+- Sent by client to server
+- Describe request context and client capabilities
+
+Common request headers:
+
+- `Authorization` → Auth token
+- `Content-Type` → Format of request body
+- `Accept` → Expected response format
+- `User-Agent` → Client information
+- `Cookie` → Session/auth data
+
+---
+
+**Response Headers**
+
+- Sent by server to client
+- Describe response behavior and policies
+
+Common response headers:
+
+- `Content-Type` → Response format
+- `Set-Cookie` → Store cookie on client
+- `Cache-Control` → Caching rules
+- `Access-Control-Allow-Origin` → CORS policy
+- `Content-Length` → Size of response
+
+---
+
+**Why headers are important**
+
+- Enable authentication & authorization
+- Control caching and performance
+- Enable CORS and security policies
+- Define data formats clearly
+- Support stateless communication
+
+---
+
+### Example Code Snippets
+
+**Example 1: Request headers**
+
+```http
+GET /profile HTTP/1.1
+Authorization: Bearer jwt-token
+Accept: application/json
+```
+
+**Example 2: Response headers**
+
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json
+Cache-Control: no-store
+```
+
+**Example 3: Setting headers in backend**
+
+```js
+res.set("Cache-Control", "no-store");
+res.json({ name: "Tanish" });
+```
+
+---
+
+### Interview-Specific Answer
+
+Request headers carry client and request metadata, while response headers define how the response should be handled. They are critical for security, caching, content negotiation, and stateless communication.
+
+## Question 10: What is CORS? Why does it exist and how do you fix CORS issues?
+
+### Concepts
+
+**CORS (Cross-Origin Resource Sharing)** is a **browser security mechanism** that controls whether a frontend running on one origin can access resources from another origin.
+
+**Origin = protocol + domain + port**
+
+Example:
+
+- `http://localhost:3000` ≠ `http://api.example.com`
+
+---
+
+**Why CORS exists**
+
+- Prevents malicious websites from reading sensitive data
+- Protects users from cross-site attacks
+- Enforced by **browsers**, not servers
+
+---
+
+**How CORS works**
+
+1. Browser sends request to different origin
+2. For non-simple requests, browser sends **preflight request (OPTIONS)**
+3. Server responds with CORS headers
+4. Browser decides whether to allow or block request
+
+---
+
+**Important CORS headers**
+
+- `Access-Control-Allow-Origin`
+- `Access-Control-Allow-Methods`
+- `Access-Control-Allow-Headers`
+- `Access-Control-Allow-Credentials`
+
+---
+
+### Example Code Snippets
+
+**Example 1: CORS error (browser blocked)**
+
+```text
+Blocked by CORS policy: No 'Access-Control-Allow-Origin' header
+```
+
+**Example 2: Fix CORS in Express (basic)**
+
+```js
+const cors = require("cors");
+
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+  }),
+);
+```
+
+**Example 3: Manual CORS headers**
+
+```js
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE");
+  next();
+});
+```
+
+---
+
+### Interview-Specific Answer
+
+CORS is a browser security mechanism that restricts cross-origin requests. It exists to protect users from malicious sites, and CORS issues are fixed by configuring proper CORS headers on the backend.
+
+## Question 11: What are cookies? How are they sent in HTTP requests?
+
+### Concepts
+
+**Cookies** are small key–value data stored in the browser and automatically sent with HTTP requests to the same domain.
+
+**Why cookies are used**
+
+- Session management
+- Authentication
+- User preferences
+- Tracking
+
+---
+
+**How cookies are created**
+
+- Server sends cookie using `Set-Cookie` header
+- Browser stores it
+- Browser automatically sends it on future requests
+
+---
+
+**How cookies are sent**
+
+- Included in **request headers**
+- Only sent to matching domain/path
+- Controlled by security flags
+
+---
+
+**Important cookie attributes**
+
+- `HttpOnly` → Not accessible via JS
+- `Secure` → Sent only over HTTPS
+- `SameSite` → Controls cross-site sending
+- `Expires / Max-Age` → Lifetime
+
+---
+
+### Example Code Snippets
+
+**Example 1: Server sets cookie**
+
+```http
+Set-Cookie: sessionId=abc123; HttpOnly; Secure
+```
+
+**Example 2: Cookie sent in request**
+
+```http
+GET /profile HTTP/1.1
+Cookie: sessionId=abc123
+```
+
+**Example 3: Setting cookie in Express**
+
+```js
+res.cookie("sessionId", "abc123", {
+  httpOnly: true,
+  secure: true,
+});
+```
+
+---
+
+### Interview-Specific Answer
+
+Cookies are small pieces of data stored in the browser and automatically sent with HTTP requests. They are commonly used for authentication and session management and are controlled using security flags like HttpOnly and Secure.
+
+## Question 12: Difference between cookies, localStorage, and sessionStorage.
+
+_Refer_
+
+- [How Cookies and Sessions storage work?](https://newsletter.systemdesigncodex.com/p/cookies-and-sessions)
+- [How many ways(Cookies, Local Storage & Session Storage) are there to store data in the browser](https://www.sabbirz.com/blog/cookies-local-storage--session-storage)
+
+![Cookies vs Session](https://media.licdn.com/dms/image/v2/D5622AQEUiyfdIK5M7w/feedshare-shrink_800/B56ZQlurIRH0Ag-/0/1735799784010?e=2147483647&v=beta&t=tw21VeNAn5302E3D5wcvYHkaHuVzSBbGw5W0JBxMy6E)
+
+### Concepts
+
+Cookies, localStorage, and sessionStorage are **client-side storage mechanisms**, but they differ in **scope, lifetime, size, and usage**.
+
+---
+
+**Cookies**
+
+- Sent automatically with every HTTP request
+- Small size (~4KB)
+- Can be accessed by server
+- Used mainly for authentication/session
+- Supports security flags (HttpOnly, Secure)
+
+**localStorage**
+
+- Stored in browser permanently (until cleared)
+- Not sent with HTTP requests
+- Larger size (~5–10MB)
+- Accessible via JavaScript only
+- Used for UI state, preferences
+
+**sessionStorage**
+
+- Stored per browser tab
+- Cleared when tab is closed
+- Not sent with HTTP requests
+- Accessible via JavaScript only
+- Used for temporary session data
+
+---
+
+**Key differences (backend perspective)**
+
+- Cookies impact every request (performance + security)
+- localStorage/sessionStorage are frontend-only
+- Auth tokens in localStorage are vulnerable to XSS
+- Cookies with HttpOnly are safer for auth
+
+---
+
+### Example Code Snippets
+
+**Example 1: Cookie**
+
+```http
+Set-Cookie: token=abc123; HttpOnly; Secure
+```
+
+**Example 2: localStorage**
+
+```js
+localStorage.setItem("theme", "dark");
+```
+
+**Example 3: sessionStorage**
+
+```js
+sessionStorage.setItem("otpStep", "verified");
+```
+
+---
+
+### Interview-Specific Answer
+
+Cookies are server-accessible and sent with every request, while localStorage and sessionStorage are browser-only storage. localStorage persists long-term, sessionStorage lasts per tab, and cookies are mainly used for authentication and sessions.
+
+## Question 13: What are webhooks? How do they work internally?
+
+_Refer_
+
+[EP65: What Is A Webhook](https://substackcdn.com/image/fetch/$s_!99Dy!,w_1272,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F70011917-41b3-470f-b888-96e8dda5bb1a_1441x1536.jpeg)
+[Webhook vs. API: What's the difference and when should you use each one?](https://zapier.com/blog/webhook-vs-api/)
+![webhooks vs API](https://images.ctfassets.net/lzny33ho1g45/5UrIAftDqQqfdEteoHgVQI/4ada8fc34fbcf012e730d0953dc8917f/webhook-vs-apis-differences.png?fm=webp)
+
+### Concepts
+
+**Webhooks** are a way for one system to **send real-time data to another system automatically** when an event occurs.
+
+Instead of the client repeatedly asking (polling), the server **pushes data** to a predefined URL.
+
+**Key idea**
+
+- Event-driven communication
+- Server → Server call
+- Near real-time
+
+---
+
+**How webhooks work internally (step-by-step):**
+
+1. **Webhook Registration**
+   - Receiver provides a public URL to sender
+   - Example: `https://myapp.com/webhooks/payment`
+
+2. **Event Occurs**
+   - Some action happens (payment success, user signup)
+
+3. **Sender Triggers Webhook**
+   - Sender creates HTTP request (usually POST)
+   - Payload contains event data
+
+4. **Webhook Delivery**
+   - Request sent to receiver’s endpoint
+   - Includes headers + payload + signature
+
+5. **Verification & Processing**
+   - Receiver verifies signature (security)
+   - Processes event
+   - Sends 2xx response
+
+6. **Retry Logic**
+   - If non-2xx response, sender retries
+
+---
+
+### Example Code Snippets
+
+**Example 1: Webhook payload (Stripe-like)**
+
+```http
+POST /webhooks/payment HTTP/1.1
+Content-Type: application/json
+
+{
+  "event": "payment.success",
+  "amount": 500,
+  "userId": 42
+}
+```
+
+**Example 2: Webhook receiver (Express)**
+
+```js
+app.post("/webhooks/payment", (req, res) => {
+  const event = req.body.event;
+
+  if (event === "payment.success") {
+    // Update DB, unlock feature
+  }
+
+  res.status(200).send("OK");
+});
+```
+
+**Example 3: Signature verification (conceptual)**
+
+```js
+if (!isValidSignature(req)) {
+  return res.status(401).send("Invalid webhook");
+}
+```
+
+---
+
+### Interview-Specific Answer
+
+Webhooks are event-driven HTTP callbacks where one system sends data to another automatically when an event occurs. Internally, the sender triggers an HTTP request to a registered endpoint, and the receiver processes it after verification.
+
+## Question 14: What is polling vs long polling vs WebSockets?
+
+![](https://dz2cdn1.dzone.com/storage/temp/15389446-1637610523913.png)
+
+### Concepts
+
+These are **techniques for real-time or near real-time communication** between client and server.
+
+---
+
+**Polling**
+
+- Client sends requests at fixed intervals
+- Server responds immediately
+- Many unnecessary requests
+
+Flow:
+Client → Request → Response → Wait → Repeat
+
+Use-case:
+
+- Simple status checks
+
+---
+
+**Long Polling**
+
+- Client sends request
+- Server holds request until data is available
+- Responds once event happens
+- Client immediately sends next request
+
+Flow:
+Client → Request → (wait) → Response → New Request
+
+Use-case:
+
+- Chat notifications
+- Legacy real-time systems
+
+---
+
+**WebSockets**
+
+- Persistent, full-duplex connection
+- Server and client can push data anytime
+- One connection, low latency
+
+Flow:
+Client ⇄ Server (open connection)
+
+Use-case:
+
+- Chat apps
+- Live trading
+- Multiplayer games
+
+---
+
+### Example Code Snippets
+
+**Example 1: Polling**
+
+```js
+setInterval(() => {
+  fetch("/status");
+}, 5000);
+```
+
+**Example 2: Long Polling**
+
+```js
+app.get("/updates", async (req, res) => {
+  await waitForEvent();
+  res.json({ update: "new message" });
+});
+```
+
+**Example 3: WebSocket**
+
+```js
+const ws = new WebSocket("ws://server");
+ws.onmessage = (msg) => console.log(msg.data);
+```
+
+---
+
+### Interview-Specific Answer
+
+Polling repeatedly asks the server for updates, long polling waits until data is available before responding, and WebSockets maintain a persistent two-way connection for real-time communication.
+
+## Question 15: How would you design a backend for real-time communication?
+
+### Concepts
+
+A real-time backend delivers **instant updates** from server to clients with **low latency**, **high concurrency**, and **reliability**.
+
+**Core requirements**
+
+- Persistent connections
+- Event-driven updates
+- Horizontal scalability
+- Fault tolerance
+- Message ordering (when needed)
+
+---
+
+**High-level design approach**
+
+1. **Communication Layer**
+   - Use **WebSockets** for bidirectional communication
+   - HTTP only for initial handshake
+
+2. **Connection Management**
+   - Each client maintains a persistent connection
+   - Connection mapped to user/session ID
+   - Handle reconnects and heartbeats (ping/pong)
+
+3. **Message Flow**
+   - Client sends event → server receives
+   - Server validates + processes
+   - Broadcast or targeted push to clients
+
+4. **Scalability**
+   - Multiple backend instances
+   - Use **Redis Pub/Sub** or **Kafka** for message fan-out
+   - Load balancer with sticky sessions or connection-aware routing
+
+5. **State Handling**
+   - Keep servers stateless
+   - Store session/user mapping in Redis
+   - Message history in DB if required
+
+6. **Reliability**
+   - Acknowledgements
+   - Retry on failure
+   - Idempotent message handling
+
+---
+
+### Example Code Snippets
+
+**Example 1: WebSocket server (Node.js)**
+
+```js
+const io = require("socket.io")(server);
+
+io.on("connection", (socket) => {
+  socket.on("message", (data) => {
+    // process message
+    socket.broadcast.emit("message", data);
+  });
+});
+```
+
+**Example 2: Redis Pub/Sub for scaling**
+
+```js
+redisSub.subscribe("chat");
+
+redisSub.on("message", (channel, msg) => {
+  io.emit("message", msg);
+});
+```
+
+**Example 3: Message persistence**
+
+```js
+// Save message to DB before broadcast
+await Message.create({ userId, text });
+```
+
+---
+
+### Interview-Specific Answer
+
+I would use WebSockets for persistent connections, keep services stateless, use Redis or Kafka for cross-instance message broadcasting, and store minimal state externally to scale real-time communication reliably.
+
+<!-- [TODO] -->
+
+https://www.google.com/search?q=How+would+you+design+a+backend+for+real-time+communication%3F&sourceid=chrome&ie=UTF-8
+
+## Question 16: What is REST? What are its core principles?
+
+### Concepts
+
+**REST (Representational State Transfer)** is an **architectural style** used to design **scalable and maintainable APIs**.
+REST is not a protocol, it is a **set of constraints**.
+
+**Core REST principles:**
+
+1. **Client–Server Separation**
+   - Frontend and backend are independent
+   - Backend only exposes data via APIs
+   - UI changes do not affect server logic
+
+2. **Statelessness**
+   - Each request contains all required information
+   - Server does not store client session state
+   - Improves scalability and reliability
+
+3. **Resource-Based Design**
+   - Everything is treated as a resource
+   - Resources identified using URLs
+   - Example: `/users`, `/orders/42`
+
+4. **Uniform Interface**
+   - Consistent API structure
+   - Uses standard HTTP methods
+   - Predictable request/response patterns
+
+5. **Representation of Resources**
+   - Resources are transferred as representations
+   - Usually JSON or XML
+   - Same resource, different formats possible
+
+6. **Cacheability**
+   - Responses can be cached
+   - Improves performance and reduces load
+
+7. **Layered System**
+   - Client does not know internal architecture
+   - Can have load balancers, gateways, proxies
+
+---
+
+### Example Code Snippets
+
+**Example 1: Resource-based endpoint**
+
+```http
+GET /users/10
+```
+
+**Example 2: RESTful CRUD mapping**
+
+```http
+GET    /users        → fetch users
+POST   /users        → create user
+PUT    /users/10     → update user
+DELETE /users/10     → delete user
+```
+
+**Example 3: Stateless request**
+
+```http
+GET /profile
+Authorization: Bearer jwt-token
+```
+
+---
+
+### Interview-Specific Answer
+
+REST is an architectural style for designing APIs based on stateless, resource-oriented principles using standard HTTP methods, enabling scalable and maintainable backend systems.
+
+### Standard HTTP Methods
+
+**Standard HTTP methods** are predefined actions defined by the HTTP specification that tell the server **what operation to perform on a resource**.
+
+**Main standard methods used in backend APIs:**
+
+- **GET**
+  - Retrieve data
+  - No server-side change
+  - Safe and idempotent
+
+- **POST**
+  - Create a new resource
+  - Changes server state
+  - Not idempotent
+
+- **PUT**
+  - Replace an entire resource
+  - Idempotent
+
+- **PATCH**
+  - Partially update a resource
+  - Usually not idempotent
+
+- **DELETE**
+  - Remove a resource
+  - Idempotent
+
+**Other standard but less-used methods:**
+
+- **HEAD**
+  - Same as GET but without response body
+  - Used for metadata, health checks
+
+- **OPTIONS**
+  - Returns allowed methods for a resource
+  - Used in CORS preflight
+
+- **TRACE**
+  - Debugging, echoes request back
+  - Usually disabled for security
+
+- **CONNECT**
+  - Creates tunnel (used in HTTPS proxies)
+
+---
+
+**Interview-ready line**
+Standard HTTP methods are predefined request types like GET, POST, PUT, PATCH, and DELETE that define how a client interacts with resources in a RESTful API.
+
+## Question 17: Difference between REST and RPC style APIs.
+
+### Concepts
+
+Both **REST** and **RPC (Remote Procedure Call)** are API design styles, but they differ in **how actions are modeled and exposed**.
+
+---
+
+**REST**
+
+- Resource-oriented
+- Uses nouns (resources)
+- Relies on standard HTTP methods
+- Emphasizes uniform interface
+
+Key idea:
+
+> Operate on resources using HTTP semantics
+
+Example resources:
+
+- `/users`
+- `/orders/42`
+
+---
+
+**RPC**
+
+- Action-oriented
+- Uses verbs (operations)
+- HTTP is just a transport layer
+- Method name defines the action
+
+Key idea:
+
+> Call a remote function like a local method
+
+Example actions:
+
+- `/createUser`
+- `/getUserDetails`
+
+---
+
+**Core Differences**
+
+- **API Structure**
+  - REST: `/users/10`
+  - RPC: `/getUser?id=10`
+
+- **HTTP Method Usage**
+  - REST: GET/POST/PUT/PATCH/DELETE have meaning
+  - RPC: Mostly POST for everything
+
+- **Caching**
+  - REST: Easy with GET
+  - RPC: Hard because actions are opaque
+
+- **Scalability**
+  - REST: Better fit for public, scalable APIs
+  - RPC: Good for internal service-to-service calls
+
+- **Flexibility**
+  - REST: More predictable and standardized
+  - RPC: Faster to design but tightly coupled
+
+---
+
+### Example Code Snippets
+
+**Example 1: REST**
+
+```http
+GET /users/10
+```
+
+**Example 2: RPC**
+
+```http
+POST /getUser
+{
+  "userId": 10
+}
+```
+
+**Example 3: Same operation comparison**
+
+```text
+REST → DELETE /users/10
+RPC  → POST /deleteUser
+```
+
+---
+
+### Interview-Specific Answer
+
+REST is resource-based and uses standard HTTP methods, while RPC is action-based and models APIs as remote function calls. REST is preferred for public APIs, and RPC fits internal service communication.
+
+## Question 18: What makes an API truly RESTful?
+
+### Concepts
+
+An API is **truly RESTful** when it **follows REST constraints consistently**, not just uses HTTP and JSON.
+
+**Key characteristics of a RESTful API:**
+
+1. **Resource-Oriented URLs**
+   - Use nouns, not verbs
+   - Each URL represents a resource
+   - Example: `/users/42`, not `/getUser`
+
+2. **Correct Use of HTTP Methods**
+   - GET → read
+   - POST → create
+   - PUT → full update
+   - PATCH → partial update
+   - DELETE → remove
+
+3. **Stateless Communication**
+   - Every request contains all required context
+   - No server-side session dependency
+
+4. **Proper HTTP Status Codes**
+   - 200, 201, 204 for success
+   - 400, 401, 403, 404 for client errors
+   - 500+ for server errors
+
+5. **Uniform Interface**
+   - Consistent request/response structure
+   - Predictable patterns across endpoints
+
+6. **Resource Representation**
+   - Resources transferred as JSON/XML
+   - Same resource, different representations possible
+
+7. **Cacheability**
+   - Responses define caching rules
+   - Improves performance and scalability
+
+8. **Layered Architecture**
+   - Client does not know internal layers
+   - Supports load balancers, gateways, proxies
+
+---
+
+### Example Code Snippets
+
+**Example 1: RESTful endpoint**
+
+```http
+GET /orders/123
+```
+
+**Example 2: Proper method usage**
+
+```http
+POST /orders
+PATCH /orders/123
+DELETE /orders/123
+```
+
+**Example 3: Proper status codes**
+
+```js
+res.status(201).json({ orderId: 123 });
+```
+
+---
+
+### Interview-Specific Answer
+
+An API is truly RESTful when it is resource-based, stateless, uses correct HTTP methods and status codes, follows a uniform interface, supports caching, and hides internal architecture through layered design.
+
+## Question 19: What is idempotency in REST APIs? Why is it important? [TODO]
+
+### Concepts
+
+**Idempotency** means **making the same request multiple times results in the same outcome on the server**.
+
+Formally:
+
+> An operation is idempotent if repeating it does not change the result after the first execution.
+
+---
+
+**Idempotent HTTP methods**
+
+- **GET** → Always idempotent (read-only)
+- **PUT** → Idempotent (replaces resource)
+- **DELETE** → Idempotent (resource removed once)
+- **POST** → Not idempotent (creates new resource each time)
+
+---
+
+**Why idempotency matters**
+
+1. **Network failures**
+   - Client may retry request
+   - Idempotency prevents duplicate side effects
+
+2. **Reliability**
+   - Safe retries without data corruption
+
+3. **Distributed systems**
+   - Load balancers, retries, timeouts are common
+
+4. **Payment & critical operations**
+   - Prevent double charges or duplicate actions
+
+---
+
+### Example Code Snippets
+
+**Example 1: Idempotent PUT**
+
+```http
+PUT /users/10
+{
+  "name": "Tanish"
+}
+```
+
+Calling this multiple times keeps user in same state.
+
+---
+
+**Example 2: Non-idempotent POST**
+
+```http
+POST /orders
+{
+  "productId": 5
+}
+```
+
+Calling this multiple times creates multiple orders.
+
+---
+
+**Example 3: Idempotency key (POST made safe)**
+
+```http
+POST /payments
+Idempotency-Key: abc-123
+```
+
+```js
+// Server stores key to prevent duplicate processing
+```
+
+---
+
+### Interview-Specific Answer
+
+Idempotency means multiple identical requests have the same effect as one. It is important to safely handle retries, avoid duplicate operations, and ensure reliability in distributed systems.
+
+## Question 20: What are pagination strategies in APIs?
+
+### Concepts
+
+**Pagination** is used to **limit the amount of data returned per request** to improve performance, reduce payload size, and avoid server overload.
+
+**Why pagination is needed**
+
+- Large datasets cause slow responses
+- High memory usage on server and client
+- Bad user experience
+- Network inefficiency
+
+---
+
+**Common pagination strategies:**
+
+1. **Offset-based Pagination**
+   - Uses `limit` and `offset`
+   - Simple to implement
+   - Performance degrades on large offsets
+
+2. **Cursor-based Pagination**
+   - Uses a cursor (last item ID / timestamp)
+   - Stable and scalable
+   - Slightly complex to implement
+
+3. **Page-based Pagination**
+   - Uses page number + page size
+   - Internally converted to offset
+   - Easy for UI but not efficient at scale
+
+4. **Keyset Pagination**
+   - Uses indexed column (id, createdAt)
+   - Faster than offset
+   - No random page jumps
+
+---
+
+### Example Code Snippets
+
+**Example 1: Offset-based pagination**
+
+```http
+GET /users?limit=10&offset=20
+```
+
+```sql
+SELECT * FROM users
+LIMIT 10 OFFSET 20;
+```
+
+---
+
+**Example 2: Page-based pagination**
+
+```http
+GET /users?page=3&pageSize=10
+```
+
+```text
+offset = (page - 1) * pageSize
+```
+
+---
+
+**Example 3: Cursor-based pagination**
+
+```http
+GET /users?cursor=lastUserId&limit=10
+```
+
+```sql
+SELECT * FROM users
+WHERE id > lastUserId
+ORDER BY id
+LIMIT 10;
+```
+
+---
+
+### Interview-Specific Answer
+
+Pagination strategies include offset-based, page-based, cursor-based, and keyset pagination. Offset is simple but slow at scale, while cursor-based pagination is more performant and preferred for large datasets.
