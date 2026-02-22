@@ -18,10 +18,10 @@ int main()
         hashTable[index].push_back(x);
     }
 
-    for(int i = 0; i < tableSize; i++)
+    for (int i = 0; i < tableSize; i++)
     {
         cout << "Index " << i << ": ";
-        for(int val : hashTable[i])
+        for (int val : hashTable[i])
             cout << val << " ";
         cout << endl;
     }
@@ -29,9 +29,9 @@ int main()
     int key = 18;
     int index = key % tableSize;
 
-    for(int val : hashTable[index])
+    for (int val : hashTable[index])
     {
-        if(val == key)
+        if (val == key)
         {
             cout << key << " found at index " << index << endl;
             break;
