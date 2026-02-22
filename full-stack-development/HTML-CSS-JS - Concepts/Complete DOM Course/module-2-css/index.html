@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      /* What color will each paragraph be? */
+      p {
+        color: black;
+      }
+      .intro {
+        color: blue;
+      }
+      #main p {
+        color: green;
+      }
+      .container .special {
+        color: orange;
+      }
+      #main div p {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container" id="main">
+      <p class="intro">First paragraph</p>
+      <p>Second paragraph</p>
+      <div>
+        <p class="special">Nested paragraph</p>
+      </div>
+    </div>
+  </body>
+</html>

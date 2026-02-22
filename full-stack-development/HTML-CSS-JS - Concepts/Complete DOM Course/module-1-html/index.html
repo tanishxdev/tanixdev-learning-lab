@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document Title</title>
+  </head>
+  <body>
+    <!-- Content goes here -->
+
+    <!-- Block vs Inline Elements -->
+    <div>Block element</div>
+    <span>Inline element</span>
+
+    <!-- Attributes -->
+    <img src="image.jpg" alt="Description" class="image" id="main-img" />
+    <a href="https://example.com" target="_blank">Link</a>
+
+    <!-- Semantic HTML5 -->
+    <header>
+      <nav>
+        <ul>
+          <li><a href="#">Home</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <article>
+        <section>
+          <h1>Main Heading</h1>
+          <p>Main Paragraph</p>
+        </section>
+      </article>
+      <aside>Side Bar</aside>
+    </main>
+
+    <footer>
+      <p>&copy; 2023 My Website</p>
+    </footer>
+
+    <!-- Forms and Inputs -->
+    <form id="">
+      <!-- name -->
+      <label for="name">Name:</label>
+      <input type="text" id="name" required />
+
+      <!-- email -->
+      <label for="email">Email:</label>
+      <input type="email" id="email" required />
+
+      <!-- password -->
+      <label for="password">Password:</label>
+      <input type="password" id="password" required />
+
+      <!-- message -->
+      <textarea name="message" rows="5"></textarea>
+
+      <fieldset>
+        <legend>Preferences:</legend>
+        <input type="checkbox" name="subscribe" id="subscribe" />
+        <label for="subscribe">Subscribe to newsletter</label>
+      </fieldset>
+
+      <button type="submit">Submit</button>
+
+      <!-- Accessibility Basics -->
+
+      <!-- ARIA Labels & Roles -->
+      <button aria-label="Close modal">X</button>
+      <div role="navigation">Navigation content</div>
+
+      <!-- Proper heading structure -->
+      <h1>Main Title</h1>
+      <h2>Section Title</h2>
+      <h3>Subsection Title</h3>
+
+      <!-- Alt text for images -->
+      <img src="chart.jpg" alt="Sales chart showing 25% growth in Q4" />
+
+      <!-- Skip links -->
+      <a href="#main-content" class="skip-link">Skip to main content</a>
+    </form>
+  </body>
+</html>
