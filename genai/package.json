@@ -3,14 +3,20 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
+  "imports": {
+    "#utils/*": "./src/utils/*",
+    "#config/*": "./src/config/*",
+    "#playground/*": "./src/playground/*",
+    "#topics/*": "./src/Topics/*"
+  },
   "scripts": {
-    "dev": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon src/playground/index.js",
     "playground": "node src/playground/index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "module",
   "dependencies": {
     "@google/genai": "^1.33.0",
     "axios": "^1.13.2",

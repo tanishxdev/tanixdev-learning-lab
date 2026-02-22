@@ -407,6 +407,7 @@ A CLI-based GenAI prompt experimentation tool built to deeply understand how LLM
 * [ ] 181. Red-teaming
 * [ ] 182. Data privacy
 * [ ] 183. Misuse prevention
+(topic count as 2 into one so total is 90)
 
 ---
 
