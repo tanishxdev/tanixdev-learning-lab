@@ -1417,3 +1417,847 @@ class MyComponent extends React.PureComponent {
 ## Interview Ready Answer
 
 A Pure Component is a class component that performs a shallow comparison of props and state to prevent unnecessary re-renders, improving performance.
+
+# 36. What are Stateless and Stateful Components?
+
+## Concepts
+
+### Stateless Components
+
+- Do not manage their own state
+- Receive data through props
+- Purely presentational
+- Usually functional components
+
+They just render UI based on props.
+
+---
+
+### Stateful Components
+
+- Manage their own state
+- Use `useState` (functional) or `this.state` (class)
+- Handle logic and data
+
+They control behavior and data changes.
+
+---
+
+## Code Example
+
+### Stateless Component
+
+```jsx
+function Greeting({ name }) {
+  return <h1>Hello {name}</h1>;
+}
+```
+
+Explanation:
+
+- Receives `name` via props
+- No internal state
+
+---
+
+### Stateful Component (Functional)
+
+```jsx
+function Counter() {
+  const [count, setCount] = React.useState(0);
+
+  return (
+    <div>
+      <h1>{count}</h1>
+      <button onClick={() => setCount(count + 1)}>Increment</button>
+    </div>
+  );
+}
+```
+
+Explanation:
+
+- Maintains internal state
+- Updates UI when state changes
+
+---
+
+## Interview Ready Answer
+
+Stateless components do not manage their own state and rely on props, while stateful components manage internal state and handle logic or data changes.
+
+---
+
+# 37. What are Controlled and Uncontrolled Components?
+
+## Concepts
+
+These terms are mainly used for **form handling**.
+
+### Controlled Components
+
+- Form data controlled by React state
+- Uses `useState`
+- Single source of truth is React
+
+React controls input value.
+
+---
+
+### Uncontrolled Components
+
+- Form data handled by DOM itself
+- Use `useRef`
+- React does not control value directly
+
+DOM is the source of truth.
+
+---
+
+## Code Example
+
+### Controlled Component
+
+```jsx
+function Form() {
+  const [value, setValue] = React.useState("");
+
+  return <input value={value} onChange={(e) => setValue(e.target.value)} />;
+}
+```
+
+Explanation:
+
+- Input value comes from state
+- Every change updates state
+
+---
+
+### Uncontrolled Component
+
+```jsx
+function Form() {
+  const inputRef = React.useRef();
+
+  function handleSubmit() {
+    console.log(inputRef.current.value);
+  }
+
+  return (
+    <>
+      <input ref={inputRef} />
+      <button onClick={handleSubmit}>Submit</button>
+    </>
+  );
+}
+```
+
+Explanation:
+
+- Value accessed using ref
+- DOM manages state
+
+---
+
+## Interview Ready Answer
+
+Controlled components use React state to manage form data, while uncontrolled components rely on the DOM using refs to access form values.
+
+---
+
+# 38. What are Smart and Dumb Components?
+
+## Concepts
+
+Also called:
+
+- Smart = Container Components
+- Dumb = Presentational Components
+
+---
+
+### Smart Components
+
+- Manage state
+- Handle logic
+- Fetch data
+- Pass data to child components
+
+Focus on behavior.
+
+---
+
+### Dumb Components
+
+- Receive data via props
+- Only responsible for UI
+- Reusable and simple
+
+Focus on presentation.
+
+---
+
+## Code Example
+
+### Smart Component
+
+```jsx
+function UserContainer() {
+  const [user, setUser] = React.useState("Tanish");
+
+  return <UserCard name={user} />;
+}
+```
+
+Explanation:
+
+- Manages state
+- Passes data to child
+
+---
+
+### Dumb Component
+
+```jsx
+function UserCard({ name }) {
+  return <h1>{name}</h1>;
+}
+```
+
+Explanation:
+
+- No state
+- Just renders UI
+
+---
+
+## Interview Ready Answer
+
+Smart components manage state and logic, while dumb components focus only on UI and receive data through props. This separation improves maintainability and reusability.
+
+---
+
+# 39. What are React lifecycle methods?
+
+## Concepts
+
+Lifecycle methods are special methods in **Class Components** that run at different stages of a component’s life.
+
+Component lifecycle has **3 main phases**:
+
+1. Mounting (component created and inserted into DOM)
+2. Updating (props or state change)
+3. Unmounting (component removed from DOM)
+
+---
+
+### 1. Mounting Phase
+
+Methods:
+
+- `constructor()`
+- `static getDerivedStateFromProps()`
+- `render()`
+- `componentDidMount()`
+
+Runs when component is created.
+
+---
+
+### 2. Updating Phase
+
+Triggered when:
+
+- `setState()` is called
+- Props change
+- `forceUpdate()` is called
+
+Methods:
+
+- `static getDerivedStateFromProps()`
+- `shouldComponentUpdate()`
+- `render()`
+- `getSnapshotBeforeUpdate()`
+- `componentDidUpdate()`
+
+---
+
+### 3. Unmounting Phase
+
+Method:
+
+- `componentWillUnmount()`
+
+Runs before component is removed from DOM.
+
+---
+
+## Code Example
+
+```jsx
+class Example extends React.Component {
+  constructor(props) {
+    super(props);
+    console.log("Constructor called");
+  }
+
+  componentDidMount() {
+    console.log("Component Mounted");
+  }
+
+  componentDidUpdate() {
+    console.log("Component Updated");
+  }
+
+  componentWillUnmount() {
+    console.log("Component Unmounted");
+  }
+
+  render() {
+    return <h1>Hello Lifecycle</h1>;
+  }
+}
+```
+
+Explanation:
+
+- `constructor()` → Initialization
+- `componentDidMount()` → After first render
+- `componentDidUpdate()` → After re-render
+- `componentWillUnmount()` → Cleanup
+
+---
+
+## Interview Ready Answer
+
+React lifecycle methods are special methods available in class components that run during mounting, updating, and unmounting phases. They allow developers to control behavior such as data fetching, performance optimization, and cleanup at different stages of a component’s life.
+
+---
+
+# 40. Explain the mounting phase lifecycle methods.
+
+## Concepts
+
+Mounting phase occurs when a component is **created and inserted into the DOM**.
+
+Order of execution:
+
+1. `constructor()`
+2. `static getDerivedStateFromProps()`
+3. `render()`
+4. `componentDidMount()`
+
+---
+
+### 1. constructor()
+
+- Initializes state
+- Binds methods
+- First method called
+
+---
+
+### 2. getDerivedStateFromProps()
+
+- Static method
+- Syncs state with props
+- Rarely used
+
+---
+
+### 3. render()
+
+- Returns JSX
+- Must be pure
+- No side effects
+
+---
+
+### 4. componentDidMount()
+
+- Called after component is added to DOM
+- Used for:
+  - API calls
+  - Event listeners
+  - Subscriptions
+
+---
+
+## Code Example
+
+```jsx
+class MountExample extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { data: null };
+    console.log("Constructor");
+  }
+
+  componentDidMount() {
+    console.log("Component Mounted");
+    // Example API call simulation
+    this.setState({ data: "Loaded Data" });
+  }
+
+  render() {
+    console.log("Render");
+    return <h1>{this.state.data || "Loading..."}</h1>;
+  }
+}
+```
+
+---
+
+## Interview Ready Answer
+
+During the mounting phase, React calls constructor, getDerivedStateFromProps, render, and componentDidMount in that order. This phase is used to initialize state and perform side effects like API calls after the component is inserted into the DOM.
+
+---
+
+# 41. Explain the updating phase lifecycle methods.
+
+## Concepts
+
+Updating phase runs when:
+
+- State changes
+- Props change
+- `forceUpdate()` is called
+
+Order:
+
+1. `getDerivedStateFromProps()`
+2. `shouldComponentUpdate()`
+3. `render()`
+4. `getSnapshotBeforeUpdate()`
+5. `componentDidUpdate()`
+
+---
+
+### 1. shouldComponentUpdate()
+
+- Returns true/false
+- Controls re-rendering
+- Performance optimization
+
+---
+
+### 2. getSnapshotBeforeUpdate()
+
+- Called before DOM updates
+- Captures previous DOM info
+
+---
+
+### 3. componentDidUpdate()
+
+- Called after update
+- Used for:
+  - API calls after prop change
+  - DOM operations
+
+---
+
+## Code Example
+
+```jsx
+class UpdateExample extends React.Component {
+  state = { count: 0 };
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return nextState.count % 2 === 0; // Only update for even numbers
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    console.log("Updated from", prevState.count, "to", this.state.count);
+  }
+
+  render() {
+    return (
+      <button onClick={() => this.setState({ count: this.state.count + 1 })}>
+        {this.state.count}
+      </button>
+    );
+  }
+}
+```
+
+---
+
+## Interview Ready Answer
+
+During the updating phase, React checks if the component should update, re-renders it, and then runs componentDidUpdate. This phase helps optimize performance and perform side effects after state or props changes.
+
+---
+
+# 42. Explain the unmounting phase lifecycle methods.
+
+## Concepts
+
+Unmounting phase happens when a component is **removed from the DOM**.
+
+Method:
+
+- `componentWillUnmount()`
+
+Used for cleanup:
+
+- Clear timers
+- Remove event listeners
+- Cancel API requests
+- Unsubscribe from services
+
+---
+
+## Code Example
+
+```jsx
+class Timer extends React.Component {
+  componentDidMount() {
+    this.timer = setInterval(() => {
+      console.log("Running...");
+    }, 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timer);
+    console.log("Timer Cleared");
+  }
+
+  render() {
+    return <h1>Timer Component</h1>;
+  }
+}
+```
+
+Explanation:
+
+- Interval created on mount
+- Cleared before removal
+- Prevents memory leaks
+
+---
+
+## Interview Ready Answer
+
+The unmounting phase runs when a component is removed from the DOM. The componentWillUnmount method is used to clean up resources like timers, event listeners, and subscriptions to prevent memory leaks.
+
+# 43. What is `componentDidMount()` used for?
+
+## Concepts
+
+`componentDidMount()` runs **once**, immediately after the component is inserted into the DOM.
+
+Used for:
+
+- API calls
+- Fetching data
+- Adding event listeners
+- Setting up subscriptions
+- Starting timers
+
+Why here?
+
+Because DOM is available, and it runs only once.
+
+---
+
+## Code Example
+
+```jsx
+class User extends React.Component {
+  state = { user: null };
+
+  componentDidMount() {
+    // Simulating API call
+    setTimeout(() => {
+      this.setState({ user: "Tanish" });
+    }, 1000);
+  }
+
+  render() {
+    return <h1>{this.state.user || "Loading..."}</h1>;
+  }
+}
+```
+
+Explanation:
+
+- First render → "Loading..."
+- After mount → state updates → re-render
+
+---
+
+## Interview Ready Answer
+
+`componentDidMount()` is called once after the component is added to the DOM. It is mainly used for API calls, subscriptions, timers, and other side effects that require the DOM to be available.
+
+---
+
+# 44. What is `componentDidUpdate()` used for?
+
+## Concepts
+
+`componentDidUpdate()` runs after a component updates.
+
+Triggered when:
+
+- State changes
+- Props change
+
+Used for:
+
+- Reacting to prop changes
+- Making API calls based on updated data
+- DOM operations after update
+
+Important:
+
+Avoid infinite loops by checking previous values.
+
+---
+
+## Code Example
+
+```jsx
+class Counter extends React.Component {
+  state = { count: 0 };
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.count !== this.state.count) {
+      console.log("Count updated to", this.state.count);
+    }
+  }
+
+  render() {
+    return (
+      <button onClick={() => this.setState({ count: this.state.count + 1 })}>
+        {this.state.count}
+      </button>
+    );
+  }
+}
+```
+
+Explanation:
+
+- Compare previous state
+- Prevent unnecessary logic
+
+---
+
+## Interview Ready Answer
+
+`componentDidUpdate()` runs after every update. It is used for performing side effects based on changes in state or props, but comparisons with previous values are necessary to avoid infinite loops.
+
+---
+
+# 45. What is `componentWillUnmount()` used for?
+
+## Concepts
+
+`componentWillUnmount()` runs just before a component is removed from the DOM.
+
+Used for cleanup:
+
+- Clear timers
+- Remove event listeners
+- Cancel network requests
+- Unsubscribe from services
+
+Prevents memory leaks.
+
+---
+
+## Code Example
+
+```jsx
+class Timer extends React.Component {
+  componentDidMount() {
+    this.interval = setInterval(() => {
+      console.log("Running...");
+    }, 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
+    console.log("Cleared");
+  }
+
+  render() {
+    return <h1>Timer</h1>;
+  }
+}
+```
+
+---
+
+## Interview Ready Answer
+
+`componentWillUnmount()` is used to clean up resources like timers, event listeners, and subscriptions before a component is removed from the DOM, preventing memory leaks.
+
+---
+
+# 46. What is `shouldComponentUpdate()` used for?
+
+## Concepts
+
+`shouldComponentUpdate(nextProps, nextState)` controls whether the component should re-render.
+
+- Returns `true` → re-render
+- Returns `false` → skip render
+
+Used for performance optimization.
+
+Default behavior → always returns true.
+
+---
+
+## Code Example
+
+```jsx
+class Example extends React.Component {
+  shouldComponentUpdate(nextProps) {
+    return nextProps.value !== this.props.value;
+  }
+
+  render() {
+    return <h1>{this.props.value}</h1>;
+  }
+}
+```
+
+Explanation:
+
+- Only re-renders if value changes
+
+---
+
+## Interview Ready Answer
+
+`shouldComponentUpdate()` is used to control re-rendering of a component. It improves performance by preventing unnecessary updates through manual comparison of props and state.
+
+---
+
+# 47. What is `getDerivedStateFromProps()` used for?
+
+## Concepts
+
+`getDerivedStateFromProps(props, state)` is a **static method**.
+
+Runs:
+
+- Before every render (mount + update)
+
+Purpose:
+
+- Sync state with props
+
+Important:
+
+- No access to `this`
+- Must return an object or null
+- Rarely used
+
+---
+
+## Code Example
+
+```jsx
+class Example extends React.Component {
+  state = { value: this.props.initialValue };
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.initialValue !== prevState.value) {
+      return { value: nextProps.initialValue };
+    }
+    return null;
+  }
+
+  render() {
+    return <h1>{this.state.value}</h1>;
+  }
+}
+```
+
+---
+
+## Interview Ready Answer
+
+`getDerivedStateFromProps()` is a static lifecycle method used to synchronize state with props before rendering. It is rarely used and should be applied carefully to avoid unnecessary complexity.
+
+# 48. What is `getSnapshotBeforeUpdate()` used for?
+
+## Concepts
+
+`getSnapshotBeforeUpdate(prevProps, prevState)` is called **right before the DOM is updated**.
+
+It is part of the **updating phase** lifecycle.
+
+Flow during update:
+
+1. `getDerivedStateFromProps()`
+2. `shouldComponentUpdate()`
+3. `render()`
+4. `getSnapshotBeforeUpdate()`
+5. DOM updates
+6. `componentDidUpdate()`
+
+---
+
+### Purpose
+
+Used to:
+
+- Capture information from the DOM **before it changes**
+- Preserve scroll position
+- Measure DOM values before update
+- Pass snapshot data to `componentDidUpdate()`
+
+Important:
+
+- Must return a value (or `null`)
+- Returned value is passed as the third parameter to `componentDidUpdate()`
+
+---
+
+## Code Example
+
+Example: Preserve scroll position
+
+```jsx
+class ChatBox extends React.Component {
+  listRef = React.createRef();
+
+  getSnapshotBeforeUpdate(prevProps, prevState) {
+    // Capture scroll position before DOM updates
+    return this.listRef.current.scrollHeight;
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    // Use snapshot to adjust scroll
+    console.log("Previous scroll height:", snapshot);
+  }
+
+  render() {
+    return (
+      <div ref={this.listRef}>
+        {this.props.messages.map((msg, index) => (
+          <p key={index}>{msg}</p>
+        ))}
+      </div>
+    );
+  }
+}
+```
+
+Explanation:
+
+- Before update → capture DOM data
+- After update → use snapshot value
+
+---
+
+## Interview Ready Answer
+
+`getSnapshotBeforeUpdate()` is used to capture information from the DOM right before it is updated. The returned value is passed to `componentDidUpdate()` and is commonly used for preserving scroll position or reading DOM measurements before changes occur.

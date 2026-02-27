@@ -1,7 +1,3 @@
-Source:
-
----
-
 # PART 1: NODE.JS INTERVIEW QUESTIONS
 
 ## I. NODE.JS FUNDAMENTALS
@@ -1484,3 +1480,1100 @@ With lock file:
 ## Interview Ready Answer
 
 package-lock.json records the exact versions of all installed dependencies and their sub-dependencies. It ensures consistent installations across different environments by locking the dependency tree, preventing unexpected version changes.
+
+# 31. Differentiate between local and global package installation.
+
+## Concepts
+
+### Local Installation
+
+Installed using:
+
+```bash
+npm install package-name
+```
+
+- Installed inside `node_modules` folder
+- Saved in `package.json` (dependencies or devDependencies)
+- Used only within that project
+- Accessed via `require()` or `import`
+
+Example:
+
+```bash
+npm install express
+```
+
+Used inside project:
+
+```js
+const express = require("express");
+```
+
+---
+
+### Global Installation
+
+Installed using:
+
+```bash
+npm install -g package-name
+```
+
+- Installed globally on system
+- Not saved in project `package.json`
+- Available as CLI tool in terminal
+- Used across all projects
+
+Example:
+
+```bash
+npm install -g nodemon
+```
+
+Run in terminal:
+
+```bash
+nodemon app.js
+```
+
+---
+
+### Key Differences
+
+| Feature       | Local Installation      | Global Installation   |
+| ------------- | ----------------------- | --------------------- |
+| Location      | node_modules in project | System-wide directory |
+| Saved in JSON | Yes                     | No                    |
+| Usage         | Inside project code     | CLI tools             |
+| Scope         | Project-specific        | Available everywhere  |
+| Example       | express                 | nodemon               |
+
+---
+
+## Interview Ready Answer
+
+Local packages are installed inside a project’s node_modules folder and are saved in package.json. They are used as dependencies within that specific project. Global packages are installed system-wide and are mainly used as command-line tools available across all projects. For example, express is typically installed locally, while nodemon is often installed globally for development convenience.
+
+---
+
+# 32. What are npm scripts and how do you use them?
+
+## Concepts
+
+npm scripts are custom command shortcuts defined inside `package.json`.
+
+They allow you to:
+
+- Run application
+- Start server
+- Build project
+- Run tests
+- Automate tasks
+
+---
+
+### Where Defined?
+
+Inside `package.json` under the `scripts` section.
+
+Example:
+
+```json
+{
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "jest"
+  }
+}
+```
+
+---
+
+### How to Run Scripts
+
+Use:
+
+```bash
+npm run script-name
+```
+
+Examples:
+
+```bash
+npm run dev
+npm run test
+```
+
+Special case:
+
+```bash
+npm start
+```
+
+(`start` can run without `run` keyword)
+
+---
+
+### Why npm Scripts Are Useful
+
+- Standardized commands
+- Avoid long CLI commands
+- Improve team consistency
+- Used in CI/CD pipelines
+
+---
+
+## Code Example
+
+package.json:
+
+```json
+{
+  "name": "my-app",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  }
+}
+```
+
+Run:
+
+```bash
+npm run dev
+```
+
+---
+
+## Interview Ready Answer
+
+npm scripts are custom command aliases defined inside the scripts section of package.json. They allow developers to automate tasks such as starting servers, running tests, building applications, and more. Scripts are executed using npm run script-name. They improve project consistency and simplify development workflows.
+
+# 33. How do you read and write files in Node.js?
+
+## Concepts
+
+In Node.js, file operations are handled using the **`fs` (File System) module**.
+
+There are two main ways to read/write files:
+
+1. Asynchronous (Non-blocking) – Recommended
+2. Synchronous (Blocking)
+
+Common Methods:
+
+- `fs.readFile()`
+- `fs.readFileSync()`
+- `fs.writeFile()`
+- `fs.writeFileSync()`
+- `fs.appendFile()`
+
+Node prefers asynchronous methods for scalability.
+
+---
+
+### Reading a File (Asynchronous)
+
+```js
+const fs = require("fs");
+
+// Read file asynchronously
+fs.readFile("data.txt", "utf8", (err, data) => {
+  if (err) {
+    console.error("Error reading file:", err);
+    return;
+  }
+
+  console.log("File Content:");
+  console.log(data);
+});
+
+console.log("Reading started...");
+```
+
+Explanation:
+
+- File read delegated to libuv thread pool
+- Main thread continues execution
+- Callback executes after file read completes
+
+---
+
+### Writing a File (Asynchronous)
+
+```js
+const fs = require("fs");
+
+// Write file asynchronously
+fs.writeFile("data.txt", "Hello Node.js", (err) => {
+  if (err) {
+    console.error("Error writing file:", err);
+    return;
+  }
+
+  console.log("File written successfully");
+});
+```
+
+---
+
+### Using Promises (Modern Way)
+
+```js
+const fs = require("fs").promises;
+
+async function fileOperations() {
+  try {
+    await fs.writeFile("data.txt", "Async/Await example");
+    const content = await fs.readFile("data.txt", "utf8");
+    console.log(content);
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+fileOperations();
+```
+
+---
+
+## Interview Ready Answer
+
+In Node.js, file operations are handled using the built-in `fs` module. Files can be read and written using both synchronous and asynchronous methods. Asynchronous methods like `fs.readFile()` and `fs.writeFile()` are preferred because they do not block the event loop. Node delegates file operations to libuv’s thread pool, and once completed, the callback is executed. Modern applications often use the Promise-based API with async/await for cleaner and more readable code.
+
+---
+
+# 34. Differentiate between synchronous and asynchronous file operations.
+
+## Concepts
+
+### Synchronous Operations
+
+- Block the event loop
+- Execution stops until operation completes
+- Use methods ending with `Sync`
+
+Example:
+
+```js
+const fs = require("fs");
+
+const data = fs.readFileSync("data.txt", "utf8");
+console.log(data);
+console.log("Done");
+```
+
+Here:
+
+- Program waits until file is read
+- No other code runs during that time
+
+---
+
+### Asynchronous Operations
+
+- Non-blocking
+- Delegated to thread pool
+- Callback executed later
+
+Example:
+
+```js
+const fs = require("fs");
+
+fs.readFile("data.txt", "utf8", (err, data) => {
+  if (err) throw err;
+  console.log(data);
+});
+
+console.log("Done");
+```
+
+Execution Order:
+
+Done
+(File content printed later)
+
+---
+
+### Comparison Table
+
+| Feature     | Synchronous      | Asynchronous    |
+| ----------- | ---------------- | --------------- |
+| Blocking    | Yes              | No              |
+| Performance | Poor for scaling | Scalable        |
+| Use Case    | Small scripts    | Production apps |
+| Event Loop  | Blocked          | Not blocked     |
+
+---
+
+## Interview Ready Answer
+
+Synchronous file operations block the event loop until completion, which can reduce scalability and performance. Asynchronous file operations delegate work to the thread pool and execute a callback once complete, allowing the event loop to continue processing other tasks. In production systems, asynchronous operations are preferred for better scalability and performance.
+
+---
+
+# 35. What are streams in Node.js? Explain different types of streams.
+
+## Concepts
+
+Streams are objects that allow reading or writing data in chunks instead of loading the entire file into memory.
+
+Why important?
+
+- Efficient for large files
+- Memory optimized
+- Used for real-time processing
+
+---
+
+### Types of Streams
+
+1. Readable Stream
+   → Used to read data
+
+2. Writable Stream
+   → Used to write data
+
+3. Duplex Stream
+   → Read and write both
+
+4. Transform Stream
+   → Modify data while passing
+
+---
+
+### Example: Readable Stream
+
+```js
+const fs = require("fs");
+
+const readableStream = fs.createReadStream("large.txt", "utf8");
+
+readableStream.on("data", (chunk) => {
+  console.log("Received chunk:", chunk);
+});
+
+readableStream.on("end", () => {
+  console.log("Reading complete");
+});
+```
+
+Explanation:
+
+- File read in chunks
+- Each chunk triggers "data" event
+- No full file loaded in memory
+
+---
+
+### Example: Writable Stream
+
+```js
+const fs = require("fs");
+
+const writableStream = fs.createWriteStream("output.txt");
+
+writableStream.write("Hello ");
+writableStream.write("World");
+writableStream.end();
+```
+
+---
+
+## Interview Ready Answer
+
+Streams in Node.js are objects used to handle data in chunks rather than loading entire data into memory. They are useful for handling large files and real-time data processing. There are four types of streams: Readable, Writable, Duplex, and Transform. Streams improve memory efficiency and performance, especially for large datasets.
+
+---
+
+# 36. How do you handle large files efficiently in Node.js?
+
+## Concepts
+
+Large files should NOT be handled using:
+
+```js
+fs.readFile();
+```
+
+Because:
+
+- Loads entire file into memory
+- High memory usage
+- Risk of crash for very large files
+
+Correct Approach:
+
+Use Streams
+
+---
+
+### Efficient Handling with Streams
+
+```js
+const fs = require("fs");
+
+const readStream = fs.createReadStream("large.txt", "utf8");
+const writeStream = fs.createWriteStream("copy.txt");
+
+readStream.pipe(writeStream);
+
+readStream.on("end", () => {
+  console.log("File copied efficiently");
+});
+```
+
+---
+
+### Why Streams Are Better
+
+- Chunk-based processing
+- Low memory footprint
+- Backpressure handling
+- Suitable for large video/files
+
+---
+
+### Real-World Use Cases
+
+- Video streaming
+- File uploads/downloads
+- Log processing
+- Data transformation pipelines
+
+---
+
+## Interview Ready Answer
+
+Large files should be handled using streams instead of loading them entirely into memory. The `createReadStream()` and `createWriteStream()` methods allow processing data in chunks. This improves memory efficiency and performance, and supports backpressure handling. Streams are ideal for large files, media streaming, and real-time data processing.
+
+---
+
+# 37. What is piping in Node.js?
+
+## Concepts
+
+Piping connects:
+
+Readable Stream → Writable Stream
+
+Data flows automatically from source to destination.
+
+Without pipe:
+
+- Manually handle "data" event
+- Write chunk manually
+
+With pipe:
+
+- Automatic data flow
+- Handles backpressure internally
+
+---
+
+### Example Without Pipe
+
+```js
+const fs = require("fs");
+
+const readStream = fs.createReadStream("input.txt");
+const writeStream = fs.createWriteStream("output.txt");
+
+readStream.on("data", (chunk) => {
+  writeStream.write(chunk);
+});
+```
+
+---
+
+### Example With Pipe
+
+```js
+const fs = require("fs");
+
+const readStream = fs.createReadStream("input.txt");
+const writeStream = fs.createWriteStream("output.txt");
+
+readStream.pipe(writeStream);
+```
+
+---
+
+### Advantages of Pipe
+
+- Cleaner code
+- Automatic flow control
+- Better performance
+- Handles backpressure
+
+---
+
+## Interview Ready Answer
+
+Piping in Node.js is a mechanism to connect a readable stream directly to a writable stream using the `pipe()` method. It allows automatic data transfer between streams and internally manages backpressure. Piping simplifies stream handling and is commonly used for file copying and data transformation.
+
+---
+
+# 38. How do you watch for file changes using the fs module?
+
+## Concepts
+
+Node.js provides:
+
+- `fs.watch()`
+- `fs.watchFile()`
+
+Used to monitor file or directory changes.
+
+Common Use Cases:
+
+- Auto reload
+- Logging changes
+- Development tools (like nodemon)
+
+---
+
+### Using fs.watch()
+
+```js
+const fs = require("fs");
+
+fs.watch("data.txt", (eventType, filename) => {
+  console.log(`Event: ${eventType}`);
+  console.log(`File changed: ${filename}`);
+});
+```
+
+Explanation:
+
+- `eventType` → "rename" or "change"
+- Triggered when file is modified
+- Non-blocking
+
+---
+
+### Using fs.watchFile()
+
+```js
+const fs = require("fs");
+
+fs.watchFile("data.txt", (curr, prev) => {
+  console.log("File modified");
+  console.log("Previous modified time:", prev.mtime);
+  console.log("Current modified time:", curr.mtime);
+});
+```
+
+Difference:
+
+- `watch()` → Event-based (more efficient)
+- `watchFile()` → Polling-based
+
+---
+
+## Interview Ready Answer
+
+File changes can be monitored using `fs.watch()` or `fs.watchFile()`. `fs.watch()` uses the underlying OS file system events and is more efficient, while `fs.watchFile()` uses polling. These methods are commonly used in development tools for detecting file updates and triggering actions like auto-restarts.
+
+---
+
+# 39. How do you create an HTTP server in Node.js?
+
+## Concepts
+
+Node.js provides the built-in `http` module.
+
+Steps:
+
+1. Import http module
+2. Create server using `createServer()`
+3. Handle request & response
+4. Listen on a port
+
+---
+
+## Code Example
+
+```js
+const http = require("http");
+
+// Create server
+const server = http.createServer((req, res) => {
+  res.writeHead(200, { "Content-Type": "text/plain" });
+  res.write("Hello from Node.js Server");
+  res.end();
+});
+
+// Listen on port 3000
+server.listen(3000, () => {
+  console.log("Server running on port 3000");
+});
+```
+
+Explanation:
+
+- `req` → Incoming request object
+- `res` → Response object
+- `writeHead()` → Set status & headers
+- `listen()` → Start server
+
+---
+
+## Interview Ready Answer
+
+An HTTP server in Node.js is created using the built-in `http` module. The `createServer()` method registers a request handler callback that receives request and response objects. The server is started using `listen()` on a specific port. This allows Node.js to handle incoming HTTP requests.
+
+---
+
+# 40. Explain the HTTP request and response objects.
+
+## Concepts
+
+When a client sends a request:
+
+- Node provides:
+  - `req` → IncomingMessage object
+  - `res` → ServerResponse object
+
+---
+
+### Request Object (`req`)
+
+Contains:
+
+- `req.method` → HTTP method
+- `req.url` → Requested URL
+- `req.headers` → Request headers
+- `req.on("data")` → Receive body data
+
+Example:
+
+```js
+const http = require("http");
+
+http
+  .createServer((req, res) => {
+    console.log("Method:", req.method);
+    console.log("URL:", req.url);
+    console.log("Headers:", req.headers);
+
+    res.end("Check console");
+  })
+  .listen(3000);
+```
+
+---
+
+### Response Object (`res`)
+
+Used to send response.
+
+Common methods:
+
+- `res.write()`
+- `res.end()`
+- `res.writeHead()`
+- `res.setHeader()`
+
+Example:
+
+```js
+res.writeHead(200, { "Content-Type": "application/json" });
+res.end(JSON.stringify({ message: "Success" }));
+```
+
+---
+
+## Interview Ready Answer
+
+In Node.js, the request object (`req`) represents the incoming HTTP request and provides access to properties like method, URL, headers, and body data. The response object (`res`) is used to send data back to the client using methods like `write()`, `setHeader()`, and `end()`. Together, they allow handling and responding to HTTP requests.
+
+---
+
+# 41. How do you handle different HTTP methods (GET, POST, PUT, DELETE)?
+
+## Concepts
+
+You check:
+
+```js
+req.method;
+```
+
+Common Methods:
+
+- GET → Retrieve data
+- POST → Create data
+- PUT → Update data
+- DELETE → Remove data
+
+---
+
+## Code Example
+
+```js
+const http = require("http");
+
+http
+  .createServer((req, res) => {
+    if (req.method === "GET") {
+      res.end("GET request received");
+    } else if (req.method === "POST") {
+      let body = "";
+
+      req.on("data", (chunk) => {
+        body += chunk;
+      });
+
+      req.on("end", () => {
+        res.end("POST data received: " + body);
+      });
+    } else if (req.method === "PUT") {
+      res.end("PUT request received");
+    } else if (req.method === "DELETE") {
+      res.end("DELETE request received");
+    } else {
+      res.writeHead(405);
+      res.end("Method Not Allowed");
+    }
+  })
+  .listen(3000);
+```
+
+---
+
+## Interview Ready Answer
+
+Different HTTP methods are handled by checking `req.method` inside the request handler. Based on the method (GET, POST, PUT, DELETE), different logic is executed. For POST requests, the request body is received through data events. This allows implementing RESTful APIs using the core HTTP module.
+
+---
+
+# 42. What is the difference between http and https modules?
+
+## Concepts
+
+Both modules are used to create servers.
+
+### http Module
+
+- Unencrypted communication
+- Uses port 80 by default
+- Less secure
+
+### https Module
+
+- Encrypted communication (SSL/TLS)
+- Uses port 443 by default
+- Requires certificate
+
+---
+
+## Code Example (HTTPS)
+
+```js
+const https = require("https");
+const fs = require("fs");
+
+const options = {
+  key: fs.readFileSync("key.pem"),
+  cert: fs.readFileSync("cert.pem"),
+};
+
+https
+  .createServer(options, (req, res) => {
+    res.end("Secure Server");
+  })
+  .listen(443);
+```
+
+---
+
+### Key Differences
+
+| Feature     | http       | https     |
+| ----------- | ---------- | --------- |
+| Encryption  | No         | Yes (SSL) |
+| Port        | 80         | 443       |
+| Security    | Low        | High      |
+| Certificate | Not needed | Required  |
+
+---
+
+## Interview Ready Answer
+
+The `http` module creates servers that communicate over unencrypted connections, typically on port 80. The `https` module provides secure communication using SSL/TLS encryption and runs on port 443. HTTPS requires a certificate and is used for secure data transmission in production applications.
+
+---
+
+# 43. How do you make HTTP requests from Node.js?
+
+## Concepts
+
+Node.js can make HTTP requests using:
+
+1. Built-in `http` module
+2. Built-in `https` module
+3. Third-party libraries:
+   - axios
+   - node-fetch
+   - got
+
+---
+
+### When to Use What?
+
+- `http` → Basic requests
+- `https` → Secure requests
+- axios → Cleaner API, production use
+
+---
+
+## Code Examples
+
+### Example 1: Using https module
+
+```js
+const https = require("https");
+
+https.get("https://api.github.com", (res) => {
+  let data = "";
+
+  res.on("data", (chunk) => {
+    data += chunk;
+  });
+
+  res.on("end", () => {
+    console.log(JSON.parse(data));
+  });
+});
+```
+
+Explanation:
+
+- `https.get()` sends GET request
+- `data` event collects chunks
+- `end` event fires after full response
+
+---
+
+### Example 2: Using axios
+
+```js
+const axios = require("axios");
+
+axios
+  .get("https://api.github.com")
+  .then((response) => {
+    console.log(response.data);
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+```
+
+Explanation:
+
+- axios returns Promise
+- Cleaner syntax
+- Automatically parses JSON
+
+---
+
+## Interview Ready Answer
+
+HTTP requests in Node.js can be made using built-in `http` or `https` modules, or third-party libraries like axios. The built-in modules require manual handling of response streams, while libraries like axios provide a simpler Promise-based API and automatic JSON parsing.
+
+---
+
+# 44. What is the purpose of the `path` module?
+
+## Concepts
+
+The `path` module:
+
+- Handles file and directory paths
+- Provides cross-platform compatibility
+- Avoids manual string concatenation
+
+---
+
+### Why Needed?
+
+Windows uses:
+
+```
+C:\folder\file.txt
+```
+
+Linux uses:
+
+```
+/folder/file.txt
+```
+
+`path` ensures correct formatting across OS.
+
+---
+
+## Code Example
+
+```js
+const path = require("path");
+
+const filePath = path.join(__dirname, "folder", "file.txt");
+
+console.log(filePath);
+```
+
+Explanation:
+
+- `path.join()` combines segments
+- Automatically adds correct separators
+
+---
+
+## Interview Ready Answer
+
+The `path` module is used to work with file and directory paths in a cross-platform manner. It provides utilities like `join()`, `resolve()`, and `basename()` to safely manipulate paths without worrying about OS-specific separators.
+
+---
+
+# 45. Differentiate between `path.join()`, `path.resolve()`, and `path.normalize()`.
+
+## Concepts
+
+### 1. path.join()
+
+- Combines multiple path segments
+- Normalizes result
+- Relative paths preserved
+
+### 2. path.resolve()
+
+- Resolves to absolute path
+- Starts from right to left
+- Stops at first absolute path
+
+### 3. path.normalize()
+
+- Cleans up path
+- Removes `..` and duplicate slashes
+
+---
+
+## Comparison Table
+
+| Method      | Returns Absolute? | Purpose       |
+| ----------- | ----------------- | ------------- |
+| join()      | No                | Combine paths |
+| resolve()   | Yes               | Absolute path |
+| normalize() | No                | Clean path    |
+
+---
+
+## Code Example
+
+```js
+const path = require("path");
+
+console.log(path.join("folder", "file.txt"));
+console.log(path.resolve("folder", "file.txt"));
+console.log(path.normalize("/test//folder/../file.txt"));
+```
+
+---
+
+## Interview Ready Answer
+
+`path.join()` combines path segments, `path.resolve()` converts them into an absolute path, and `path.normalize()` cleans up redundant separators and relative references like `..`. Resolve always returns an absolute path, while join and normalize may return relative paths.
+
+---
+
+# 46. How do you extract filename, extension, or directory from a path?
+
+## Concepts
+
+Path module provides:
+
+- `basename()` → filename
+- `extname()` → extension
+- `dirname()` → directory
+
+---
+
+## Code Example
+
+```js
+const path = require("path");
+
+const filePath = "/home/user/file.txt";
+
+console.log(path.basename(filePath));
+console.log(path.extname(filePath));
+console.log(path.dirname(filePath));
+```
+
+Output:
+
+```
+file.txt
+.txt
+/home/user
+```
+
+---
+
+## Interview Ready Answer
+
+You can extract components of a path using the `path` module. `basename()` returns the file name, `extname()` returns the extension, and `dirname()` returns the directory path. These methods ensure consistent behavior across different operating systems.
+
+---
+
+# 47. What information can you get from the `os` module?
+
+## Concepts
+
+The `os` module provides system-level information:
+
+1. CPU information
+2. Memory usage
+3. Hostname
+4. Platform
+5. Uptime
+6. Network interfaces
+
+---
+
+### Common Methods
+
+- `os.cpus()`
+- `os.totalmem()`
+- `os.freemem()`
+- `os.hostname()`
+- `os.platform()`
+- `os.uptime()`
+
+---
+
+## Code Example
+
+```js
+const os = require("os");
+
+console.log("Platform:", os.platform());
+console.log("CPU Cores:", os.cpus().length);
+console.log("Total Memory:", os.totalmem());
+console.log("Free Memory:", os.freemem());
+```
+
+---
+
+## Interview Ready Answer
+
+The `os` module provides information about the operating system, including CPU details, memory usage, hostname, platform, uptime, and network interfaces. It is useful for monitoring system health and environment-specific configurations in Node.js applications.
+
+---

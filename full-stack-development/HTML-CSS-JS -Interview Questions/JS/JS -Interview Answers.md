@@ -7157,3 +7157,1162 @@ Prevents:
 ### Interview-specific answer
 
 DOM events should be handled efficiently using **event delegation**, minimizing the number of event listeners, and removing unused listeners to avoid memory leaks and improve performance.
+
+## Q89. What is npm, and how do you use it?
+
+### Concept
+
+**npm (Node Package Manager)** is the default package manager for Node.js.
+It is used to:
+
+- Install libraries (dependencies)
+- Manage project versions
+- Run scripts
+- Share reusable code packages
+
+It works using a `package.json` file.
+
+---
+
+### Example 1: Initialize a project
+
+```bash
+npm init -y
+```
+
+Creates:
+
+```json
+{
+  "name": "my-project",
+  "version": "1.0.0",
+  "dependencies": {}
+}
+```
+
+---
+
+### Example 2: Install a package
+
+```bash
+npm install express
+```
+
+Adds to `package.json`:
+
+```json
+"dependencies": {
+  "express": "^4.18.2"
+}
+```
+
+---
+
+### Example 3: Run scripts
+
+```json
+"scripts": {
+  "start": "node app.js"
+}
+```
+
+Run with:
+
+```bash
+npm start
+```
+
+---
+
+### Interview-specific answer
+
+npm is the default package manager for Node.js used to install, manage, and version dependencies in a project. It uses `package.json` to track dependencies and scripts.
+
+---
+
+## Q90. Discuss the role of Webpack in modern JavaScript development?
+
+### Concept
+
+**Webpack** is a **module bundler**.
+It takes multiple JS files and dependencies and bundles them into optimized output files for the browser.
+
+Main roles:
+
+- Bundling modules
+- Code splitting
+- Tree shaking
+- Minification
+- Handling assets (CSS, images)
+
+---
+
+### Example 1: Basic flow
+
+Project files:
+
+```
+index.js
+utils.js
+```
+
+Webpack bundles them into:
+
+```
+dist/main.js
+```
+
+---
+
+### Example 2: Tree shaking
+
+Unused code is removed during build:
+
+```js
+export function used() {}
+export function unused() {}
+```
+
+If only `used()` is imported → `unused()` removed.
+
+---
+
+### Example 3: Code splitting
+
+```js
+import("./heavyModule.js").then((module) => {
+  module.run();
+});
+```
+
+Webpack creates separate chunk.
+
+---
+
+### Interview-specific answer
+
+Webpack bundles JavaScript modules and optimizes them for production. It supports code splitting, tree shaking, asset management, and minification, improving performance and maintainability.
+
+---
+
+## Q91. What is a source map?
+
+### Concept
+
+A **source map** maps **minified/compiled code back to original source code**.
+
+Used because:
+
+- Production JS is minified
+- Hard to debug
+- Source maps help map errors to original files
+
+---
+
+### Example
+
+Minified file:
+
+```js
+function a(b, c) {
+  return b + c;
+}
+```
+
+Source map links it back to:
+
+```js
+function add(a, b) {
+  return a + b;
+}
+```
+
+---
+
+### How it works
+
+- `.map` file generated during build
+- Browser uses it in DevTools
+- Errors show original file and line
+
+---
+
+### Interview-specific answer
+
+A source map connects minified or compiled JavaScript back to the original source code, allowing easier debugging in production environments.
+
+---
+
+## Q92. How do you use ESLint for maintaining JavaScript code quality?
+
+### Concept
+
+**ESLint** is a static code analysis tool.
+It checks code for:
+
+- Syntax errors
+- Code style issues
+- Best practice violations
+
+Helps maintain:
+
+- Code consistency
+- Team standards
+- Fewer bugs
+
+---
+
+### Example 1: Install ESLint
+
+```bash
+npm install eslint --save-dev
+```
+
+---
+
+### Example 2: Config file
+
+```json
+{
+  "rules": {
+    "no-unused-vars": "error",
+    "semi": ["error", "always"]
+  }
+}
+```
+
+---
+
+### Example 3: Run ESLint
+
+```bash
+npx eslint app.js
+```
+
+---
+
+### Interview-specific answer
+
+ESLint is a static analysis tool used to detect code issues and enforce coding standards. It improves maintainability and prevents common bugs through configurable rules.
+
+---
+
+## Q93. What is continuous integration/continuous deployment (CI/CD) in the context of JS development?
+
+### Concept
+
+CI/CD automates:
+
+- Testing
+- Building
+- Deploying applications
+
+CI = Continuous Integration
+CD = Continuous Deployment
+
+---
+
+### CI (Continuous Integration)
+
+- Code pushed to repo
+- Automated tests run
+- Build validation happens
+
+---
+
+### CD (Continuous Deployment)
+
+- After tests pass
+- App automatically deployed to server
+
+---
+
+### Example flow
+
+1. Push code to GitHub
+2. GitHub Actions runs tests
+3. If pass → deploy to Vercel
+
+---
+
+### Interview-specific answer
+
+CI/CD automates testing and deployment pipelines, ensuring JavaScript applications are tested and deployed automatically, reducing manual errors and improving release reliability.
+
+---
+
+## Q94. What is the Window object and its significance?
+
+### Concept
+
+`window` is the **global object in the browser**.
+
+- All global variables attach to `window`
+- Provides browser APIs
+
+Examples:
+
+- `window.alert()`
+- `window.setTimeout()`
+- `window.location`
+
+---
+
+### Example 1
+
+```js
+var x = 10;
+console.log(window.x); // 10
+```
+
+---
+
+### Example 2
+
+```js
+window.location.href = "https://example.com";
+```
+
+---
+
+### Interview-specific answer
+
+The `window` object is the global object in browsers that represents the browser window and provides access to global variables, DOM, and browser APIs.
+
+---
+
+## Q95. Explain the Document object?
+
+### Concept
+
+`document` represents the **DOM of the current page**.
+
+It is a property of `window`.
+
+Used to:
+
+- Access elements
+- Create elements
+- Modify content
+
+---
+
+### Example
+
+```js
+console.log(document.title);
+```
+
+```js
+document.getElementById("box");
+```
+
+---
+
+### Interview-specific answer
+
+The `document` object represents the HTML DOM of the current webpage and allows JavaScript to access and manipulate page content.
+
+---
+
+## Q96. What new features does HTML5 bring to JavaScript development?
+
+### Concept
+
+HTML5 introduced APIs that JavaScript can use:
+
+- Canvas API
+- Geolocation API
+- LocalStorage / SessionStorage
+- Drag and Drop API
+- History API
+- Web Workers
+
+---
+
+### Example 1: LocalStorage
+
+```js
+localStorage.setItem("theme", "dark");
+```
+
+---
+
+### Example 2: Geolocation
+
+```js
+navigator.geolocation.getCurrentPosition((pos) => {
+  console.log(pos.coords.latitude);
+});
+```
+
+---
+
+### Interview-specific answer
+
+HTML5 introduced powerful browser APIs like Canvas, Web Storage, Geolocation, Web Workers, and the History API, enhancing JavaScript’s ability to build interactive and offline-capable web applications.
+
+---
+
+## Q97. Discuss the role of JavaScript in Progressive Web Apps (PWAs)?
+
+### Concept
+
+JavaScript is core to PWAs.
+
+It enables:
+
+- Service Workers
+- Offline functionality
+- Background sync
+- Push notifications
+- Caching
+
+---
+
+### Example: Service Worker registration
+
+```js
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("/sw.js");
+}
+```
+
+---
+
+### Role of JS in PWA
+
+- Intercepts network requests
+- Caches assets
+- Enables offline support
+
+---
+
+### Interview-specific answer
+
+JavaScript enables PWAs through Service Workers, caching, background sync, and push notifications, allowing web apps to behave like native applications with offline support.
+
+---
+
+## Q98. Explain how to use JavaScript for mobile development?
+
+### Concept
+
+JavaScript can build mobile apps using:
+
+- React Native
+- Ionic
+- NativeScript
+- Progressive Web Apps
+
+---
+
+### Example 1: React Native
+
+Write components using JS:
+
+```js
+<Text>Hello Mobile</Text>
+```
+
+---
+
+### Example 2: PWA approach
+
+Build responsive web app + service worker.
+
+---
+
+### Interview-specific answer
+
+JavaScript can be used for mobile development through frameworks like React Native, Ionic, and PWAs, allowing developers to build cross-platform applications using a single codebase.
+
+---
+
+## Q99. What is React Native and how does it differ from traditional web apps?
+
+### Concept
+
+**React Native** is a framework for building **native mobile apps using JavaScript and React**.
+
+Difference from web apps:
+
+- Uses native components
+- Not rendered in browser
+- No HTML/CSS
+
+---
+
+### Example
+
+```js
+<View>
+  <Text>Hello</Text>
+</View>
+```
+
+---
+
+### Key differences
+
+| Feature     | React Native | Web App           |
+| ----------- | ------------ | ----------------- |
+| Platform    | Mobile       | Browser           |
+| Rendering   | Native UI    | HTML/CSS          |
+| Performance | Near-native  | Browser dependent |
+
+---
+
+### Interview-specific answer
+
+React Native allows building native mobile applications using JavaScript, while traditional web apps run inside a browser using HTML, CSS, and JavaScript.
+
+---
+
+## Q100. How does JavaScript interact with native mobile components?
+
+### Concept
+
+In frameworks like React Native:
+
+- JavaScript runs in a JS engine
+- Communicates with native modules via a bridge
+
+JS → Bridge → Native code (Swift/Java)
+
+---
+
+### Example flow
+
+Button press in JS:
+
+```js
+<Button onPress={() => alert("Hi")} />
+```
+
+Bridge communicates with native UI.
+
+---
+
+### Interview-specific answer
+
+JavaScript interacts with native mobile components through a bridge mechanism in frameworks like React Native, allowing JS code to control native UI elements and device features.
+
+---
+
+## JavaScript Fundamentals (Advanced Basics)
+
+---
+
+## Q101. What would be the result of `3 + 2 + "7"`?
+
+### Concept
+
+JavaScript evaluates expressions from **left to right**.
+
+- `3 + 2` → both numbers → result is `5`
+- `5 + "7"` → one operand is string → number is converted to string
+- Final result → **string concatenation**
+
+This happens because JavaScript performs **implicit type coercion**.
+
+---
+
+### Example
+
+```js
+let result = 3 + 2 + "7";
+console.log(result);
+```
+
+Output:
+
+```
+"57"
+```
+
+---
+
+### Interview-specific answer
+
+`3 + 2 + "7"` evaluates to `"57"` because JavaScript first adds numbers (3 + 2 = 5), then converts 5 to a string and concatenates it with `"7"`.
+
+---
+
+## Q102. Is JavaScript compiled or interpreted?
+
+### Concept
+
+JavaScript is **both interpreted and JIT-compiled**.
+
+- Originally interpreted
+- Modern engines (like V8) use **Just-In-Time (JIT) compilation**
+- Code is converted to machine code during execution
+
+Execution Flow:
+
+Source Code → Parsed → Bytecode → JIT → Machine Code
+
+---
+
+### Example
+
+When you run:
+
+```js
+console.log("Hello");
+```
+
+The engine:
+
+1. Parses the code
+2. Converts to bytecode
+3. Optimizes hot code using JIT
+
+---
+
+### Interview-specific answer
+
+JavaScript is primarily interpreted but modern engines use Just-In-Time (JIT) compilation to convert frequently executed code into optimized machine code for better performance.
+
+---
+
+## Q103. Are JavaScript and Java related?
+
+### Concept
+
+No.
+
+Despite similar names:
+
+- Java → strongly typed, class-based, compiled language
+- JavaScript → dynamically typed, prototype-based scripting language
+
+The name similarity was a marketing decision.
+
+---
+
+### Example Comparison
+
+| Java                 | JavaScript        |
+| -------------------- | ----------------- |
+| Strongly typed       | Dynamically typed |
+| Class-based          | Prototype-based   |
+| Compiled to bytecode | Interpreted + JIT |
+
+---
+
+### Interview-specific answer
+
+Java and JavaScript are not related. Java is a strongly typed, class-based language, while JavaScript is a dynamically typed, prototype-based scripting language.
+
+---
+
+## Q104. Is JavaScript statically typed or dynamically typed?
+
+### Concept
+
+JavaScript is **dynamically typed**.
+
+- No type declaration required
+- Type determined at runtime
+- Variable can change type
+
+---
+
+### Example
+
+```js
+let value = 10; // number
+value = "Hello"; // string
+```
+
+---
+
+### Interview-specific answer
+
+JavaScript is dynamically typed because variable types are determined at runtime and can change during execution.
+
+---
+
+## Q105. Does JavaScript support automatic type conversion?
+
+### Concept
+
+Yes.
+
+This is called **type coercion**.
+
+Two types:
+
+- Implicit coercion
+- Explicit conversion
+
+---
+
+### Example
+
+```js
+console.log("5" - 2); // 3
+console.log("5" + 2); // "52"
+```
+
+---
+
+### Interview-specific answer
+
+Yes, JavaScript supports automatic type conversion through implicit coercion, where values are converted automatically during operations.
+
+---
+
+## Q106. What is called Variable typing in JavaScript?
+
+### Concept
+
+Variable typing refers to JavaScript’s ability to change the type of a variable dynamically.
+
+Because JS is dynamically typed:
+
+- Same variable can store different data types.
+
+---
+
+### Example
+
+```js
+let data = 42;
+data = "JavaScript";
+```
+
+---
+
+### Interview-specific answer
+
+Variable typing in JavaScript refers to its dynamic typing system, where variables can change types at runtime.
+
+---
+
+## Q107. What is negative infinity in JavaScript?
+
+### Concept
+
+`-Infinity` represents a value smaller than any other number.
+
+Generated by:
+
+- Dividing negative number by 0
+- Using `Number.NEGATIVE_INFINITY`
+
+---
+
+### Example
+
+```js
+console.log(-1 / 0); // -Infinity
+```
+
+---
+
+### Interview-specific answer
+
+Negative Infinity in JavaScript represents a value smaller than all other numbers and is typically produced by dividing a negative number by zero.
+
+---
+
+## Q108. Why is `typeof null === "object"`?
+
+### Concept
+
+This is a **historical bug** in JavaScript.
+
+- `null` is a primitive
+- But `typeof null` returns `"object"`
+- Cannot be fixed due to backward compatibility
+
+---
+
+### Example
+
+```js
+console.log(typeof null); // "object"
+```
+
+---
+
+### Interview-specific answer
+
+`typeof null` returns `"object"` due to a legacy bug in JavaScript’s original implementation, even though null is actually a primitive value.
+
+---
+
+## Q109. What are undeclared and undefined variables?
+
+### Concept
+
+**Undefined**
+
+- Declared but not assigned
+
+**Undeclared**
+
+- Not declared at all
+
+---
+
+### Example
+
+```js
+let a;
+console.log(a); // undefined
+
+console.log(b); // ReferenceError
+```
+
+---
+
+### Interview-specific answer
+
+Undefined variables are declared but not assigned a value, whereas undeclared variables are not declared at all and accessing them throws a ReferenceError.
+
+---
+
+## Q110. What’s the return-value difference between `x++` and `++x`?
+
+### Concept
+
+Both increment, but return different values.
+
+- `x++` → returns old value
+- `++x` → returns incremented value
+
+---
+
+### Example
+
+```js
+let x = 0;
+console.log(x++); // 0
+console.log(++x); // 2
+```
+
+---
+
+### Interview-specific answer
+
+`x++` returns the current value before incrementing, while `++x` increments first and then returns the new value.
+
+---
+
+## Q111. What does this code log?
+
+```js
+const arr = [1, 2, 3];
+arr[10] = 99;
+console.log(arr.length);
+```
+
+### Concept
+
+Arrays in JavaScript are sparse.
+
+- Highest index = 10
+- Length = highest index + 1
+
+---
+
+### Output
+
+```
+11
+```
+
+---
+
+### Interview-specific answer
+
+The output is 11 because assigning a value to index 10 increases the array’s length to 11, even though intermediate indexes remain empty.
+
+---
+
+## Q112. What will be the result of `null ?? 'default'`?
+
+### Concept
+
+The **nullish coalescing operator (??)** returns the right-hand side only if the left is:
+
+- `null`
+- `undefined`
+
+---
+
+### Example
+
+```js
+console.log(null ?? "default"); // "default"
+console.log(false ?? "default"); // false
+```
+
+---
+
+### Interview-specific answer
+
+The expression returns `"default"` because the nullish coalescing operator returns the fallback value only when the left operand is null or undefined.
+
+---
+
+## Q113. What is the use of `isNaN`, and how is it different from `Number.isNaN`?
+
+### Concept
+
+`isNaN()`:
+
+- Performs type coercion before checking
+
+`Number.isNaN()`:
+
+- Strict check
+- No coercion
+
+---
+
+### Example
+
+```js
+isNaN("foo"); // true
+Number.isNaN("foo"); // false
+```
+
+---
+
+### Interview-specific answer
+
+`isNaN()` converts the value before checking, while `Number.isNaN()` checks strictly for the NaN value without coercion.
+
+---
+
+## Q114. Is it possible to break JavaScript code into several lines?
+
+### Concept
+
+Yes.
+
+- Strings can use `\n`
+- Template literals allow multi-line strings
+- Line breaks in expressions require proper syntax
+
+---
+
+### Example
+
+```js
+console.log("Hello\nWorld");
+
+let text = `
+Line 1
+Line 2
+`;
+```
+
+---
+
+### Interview-specific answer
+
+Yes, JavaScript code and strings can span multiple lines using escape characters or template literals, provided syntax rules are followed.
+
+---
+
+## Scope, Execution & Language Behavior
+
+---
+
+## Q115. What is the difference between Lexical and Dynamic Scoping?
+
+### Concept
+
+### Lexical Scoping (Static Scoping)
+
+- Scope is determined by **where the function is written**
+- JavaScript uses **lexical scoping**
+- Inner functions access variables from their **definition environment**
+- Not from where they are called
+
+### Dynamic Scoping (Not used in JavaScript)
+
+- Scope is determined by **where the function is called**
+- Based on call stack at runtime
+- Used in some older languages like Lisp
+
+---
+
+### Example (Lexical Scoping in JS)
+
+```js
+function outer() {
+  let message = "Hello";
+
+  function inner() {
+    console.log(message);
+  }
+
+  return inner;
+}
+
+const fn = outer();
+fn(); // "Hello"
+```
+
+Even though `outer()` finished execution, `inner()` still accesses `message` because of lexical scope.
+
+---
+
+### Interview-specific answer
+
+JavaScript uses lexical scoping, meaning a function’s scope is determined by where it is defined in the code, not where it is called. Dynamic scoping, in contrast, resolves variables based on the call stack at runtime, which JavaScript does not use.
+
+---
+
+## Q116. What are global variables? What problems are associated with them?
+
+### Concept
+
+Global variables:
+
+- Declared outside any function or block
+- Accessible everywhere in the program
+- Attached to the global object (`window` in browsers)
+
+---
+
+### Example
+
+```js
+let globalVar = "I am global";
+
+function show() {
+  console.log(globalVar);
+}
+
+show();
+```
+
+---
+
+### Problems with Global Variables
+
+1. Namespace pollution
+2. Hard to debug
+3. Risk of accidental overwriting
+4. Tight coupling between components
+5. Difficult testing
+
+---
+
+### Interview-specific answer
+
+Global variables are variables declared outside any function and accessible throughout the program. They can cause namespace pollution, accidental overwrites, tight coupling, and make debugging and testing harder.
+
+---
+
+## Q117. Can closures leak memory?
+
+### Concept
+
+Closures capture variables from their outer scope.
+
+Normally:
+
+- Garbage collector removes unused memory
+- Closures do not automatically cause leaks
+
+But memory leaks can happen when:
+
+- A closure retains references to large objects unnecessarily
+- Event listeners are not removed
+- DOM elements are referenced but not cleaned up
+
+---
+
+### Example
+
+```js
+function createHandler() {
+  let largeData = new Array(1000000).fill("data");
+
+  return function () {
+    console.log(largeData.length);
+  };
+}
+
+const handler = createHandler();
+```
+
+If `handler` is never cleaned up, `largeData` remains in memory.
+
+---
+
+### Interview-specific answer
+
+Closures themselves do not cause memory leaks, but they can retain references to variables that are no longer needed. If these references are not properly cleaned up, especially in event listeners or long-lived objects, memory leaks may occur.
+
+---
+
+## Q118. What is Strict Mode in JavaScript and how can it be enabled?
+
+### Concept
+
+Strict Mode:
+
+- Introduced in ES5
+- Enables a stricter parsing and error handling mode
+- Helps write safer, more predictable code
+
+Prevents:
+
+- Accidental global variables
+- Duplicate parameter names
+- Silent failures
+- Assignment to non-writable properties
+
+---
+
+### How to Enable
+
+For entire file:
+
+```js
+"use strict";
+```
+
+For a specific function:
+
+```js
+function test() {
+  "use strict";
+  let x = 10;
+}
+```
+
+---
+
+### Example
+
+Without strict mode:
+
+```js
+x = 10; // creates global variable
+```
+
+With strict mode:
+
+```js
+"use strict";
+x = 10; // ReferenceError
+```
+
+---
+
+### Interview-specific answer
+
+Strict Mode is a feature introduced in ES5 that enforces stricter parsing and error handling in JavaScript. It is enabled by adding `"use strict"` at the top of a file or function, helping prevent common mistakes like accidental global variables.
+
+---

@@ -1,147 +1,201 @@
-## Q1. What is the role of a browser in a web application?
+## **Topic 1: Web Fundamentals & Browser Basics (14 Questions)**
 
-### Concepts
+---
 
-- Browser is a **client-side runtime** that acts as a bridge between **user** and **server**.
-- Its core responsibilities:
-  - **Send HTTP requests** to servers (HTML, CSS, JS, images).
-  - **Parse & interpret** HTML → build DOM.
-  - **Parse CSS** → build CSSOM.
-  - **Execute JavaScript** using JS engine.
-  - **Render UI** on screen (layout + paint).
-  - **Handle user interactions** (click, scroll, input).
-  - **Manage security** (same-origin policy, sandboxing).
+# 1. What is the role of a browser in a web application?
 
-- Browser is **not just a viewer**; it is an **execution environment** for frontend apps.
-- Without browser:
-  - No rendering
-  - No JS execution
-  - No event handling
-  - No UI interaction
+## Concepts
 
-### Example Code Snippets
+A browser is the **client-side runtime environment** of a web application.
 
-**Example 1: HTML parsing**
+It acts as a bridge between:
+
+User ↔ Browser ↔ Server
+
+Its core responsibilities:
+
+1. Sends HTTP requests to servers
+2. Receives HTML, CSS, JS, images
+3. Parses HTML → builds DOM
+4. Parses CSS → builds CSSOM
+5. Executes JavaScript using JS engine
+6. Renders pixels on screen
+7. Handles user interactions (click, input, scroll)
+8. Enforces security (Same-Origin Policy, sandboxing)
+
+Important:
+
+Browser is NOT just a viewer.
+It is an execution engine for frontend applications.
+
+Without browser:
+
+- No rendering
+- No JS execution
+- No interactivity
+
+---
+
+## Code Example
+
+### Example 1: HTML Rendering
 
 ```html
 <h1>Hello</h1>
 <p>World</p>
 ```
 
-- Browser parses this
-- Creates DOM nodes
-- Prepares it for rendering
+Browser:
 
-**Example 2: JavaScript execution**
+- Parses HTML
+- Builds DOM
+- Renders text
+
+---
+
+### Example 2: JavaScript Execution
 
 ```html
 <button onclick="alert('Clicked')">Click</button>
 ```
 
-- Browser:
-  - Loads JS
-  - Executes it
-  - Connects event (click) → JS function
+Browser:
 
-**Example 3: Fetching data**
+- Binds event
+- Executes JS
+- Updates UI
+
+---
+
+### Example 3: Network Request
 
 ```js
 fetch("/api/users");
 ```
 
-- Browser sends HTTP request
+Browser:
+
+- Sends HTTP request
 - Receives response
 - Makes data available to JS
 
-### Interview-Specific Answer
+---
 
-> A browser acts as the client runtime of a web application. It fetches resources from the server, parses HTML and CSS, executes JavaScript, renders the UI, and handles user interactions while enforcing security rules.
+## Interview-Ready Answer
 
-## Q2. What happens internally when a browser loads a webpage?
+A browser acts as the client runtime of a web application. It fetches resources from the server, parses HTML and CSS, executes JavaScript, renders the UI, handles user interactions, and enforces security rules.
 
-![Web Browser Working](https://media.geeksforgeeks.org/wp-content/uploads/20250516162618471004/browserworking11.webp)
+---
 
-### Concepts
+# 2. What happens internally when a browser loads a webpage?
 
-- Browser follows a **step-by-step pipeline** to convert a URL into a visible webpage.
-- High-level flow:
-  1. **URL resolution & DNS lookup** – find server IP.
-  2. **HTTP request** – browser requests HTML.
-  3. **HTML parsing** – builds **DOM**.
-  4. **CSS parsing** – builds **CSSOM**.
-  5. **DOM + CSSOM → Render Tree**.
-  6. **Layout (reflow)** – calculate size & position.
-  7. **Paint** – pixels drawn on screen.
-  8. **JavaScript execution** – modifies DOM/CSS during or after parsing.
+## Concepts
 
-- JS can **block parsing** unless deferred or async.
-- Any DOM/CSS change may trigger **reflow or repaint**.
+When you enter a URL, browser follows a pipeline:
 
-### Example Code Snippets
+### Step-by-step flow:
 
-**Example 1: Basic load**
+1. URL parsing
+2. DNS lookup → get server IP
+3. TCP connection
+4. HTTP request sent
+5. Server returns HTML
+6. HTML parsing → DOM
+7. CSS parsing → CSSOM
+8. DOM + CSSOM → Render Tree
+9. Layout (calculate size & position)
+10. Paint (draw pixels)
+11. JS execution (can modify DOM)
+
+Important:
+
+- CSS is render-blocking
+- JS can be parser-blocking
+- DOM changes can trigger reflow or repaint
+
+---
+
+## Code Example
+
+### Example 1: Blocking JS
 
 ```html
-<link rel="stylesheet" href="style.css" />
 <script src="app.js"></script>
 ```
 
-- HTML parsing starts
-- CSS blocks rendering
-- JS blocks HTML parsing
+- HTML parsing stops
+- JS executes
+- Then parsing resumes
 
-**Example 2: Non-blocking JS**
+---
+
+### Example 2: Deferred JS
 
 ```html
 <script src="app.js" defer></script>
 ```
 
 - HTML parsing continues
-- JS executes after DOM is ready
+- JS runs after DOM ready
 
-**Example 3: DOM change**
+---
+
+### Example 3: DOM Update
 
 ```js
 document.body.style.background = "red";
 ```
 
-- Triggers repaint
-- Browser updates UI
+- May trigger repaint
 
-### Interview-Specific Answer
+---
 
-> When a browser loads a webpage, it resolves the URL, fetches HTML, parses it into DOM, parses CSS into CSSOM, combines both into a render tree, calculates layout, paints pixels on screen, and executes JavaScript while handling reflows and repaints when changes occur.
+## Interview-Ready Answer
 
-## Q3. What is the difference between a website and a web application?
+When a browser loads a webpage, it resolves the URL, sends an HTTP request, receives HTML, builds the DOM and CSSOM, combines them into a render tree, calculates layout, paints pixels on screen, and executes JavaScript while handling updates dynamically.
 
-![website vs web application](https://dinarys.com/images/ckeditor/1539933900_Website%20vs.%20Web%20Application%206-min.png)
+---
 
-### Concepts
+# 3. What is the difference between a website and a web application?
 
-- **Website** is mainly **informational**.
-- **Web application** is **interactive and stateful**.
-- Key conceptual differences:
-  - **User interaction**: minimal vs heavy
-  - **Business logic**: mostly server-side vs significant client-side
-  - **State handling**: none or simple vs complex (UI + data state)
-  - **Behavior**: static pages vs dynamic flows
+## Concepts
 
-- Websites focus on **content delivery**.
-- Web applications focus on **user actions and workflows**.
+Website:
 
-### Example Code Snippets
+- Mainly informational
+- Static or minimal interaction
+- Content-focused
 
-**Example 1: Website (static content)**
+Web Application:
+
+- Interactive
+- Stateful
+- Business logic heavy
+- User-driven actions
+
+Key differences:
+
+| Feature     | Website     | Web Application |
+| ----------- | ----------- | --------------- |
+| Interaction | Minimal     | High            |
+| State       | Mostly none | Complex         |
+| Logic       | Server-side | Client + Server |
+| Example     | Blog        | Gmail           |
+
+---
+
+## Code Example
+
+### Static Website
 
 ```html
 <h1>About Us</h1>
-<p>We are a company</p>
+<p>Company info</p>
 ```
 
-- Just content
-- No interaction or logic
+---
 
-**Example 2: Web application (interaction)**
+### Web Application
 
 ```html
 <input id="name" /> <button onclick="save()">Save</button>
@@ -153,208 +207,172 @@ function save() {
 }
 ```
 
-- Takes input
-- Processes logic
-- Stores state
+---
 
-**Example 3: Dynamic behavior**
+## Interview-Ready Answer
 
-```js
-fetch("/api/data").then((res) => res.json());
-```
+A website primarily delivers static or informational content, while a web application allows users to interact, manage state, and execute business logic within the browser.
 
-- App depends on user actions and server responses
+---
 
-### Interview-Specific Answer
+# 4. What is the DOM and why does it exist?
 
-> A website mainly delivers static or informational content, while a web application allows users to interact, perform actions, manage state, and execute business logic directly in the browser.
+## Concepts
 
-## Q4. What is the DOM and why does it exist?
+DOM = Document Object Model
 
-![DOM](https://media.geeksforgeeks.org/wp-content/uploads/20241120143259875787/DOM-Tree1.webp)
+It is an in-memory tree representation of HTML created by the browser.
 
-### Concepts
+HTML (text) → Parsed → DOM (objects in memory)
 
-- **DOM (Document Object Model)** is an **in-memory tree representation** of HTML.
-- Browser converts HTML text into **nodes (objects)**.
-- Each HTML element → **DOM node**.
-- DOM exists to:
-  - Allow **JavaScript to read, modify, delete, and create UI elements**.
-  - Provide a **standard interface** between HTML and JS.
+Why DOM exists:
 
-- Without DOM:
-  - JavaScript cannot interact with the page.
-  - No dynamic UI updates.
+- Allows JavaScript to interact with the page
+- Enables dynamic updates
+- Provides a structured tree model
 
-- DOM is **not HTML**:
-  - HTML = static text
-  - DOM = live, mutable object structure
+Important:
 
-- Any DOM change can trigger:
-  - **Reflow** (layout recalculation)
-  - **Repaint** (visual update)
+HTML is static text.
+DOM is live, mutable object structure.
 
-- What does **“DOM is an in-memory object model”** mean?
-  _"DOM is a tree of JavaScript objects created in memory by the browser to represent the HTML document, so JavaScript can read and modify the page."_
-  - In-memory
-    - Means: stored in RAM, not on disk
-    - Exists only while the page is loaded
-    - When you refresh or close the tab → DOM is destroyed
+DOM exists in RAM and is destroyed on refresh.
 
-    👉 Browser reads HTML → creates DOM → keeps it in memory (RAM)
+---
 
-  - Objects
-    - DOM is made of JavaScript objects
-    - Each HTML element becomes an object
+## Code Example
 
-    ```html
-    <p>Hello</p>
-    ```
-
-    becomes 👇
-
-    ```js
-    {
-      tagName: "P",
-      innerText: "Hello",
-      style: {},
-      children: []
-    }
-    ```
-
-    so we can do
-
-    ```js
-    document.querySelector("p").innerText = "Hi";
-    ```
-
-  - Model
-    - “Model” = structured representation
-    - DOM represents the page in a tree structure
-    - Parent → Child → Grandchild relationship
-
-### Example Code Snippets
-
-**Example 1: Accessing DOM**
+### Accessing DOM
 
 ```js
 document.getElementById("title");
 ```
 
-- JS reads DOM node
-- Browser exposes DOM API
+---
 
-**Example 2: Modifying DOM**
+### Modifying DOM
 
 ```js
-document.querySelector("h1").innerText = "Hello DOM";
+document.querySelector("h1").innerText = "Updated";
 ```
 
-- DOM node updated
-- UI changes instantly
+---
 
-**Example 3: Creating elements**
+### Creating Element
 
 ```js
 const div = document.createElement("div");
 document.body.appendChild(div);
 ```
 
-- New DOM node created
-- Render tree updates
+---
 
-### Interview-Specific Answer
+## Interview-Ready Answer
 
-> The DOM is a tree-like object representation of HTML created by the browser so JavaScript can interact with and manipulate the page dynamically. It exists to bridge static HTML and dynamic behavior.
+The DOM is a tree-like in-memory representation of HTML created by the browser so that JavaScript can read, modify, and dynamically update the page.
 
-## Q5. What is the difference between DOM and HTML source code?
+---
 
-### Concepts
+# 5. What is the difference between DOM and HTML source code?
 
-- **HTML source code**:
-  - Raw text sent by the server.
-  - Static.
-  - Cannot change after response.
+## Concepts
 
-- **DOM**:
-  - Parsed, **in-memory object model** created by browser.
-  - Dynamic and mutable.
-  - Can be changed by JavaScript at runtime.
+HTML Source:
 
-- Relationship:
-  - Browser parses HTML → builds DOM.
-  - DOM may **diverge from original HTML** after JS runs.
+- Raw text from server
+- Static
+- Cannot change after response
 
-- DOM reflects the **current state of UI**, not original source.
-- Inspecting elements shows **DOM**, not original HTML.
+DOM:
 
-### Example Code Snippets
+- Parsed representation in memory
+- Dynamic
+- Can be modified by JS
 
-**Example 1: Original HTML**
+Important:
+
+DOM can differ from original HTML after JS runs.
+
+DevTools shows DOM, not original HTML source.
+
+---
+
+## Code Example
+
+### Original HTML
 
 ```html
 <p>Hello</p>
 ```
 
-- This is HTML source
+---
 
-**Example 2: DOM modification**
+### DOM Modification
 
 ```js
 document.querySelector("p").innerText = "Hi";
 ```
 
-- HTML source unchanged
-- DOM updated
+HTML source remains same.
+DOM changes.
 
-**Example 3: New DOM nodes**
+---
 
-```js
-document.body.append("New Text");
-```
+## Interview-Ready Answer
 
-- Exists in DOM
-- Not in original HTML source
+HTML source code is the static markup sent by the server, while the DOM is the dynamic in-memory representation created by the browser that can be modified at runtime using JavaScript.
 
-### Interview-Specific Answer
+---
 
-> HTML source code is the static markup sent by the server, while the DOM is the dynamic in-memory representation created by the browser that can change at runtime through JavaScript.
+# 6. What is the rendering engine in a browser?
 
-## Q6. What is the rendering engine in a browser?
+## Concepts
 
-### Concepts
+The rendering engine is responsible for converting HTML and CSS into visible pixels on the screen.
 
-- **Rendering engine** is the part of the browser that **converts code into pixels**.
-- It takes:
-  - HTML → DOM
-  - CSS → CSSOM
+It performs:
 
-- Then:
-  - DOM + CSSOM → **Render Tree**
-  - Calculates layout (size & position)
-  - Paints pixels on screen
+1. HTML parsing → DOM
+2. CSS parsing → CSSOM
+3. DOM + CSSOM → Render Tree
+4. Layout calculation (size & position)
+5. Paint (draw pixels)
 
-- Different browsers use different engines:
-  - Chrome / Edge → **Blink**
-  - Firefox → **Gecko**
-  - Safari → **WebKit**
+Different browsers use different engines:
 
-- Rendering engine works closely with:
-  - **JavaScript engine**
-  - **Graphics engine (GPU)**
+- Chrome / Edge → Blink
+- Firefox → Gecko
+- Safari → WebKit
 
-### Example Code Snippets
+Rendering engine works closely with:
 
-**Example 1: Render tree creation**
+- JavaScript engine
+- GPU (for compositing and painting)
+
+Important:
+
+Rendering engine does NOT execute JavaScript.
+JS engine and rendering engine coordinate together.
+
+---
+
+## Code Example
+
+### Example 1: Styling
 
 ```html
-<p style="color:red">Text</p>
+<p style="color:red">Hello</p>
 ```
 
-- Rendering engine combines DOM + CSS
-- Decides visual style
+Rendering engine:
 
-**Example 2: Layout calculation**
+- Applies CSS
+- Decides final style
+- Paints red text
+
+---
+
+### Example 2: Layout
 
 ```css
 div {
@@ -362,373 +380,360 @@ div {
 }
 ```
 
-- Engine calculates actual pixel width
+Rendering engine:
 
-**Example 3: Visual update**
+- Calculates actual pixel width
+- Based on parent container
+
+---
+
+### Example 3: Removing element
 
 ```js
 element.style.display = "none";
 ```
 
-- Render tree updates
-- Element removed from layout
+Rendering engine:
 
-### Interview-Specific Answer
+- Updates render tree
+- Triggers layout recalculation
 
-> The rendering engine is responsible for turning HTML and CSS into a visual webpage by building the render tree, calculating layout, and painting pixels on the screen.
+---
 
-## Q7. What is the critical rendering path?
+## Interview-Ready Answer
 
-### Concepts
+The rendering engine converts HTML and CSS into visible content by building the render tree, calculating layout, and painting pixels on the screen. It works alongside the JavaScript engine to update the UI dynamically.
 
-- **Critical Rendering Path (CRP)** is the **sequence of steps** the browser follows to render the **first visible content**.
-- Main stages:
-  1. Parse HTML → **DOM**
-  2. Parse CSS → **CSSOM**
-  3. DOM + CSSOM → **Render Tree**
-  4. **Layout (reflow)**
-  5. **Paint**
+---
 
-- CSS is **render-blocking**:
-  - Browser waits for CSS before painting.
+# 7. What is the critical rendering path?
 
-- JavaScript can be **parser-blocking**:
-  - Stops HTML parsing if not deferred/async.
+## Concepts
 
-- Optimizing CRP improves:
-  - **FCP**
-  - **Perceived performance**
+Critical Rendering Path (CRP) is the sequence of steps the browser follows to render the first visible content.
 
-### Example Code Snippets
+Main stages:
 
-**Example 1: Render-blocking CSS**
+1. Parse HTML → DOM
+2. Parse CSS → CSSOM
+3. DOM + CSSOM → Render Tree
+4. Layout (Reflow)
+5. Paint
+
+Important rules:
+
+- CSS is render-blocking
+- JavaScript can be parser-blocking
+- Optimizing CRP improves First Contentful Paint (FCP)
+
+Goal:
+
+Render visible content as fast as possible.
+
+---
+
+## Code Example
+
+### Example 1: Render-blocking CSS
 
 ```html
 <link rel="stylesheet" href="style.css" />
 ```
 
-- Browser waits for CSS
-- No paint before CSS loads
+Browser waits for CSS before painting.
 
-**Example 2: Blocking JS**
+---
+
+### Example 2: Blocking JS
 
 ```html
 <script src="app.js"></script>
 ```
 
-- HTML parsing stops
-- Delays render
+HTML parsing pauses until JS executes.
 
-**Example 3: Optimized load**
+---
+
+### Example 3: Optimized Script
 
 ```html
-<link rel="stylesheet" href="style.css" />
 <script src="app.js" defer></script>
 ```
 
-- Faster first paint
-- JS runs after DOM ready
+HTML parsing continues.
+JS runs after DOM ready.
 
-### Interview-Specific Answer
+---
 
-> The critical rendering path is the set of steps a browser follows to convert HTML and CSS into visible pixels, and optimizing it helps the page render faster.
+## Interview-Ready Answer
 
-## Q8. What is reflow and repaint in browsers?
+The critical rendering path is the sequence of steps a browser follows to convert HTML and CSS into visible pixels. Optimizing it reduces render-blocking resources and improves page load performance.
 
-### Concepts
+---
 
-- **Reflow (Layout)**:
-  - Browser recalculates **size, position, and layout** of elements.
-  - Expensive operation.
-  - Can affect many elements in the DOM tree.
+# 8. What is reflow and repaint in browsers?
 
-- **Repaint**:
-  - Browser redraws pixels **without changing layout**.
-  - Cheaper than reflow.
+## Concepts
 
-- Flow:
-  - Reflow → Repaint (often)
-  - Repaint can happen without reflow.
+Reflow (Layout):
 
-- Performance impact:
-  - Frequent reflows cause UI jank.
-  - Modern browsers try to batch operations.
+- Browser recalculates size and position of elements.
+- Expensive operation.
+- Can affect many nodes.
 
-### Example Code Snippets
+Repaint:
 
-**Example 1: Reflow trigger**
+- Browser redraws visual changes.
+- Does not change layout.
+- Cheaper than reflow.
+
+Flow:
+
+Reflow usually triggers repaint.
+Repaint does not always trigger reflow.
+
+Performance:
+
+Frequent reflows cause UI jank.
+
+---
+
+## Code Example
+
+### Reflow Example
 
 ```js
 element.style.width = "300px";
 ```
 
-- Layout changes
-- Reflow + repaint
+Layout changes → Reflow + Repaint.
 
-**Example 2: Repaint only**
+---
+
+### Repaint Example
 
 ```js
 element.style.color = "red";
 ```
 
-- Visual change
-- Only repaint
+Only visual change → Repaint.
 
-**Example 3: Multiple changes**
+---
+
+### Forced Reflow
 
 ```js
 element.style.width = "200px";
-element.style.height = "200px";
+const height = element.offsetHeight;
 ```
 
-- Multiple reflows
+Browser forced to calculate layout immediately.
 
-### Interview-Specific Answer
+---
 
-> Reflow happens when the browser recalculates layout due to structural or size changes, while repaint only redraws visuals like color without affecting layout. Reflow is more expensive than repaint.
+## Interview-Ready Answer
 
-## Q9. What triggers reflow vs repaint?
+Reflow occurs when the browser recalculates layout due to size or structural changes, while repaint occurs when visual properties change without affecting layout. Reflow is more expensive than repaint.
 
-### Concepts
+---
 
-- **Reflow triggers**:
-  - Changes that affect **layout or geometry**.
-  - Browser must recalculate positions and sizes.
+# 9. What triggers reflow vs repaint?
 
-- **Repaint triggers**:
-  - Changes that affect **visual appearance only**.
-  - Layout remains unchanged.
+## Concepts
 
-- Reflow is more expensive than repaint.
-- Some operations trigger **both**.
-- Reading layout values after writing styles can cause **forced synchronous reflow**.
+Reflow triggers:
 
-### Example Code Snippets
+- Changing width, height
+- Changing margin, padding
+- Adding/removing elements
+- Changing display property
+- Reading layout properties after writes
 
-**Example 1: Reflow trigger**
+Repaint triggers:
+
+- Changing color
+- Changing background
+- Changing visibility
+
+Important:
+
+Accessing layout properties after modifying styles causes forced synchronous reflow.
+
+---
+
+## Code Example
+
+### Reflow
 
 ```js
 element.style.margin = "20px";
 ```
 
-- Layout changes
-- Reflow + repaint
+---
 
-**Example 2: Repaint trigger**
+### Repaint
 
 ```js
 element.style.backgroundColor = "blue";
 ```
 
-- Visual change only
-- Repaint
+---
 
-**Example 3: Forced reflow**
+### Forced Reflow
 
 ```js
 element.style.width = "300px";
-const h = element.offsetHeight;
+console.log(element.offsetWidth);
 ```
 
-- Browser forced to calculate layout immediately
+Browser calculates layout immediately.
 
-### Interview-Specific Answer
+---
 
-> Reflow is triggered by changes that affect element size or position, while repaint is triggered by visual changes like color. Accessing layout properties after style changes can force a reflow.
+## Interview-Ready Answer
 
-## Q10. What is the browser event loop at a high level?
+Reflow is triggered by layout-related changes such as size or structural updates, while repaint is triggered by visual-only changes like color. Accessing layout properties after style changes can force synchronous reflow.
 
-### Concepts
+---
 
-- Browser event loop manages **JavaScript execution and UI updates**.
-- JS runs on a **single thread**.
-- Responsibilities:
-  - Execute **call stack** tasks.
-  - Process **asynchronous callbacks**.
-  - Keep UI responsive.
+# 10. What is the browser event loop at a high level?
 
-- Flow (high level):
-  1. Execute synchronous JS (call stack).
-  2. Handle **microtasks** (Promises).
-  3. Handle **macrotasks** (setTimeout, events).
-  4. Render updates between cycles.
+## Concepts
 
-- Event loop prevents **UI freezing**.
+JavaScript is single-threaded.
 
-- **What is Event Loop**
-  _Event loop is a mechanism that allows JavaScript (single-threaded) to handle async operations without blocking the main thread._
+Event loop coordinates:
 
-### Example Code Snippets
-
-**Example 1: Synchronous**
-
-```js
-console.log("A");
-console.log("B");
-```
-
-- Executes immediately
-
-**Example 2: Asynchronous**
-
-```js
-setTimeout(() => console.log("C"), 0);
-```
-
-- Sent to task queue
-
-**Example 3: Promise**
-
-```js
-Promise.resolve().then(() => console.log("D"));
-```
-
-- Microtask queue
-- Runs before macrotasks
-
-### Interview-Specific Answer
-
-> The browser event loop coordinates JavaScript execution by running synchronous code first, then microtasks, then macrotasks, while allowing the browser to update the UI between cycles to keep the page responsive.
-
-## Q11. How does the browser handle JavaScript execution?
-
-### Concepts
-
-Browser JavaScript execution is **single-threaded** and **non-blocking by design**.
+- Call Stack
+- Web APIs
+- Microtask Queue
+- Macrotask Queue
+- Rendering
 
 High-level flow:
 
-1. **JavaScript Engine (Call Stack)**
-   - Executes JS code line by line
-   - Only one task runs at a time
+1. Execute synchronous code (call stack)
+2. Process microtasks (Promises)
+3. Process one macrotask (timers, events)
+4. Render updates
+5. Repeat
 
-2. **Web APIs (Browser APIs)**
-   - Handles async operations like:
-     - `setTimeout`
-     - DOM events
-     - HTTP requests
+Purpose:
 
-   - These do **not** block the call stack
-
-3. **Task Queues**
-   - **Microtask Queue**: promises, mutation observers
-   - **Macrotask Queue**: timers, UI events, network callbacks
-
-4. **Event Loop**
-   - Continuously checks:
-     - Is call stack empty?
-     - If yes → push microtasks
-     - Then push one macrotask
-
-Rendering happens **between tasks**, not during JS execution.
+Prevent UI blocking and enable async behavior.
 
 ---
 
-### Example Code Snippets
-
-**Example 1: Synchronous execution**
+## Code Example
 
 ```js
 console.log("A");
-console.log("B");
+
+setTimeout(() => console.log("B"), 0);
+
+Promise.resolve().then(() => console.log("C"));
+
+console.log("D");
 ```
 
-Output order is fixed because call stack runs top to bottom.
+Order:
+
+A
+D
+C
+B
 
 ---
 
-**Example 2: Async with timer**
+## Interview-Ready Answer
+
+The browser event loop manages JavaScript execution by running synchronous code first, then microtasks, then macrotasks, while allowing rendering between cycles to keep the UI responsive.
+
+---
+
+# 11. How does the browser handle JavaScript execution?
+
+## Concepts
+
+Browser JavaScript execution is:
+
+- Single-threaded
+- Non-blocking (via async model)
+
+Components involved:
+
+1. JS Engine (Call Stack)
+2. Web APIs (Timers, Fetch, DOM events)
+3. Microtask Queue
+4. Macrotask Queue
+5. Event Loop
+
+Rendering happens between task cycles.
+
+Microtasks always run before macrotasks.
+
+---
+
+## Code Example
 
 ```js
 console.log("Start");
 
-setTimeout(() => {
-  console.log("Timeout");
-}, 0);
+setTimeout(() => console.log("Timeout"), 0);
+
+Promise.resolve().then(() => console.log("Promise"));
 
 console.log("End");
 ```
 
 Execution:
 
-- JS runs sync code first
-- `setTimeout` goes to Web API
-- Callback waits in task queue
+Start
+End
+Promise
+Timeout
 
 ---
 
-**Example 3: Promise vs timer**
+## Interview-Ready Answer
 
-```js
-console.log("Start");
-
-Promise.resolve().then(() => {
-  console.log("Promise");
-});
-
-setTimeout(() => {
-  console.log("Timeout");
-}, 0);
-
-console.log("End");
-```
-
-Promise callback runs before timeout because microtasks have higher priority.
+The browser executes JavaScript using a single-threaded call stack. Asynchronous tasks are handled by browser APIs and queued. The event loop processes microtasks first, then macrotasks, ensuring non-blocking execution and smooth rendering.
 
 ---
 
-### Interview-Specific Answer
+# 12. What are browser storage mechanisms?
 
-The browser executes JavaScript using a single-threaded call stack. Synchronous code runs immediately, while asynchronous operations are handled by browser APIs and queued. The event loop moves tasks back to the call stack when it’s free, prioritizing microtasks over macrotasks, ensuring non-blocking execution and smooth rendering.
+## Concepts
 
-![](https://substackcdn.com/image/fetch/$s_!qUhE!,w_1272,c_limit,f_webp,q_auto:good,fl_lossy/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fc297bae5-67e2-4d8c-a020-162ea437c11c_1280x1664.gif)
+Browsers provide client-side storage options:
 
-## Q12. What are browser storage mechanisms?
+1. Cookies
+2. localStorage
+3. sessionStorage
+4. IndexedDB
+5. Cache Storage
 
-### Concepts
+Each serves different purposes:
 
-Browser storage mechanisms allow frontend applications to **store data on the client side** for performance, state persistence, and user experience.
-
-Main types:
-
-1. **Cookies**
-   - Small key–value data sent with every HTTP request
-   - Used mainly for authentication and session tracking
-   - Size limit ~4KB
-
-2. **localStorage**
-   - Persistent storage in the browser
-   - Data survives browser restart
-   - String-based key–value storage
-
-3. **sessionStorage**
-   - Storage for a single browser tab/session
-   - Cleared when the tab is closed
-   - Same API as localStorage
-
-4. **IndexedDB**
-   - Client-side NoSQL database
-   - Stores large, structured data
-   - Used for offline apps, caching, complex data
-
-5. **Cache Storage (Service Workers)**
-   - Stores network responses
-   - Enables offline access and faster load times
+- Authentication
+- UI persistence
+- Session state
+- Offline support
+- Performance caching
 
 ---
 
-### Example Code Snippets
+## Code Example
 
-**Example 1: localStorage**
+### localStorage
 
 ```js
 localStorage.setItem("theme", "dark");
-const theme = localStorage.getItem("theme");
 ```
 
 ---
 
-**Example 2: sessionStorage**
+### sessionStorage
 
 ```js
 sessionStorage.setItem("step", "2");
@@ -736,7 +741,7 @@ sessionStorage.setItem("step", "2");
 
 ---
 
-**Example 3: Cookie**
+### Cookie
 
 ```js
 document.cookie = "token=abc123; path=/;";
@@ -744,33 +749,45 @@ document.cookie = "token=abc123; path=/;";
 
 ---
 
-### Interview-Specific Answer
+## Interview-Ready Answer
 
-Browsers provide multiple storage options like cookies, localStorage, sessionStorage, IndexedDB, and cache storage. Each serves different use cases such as authentication, persistent UI state, session data, offline support, and performance optimization.
-
-## Q13. Difference between cookies, localStorage, and sessionStorage
-
-### Concepts
-
-| Feature                 | Cookies         | localStorage         | sessionStorage  |
-| ----------------------- | --------------- | -------------------- | --------------- |
-| Size limit              | ~4KB            | ~5–10MB              | ~5–10MB         |
-| Sent with HTTP requests | Yes             | No                   | No              |
-| Expiry                  | Configurable    | Never (manual clear) | On tab close    |
-| Access                  | Server + Client | Client only          | Client only     |
-| Use case                | Auth, sessions  | Persistent UI data   | Temporary state |
-
-Key differences:
-
-- **Cookies** are part of HTTP protocol and affect network traffic
-- **localStorage** is purely client-side and persistent
-- **sessionStorage** is scoped to a single tab/session
+Browsers provide storage mechanisms such as cookies, localStorage, sessionStorage, IndexedDB, and cache storage, each designed for different use cases including authentication, persistent state, session data, and offline capabilities.
 
 ---
 
-### Example Code Snippets
+# 13. Difference between cookies, localStorage, and sessionStorage.
 
-**Example 1: Cookie**
+## Concepts
+
+| Feature        | Cookies         | localStorage | sessionStorage |
+| -------------- | --------------- | ------------ | -------------- |
+| Size           | ~4KB            | ~5–10MB      | ~5–10MB        |
+| Sent with HTTP | Yes             | No           | No             |
+| Expiry         | Configurable    | Manual clear | On tab close   |
+| Access         | Server + Client | Client only  | Client only    |
+
+Key Points:
+
+Cookies:
+
+- Used for authentication
+- Sent with every HTTP request
+
+localStorage:
+
+- Persistent
+- Survives browser restart
+
+sessionStorage:
+
+- Tab-specific
+- Cleared when tab closes
+
+---
+
+## Code Example
+
+### Cookie
 
 ```js
 document.cookie = "user=tan; max-age=3600;";
@@ -778,7 +795,7 @@ document.cookie = "user=tan; max-age=3600;";
 
 ---
 
-**Example 2: localStorage**
+### localStorage
 
 ```js
 localStorage.setItem("lang", "en");
@@ -786,7 +803,7 @@ localStorage.setItem("lang", "en");
 
 ---
 
-**Example 3: sessionStorage**
+### sessionStorage
 
 ```js
 sessionStorage.setItem("formStep", "1");
@@ -794,260 +811,70 @@ sessionStorage.setItem("formStep", "1");
 
 ---
 
-### Interview-Specific Answer
+## Interview-Ready Answer
 
-Cookies are small data pieces sent with every HTTP request and are mainly used for authentication. localStorage stores persistent client-side data, while sessionStorage stores temporary data limited to a single browser session or tab.
-
-## Q14. What is same-origin policy?
-
-![](https://i.sstatic.net/s6mrw.jpg)
-
-### Concepts
-
-Same-Origin Policy (SOP) is a **browser security rule** that restricts how documents or scripts from one origin can interact with resources from another origin.
-
-**Origin = protocol + domain + port**
-
-Example:
-
-- `https://example.com:443` → one origin
-- `http://example.com` → different origin (protocol differs)
-- `https://api.example.com` → different origin (domain differs)
-
-What SOP enforces:
-
-1. **Restricted Access**
-   - JS running on one origin cannot:
-     - Read data from another origin
-     - Access DOM, cookies, localStorage of another origin
-
-2. **Protects User Data**
-   - Prevents malicious sites from stealing:
-     - Auth tokens
-     - Session data
-     - Private user information
-
-3. **Applies To**
-   - AJAX / fetch requests
-   - Cookies
-   - localStorage / sessionStorage
-   - DOM access
-
-4. **Not a Server Rule**
-   - Enforced by the browser, not the backend
-
-To allow controlled cross-origin access, browsers use **CORS**.
+Cookies are small pieces of data sent with every HTTP request and commonly used for authentication. localStorage stores persistent client-side data, while sessionStorage stores temporary data limited to a single browser tab session.
 
 ---
 
-### Example Code Snippets
+# 14. What is same-origin policy?
 
-**Example 1: Blocked request**
+## Concepts
+
+Same-Origin Policy (SOP) is a browser security rule.
+
+Origin = protocol + domain + port
+
+If any differ → considered different origin.
+
+SOP prevents:
+
+- Accessing another site’s DOM
+- Reading cookies of another origin
+- Fetching data without permission
+
+Purpose:
+
+Protect users from malicious websites stealing data.
+
+Cross-origin access requires CORS headers.
+
+---
+
+## Code Example
+
+### Blocked Request
 
 ```js
 fetch("https://api.otherdomain.com/data");
 ```
 
-Blocked if server does not allow cross-origin access.
+Blocked unless server allows CORS.
 
 ---
 
-**Example 2: Allowed via CORS**
+### Allowed via CORS
 
-```http
+Server header:
+
+```
 Access-Control-Allow-Origin: https://example.com
 ```
 
-Browser allows response access.
-
 ---
 
-**Example 3: Same-origin access**
+### Same Origin
 
 ```js
 fetch("/api/user");
 ```
 
-Always allowed because origin is same.
+Always allowed.
 
 ---
 
-### Interview-Specific Answer
+## Interview-Ready Answer
 
-Same-origin policy is a browser security mechanism that prevents scripts from one origin from accessing data or resources of another origin. It protects user data by isolating websites, and cross-origin access is only allowed explicitly through mechanisms like CORS.
-
-## Q14.1 CORS vs SOP (Clear + Smooth)
-
-![CORS vs SOP](https://media.licdn.com/dms/image/v2/D5612AQGjz6Wuy_Fq0w/article-cover_image-shrink_720_1280/B56ZkGOzgdHMAQ-/0/1756746173676?e=2147483647&v=beta&t=2VM7VVgKqwQn0DFx-fv-kwp3_eMdIv69b-K77Vt6IsE)
-
-### Concepts
-
-**Browser by default = strict security**
+Same-Origin Policy is a browser-enforced security rule that prevents scripts from one origin from accessing data or resources of another origin. It protects user data and can only be relaxed through mechanisms like CORS.
 
 ---
-
-### Same-Origin Policy (SOP)
-
-SOP is a **rule inside the browser**.
-
-What it says:
-
-> “A website can only access data from the same origin.”
-
-Origin means:
-
-- Same protocol
-- Same domain
-- Same port
-
-If any one is different → **blocked**
-
-Why SOP exists:
-
-- Prevents stealing cookies, tokens, user data
-- Stops malicious websites from reading other site data
-
-Example:
-
-```js
-// Running on https://frontend.com
-fetch("https://api.backend.com/data");
-```
-
-Browser says:
-**“Different origin → I will block JS from reading response.”**
-
-Important:
-
-- Request may go to server
-- **Response is blocked by browser**
-- Server is not the problem here
-
----
-
-### CORS (Cross-Origin Resource Sharing)
-
-CORS is **not a replacement** of SOP.
-
-CORS is a **permission system on top of SOP**.
-
-What CORS says:
-
-> “This server allows these other origins to access my data.”
-
-Server sends headers like:
-
-```http
-Access-Control-Allow-Origin: https://frontend.com
-```
-
-Browser checks:
-
-- Is SOP violated? → Yes
-- Is CORS header present? → Yes
-- Origin allowed? → Yes
-  → **Then browser allows JS to read response**
-
----
-
-### Key Relationship
-
-| Thing            | SOP      | CORS              |
-| ---------------- | -------- | ----------------- |
-| Lives where      | Browser  | Server headers    |
-| Default behavior | Block    | Allow selectively |
-| Purpose          | Security | Controlled access |
-| Can disable      | No       | Configure         |
-
-SOP = **Lock**
-CORS = **Key**
-
----
-
-### Example Flow (Real Life)
-
-1. Frontend makes request to different origin
-2. Browser sees SOP violation
-3. Browser checks response headers
-4. If CORS allows → data given to JS
-5. Else → response blocked
-
----
-
-### Interview-Specific Answer
-
-Same-Origin Policy is a browser-enforced security rule that blocks cross-origin access by default. CORS is a server-driven mechanism that relaxes this restriction by explicitly telling the browser which origins are allowed to access the response.
-
-## Q15. What is JavaScript’s role in frontend?
-
-### Concepts
-
-JavaScript is responsible for making web pages **interactive, dynamic, and intelligent**.
-
-Core roles:
-
-1. **Interactivity**
-   - Handles user actions like clicks, input, scroll
-   - Responds to events in real time
-
-2. **DOM Manipulation**
-   - Reads and updates HTML elements
-   - Changes content, styles, structure dynamically
-
-3. **State Management**
-   - Maintains UI state in memory
-   - Syncs data with UI
-
-4. **Async Communication**
-   - Fetches data from backend APIs
-   - Handles promises, async/await
-
-5. **Application Logic**
-   - Validations, conditions, flows
-   - Business logic on client side
-
-6. **Browser API Usage**
-   - Uses APIs like:
-     - Fetch
-     - Storage
-     - History
-     - Timers
-
-Without JS:
-
-- Web pages are static
-- No real user interaction
-
----
-
-### Example Code Snippets
-
-**Example 1: Interactivity**
-
-```js
-button.addEventListener("click", () => {
-  alert("Clicked");
-});
-```
-
----
-
-**Example 2: DOM update**
-
-```js
-document.getElementById("title").innerText = "Updated";
-```
-
----
-
-**Example 3: API call**
-
-```js
-fetch("/api/data").then((res) => res.json());
-```
-
----
-
-### Interview-Specific Answer
-
-JavaScript powers the frontend by handling user interactions, manipulating the DOM, managing UI state, performing asynchronous operations, and implementing client-side logic, making web applications dynamic instead of static.

@@ -384,43 +384,43 @@ Use the checkboxes below to mark questions you've reviewed or mastered. This hel
 
 #### JavaScript Functions and Higher-Order Functions
 
-- [ ] 11. What is a higher-order function in JavaScript?
-- [ ] 12. Can functions be assigned as values to variables in JavaScript?
-- [ ] 13. How do functional programming concepts apply in JavaScript?
-- [ ] 14. What are IIFEs (Immediately Invoked Function Expressions)?
-- [ ] 15. How do you create private variables in JavaScript?
+- [x] 11. What is a higher-order function in JavaScript?
+- [x] 12. Can functions be assigned as values to variables in JavaScript?
+- [x] 13. How do functional programming concepts apply in JavaScript?
+- [x] 14. What are IIFEs (Immediately Invoked Function Expressions)?
+- [x] 15. How do you create private variables in JavaScript?
 
 #### JavaScript Objects and Prototypes
 
-- [ ] 16. How do you create an object in JavaScript?
-- [ ] 17. What are prototypes in JavaScript?
-- [ ] 18. Explain prototypal inheritance.
-- [ ] 19. What is the difference between object literals and constructor functions?
-- [ ] 20. How do you add or remove properties from an object?
+- [x] 16. How do you create an object in JavaScript?
+- [x] 17. What are prototypes in JavaScript?
+- [x] 18. Explain prototypal inheritance.
+- [x] 19. What is the difference between object literals and constructor functions?
+- [x] 20. How do you add or remove properties from an object?
 
 #### Asynchronous JavaScript
 
-- [ ] 21. What is the event loop in JavaScript?
-- [ ] 22. Explain how callbacks work in JavaScript?
-- [ ] 23. What are promises and how do they manage asynchronous code?
-- [ ] 24. Explain async/await in JavaScript and how it differs from Promises?
-- [ ] 25. What is the Job Queue (or Microtask Queue)?
+- [x] 21. What is the event loop in JavaScript?
+- [x] 22. Explain how callbacks work in JavaScript?
+- [x] 23. What are promises and how do they manage asynchronous code?
+- [x] 24. Explain async/await in JavaScript and how it differs from Promises?
+- [x] 25. What is the Job Queue (or Microtask Queue)?
 
 #### DOM Manipulation and Browser APIs
 
-- [ ] 26. How do you select DOM elements using JavaScript?
-- [ ] 27. Explain event propagation in the DOM?
-- [ ] 28. How do you prevent a form from submitting using JavaScript?
-- [ ] 29. What are Web APIs in the context of JavaScript?
-- [ ] 30. How can you manipulate the browser history using JavaScript?
+- [x] 26. How do you select DOM elements using JavaScript?
+- [x] 27. Explain event propagation in the DOM?
+- [x] 28. How do you prevent a form from submitting using JavaScript?
+- [x] 29. What are Web APIs in the context of JavaScript?
+- [x] 30. How can you manipulate the browser history using JavaScript?
 
 #### ES2015+ and Modern JavaScript Features
 
-- [ ] 31. What are the new features introduced in ES6?
-- [ ] 32. How do you use destructuring assignments in ES6?
-- [ ] 33. Explain the use of const and let keywords?
-- [ ] 34. What are default parameters in JavaScript functions?
-- [ ] 35. Explain the concept of modules in ES6?
+- [x] 31. What are the new features introduced in ES6?
+- [x] 32. How do you use destructuring assignments in ES6?
+- [x] 33. Explain the use of const and let keywords?
+- [x] 34. What are default parameters in JavaScript functions?
+- [x] 35. Explain the concept of modules in ES6?
 
 #### Event Handling
 
@@ -531,6 +531,107 @@ Use the checkboxes below to mark questions you've reviewed or mastered. This hel
 - [ ] 98. Explain how to use JavaScript for mobile development?
 - [ ] 99. What is React Native and how does it differ from traditional web apps?
 - [ ] 100. How does JavaScript interact with native mobile components?
+
+# JavaScript Interview Questions (Extended)
+
+---
+
+## JavaScript Fundamentals (Advanced Basics)
+
+- [ ] **101.** What would be the result of `3 + 2 + "7"`?
+- [ ] **102.** Is JavaScript compiled or interpreted?
+- [ ] **103.** Are JavaScript and Java related?
+- [ ] **104.** Is JavaScript statically typed or dynamically typed?
+- [ ] **105.** Does JavaScript support automatic type conversion?
+- [ ] **106.** What is called Variable typing in JavaScript?
+- [ ] **107.** What is negative infinity in JavaScript?
+- [ ] **108.** Why is `typeof null === "object"`?
+- [ ] **109.** What are undeclared and undefined variables?
+- [ ] **110.** What’s the return-value difference between `x++` and `++x`?
+- [ ] **111.** What does this code log?
+
+```js
+const arr = [1, 2, 3];
+arr[10] = 99;
+console.log(arr.length);
+```
+
+- [ ] **112.** What will be the result of:
+
+```js
+console.log(null ?? "default");
+```
+
+- [ ] **113.** What is the use of `isNaN`, and how is it different from `Number.isNaN`?
+- [ ] **114.** Is it possible to break JavaScript code into several lines?
+
+---
+
+## Scope, Execution & Language Behavior
+
+- [ ] **115.** What is the difference between Lexical and Dynamic Scoping?
+- [ ] **116.** What are global variables? What problems are associated with them?
+- [ ] **117.** Can closures leak memory?
+- [ ] **118.** What is Strict Mode in JavaScript and how can it be enabled?
+
+---
+
+## Modern JavaScript & ECMAScript
+
+- [ ] **119.** What’s new in ECMAScript 2025 (ES2025)?
+- [ ] **120.** What are practical use cases for arrow functions?
+
+---
+
+## Functions & Advanced Patterns
+
+- [ ] **121.** What is Debouncing in JavaScript?
+- [ ] **122.** What is Deep Equal?
+- [ ] **123.** Understanding Event Emitters
+- [ ] **124.** What is Array.prototype.reduce()?
+- [ ] **125.** Avoiding redundant computations with memoization
+- [ ] **126.** Safer nested property access: get
+- [ ] **127.** Can JavaScript allow multiple inheritance?
+
+---
+
+## Arrays & Data Manipulation
+
+- [ ] **128.** Simplifying arrays – Flattening
+- [ ] **129.** Merging data structures (including deep merge)
+
+---
+
+## DOM & Browser APIs
+
+- [ ] **130.** Selecting DOM Elements – getElementsByClassName
+- [ ] **131.** How do `<script>`, `<script async>`, and `<script defer>` differ?
+- [ ] **132.** How do mouseenter and mouseover differ?
+- [ ] **133.** How to submit a form using JavaScript?
+- [ ] **134.** How to delete property-specific values using `delete`?
+- [ ] **135.** Explain how to detect the operating system on the client machine?
+- [ ] **136.** What are the types of popup boxes available in JavaScript?
+
+---
+
+## Asynchronous JavaScript
+
+- [ ] **137.** Explain the working of timers in JavaScript and their drawbacks.
+- [ ] **138.** What are the pros and cons of using AJAX?
+
+---
+
+## Node.js & Server-Side JavaScript
+
+- [ ] **139.** Explain how to read and write a file using JavaScript?
+
+---
+
+## Miscellaneous / Non-Core (Cross-Tech Comparison)
+
+- [ ] **140.** What is the difference between ViewState and SessionState?
+
+---
 
 ---
 
