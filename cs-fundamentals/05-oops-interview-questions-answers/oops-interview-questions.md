@@ -244,3 +244,150 @@
 **Total Questions: 52+ (with extended sections covering principles, patterns, scenarios, and language specifics)**
 
 This comprehensive sheet covers OOP from basic concepts to advanced design patterns and practical scenarios, ensuring thorough preparation for any OOP-related interview.
+
+## 12. What is coupling in OOP?
+
+### Concepts
+
+Coupling refers to **how dependent one class is on another class**.
+
+In simple words:
+
+> Coupling measures the level of dependency between two classes.
+
+If one class changes and another class breaks, they are tightly coupled.
+
+Low coupling is good.  
+High coupling is bad.
+
+---
+
+### High Coupling
+
+- Classes are strongly dependent on each other.
+- Changes in one class affect many other classes.
+- Hard to maintain.
+- Hard to test.
+
+Example:
+
+If Class A directly creates and uses Class B internally, then A is tightly coupled with B.
+
+---
+
+### Low Coupling
+
+- Classes interact through interfaces or abstractions.
+- Minimal direct dependency.
+- Easy to modify or replace components.
+- Better maintainability.
+
+Low coupling is achieved using:
+
+- Interfaces / abstract classes
+- Dependency injection
+- Composition over inheritance
+
+---
+
+### Code Example (C++)
+
+#### High Coupling Example
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class Engine {
+public:
+    void start() {
+        cout << "Engine started" << endl;
+    }
+};
+
+class Car {
+private:
+    Engine engine;   // Direct dependency
+
+public:
+    void startCar() {
+        engine.start();
+    }
+};
+
+int main() {
+    Car c;
+    c.startCar();
+    return 0;
+}
+```
+
+Here:
+
+Car is tightly coupled with Engine.
+If Engine changes, Car may need changes.
+
+---
+
+#### Low Coupling Example
+
+```cpp
+#include <iostream>
+using namespace std;
+
+// Abstract class
+class Engine {
+public:
+    virtual void start() = 0;
+};
+
+// Concrete implementation
+class PetrolEngine : public Engine {
+public:
+    void start() override {
+        cout << "Petrol engine started" << endl;
+    }
+};
+
+class Car {
+private:
+    Engine* engine;   // Depends on abstraction
+
+public:
+    Car(Engine* e) {
+        engine = e;
+    }
+
+    void startCar() {
+        engine->start();
+    }
+};
+
+int main() {
+
+    PetrolEngine p;
+    Car c(&p);
+
+    c.startCar();
+
+    return 0;
+}
+```
+
+Here:
+
+Car depends on abstract Engine.
+We can replace PetrolEngine with DieselEngine without changing Car.
+This is low coupling.
+
+---
+
+### Interview Ready Answer (Easy Language)
+
+Coupling refers to the degree of dependency between classes.
+
+High coupling means classes are strongly dependent on each other, which makes the system hard to maintain and modify.
+
+Low coupling means classes depend on abstractions rather than concrete implementations. This makes the system flexible and easier to maintain.
+
+In good object-oriented design, we aim for high cohesion and low coupling.
