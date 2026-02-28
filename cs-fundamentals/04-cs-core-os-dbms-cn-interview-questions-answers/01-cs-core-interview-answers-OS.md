@@ -847,3 +847,150 @@ Monitor internally uses mutex and condition variables.
 Advantage:
 
 Simpler and safer abstraction compared to raw semaphores.
+
+#### **32. Explain Peterson's solution for mutual exclusion.**
+
+Peterson’s solution is a software-based solution for achieving mutual exclusion between two processes.
+
+It uses:
+
+- Two boolean flags (indicating interest)
+- One turn variable (indicating whose turn it is)
+
+Idea:
+
+1. A process sets its flag = true (wants to enter critical section).
+2. It sets turn to the other process.
+3. It waits while:
+   - Other process is interested
+   - AND it is other process’s turn.
+
+It guarantees:
+
+- Mutual Exclusion
+- Progress
+- Bounded Waiting
+
+Limitation:
+
+- Works only for two processes.
+- Uses busy waiting.
+
+---
+
+#### **33. What are the operations that can be performed on a semaphore?**
+
+There are two atomic operations:
+
+1. wait() (P operation)
+   - Decrement semaphore value.
+   - If value < 0, process blocks.
+   - Otherwise, continue execution.
+
+2. signal() (V operation)
+   - Increment semaphore value.
+   - If there are blocked processes, wake one up.
+
+These operations must be atomic to prevent race conditions.
+
+---
+
+#### **34. Explain the Producer-Consumer problem and its solution.**
+
+Producer-Consumer (Bounded Buffer) Problem:
+
+- Producer produces items and puts them into buffer.
+- Consumer removes items from buffer.
+- Buffer has fixed size.
+
+Problems:
+
+- Producer should not add when buffer is full.
+- Consumer should not remove when buffer is empty.
+- Must avoid race condition.
+
+Solution Using Semaphores:
+
+Use three semaphores:
+
+1. mutex → ensures mutual exclusion
+2. empty → counts empty slots
+3. full → counts filled slots
+
+Producer:
+
+- wait(empty)
+- wait(mutex)
+- add item
+- signal(mutex)
+- signal(full)
+
+Consumer:
+
+- wait(full)
+- wait(mutex)
+- remove item
+- signal(mutex)
+- signal(empty)
+
+---
+
+#### **35. Explain the Readers-Writers problem and its solution.**
+
+Problem:
+
+- Multiple readers can read simultaneously.
+- Writers need exclusive access.
+- No reader should read while a writer is writing.
+
+First Readers-Writers Solution (Reader Priority):
+
+- Readers increment read count.
+- First reader locks writer semaphore.
+- Last reader unlocks writer semaphore.
+
+Issue:
+
+- Writers may suffer starvation.
+
+Writer-Priority Solution:
+
+- Writers get priority.
+- Readers wait if a writer is waiting.
+
+Uses:
+
+- mutex (protect read count)
+- wrt (controls writers)
+- additional variables for fairness
+
+---
+
+#### **36. Explain the Dining Philosophers problem and its solution.**
+
+Problem:
+
+- 5 philosophers sitting around table.
+- Each needs 2 forks to eat.
+- One fork between each pair.
+
+Problem:
+
+If all pick left fork simultaneously → deadlock.
+
+Solutions:
+
+1. Resource Hierarchy:
+   - Number forks.
+   - Always pick lower-numbered fork first.
+
+2. Limit Philosophers:
+   - Allow only 4 philosophers to sit simultaneously.
+
+3. Use Semaphore:
+   - One semaphore per fork.
+   - Additional control to avoid circular wait.
+
+Goal:
+
+Avoid deadlock and starvation while ensuring mutual exclusion.

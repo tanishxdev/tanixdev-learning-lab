@@ -818,3 +818,133 @@ Student Table:
 Relational model is based on mathematical relation concept.
 
 It is the foundation of RDBMS.
+
+### 27. What is a relation? Differentiate between relation and relationship.
+
+**Answer:**
+
+A **Relation** in the relational model is a table consisting of rows and columns.
+
+- Rows → Tuples
+- Columns → Attributes
+
+Example:
+
+Student(RollNo, Name, Marks)
+
+A **Relationship** in ER model represents association between two or more entities.
+
+Example:
+Student — enrolls — Course
+
+**Difference:**
+
+| Relation                        | Relationship            |
+| ------------------------------- | ----------------------- |
+| Table in relational model       | Association in ER model |
+| Consists of tuples & attributes | Connects entities       |
+| Physical implementation         | Conceptual design       |
+
+---
+
+### 28. Explain the terms: tuple, attribute, domain, degree, cardinality.
+
+**Answer:**
+
+1. **Tuple**
+   - A single row in a table.
+   - Represents one record.
+   - Example: (101, Tanish, 85)
+
+2. **Attribute**
+   - A column in a table.
+   - Represents a property.
+   - Example: Name, Marks
+
+3. **Domain**
+   - Set of valid values for an attribute.
+   - Example: Marks → 0 to 100
+
+4. **Degree**
+   - Number of attributes in a relation.
+   - If table has 3 columns → degree = 3
+
+5. **Cardinality**
+   - Number of tuples in a relation.
+   - If table has 50 rows → cardinality = 50
+
+---
+
+### 29. What is a relational schema?
+
+**Answer:**
+
+A **Relational Schema** defines the structure of a relation.
+
+It includes:
+
+- Relation name
+- Attributes
+- Data types
+- Constraints
+
+Example:
+
+Student(RollNo INT PRIMARY KEY, Name VARCHAR(50), Marks INT)
+
+Schema defines structure only, not actual data.
+
+---
+
+### 30. What are relational algebra operations? (Select, Project, Union, Set Difference, Cartesian Product, Rename)
+
+**Answer:**
+
+Relational algebra is a procedural query language used to manipulate relations.
+
+Basic operations:
+
+1. **Select (σ)**
+   - Filters rows based on condition.
+   - Example: σ Marks > 80 (Student)
+
+2. **Project (π)**
+   - Selects specific columns.
+   - Example: π Name, Marks (Student)
+
+3. **Union (∪)**
+   - Combines tuples of two relations.
+   - Relations must be union compatible.
+
+4. **Set Difference (−)**
+   - Returns tuples present in one relation but not in other.
+
+5. **Cartesian Product (×)**
+   - Combines each tuple of one relation with every tuple of another.
+
+6. **Rename (ρ)**
+   - Renames relation or attributes.
+
+---
+
+### 31. What are additional relational algebra operations? (Join, Division)
+
+**Answer:**
+
+1. **Join (⨝)**
+   - Combines related tuples from two relations.
+   - Based on common attribute.
+   - Example: Student ⨝ Enrollment
+
+Types:
+
+- Natural Join
+- Equi Join
+- Outer Join
+
+2. **Division (÷)**
+   - Used for queries involving "for all" conditions.
+   - Example:
+     Find students who enrolled in all courses.
+
+Division is used in complex relational queries.

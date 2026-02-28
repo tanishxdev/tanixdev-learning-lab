@@ -687,3 +687,94 @@ Network Access (TCP/IP)
 = Data Link + Physical (OSI)
 
 TCP/IP combines some OSI layers for practical implementation.
+
+### **36. What is the hybrid model (5-layer model)?**
+
+Hybrid model (also called 5-layer Internet model) is a practical combination of OSI and TCP/IP models.
+
+Layers:
+
+1. Application
+2. Transport
+3. Network
+4. Data Link
+5. Physical
+
+It separates Data Link and Physical layers (like OSI) but keeps fewer layers than OSI.
+
+Used commonly for academic explanations.
+
+---
+
+## **6. Transmission Media**
+
+### **37. What is transmission media? Explain its types.**
+
+Transmission media is the physical path through which data travels between sender and receiver.
+
+Types:
+
+1. Guided Media (Wired)
+2. Unguided Media (Wireless)
+
+Guided uses cables.
+Unguided uses electromagnetic waves.
+
+---
+
+### **38. Differentiate between guided and unguided media.**
+
+| Guided Media                  | Unguided Media             |
+| ----------------------------- | -------------------------- |
+| Uses physical cables          | Uses air/space             |
+| More secure                   | Less secure                |
+| Less interference             | More interference          |
+| Examples: Fiber, Twisted Pair | Examples: Radio, Microwave |
+
+Guided is more stable; unguided offers mobility.
+
+---
+
+### **39. Explain guided media:**
+
+Twisted Pair Cable
+
+- Two copper wires twisted together
+- Types: UTP, STP
+- Used in LAN
+
+Coaxial Cable
+
+- Central conductor with insulation
+- Used in cable TV
+
+Fiber Optic Cable
+
+- Uses light signals
+- Very high speed
+- Long-distance communication
+- Immune to electromagnetic interference
+
+---
+
+### **40. Explain unguided/wireless media:**
+
+Radio Waves
+
+- Used in Wi-Fi, Bluetooth
+- Can pass through walls
+
+Microwaves
+
+- Line-of-sight communication
+- Used in satellite and cellular
+
+Infrared
+
+- Short range
+- Cannot pass through walls
+
+Satellite Communication
+
+- Uses satellites for long-distance transmission
+- Covers large geographical areas
