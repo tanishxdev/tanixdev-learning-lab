@@ -2602,3 +2602,639 @@ Prototype pattern creates new objects by copying existing ones instead of creati
 In C++, it is implemented using copy constructors or clone functions.
 
 It is useful when object creation is expensive.
+
+## 38. When would you use the Adapter pattern?
+
+### Concepts
+
+The Adapter pattern is used when:
+
+> Two incompatible interfaces need to work together.
+
+It acts as a bridge between two classes that cannot interact directly due to different interfaces.
+
+Real-world example:
+
+- You have a 3-pin plug.
+- The wall socket is 2-pin.
+- You use an adapter to connect them.
+
+In OOP:
+
+- Client expects one interface.
+- Existing class has a different interface.
+- Adapter converts one interface into another.
+
+Structure:
+
+- Target (Expected interface)
+- Adaptee (Existing incompatible class)
+- Adapter (Converts interface)
+
+---
+
+### Code Example (C++)
+
+```cpp
+#include <iostream>
+using namespace std;
+
+// Target interface (what client expects)
+class MediaPlayer {
+public:
+    virtual void play(string audioType) = 0;
+};
+
+// Adaptee (existing class with different interface)
+class AdvancedMediaPlayer {
+public:
+    void playMP4() {
+        cout << "Playing MP4 file" << endl;
+    }
+};
+
+// Adapter class
+class MediaAdapter : public MediaPlayer {
+private:
+    AdvancedMediaPlayer advancedPlayer;
+
+public:
+    void play(string audioType) override {
+        if (audioType == "mp4") {
+            advancedPlayer.playMP4();
+        } else {
+            cout << "Format not supported" << endl;
+        }
+    }
+};
+
+int main() {
+
+    MediaPlayer* player = new MediaAdapter();
+    player->play("mp4");
+
+    delete player;
+    return 0;
+}
+```
+
+---
+
+### Interview Ready Answer (Easy Language)
+
+The Adapter pattern is used when two incompatible interfaces need to work together.
+
+It acts as a bridge between the client and an existing class by converting one interface into another.
+
+We use it when we want to reuse an existing class but its interface does not match what the client expects.
+
+It helps in integrating legacy code without modifying existing classes.
+
+---
+
+## 39. Can you explain the use of the Decorator pattern?
+
+### Concepts
+
+The Decorator pattern is used to:
+
+> Add new functionality to an object dynamically without modifying its structure.
+
+Instead of changing the class, we wrap the object inside another class.
+
+Real-world example:
+
+Coffee:
+
+- Base coffee
+- Add milk
+- Add sugar
+- Add chocolate
+
+Each addition wraps the original object.
+
+Key Idea:
+
+- Follows composition.
+- Enhances behavior at runtime.
+
+---
+
+### Code Example (C++)
+
+```cpp
+#include <iostream>
+using namespace std;
+
+// Base Component
+class Coffee {
+public:
+    virtual double cost() = 0;
+};
+
+// Concrete Component
+class SimpleCoffee : public Coffee {
+public:
+    double cost() override {
+        return 50;
+    }
+};
+
+// Decorator Base
+class CoffeeDecorator : public Coffee {
+protected:
+    Coffee* coffee;
+
+public:
+    CoffeeDecorator(Coffee* c) {
+        coffee = c;
+    }
+};
+
+// Concrete Decorator
+class MilkDecorator : public CoffeeDecorator {
+public:
+    MilkDecorator(Coffee* c) : CoffeeDecorator(c) {}
+
+    double cost() override {
+        return coffee->cost() + 20;
+    }
+};
+
+int main() {
+
+    Coffee* coffee = new SimpleCoffee();
+    coffee = new MilkDecorator(coffee);
+
+    cout << "Total Cost: " << coffee->cost() << endl;
+
+    return 0;
+}
+```
+
+---
+
+### Interview Ready Answer (Easy Language)
+
+The Decorator pattern is used to add new functionality to an object dynamically without modifying its original class.
+
+It wraps the original object inside another object that adds extra behavior.
+
+It follows composition instead of inheritance and provides flexible extension of functionality.
+
+It is useful when we want to extend behavior at runtime.
+
+---
+
+## 40. Describe the Observer pattern and a scenario in which you might use it.
+
+### Concepts
+
+Observer pattern defines a one-to-many relationship between objects.
+
+When one object (Subject) changes its state, all dependent objects (Observers) are automatically notified.
+
+It promotes loose coupling between subject and observers.
+
+Structure:
+
+- Subject → Maintains list of observers.
+- Observer → Defines update() method.
+- ConcreteObserver → Implements update().
+
+Use cases:
+
+- Event systems
+- Notification systems
+- GUI frameworks
+- Real-time stock price updates
+
+---
+
+### Code Example (C++)
+
+```cpp
+#include <iostream>
+#include <vector>
+using namespace std;
+
+class Observer {
+public:
+    virtual void update(int state) = 0;
+};
+
+class Subject {
+private:
+    vector<Observer*> observers;
+    int state;
+
+public:
+    void attach(Observer* obs) {
+        observers.push_back(obs);
+    }
+
+    void setState(int s) {
+        state = s;
+        notify();
+    }
+
+    void notify() {
+        for (auto obs : observers) {
+            obs->update(state);
+        }
+    }
+};
+
+class ConcreteObserver : public Observer {
+public:
+    void update(int state) override {
+        cout << "Observer notified. New State: " << state << endl;
+    }
+};
+
+int main() {
+    Subject subject;
+    ConcreteObserver obs1;
+
+    subject.attach(&obs1);
+    subject.setState(100);
+
+    return 0;
+}
+```
+
+---
+
+### Interview Ready Answer (Easy Language)
+
+Observer pattern creates a one-to-many dependency between objects.
+
+When the subject changes its state, all observers are notified automatically.
+
+It is useful in event-driven systems and notification systems and helps maintain loose coupling.
+
+---
+
+## 41. What are the advantages of using the Command pattern?
+
+### Concepts
+
+Command pattern encapsulates a request as an object.
+
+It turns a request into a standalone object containing:
+
+- Request details
+- Receiver
+- Action
+
+Benefits:
+
+1. Decouples sender and receiver.
+2. Supports undo/redo.
+3. Supports logging of operations.
+4. Supports queuing of requests.
+
+Structure:
+
+- Command interface
+- ConcreteCommand
+- Receiver
+- Invoker
+
+---
+
+### Code Example (C++)
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class Light {
+public:
+    void turnOn() {
+        cout << "Light ON" << endl;
+    }
+};
+
+class Command {
+public:
+    virtual void execute() = 0;
+};
+
+class LightOnCommand : public Command {
+private:
+    Light* light;
+
+public:
+    LightOnCommand(Light* l) {
+        light = l;
+    }
+
+    void execute() override {
+        light->turnOn();
+    }
+};
+
+class RemoteControl {
+private:
+    Command* command;
+
+public:
+    void setCommand(Command* cmd) {
+        command = cmd;
+    }
+
+    void pressButton() {
+        command->execute();
+    }
+};
+
+int main() {
+    Light light;
+    LightOnCommand cmd(&light);
+    RemoteControl remote;
+
+    remote.setCommand(&cmd);
+    remote.pressButton();
+
+    return 0;
+}
+```
+
+---
+
+### Interview Ready Answer (Easy Language)
+
+The Command pattern encapsulates a request as an object.
+
+It decouples the sender from the receiver.
+
+It allows support for undo/redo, logging, and queuing operations.
+
+It is commonly used in GUI buttons, remote controls, and transaction systems.
+
+---
+
+## 42. How does the Strategy pattern provide flexibility in objects?
+
+### Concepts
+
+Strategy pattern allows selecting behavior at runtime.
+
+Instead of using multiple if-else statements, we define:
+
+- A common strategy interface
+- Multiple concrete strategies
+
+Behavior can be changed dynamically.
+
+Structure:
+
+- Strategy interface
+- Concrete strategies
+- Context class
+
+Benefits:
+
+- Removes conditional logic
+- Follows Open/Closed Principle
+- Easy to add new algorithms
+
+---
+
+### Code Example (C++)
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class Strategy {
+public:
+    virtual int execute(int a, int b) = 0;
+};
+
+class AddStrategy : public Strategy {
+public:
+    int execute(int a, int b) override {
+        return a + b;
+    }
+};
+
+class MultiplyStrategy : public Strategy {
+public:
+    int execute(int a, int b) override {
+        return a * b;
+    }
+};
+
+class Context {
+private:
+    Strategy* strategy;
+
+public:
+    void setStrategy(Strategy* s) {
+        strategy = s;
+    }
+
+    int performOperation(int a, int b) {
+        return strategy->execute(a, b);
+    }
+};
+
+int main() {
+    Context context;
+
+    AddStrategy add;
+    MultiplyStrategy multiply;
+
+    context.setStrategy(&add);
+    cout << context.performOperation(5, 3) << endl;
+
+    context.setStrategy(&multiply);
+    cout << context.performOperation(5, 3) << endl;
+
+    return 0;
+}
+```
+
+---
+
+### Interview Ready Answer (Easy Language)
+
+Strategy pattern defines a family of algorithms and makes them interchangeable.
+
+The behavior of an object can be changed at runtime by switching strategies.
+
+It removes large conditional statements and improves flexibility.
+
+It follows Open/Closed Principle.
+
+---
+
+## 43. What are some common OOP design anti-patterns?
+
+### Concepts
+
+Anti-patterns are bad design practices that lead to poor maintainability and scalability.
+
+Common OOP anti-patterns:
+
+1. God Object
+   One class doing too many responsibilities.
+
+2. Spaghetti Code
+   Poor structure and unclear dependencies.
+
+3. Tight Coupling
+   Classes heavily dependent on each other.
+
+4. Hard-coded Dependencies
+   Direct object creation instead of dependency injection.
+
+5. Circular Dependencies
+   Classes depend on each other in a loop.
+
+---
+
+### Code Example (Bad Design Example)
+
+```cpp
+class GodClass {
+public:
+    void handleUser() {}
+    void handleDatabase() {}
+    void handlePayment() {}
+    void generateReport() {}
+};
+```
+
+This violates Single Responsibility Principle.
+
+---
+
+### Interview Ready Answer (Easy Language)
+
+OOP anti-patterns are bad design practices that reduce maintainability and flexibility.
+
+Examples include God Object, tight coupling, and spaghetti code.
+
+They violate SOLID principles and make systems harder to scale and maintain.
+
+---
+
+## 44. How do you ensure that your objects are properly encapsulated?
+
+### Concepts
+
+To ensure proper encapsulation:
+
+1. Keep data members private.
+2. Provide controlled access via public methods.
+3. Avoid exposing internal data structures.
+4. Validate input in setters.
+5. Use const correctness where applicable.
+
+---
+
+### Code Example (C++)
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class Account {
+private:
+    double balance;
+
+public:
+    Account(double b) {
+        balance = b;
+    }
+
+    void deposit(double amount) {
+        if (amount > 0) {
+            balance += amount;
+        }
+    }
+
+    double getBalance() const {
+        return balance;
+    }
+};
+```
+
+---
+
+### Interview Ready Answer (Easy Language)
+
+We ensure encapsulation by keeping data private and exposing only necessary methods.
+
+We validate inputs and avoid direct data access.
+
+This protects internal state and improves security and maintainability.
+
+---
+
+## 45. Name some techniques for reducing coupling between classes.
+
+### Concepts
+
+Reducing coupling improves flexibility and maintainability.
+
+Techniques:
+
+1. Use Interfaces or Abstract Classes.
+2. Dependency Injection.
+3. Use Composition instead of inheritance.
+4. Follow SOLID principles.
+5. Use Event-driven architecture (Observer).
+6. Avoid global variables.
+
+---
+
+### Code Example (Dependency Injection)
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class Database {
+public:
+    void connect() {
+        cout << "Connected to Database" << endl;
+    }
+};
+
+class Service {
+private:
+    Database* db;
+
+public:
+    Service(Database* database) {
+        db = database;
+    }
+
+    void process() {
+        db->connect();
+    }
+};
+
+int main() {
+    Database database;
+    Service service(&database);
+
+    service.process();
+
+    return 0;
+}
+```
+
+---
+
+### Interview Ready Answer (Easy Language)
+
+Coupling can be reduced by using interfaces, dependency injection, and composition.
+
+We should avoid tight dependencies and follow SOLID principles.
+
+Loose coupling makes the system more modular, testable, and maintainable.
