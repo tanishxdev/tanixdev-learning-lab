@@ -1,5 +1,3 @@
-
-
 # JSON and Local Storage — Deep Conceptual Understanding
 
 ---
@@ -8,14 +6,14 @@
 
 Modern web applications need to:
 
-* Exchange data between **frontend and backend**
-* Store data **persistently in the browser**
-* Restore user state after refresh or reopen
+- Exchange data between **frontend and backend**
+- Store data **persistently in the browser**
+- Restore user state after refresh or reopen
 
 JavaScript alone works with **objects**, but:
 
-* Browsers store data as **strings**
-* Networks transfer data as **text**
+- Browsers store data as **strings**
+- Networks transfer data as **text**
 
 This is where **JSON** and **Local Storage** come in.
 
@@ -29,15 +27,15 @@ JSON is a **text-based data format** used to represent structured data.
 
 Important points:
 
-* JSON is **not JavaScript**
-* JSON is just **a string**
-* JSON follows **strict rules**
+- JSON is **not JavaScript**
+- JSON is just **a string**
+- JSON follows **strict rules**
 
 JSON exists so that:
 
-* Different languages can understand the same data
-* Data can move safely over the network
-* Browsers can store complex structures as text
+- Different languages can understand the same data
+- Data can move safely over the network
+- Browsers can store complex structures as text
 
 ---
 
@@ -49,19 +47,19 @@ JSON exists so that:
 
 This is required because:
 
-* Local Storage only stores strings
-* HTTP requests send text
-* Files store text
+- Local Storage only stores strings
+- HTTP requests send text
+- Files store text
 
 ---
 
 ```js
 // Convert JavaScript object to JSON string
 const user = {
-  name: 'Alice',
+  name: "Alice",
   age: 25,
-  hobbies: ['reading', 'coding'],
-  active: true
+  hobbies: ["reading", "coding"],
+  active: true,
 };
 
 const jsonString = JSON.stringify(user);
@@ -83,29 +81,29 @@ console.log(formatted);
 
 Explanation:
 
-* `null` → no custom replacer
-* `2` → indentation spacing
+- `null` → no custom replacer
+- `2` → indentation spacing
 
 Used mainly for:
 
-* Debugging
-* Logging
-* Saving readable files
+- Debugging
+- Logging
+- Saving readable files
 
 ---
 
 ### Replacer (Filtering Properties)
 
 ```js
-const filtered = JSON.stringify(user, ['name', 'age']);
+const filtered = JSON.stringify(user, ["name", "age"]);
 console.log(filtered); // '{"name":"Alice","age":25}'
 ```
 
 This:
 
-* Removes unwanted properties
-* Reduces payload size
-* Controls exposure
+- Removes unwanted properties
+- Reduces payload size
+- Controls exposure
 
 ---
 
@@ -122,14 +120,14 @@ const jsonData = '{"name":"Bob","age":30,"city":"New York"}';
 const user = JSON.parse(jsonData);
 
 console.log(user.name); // 'Bob'
-console.log(user.age);  // 30
+console.log(user.age); // 30
 ```
 
 After parsing:
 
-* You can access properties
-* You can mutate data
-* You can use logic on it
+- You can access properties
+- You can mutate data
+- You can use logic on it
 
 ---
 
@@ -140,7 +138,7 @@ function safeJsonParse(jsonString) {
   try {
     return JSON.parse(jsonString);
   } catch (error) {
-    console.error('Invalid JSON:', error.message);
+    console.error("Invalid JSON:", error.message);
     return null;
   }
 }
@@ -148,9 +146,9 @@ function safeJsonParse(jsonString) {
 
 Why this matters:
 
-* Broken JSON crashes apps
-* Corrupt storage happens
-* External data is unreliable
+- Broken JSON crashes apps
+- Corrupt storage happens
+- External data is unreliable
 
 ---
 
@@ -162,12 +160,14 @@ JSON does **NOT** support all JS types.
 
 ```js
 const complexObject = {
-  name: 'Test',
+  name: "Test",
   date: new Date(),
-  func: function() { return 'hello'; },
+  func: function () {
+    return "hello";
+  },
   undefined: undefined,
-  symbol: Symbol('test'),
-  regex: /test/g
+  symbol: Symbol("test"),
+  regex: /test/g,
 };
 
 const jsonString = JSON.stringify(complexObject);
@@ -176,11 +176,11 @@ console.log(jsonString);
 
 What happens internally:
 
-* `function` → removed
-* `undefined` → removed
-* `symbol` → removed
-* `Date` → converted to string
-* `RegExp` → empty object
+- `function` → removed
+- `undefined` → removed
+- `symbol` → removed
+- `Date` → converted to string
+- `RegExp` → empty object
 
 **Key rule**
 JSON supports **data**, not **behavior**.
@@ -195,15 +195,15 @@ JSON supports **data**, not **behavior**.
 
 Local Storage is:
 
-* Browser-based key–value storage
-* Persistent (survives refresh and reopen)
-* String-only storage
+- Browser-based key–value storage
+- Persistent (survives refresh and reopen)
+- String-only storage
 
 Characteristics:
 
-* Synchronous
-* Origin-based
-* ~5–10 MB limit (browser dependent)
+- Synchronous
+- Origin-based
+- ~5–10 MB limit (browser dependent)
 
 ---
 
@@ -212,9 +212,9 @@ Characteristics:
 ### Storing Simple Values
 
 ```js
-localStorage.setItem('username', 'john_doe');
-localStorage.setItem('theme', 'dark');
-localStorage.setItem('fontSize', '16');
+localStorage.setItem("username", "john_doe");
+localStorage.setItem("theme", "dark");
+localStorage.setItem("fontSize", "16");
 ```
 
 Everything is stored as:
@@ -229,12 +229,12 @@ string → string
 
 ```js
 const userSettings = {
-  language: 'en',
+  language: "en",
   notifications: true,
-  autoSave: false
+  autoSave: false,
 };
 
-localStorage.setItem('userSettings', JSON.stringify(userSettings));
+localStorage.setItem("userSettings", JSON.stringify(userSettings));
 ```
 
 ---
@@ -242,8 +242,8 @@ localStorage.setItem('userSettings', JSON.stringify(userSettings));
 ### Storing Arrays
 
 ```js
-const favoriteColors = ['blue', 'green', 'purple'];
-localStorage.setItem('favoriteColors', JSON.stringify(favoriteColors));
+const favoriteColors = ["blue", "green", "purple"];
+localStorage.setItem("favoriteColors", JSON.stringify(favoriteColors));
 ```
 
 ---
@@ -253,7 +253,7 @@ localStorage.setItem('favoriteColors', JSON.stringify(favoriteColors));
 ### Simple Values
 
 ```js
-const username = localStorage.getItem('username');
+const username = localStorage.getItem("username");
 console.log(username);
 ```
 
@@ -262,7 +262,7 @@ console.log(username);
 ### Objects (Parse Back)
 
 ```js
-const settingsJson = localStorage.getItem('userSettings');
+const settingsJson = localStorage.getItem("userSettings");
 
 if (settingsJson) {
   const settings = JSON.parse(settingsJson);
@@ -283,16 +283,16 @@ function getStorageItem(key, defaultValue) {
 
 Why this pattern is useful:
 
-* Prevents null crashes
-* Allows fallback logic
-* Centralizes parsing
+- Prevents null crashes
+- Allows fallback logic
+- Centralizes parsing
 
 ---
 
 ## 3.4 Managing Storage
 
 ```js
-localStorage.removeItem('username');
+localStorage.removeItem("username");
 localStorage.clear();
 ```
 
@@ -301,8 +301,8 @@ localStorage.clear();
 ### Checking Existence
 
 ```js
-if (localStorage.getItem('theme')) {
-  console.log('Theme setting found');
+if (localStorage.getItem("theme")) {
+  console.log("Theme setting found");
 }
 ```
 
@@ -312,7 +312,7 @@ if (localStorage.getItem('theme')) {
 
 ```js
 const keys = Object.keys(localStorage);
-console.log('Stored keys:', keys);
+console.log("Stored keys:", keys);
 ```
 
 ---
@@ -331,8 +331,8 @@ for (let key in localStorage) {
 
 This is approximate but useful for:
 
-* Debugging quota issues
-* Cleanup strategies
+- Debugging quota issues
+- Cleanup strategies
 
 ---
 
@@ -344,10 +344,10 @@ This is approximate but useful for:
 
 ### Mental Model
 
-* Defaults exist
-* Stored values override defaults
-* Storage may fail
-* Errors must not break UI
+- Defaults exist
+- Stored values override defaults
+- Storage may fail
+- Errors must not break UI
 
 ---
 
@@ -382,9 +382,9 @@ class PreferencesManager {
 
 This ensures:
 
-* Defaults always exist
-* Stored values override selectively
-* App never crashes
+- Defaults always exist
+- Stored values override selectively
+- App never crashes
 
 ---
 
@@ -455,9 +455,9 @@ Pure function logic → predictable output.
 
 ### Why Needed
 
-* Page refresh
-* Accidental navigation
-* Browser crash
+- Page refresh
+- Accidental navigation
+- Browser crash
 
 ---
 
@@ -471,9 +471,9 @@ function saveFormData(formId) {
 
 FormData abstracts:
 
-* Inputs
-* Selects
-* Textareas
+- Inputs
+- Selects
+- Textareas
 
 ---
 
@@ -493,7 +493,7 @@ Object.entries(data).forEach(([key, value]) => {
 ### Auto Save (Debounced)
 
 ```js
-form.addEventListener('input', () => {
+form.addEventListener("input", () => {
   clearTimeout(timeout);
   timeout = setTimeout(() => saveFormData(formId), delay);
 });
@@ -512,7 +512,7 @@ Prevents excessive writes.
 ```js
 function isStorageAvailable() {
   try {
-    const test = '__storage_test__';
+    const test = "__storage_test__";
     localStorage.setItem(test, test);
     localStorage.removeItem(test);
     return true;
@@ -524,9 +524,9 @@ function isStorageAvailable() {
 
 Handles:
 
-* Private mode
-* Disabled storage
-* Quota restrictions
+- Private mode
+- Disabled storage
+- Quota restrictions
 
 ---
 
@@ -538,8 +538,8 @@ function safeSetItem(key, value) {
     localStorage.setItem(key, value);
     return true;
   } catch (error) {
-    if (error.name === 'QuotaExceededError') {
-      console.warn('Storage quota exceeded');
+    if (error.name === "QuotaExceededError") {
+      console.warn("Storage quota exceeded");
     }
     return false;
   }
@@ -550,13 +550,13 @@ function safeSetItem(key, value) {
 
 ## Final Mental Model (Lock This In)
 
-* JSON = **data format**
-* stringify → object to text
-* parse → text to object
-* Local Storage = **persistent string storage**
-* Always stringify before storing
-* Always parse after retrieving
-* Never trust stored data blindly
-* Handle errors everywhere
+- JSON = **data format**
+- stringify → object to text
+- parse → text to object
+- Local Storage = **persistent string storage**
+- Always stringify before storing
+- Always parse after retrieving
+- Never trust stored data blindly
+- Handle errors everywhere
 
 ---

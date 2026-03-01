@@ -1,5 +1,3 @@
-
-
 # JavaScript Operators — Conceptual + Practical Mastery
 
 ---
@@ -10,9 +8,9 @@ An **operator** is a symbol (or keyword) that tells JavaScript to **perform an a
 
 In simple terms:
 
-* Operators are how **logic is built**
-* Without operators, variables are just stored values
-* With operators, values become **calculations, decisions, and conditions**
+- Operators are how **logic is built**
+- Without operators, variables are just stored values
+- With operators, values become **calculations, decisions, and conditions**
 
 Example mental model:
 
@@ -34,10 +32,10 @@ In this lesson, we focus on:
 
 Later sections also include:
 
-* Assignment operators
-* Nullish operators
-* Logical assignment operators
-* Precedence rules
+- Assignment operators
+- Nullish operators
+- Logical assignment operators
+- Precedence rules
 
 ---
 
@@ -60,39 +58,39 @@ let a = 10;
 let b = 3;
 
 // Addition (+)
-console.log(a + b);        // 13
-console.log(5 + 3);        // 8
-console.log("5" + 3);      // "53" (string concatenation)
+console.log(a + b); // 13
+console.log(5 + 3); // 8
+console.log("5" + 3); // "53" (string concatenation)
 
 // Subtraction (-)
-console.log(a - b);        // 7
-console.log(10 - 4);       // 6
+console.log(a - b); // 7
+console.log(10 - 4); // 6
 
 // Multiplication (*)
-console.log(a * b);        // 30
-console.log(4 * 5);        // 20
+console.log(a * b); // 30
+console.log(4 * 5); // 20
 
 // Division (/)
-console.log(a / b);        // 3.333...
-console.log(15 / 3);       // 5
-console.log(10 / 0);       // Infinity
+console.log(a / b); // 3.333...
+console.log(15 / 3); // 5
+console.log(10 / 0); // Infinity
 
 // Modulus/Remainder (%)
-console.log(a % b);        // 1
-console.log(17 % 5);       // 2
-console.log(10 % 2);       // 0
+console.log(a % b); // 1
+console.log(17 % 5); // 2
+console.log(10 % 2); // 0
 
 // Exponentiation (**)
-console.log(a ** b);       // 1000
-console.log(2 ** 3);       // 8
-console.log(4 ** 0.5);     // 2
+console.log(a ** b); // 1000
+console.log(2 ** 3); // 8
+console.log(4 ** 0.5); // 2
 ```
 
 ### Mental Model
 
-* `+` is **special** → if either side is a string, it concatenates
-* Other operators force **numeric conversion**
-* Division by zero does **not crash**, it returns `Infinity`
+- `+` is **special** → if either side is a string, it concatenates
+- Other operators force **numeric conversion**
+- Division by zero does **not crash**, it returns `Infinity`
 
 ---
 
@@ -107,10 +105,10 @@ Unary operators work on **one operand**.
 ```js
 let x = 5;
 
-console.log(+x);           // 5
-console.log(+"10");        // 10
-console.log(+true);        // 1
-console.log(+false);       // 0
+console.log(+x); // 5
+console.log(+"10"); // 10
+console.log(+true); // 1
+console.log(+false); // 0
 ```
 
 Mental model:
@@ -122,8 +120,8 @@ Mental model:
 ### Unary Minus (`-`)
 
 ```js
-console.log(-x);           // -5
-console.log(-(-5));        // 5
+console.log(-x); // -5
+console.log(-(-5)); // 5
 ```
 
 ---
@@ -132,23 +130,23 @@ console.log(-(-5));        // 5
 
 ```js
 let counter = 0;
-console.log(++counter);    // 1 (pre-increment)
-console.log(counter++);    // 1 (post-increment)
-console.log(counter);      // 2
+console.log(++counter); // 1 (pre-increment)
+console.log(counter++); // 1 (post-increment)
+console.log(counter); // 2
 ```
 
 Key rule:
 
-* **Pre** → change first, then return
-* **Post** → return first, then change
+- **Pre** → change first, then return
+- **Post** → return first, then change
 
 Same logic applies to decrement:
 
 ```js
 let countdown = 5;
-console.log(--countdown);  
-console.log(countdown--);  
-console.log(countdown);    
+console.log(--countdown);
+console.log(countdown--);
+console.log(countdown);
 ```
 
 ---
@@ -159,22 +157,29 @@ console.log(countdown);
 
 ```js
 function calculator(a, b, operation) {
-    switch (operation) {
-        case "+": return a + b;
-        case "-": return a - b;
-        case "*": return a * b;
-        case "/": return b !== 0 ? a / b : "Cannot divide by zero";
-        case "%": return a % b;
-        case "**": return a ** b;
-        default: return "Invalid operation";
-    }
+  switch (operation) {
+    case "+":
+      return a + b;
+    case "-":
+      return a - b;
+    case "*":
+      return a * b;
+    case "/":
+      return b !== 0 ? a / b : "Cannot divide by zero";
+    case "%":
+      return a % b;
+    case "**":
+      return a ** b;
+    default:
+      return "Invalid operation";
+  }
 }
 ```
 
 Key idea:
 
-* Arithmetic operators become **business rules**
-* Validation matters (`b !== 0`)
+- Arithmetic operators become **business rules**
+- Validation matters (`b !== 0`)
 
 ---
 
@@ -218,7 +223,7 @@ let a = 5;
 let b = "5";
 let c = 5;
 
-console.log(a === c); 
+console.log(a === c);
 console.log(a === b);
 ```
 
@@ -231,16 +236,16 @@ Rule:
 ### Loose Equality (`==`) — Type Conversion Happens
 
 ```js
-console.log(a == b);       
-console.log(0 == false);   
-console.log("" == false);  
+console.log(a == b);
+console.log(0 == false);
+console.log("" == false);
 console.log(null == undefined);
 ```
 
 Mental model:
 
-* JavaScript **forces both sides to same type**
-* This causes confusing results
+- JavaScript **forces both sides to same type**
+- This causes confusing results
 
 ---
 
@@ -268,8 +273,8 @@ console.log("10" < "2");
 
 Important rule:
 
-* Strings are compared **lexicographically**, not numerically
-* `"10" < "2"` → compares `"1"` with `"2"`
+- Strings are compared **lexicographically**, not numerically
+- `"10" < "2"` → compares `"1"` with `"2"`
 
 ---
 
@@ -280,13 +285,13 @@ let arr1 = [1, 2, 3];
 let arr2 = [1, 2, 3];
 let arr3 = arr1;
 
-console.log(arr1 === arr2); 
+console.log(arr1 === arr2);
 console.log(arr1 === arr3);
 ```
 
 Mental model:
 
-* Objects compare **references**, not content
+- Objects compare **references**, not content
 
 ---
 
@@ -315,21 +320,21 @@ console.log(!a);
 
 ### AND (`&&`)
 
-* Returns **first falsy value**
-* Otherwise returns **last value**
+- Returns **first falsy value**
+- Otherwise returns **last value**
 
 ---
 
 ### OR (`||`)
 
-* Returns **first truthy value**
-* Used heavily for defaults
+- Returns **first truthy value**
+- Used heavily for defaults
 
 ---
 
 ### NOT (`!`)
 
-* Converts to boolean, then inverts
+- Converts to boolean, then inverts
 
 ---
 
@@ -343,8 +348,8 @@ console.log(user && user.name);
 
 Why this works:
 
-* If `user` is falsy → evaluation stops
-* Prevents runtime errors
+- If `user` is falsy → evaluation stops
+- Prevents runtime errors
 
 ---
 
@@ -352,7 +357,7 @@ Why this works:
 
 ```js
 function greetUser(user) {
-    user && user.name && console.log(`Hello, ${user.name}!`);
+  user && user.name && console.log(`Hello, ${user.name}!`);
 }
 ```
 
@@ -367,7 +372,7 @@ let displayName = userName || "Guest";
 
 Problem:
 
-* Empty string is falsy, even if valid
+- Empty string is falsy, even if valid
 
 ---
 
@@ -414,7 +419,7 @@ num **= 3;
 
 Mental model:
 
-* Shortcut for “read → modify → assign”
+- Shortcut for “read → modify → assign”
 
 ---
 
@@ -431,8 +436,8 @@ console.log((2 + 3) * 4);
 
 Rule:
 
-* Multiplication happens before addition
-* Parentheses override everything
+- Multiplication happens before addition
+- Parentheses override everything
 
 ---
 
@@ -455,14 +460,14 @@ Step-by-step:
 
 You included:
 
-* Form validation
-* Shopping cart logic
-* Game score calculation
+- Form validation
+- Shopping cart logic
+- Game score calculation
 
 These examples show:
 
-* Operators are **decision engines**
-* Business rules = operators + conditions
+- Operators are **decision engines**
+- Business rules = operators + conditions
 
 ---
 
@@ -482,13 +487,13 @@ All of these are **interview favorites**.
 
 ## Final Mental Model (Lock This)
 
-* Arithmetic operators → calculations
-* Comparison operators → decisions
-* Logical operators → rule chaining
-* `===` > `==`
-* `&&` / `||` return values, not booleans
-* `??` is safer for defaults
-* Parentheses improve clarity
-* Operators are the **core of logic building**
+- Arithmetic operators → calculations
+- Comparison operators → decisions
+- Logical operators → rule chaining
+- `===` > `==`
+- `&&` / `||` return values, not booleans
+- `??` is safer for defaults
+- Parentheses improve clarity
+- Operators are the **core of logic building**
 
 ---

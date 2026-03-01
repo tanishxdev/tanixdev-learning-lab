@@ -8,15 +8,15 @@
 
 Without destructuring:
 
-* You access values one-by-one
-* Code becomes repetitive
-* Logic becomes noisy
+- You access values one-by-one
+- Code becomes repetitive
+- Logic becomes noisy
 
 With destructuring:
 
-* Code is **shorter**
-* Intent is **clear**
-* Data extraction becomes **declarative**
+- Code is **shorter**
+- Intent is **clear**
+- Data extraction becomes **declarative**
 
 Mental model:
 
@@ -29,7 +29,7 @@ Mental model:
 ### Problem (before destructuring)
 
 ```js
-const colors = ['red', 'green', 'blue'];
+const colors = ["red", "green", "blue"];
 
 const first = colors[0];
 const second = colors[1];
@@ -38,9 +38,9 @@ const third = colors[2];
 
 Problems:
 
-* Repetition
-* Index-based access is error-prone
-* Hard to scale with large structures
+- Repetition
+- Index-based access is error-prone
+- Hard to scale with large structures
 
 ---
 
@@ -52,8 +52,8 @@ const [first, second, third] = colors;
 
 Clear mapping:
 
-* Position → variable
-* No manual indexing
+- Position → variable
+- No manual indexing
 
 ---
 
@@ -62,21 +62,21 @@ Clear mapping:
 ### 3.1 Basic Array Destructuring
 
 ```js
-const colors = ['red', 'green', 'blue'];
+const colors = ["red", "green", "blue"];
 
 // Destructure values based on position
 const [first, second, third] = colors;
 
-console.log(first);  // 'red'
+console.log(first); // 'red'
 console.log(second); // 'green'
-console.log(third);  // 'blue'
+console.log(third); // 'blue'
 ```
 
 How it works internally:
 
-* JS reads array from left to right
-* Assigns values by index order
-* Variables are matched **by position, not by name**
+- JS reads array from left to right
+- Assigns values by index order
+- Variables are matched **by position, not by name**
 
 ---
 
@@ -89,16 +89,16 @@ const numbers = [1, 2, 3, 4, 5];
 // Collect remaining elements using rest operator
 const [a, , c, ...rest] = numbers;
 
-console.log(a);    // 1
-console.log(c);    // 3
+console.log(a); // 1
+console.log(c); // 3
 console.log(rest); // [4, 5]
 ```
 
 Key ideas:
 
-* Empty commas mean “skip this index”
-* `...rest` collects remaining values into an array
-* `rest` must always be **last**
+- Empty commas mean “skip this index”
+- `...rest` collects remaining values into an array
+- `rest` must always be **last**
 
 ---
 
@@ -114,8 +114,8 @@ console.log(z); // 30
 
 Mental model:
 
-* Default applies **only when value is undefined**
-* `null` does NOT trigger default
+- Default applies **only when value is undefined**
+- `null` does NOT trigger default
 
 ---
 
@@ -124,55 +124,55 @@ Mental model:
 ### 4.1 Basic Object Destructuring
 
 ```js
-const person = { name: 'John', age: 30, city: 'New York' };
+const person = { name: "John", age: 30, city: "New York" };
 
 // Property names must match variable names
 const { name, age, city } = person;
 
 console.log(name); // 'John'
-console.log(age);  // 30
+console.log(age); // 30
 ```
 
 Key difference from arrays:
 
-* Order does NOT matter
-* Matching happens by **property name**
+- Order does NOT matter
+- Matching happens by **property name**
 
 ---
 
 ### 4.2 Renaming Variables
 
 ```js
-const user = { id: 1, username: 'johndoe' };
+const user = { id: 1, username: "johndoe" };
 
 // Rename properties while destructuring
 const { id: userId, username: userName } = user;
 
-console.log(userId);   // 1
+console.log(userId); // 1
 console.log(userName); // 'johndoe'
 ```
 
 Why this is important:
 
-* Avoid variable name clashes
-* Improve readability
-* Common in APIs and large objects
+- Avoid variable name clashes
+- Improve readability
+- Common in APIs and large objects
 
 ---
 
 ### 4.3 Default Values in Objects
 
 ```js
-const { theme = 'light', language = 'en' } = { theme: 'dark' };
+const { theme = "light", language = "en" } = { theme: "dark" };
 
-console.log(theme);    // 'dark'
+console.log(theme); // 'dark'
 console.log(language); // 'en'
 ```
 
 Rule:
 
-* Default applies when property is missing or undefined
-* Explicit values always override defaults
+- Default applies when property is missing or undefined
+- Explicit values always override defaults
 
 ---
 
@@ -182,28 +182,28 @@ Rule:
 const data = {
   user: {
     profile: {
-      name: 'Alice',
-      email: 'alice@example.com'
-    }
-  }
+      name: "Alice",
+      email: "alice@example.com",
+    },
+  },
 };
 
 // Drill down into nested structure
 const {
   user: {
-    profile: { name, email }
-  }
+    profile: { name, email },
+  },
 } = data;
 
-console.log(name);  // 'Alice'
+console.log(name); // 'Alice'
 console.log(email); // 'alice@example.com'
 ```
 
 Mental model:
 
-* Structure on left must mirror structure on right
-* You are “walking” the object shape
-* Deep destructuring should be used carefully to avoid readability issues
+- Structure on left must mirror structure on right
+- You are “walking” the object shape
+- Deep destructuring should be used carefully to avoid readability issues
 
 ---
 
@@ -221,9 +221,9 @@ processCoordinates([10, 20]);
 
 Why this is useful:
 
-* Enforces input structure
-* Eliminates indexing inside function
-* Makes function signature self-documenting
+- Enforces input structure
+- Eliminates indexing inside function
+- Makes function signature self-documenting
 
 ---
 
@@ -235,13 +235,13 @@ function createUser({ name, email, age = 18 }) {
     name,
     email,
     age,
-    id: Date.now()
+    id: Date.now(),
   };
 }
 
 const newUser = createUser({
-  name: 'Bob',
-  email: 'bob@example.com'
+  name: "Bob",
+  email: "bob@example.com",
 });
 
 console.log(newUser);
@@ -249,9 +249,9 @@ console.log(newUser);
 
 Key benefits:
 
-* Order-independent arguments
-* Defaults handled at entry point
-* Clean and scalable APIs
+- Order-independent arguments
+- Defaults handled at entry point
+- Clean and scalable APIs
 
 ---
 
@@ -270,9 +270,9 @@ console.log(b); // 1
 
 Why this works:
 
-* Right side creates a temporary array
-* Left side immediately unpacks it
-* No temporary variable needed
+- Right side creates a temporary array
+- Left side immediately unpacks it
+- No temporary variable needed
 
 ---
 
@@ -284,15 +284,18 @@ Why this works:
 const apiResponse = {
   data: {
     users: [
-      { id: 1, name: 'Alice' },
-      { id: 2, name: 'Bob' }
-    ]
+      { id: 1, name: "Alice" },
+      { id: 2, name: "Bob" },
+    ],
   },
-  status: 'success'
+  status: "success",
 };
 
 // Extract deeply nested values
-const { data: { users }, status } = apiResponse;
+const {
+  data: { users },
+  status,
+} = apiResponse;
 
 console.log(users);
 console.log(status);
@@ -300,9 +303,9 @@ console.log(status);
 
 Why this pattern is common:
 
-* APIs return deeply nested objects
-* Destructuring avoids repetitive dot access
-* Improves clarity in controllers and services
+- APIs return deeply nested objects
+- Destructuring avoids repetitive dot access
+- Improves clarity in controllers and services
 
 ---
 
@@ -310,7 +313,7 @@ Why this pattern is common:
 
 ```js
 function getNameAndAge() {
-  return ['Charlie', 25];
+  return ["Charlie", 25];
 }
 
 const [personName, personAge] = getNameAndAge();
@@ -318,8 +321,8 @@ const [personName, personAge] = getNameAndAge();
 
 Use case:
 
-* Lightweight multiple return values
-* Order matters
+- Lightweight multiple return values
+- Order matters
 
 ---
 
@@ -328,20 +331,23 @@ Use case:
 ```js
 function getUserInfo() {
   return {
-    name: 'Diana',
-    email: 'diana@example.com',
-    preferences: { theme: 'dark' }
+    name: "Diana",
+    email: "diana@example.com",
+    preferences: { theme: "dark" },
   };
 }
 
-const { name: fullName, preferences: { theme } } = getUserInfo();
+const {
+  name: fullName,
+  preferences: { theme },
+} = getUserInfo();
 ```
 
 Why objects are preferred here:
 
-* Order independent
-* Self-describing return values
-* Easier to extend later
+- Order independent
+- Self-describing return values
+- Easier to extend later
 
 ---
 
@@ -350,7 +356,7 @@ Why objects are preferred here:
 ### Mistake 1: Wrong property names
 
 ```js
-const { username } = { userName: 'abc' }; // undefined
+const { username } = { userName: "abc" }; // undefined
 ```
 
 Property names must match exactly.
@@ -361,27 +367,27 @@ Property names must match exactly.
 
 Rule:
 
-* Deep destructuring is fine for known, stable structures
-* Avoid in rapidly changing data (APIs without contracts)
+- Deep destructuring is fine for known, stable structures
+- Avoid in rapidly changing data (APIs without contracts)
 
 ---
 
 ### Best Practices
 
-* Use array destructuring for **ordered data**
-* Use object destructuring for **named data**
-* Prefer object returns in functions
-* Use defaults to prevent undefined bugs
-* Keep destructuring readable
+- Use array destructuring for **ordered data**
+- Use object destructuring for **named data**
+- Prefer object returns in functions
+- Use defaults to prevent undefined bugs
+- Keep destructuring readable
 
 ---
 
 ## 9. Final Mental Model (Lock This In)
 
-* Arrays → destructure by **position**
-* Objects → destructure by **property name**
-* Defaults protect against missing values
-* Destructuring improves readability, not magic
-* Structure on left must mirror structure on right
+- Arrays → destructure by **position**
+- Objects → destructure by **property name**
+- Defaults protect against missing values
+- Destructuring improves readability, not magic
+- Structure on left must mirror structure on right
 
 ---

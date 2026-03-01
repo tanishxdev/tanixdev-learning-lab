@@ -8,8 +8,8 @@ An **object** is a way to **group related data and behavior together**.
 
 Think of objects as:
 
-* A **real-world entity**
-* A **container of properties (data)** and **methods (behavior)**
+- A **real-world entity**
+- A **container of properties (data)** and **methods (behavior)**
 
 Example mental mapping:
 
@@ -21,9 +21,9 @@ Example mental mapping:
 
 In JavaScript:
 
-* Objects store data in **key → value** pairs
-* Keys are **strings or symbols**
-* Values can be **any data type** (even other objects)
+- Objects store data in **key → value** pairs
+- Keys are **strings or symbols**
+- Values can be **any data type** (even other objects)
 
 ---
 
@@ -39,25 +39,25 @@ let city = "New York";
 
 Problems:
 
-* Data is scattered
-* Hard to pass around
-* No clear ownership
+- Data is scattered
+- Hard to pass around
+- No clear ownership
 
 With objects:
 
 ```js
 const person = {
-    name: "Alice",
-    age: 30,
-    city: "New York"
+  name: "Alice",
+  age: 30,
+  city: "New York",
 };
 ```
 
 Now:
 
-* Data is **grouped**
-* Meaning is **clear**
-* Easy to pass, store, and modify
+- Data is **grouped**
+- Meaning is **clear**
+- Easy to pass, store, and modify
 
 ---
 
@@ -69,19 +69,19 @@ Now:
 
 ```js
 const person = {
-    name: "Alice",
-    age: 30,
-    city: "New York",
-    isEmployed: true
+  name: "Alice",
+  age: 30,
+  city: "New York",
+  isEmployed: true,
 };
 ```
 
 Why this is preferred:
 
-* Simple
-* Readable
-* Fast
-* No boilerplate
+- Simple
+- Readable
+- Fast
+- No boilerplate
 
 ---
 
@@ -93,8 +93,8 @@ const empty = {};
 
 Used when:
 
-* Object structure is decided later
-* Properties added dynamically
+- Object structure is decided later
+- Properties added dynamically
 
 ---
 
@@ -108,7 +108,7 @@ user.age = 25;
 
 Internally:
 
-* `new Object()` just creates `{}`
+- `new Object()` just creates `{}`
 
 Mostly avoided in modern JS unless teaching internals.
 
@@ -118,25 +118,25 @@ Mostly avoided in modern JS unless teaching internals.
 
 ```js
 const student = {
-    name: "Charlie",
-    grades: {
-        math: 95,
-        science: 87,
-        english: 92
-    },
-    address: {
-        street: "123 Main St",
-        city: "Boston",
-        zipCode: "02101"
-    }
+  name: "Charlie",
+  grades: {
+    math: 95,
+    science: 87,
+    english: 92,
+  },
+  address: {
+    street: "123 Main St",
+    city: "Boston",
+    zipCode: "02101",
+  },
 };
 ```
 
 Mental model:
 
-* Objects can contain **other objects**
-* This forms **hierarchical data**
-* Mirrors real-world structures
+- Objects can contain **other objects**
+- This forms **hierarchical data**
+- Mirrors real-world structures
 
 ---
 
@@ -148,10 +148,10 @@ Mental model:
 
 ```js
 const car = {
-    brand: "Toyota",
-    model: "Camry",
-    year: 2022,
-    "fuel-type": "gasoline"
+  brand: "Toyota",
+  model: "Camry",
+  year: 2022,
+  "fuel-type": "gasoline",
 };
 
 console.log(car.brand);
@@ -160,7 +160,7 @@ console.log(car.year);
 
 Rule:
 
-* Use dot notation when key is **valid identifier**
+- Use dot notation when key is **valid identifier**
 
 ---
 
@@ -173,8 +173,8 @@ console.log(car["fuel-type"]);
 
 Why bracket notation matters:
 
-* Required for keys with spaces or hyphens
-* Required for **dynamic access**
+- Required for keys with spaces or hyphens
+- Required for **dynamic access**
 
 ---
 
@@ -187,8 +187,8 @@ console.log(car[property]);
 
 Mental model:
 
-* Brackets evaluate expressions
-* Dots do not
+- Brackets evaluate expressions
+- Dots do not
 
 ---
 
@@ -200,8 +200,8 @@ console.log(car.color); // undefined
 
 Important:
 
-* JS does NOT throw error
-* Missing property → `undefined`
+- JS does NOT throw error
+- Missing property → `undefined`
 
 ---
 
@@ -213,8 +213,8 @@ Objects are **mutable**.
 
 ```js
 const product = {
-    name: "Laptop",
-    price: 999
+  name: "Laptop",
+  price: 999,
 };
 ```
 
@@ -242,7 +242,7 @@ product[key] = value;
 
 Mental model:
 
-* Objects behave like **dynamic dictionaries**
+- Objects behave like **dynamic dictionaries**
 
 ---
 
@@ -252,10 +252,10 @@ Mental model:
 
 ```js
 const user = {
-    name: "John",
-    age: 30,
-    email: "john@example.com",
-    password: "secret123"
+  name: "John",
+  age: 30,
+  email: "john@example.com",
+  password: "secret123",
 };
 ```
 
@@ -281,8 +281,8 @@ console.log(user.hasOwnProperty("password"));
 
 Difference:
 
-* `in` checks prototype chain too
-* `hasOwnProperty` checks only object itself
+- `in` checks prototype chain too
+- `hasOwnProperty` checks only object itself
 
 ---
 
@@ -294,9 +294,9 @@ Difference:
 
 A **method** is a function that:
 
-* Belongs to an object
-* Operates on that object’s data
-* Uses `this` to access properties
+- Belongs to an object
+- Operates on that object’s data
+- Uses `this` to access properties
 
 ---
 
@@ -314,8 +314,8 @@ const calculator = {
     },
 ```
 
-* `this` → calculator object
-* Returning `this` enables chaining
+- `this` → calculator object
+- Returning `this` enables chaining
 
 ---
 
@@ -340,12 +340,12 @@ const calculator = {
 
 Why this fails:
 
-* Arrow functions **do not have their own `this`**
-* They inherit `this` from outer scope
+- Arrow functions **do not have their own `this`**
+- They inherit `this` from outer scope
 
 Rule:
 
-* **Never use arrow functions for object methods**
+- **Never use arrow functions for object methods**
 
 ---
 
@@ -380,8 +380,8 @@ console.log(calculator.getValue());
 
 Mental model:
 
-* Each method returns the object itself
-* Enables fluent APIs
+- Each method returns the object itself
+- Enables fluent APIs
 
 ---
 
@@ -395,7 +395,7 @@ Objects are **not iterable like arrays**, but JS provides helpers.
 
 ```js
 for (let key in person) {
-    console.log(`${key}: ${person[key]}`);
+  console.log(`${key}: ${person[key]}`);
 }
 ```
 
@@ -425,9 +425,9 @@ const entries = Object.entries(person);
 
 Used heavily in:
 
-* Loops
-* Transformations
-* Serialization
+- Loops
+- Transformations
+- Serialization
 
 ---
 
@@ -435,7 +435,7 @@ Used heavily in:
 
 ```js
 Object.entries(person).forEach(([key, value]) => {
-    console.log(`${key}: ${value}`);
+  console.log(`${key}: ${value}`);
 });
 ```
 
@@ -452,9 +452,9 @@ Most unexpected state mutations come from misunderstanding **how objects are cop
 
 ```js
 const original = {
-    name: "John",
-    age: 30,
-    hobbies: ["reading", "gaming"]
+  name: "John",
+  age: 30,
+  hobbies: ["reading", "gaming"],
 };
 ```
 
@@ -465,15 +465,15 @@ const copy2 = Object.assign({}, original);
 
 Effect:
 
-* A **new object** is created at the top level
-* Primitive values (`name`, `age`) are copied by value
-* Nested objects/arrays (`hobbies`) are **not duplicated**
-* Nested references still point to the **same memory**
+- A **new object** is created at the top level
+- Primitive values (`name`, `age`) are copied by value
+- Nested objects/arrays (`hobbies`) are **not duplicated**
+- Nested references still point to the **same memory**
 
 Important clarification:
 
-* `copy1 !== original` → true
-* `copy1.hobbies === original.hobbies` → true
+- `copy1 !== original` → true
+- `copy1.hobbies === original.hobbies` → true
 
 This means:
 You copied the **wrapper**, not the **contents inside it**.
@@ -490,21 +490,21 @@ console.log(original.hobbies);
 Output:
 
 ```js
-["reading", "gaming", "cooking"]
+["reading", "gaming", "cooking"];
 ```
 
 Why:
 
-* `hobbies` is an array (non-primitive)
-* Arrays/objects are copied as **references**
-* Both `original.hobbies` and `copy1.hobbies` point to the same array
-* Mutation via one reference affects the other
+- `hobbies` is an array (non-primitive)
+- Arrays/objects are copied as **references**
+- Both `original.hobbies` and `copy1.hobbies` point to the same array
+- Mutation via one reference affects the other
 
 Common real-world bug:
 
-* Updating React state incorrectly
-* Mutating Redux / Zustand store data
-* Unexpected changes in shared config objects
+- Updating React state incorrectly
+- Mutating Redux / Zustand store data
+- Unexpected changes in shared config objects
 
 Rule of thumb:
 
@@ -520,28 +520,27 @@ const deepCopy = JSON.parse(JSON.stringify(original));
 
 What this does:
 
-* Converts object → JSON string
-* Parses JSON string → new object
-* Creates **completely new references** at all levels
-* `deepCopy.hobbies !== original.hobbies` → true
+- Converts object → JSON string
+- Parses JSON string → new object
+- Creates **completely new references** at all levels
+- `deepCopy.hobbies !== original.hobbies` → true
 
 Safe when:
 
-* Object contains only:
-
-  * numbers
-  * strings
-  * booleans
-  * arrays
-  * plain objects
+- Object contains only:
+  - numbers
+  - strings
+  - booleans
+  - arrays
+  - plain objects
 
 Limitations:
 
-* Functions are **lost**
-* `Date` objects become strings
-* `undefined` values are removed
-* `Symbol` keys are ignored
-* Circular references cause runtime error
+- Functions are **lost**
+- `Date` objects become strings
+- `undefined` values are removed
+- `Symbol` keys are ignored
+- Circular references cause runtime error
 
 Important note:
 
@@ -549,16 +548,16 @@ Important note:
 
 Use this only for:
 
-* Quick cloning of simple API data
-* Interview explanation (with limitations clearly stated)
-* Small utilities where data shape is controlled
+- Quick cloning of simple API data
+- Interview explanation (with limitations clearly stated)
+- Small utilities where data shape is controlled
 
 ---
 
 Key takeaway (mental model):
 
-* Shallow copy → new box, same items inside
-* Deep copy → new box, new items inside
+- Shallow copy → new box, same items inside
+- Deep copy → new box, new items inside
 
 If you mutate → **you must know which one you’re using**
 
@@ -583,16 +582,16 @@ Objects compare by **memory reference**, not content.
 
 ```js
 function objectsEqual(obj1, obj2) {
-    const keys1 = Object.keys(obj1);
-    const keys2 = Object.keys(obj2);
-    
-    if (keys1.length !== keys2.length) return false;
-    
-    for (let key of keys1) {
-        if (obj1[key] !== obj2[key]) return false;
-    }
-    
-    return true;
+  const keys1 = Object.keys(obj1);
+  const keys2 = Object.keys(obj2);
+
+  if (keys1.length !== keys2.length) return false;
+
+  for (let key of keys1) {
+    if (obj1[key] !== obj2[key]) return false;
+  }
+
+  return true;
 }
 ```
 
@@ -606,9 +605,9 @@ JSON.stringify(obj1) === JSON.stringify(obj2);
 
 Works only when:
 
-* Same order
-* No functions
-* No special values
+- Same order
+- No functions
+- No special values
 
 ---
 
@@ -616,21 +615,21 @@ Works only when:
 
 ### User Profile
 
-* Nested objects
-* Encapsulated methods
-* Derived data
+- Nested objects
+- Encapsulated methods
+- Derived data
 
 ### Shopping Cart
 
-* State management
-* Reducers
-* Mutations
+- State management
+- Reducers
+- Mutations
 
 ### Game Character
 
-* Stats
-* State transitions
-* Controlled updates
+- Stats
+- State transitions
+- Controlled updates
 
 (All your implementations are logically correct and now conceptually grounded.)
 
@@ -657,9 +656,9 @@ function createUser(name, email) {
 
 Why factories:
 
-* Reusability
-* Encapsulation
-* Cleaner than constructors
+- Reusability
+- Encapsulation
+- Cleaner than constructors
 
 ---
 
@@ -671,10 +670,10 @@ const appConfig = { ... };
 
 Used in:
 
-* Frameworks
-* Libraries
-* Feature flags
-* Environment configs
+- Frameworks
+- Libraries
+- Feature flags
+- Environment configs
 
 ---
 
@@ -718,13 +717,13 @@ Objects are **not guaranteed ordered** in older specs.
 
 ## Final Mental Model Summary
 
-* Objects model real-world entities
-* Properties = data
-* Methods = behavior
-* Objects are mutable
-* Compared by reference
-* Copied shallow by default
-* Arrow functions break `this`
-* Mastering objects unlocks JS mastery
+- Objects model real-world entities
+- Properties = data
+- Methods = behavior
+- Objects are mutable
+- Compared by reference
+- Copied shallow by default
+- Arrow functions break `this`
+- Mastering objects unlocks JS mastery
 
 ---

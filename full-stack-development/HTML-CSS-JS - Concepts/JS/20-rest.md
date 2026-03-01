@@ -8,8 +8,8 @@ The `...` operator in JavaScript looks the same everywhere, but its **meaning de
 
 Think of it like this:
 
-* **Spread** → *take something apart*
-* **Rest** → *collect things together*
+- **Spread** → _take something apart_
+- **Rest** → _collect things together_
 
 Same syntax (`...`), opposite roles.
 
@@ -23,9 +23,9 @@ Same syntax (`...`), opposite roles.
 
 Used when:
 
-* Expanding arrays
-* Expanding objects
-* Passing multiple values
+- Expanding arrays
+- Expanding objects
+- Passing multiple values
 
 ---
 
@@ -35,8 +35,8 @@ Used when:
 
 Used when:
 
-* Function parameters
-* Destructuring (arrays / objects)
+- Function parameters
+- Destructuring (arrays / objects)
 
 ---
 
@@ -66,9 +66,9 @@ console.log(combined); // [1, 2, 3, 4, 5, 6]
 
 **What happens internally**
 
-* `...arr1` → `1, 2, 3`
-* `...arr2` → `4, 5, 6`
-* New array is created
+- `...arr1` → `1, 2, 3`
+- `...arr2` → `4, 5, 6`
+- New array is created
 
 No mutation happens to original arrays.
 
@@ -83,8 +83,8 @@ console.log(copy); // [1, 2, 3]
 
 Why this matters:
 
-* Avoids reference sharing
-* Safe for state updates (React, Redux, etc.)
+- Avoids reference sharing
+- Safe for state updates (React, Redux, etc.)
 
 ---
 
@@ -97,8 +97,8 @@ console.log(extended); // [1, 2, 3, 4, 5, 4, 5, 6]
 
 This pattern is extremely common in:
 
-* Immutable updates
-* UI state management
+- Immutable updates
+- UI state management
 
 ---
 
@@ -124,8 +124,8 @@ console.log(merged); // { a: 1, b: 2, c: 3, d: 4 }
 
 Execution order matters:
 
-* Left → right
-* Later keys override earlier ones
+- Left → right
+- Later keys override earlier ones
 
 ---
 
@@ -149,8 +149,8 @@ console.log(objCopy); // { a: 1, b: 2 }
 
 Important:
 
-* Nested objects are still shared references
-* Spread is **shallow**, not deep copy
+- Nested objects are still shared references
+- Spread is **shallow**, not deep copy
 
 ---
 
@@ -174,7 +174,7 @@ console.log(sum(...numbers)); // 6
 
 Internally:
 
-* `...numbers` → `1, 2, 3`
+- `...numbers` → `1, 2, 3`
 
 ---
 
@@ -201,9 +201,9 @@ console.log(newArr); // [0, 1, 2, 3, 4]
 
 Used heavily in:
 
-* UI lists
-* Pagination
-* Data pipelines
+- UI lists
+- Pagination
+- Data pipelines
 
 ---
 
@@ -219,14 +219,14 @@ Rest collects **remaining arguments** into an array.
 
 Rules:
 
-* Must be the **last parameter**
-* Only one rest parameter allowed
+- Must be the **last parameter**
+- Only one rest parameter allowed
 
 ---
 
 ```js
 function multiply(multiplier, ...numbers) {
-  return numbers.map(num => num * multiplier);
+  return numbers.map((num) => num * multiplier);
 }
 
 console.log(multiply(2, 1, 2, 3, 4)); // [2, 4, 6, 8]
@@ -234,8 +234,8 @@ console.log(multiply(2, 1, 2, 3, 4)); // [2, 4, 6, 8]
 
 Execution flow:
 
-* `multiplier` → 2
-* `numbers` → [1, 2, 3, 4]
+- `multiplier` → 2
+- `numbers` → [1, 2, 3, 4]
 
 ---
 
@@ -243,16 +243,16 @@ Execution flow:
 
 ```js
 function greet(greeting, ...names) {
-  return names.map(name => `${greeting}, ${name}!`);
+  return names.map((name) => `${greeting}, ${name}!`);
 }
 
-console.log(greet('Hello', 'Alice', 'Bob', 'Charlie'));
+console.log(greet("Hello", "Alice", "Bob", "Charlie"));
 ```
 
 Why this is powerful:
 
-* Flexible function signatures
-* Cleaner APIs
+- Flexible function signatures
+- Cleaner APIs
 
 ---
 
@@ -265,13 +265,13 @@ Rest collects **remaining elements** after destructuring.
 ---
 
 ```js
-const colors = ['red', 'green', 'blue', 'yellow', 'purple'];
+const colors = ["red", "green", "blue", "yellow", "purple"];
 
 const [primary, secondary, ...otherColors] = colors;
 
-console.log(primary);      // 'red'
-console.log(secondary);    // 'green'
-console.log(otherColors);  // ['blue', 'yellow', 'purple']
+console.log(primary); // 'red'
+console.log(secondary); // 'green'
+console.log(otherColors); // ['blue', 'yellow', 'purple']
 ```
 
 ---
@@ -281,8 +281,8 @@ console.log(otherColors);  // ['blue', 'yellow', 'purple']
 ```js
 const [first, , third, ...remaining] = colors;
 
-console.log(first);     // 'red'
-console.log(third);     // 'blue'
+console.log(first); // 'red'
+console.log(third); // 'blue'
 console.log(remaining); // ['yellow', 'purple']
 ```
 
@@ -300,25 +300,25 @@ Rest gathers **remaining properties** into a new object.
 
 ```js
 const user = {
-  name: 'John',
+  name: "John",
   age: 30,
-  city: 'NYC',
-  country: 'USA',
-  occupation: 'Developer'
+  city: "NYC",
+  country: "USA",
+  occupation: "Developer",
 };
 
 const { name, age, ...details } = user;
 
-console.log(name);     // 'John'
-console.log(age);      // 30
-console.log(details);  // { city, country, occupation }
+console.log(name); // 'John'
+console.log(age); // 30
+console.log(details); // { city, country, occupation }
 ```
 
 This is common in:
 
-* API responses
-* User profiles
-* Permission filtering
+- API responses
+- User profiles
+- Permission filtering
 
 ---
 
@@ -330,18 +330,18 @@ This is common in:
 
 ```js
 const originalTodos = [
-  { id: 1, text: 'Learn JavaScript', done: false },
-  { id: 2, text: 'Build a project', done: true }
+  { id: 1, text: "Learn JavaScript", done: false },
+  { id: 2, text: "Build a project", done: true },
 ];
 
-const newTodo = { id: 3, text: 'Deploy app', done: false };
+const newTodo = { id: 3, text: "Deploy app", done: false };
 const updatedTodos = [...originalTodos, newTodo];
 ```
 
 Why this matters:
 
-* Prevents mutation
-* Safe state updates
+- Prevents mutation
+- Safe state updates
 
 ---
 
@@ -350,7 +350,7 @@ Why this matters:
 ```js
 const todoIdToRemove = 1;
 const filteredTodos = originalTodos.filter(
-  todo => todo.id !== todoIdToRemove
+  (todo) => todo.id !== todoIdToRemove,
 );
 ```
 
@@ -361,8 +361,8 @@ Spread often pairs with `filter`, `map`, `reduce`.
 ### Update Object Inside Array
 
 ```js
-const updatedTodoList = originalTodos.map(todo =>
-  todo.id === 2 ? { ...todo, done: false } : todo
+const updatedTodoList = originalTodos.map((todo) =>
+  todo.id === 2 ? { ...todo, done: false } : todo,
 );
 ```
 
@@ -376,7 +376,7 @@ This is **core React state logic**.
 function createApiUrl(baseUrl, endpoint, ...params) {
   let url = `${baseUrl}/${endpoint}`;
   if (params.length > 0) {
-    url += '?' + params.join('&');
+    url += "?" + params.join("&");
   }
   return url;
 }
@@ -384,8 +384,8 @@ function createApiUrl(baseUrl, endpoint, ...params) {
 
 Rest enables:
 
-* Optional parameters
-* Cleaner APIs
+- Optional parameters
+- Cleaner APIs
 
 ---
 
@@ -395,7 +395,7 @@ Rest enables:
 const initialState = {
   user: null,
   loading: false,
-  error: null
+  error: null,
 };
 
 function updateState(currentState, updates) {
@@ -414,7 +414,7 @@ This is a **foundational immutable update pattern**.
 ### NodeList → Array
 
 ```js
-const divs = document.querySelectorAll('div');
+const divs = document.querySelectorAll("div");
 const divArray = [...divs];
 ```
 
@@ -436,7 +436,11 @@ Set ensures uniqueness, spread converts back to array.
 ### Flatten One-Level Array
 
 ```js
-const nestedArray = [[1, 2], [3, 4], [5, 6]];
+const nestedArray = [
+  [1, 2],
+  [3, 4],
+  [5, 6],
+];
 const flattened = [].concat(...nestedArray);
 ```
 
@@ -470,11 +474,11 @@ This is a **functional programming pattern**.
 
 ## Final Mental Model
 
-* Spread = **unpacking**
-* Rest = **packing**
-* Arrays → elements
-* Objects → properties
-* Functions → arguments
+- Spread = **unpacking**
+- Rest = **packing**
+- Arrays → elements
+- Objects → properties
+- Functions → arguments
 
 Once this mental model is clear,
 `...` stops being confusing forever.

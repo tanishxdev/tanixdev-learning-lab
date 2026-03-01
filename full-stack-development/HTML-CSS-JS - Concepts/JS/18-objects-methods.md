@@ -8,28 +8,28 @@
 
 In real applications, objects are everywhere:
 
-* API responses
-* Configuration objects
-* Form data
-* User profiles
-* Feature flags
-* Settings
+- API responses
+- Configuration objects
+- Form data
+- User profiles
+- Feature flags
+- Settings
 
 But **plain objects are not iterable like arrays**.
 
 You **cannot directly use**:
 
-* `map`
-* `filter`
-* `reduce`
+- `map`
+- `filter`
+- `reduce`
 
 on objects.
 
 So JavaScript provides **Object utility methods** to:
 
-* Convert objects → arrays
-* Process data using array methods
-* Convert back → objects
+- Convert objects → arrays
+- Process data using array methods
+- Convert back → objects
 
 This lesson is about **bridging objects and arrays safely and efficiently**.
 
@@ -41,9 +41,9 @@ This lesson is about **bridging objects and arrays safely and efficiently**.
 
 `Object.keys(obj)` returns:
 
-* An **array**
-* Containing **only enumerable own property names**
-* Excludes inherited and non-enumerable properties
+- An **array**
+- Containing **only enumerable own property names**
+- Excludes inherited and non-enumerable properties
 
 Mental model:
 
@@ -55,10 +55,10 @@ Mental model:
 
 ```js
 const person = {
-    name: "Alice",
-    age: 30,
-    city: "New York",
-    occupation: "Developer"
+  name: "Alice",
+  age: 30,
+  city: "New York",
+  occupation: "Developer",
 };
 
 // Get array of property names
@@ -71,33 +71,33 @@ console.log(keys); // ["name", "age", "city", "occupation"]
 ### Iterating Over Keys
 
 ```js
-Object.keys(person).forEach(key => {
-    console.log(`${key}: ${person[key]}`);
+Object.keys(person).forEach((key) => {
+  console.log(`${key}: ${person[key]}`);
 });
 ```
 
 Why this pattern works:
 
-* `Object.keys()` → array
-* Arrays support `forEach`
-* `person[key]` accesses the value dynamically
+- `Object.keys()` → array
+- Arrays support `forEach`
+- `person[key]` accesses the value dynamically
 
 ---
 
 ### Filtering Properties
 
 ```js
-const stringProperties = Object.keys(person).filter(key => 
-    typeof person[key] === 'string'
+const stringProperties = Object.keys(person).filter(
+  (key) => typeof person[key] === "string",
 );
 console.log(stringProperties); // ["name", "city", "occupation"]
 ```
 
 Mental model:
 
-* Convert object → keys array
-* Filter based on value conditions
-* Keep only required properties
+- Convert object → keys array
+- Filter based on value conditions
+- Keep only required properties
 
 ---
 
@@ -107,13 +107,13 @@ Mental model:
 
 `Object.values(obj)` returns:
 
-* An **array of values**
-* Order matches `Object.keys()`
+- An **array of values**
+- Order matches `Object.keys()`
 
 Used when:
 
-* Keys are not important
-* You care only about numeric or string data
+- Keys are not important
+- You care only about numeric or string data
 
 ---
 
@@ -121,10 +121,10 @@ Used when:
 
 ```js
 const scores = {
-    math: 95,
-    science: 87,
-    english: 92,
-    history: 88
+  math: 95,
+  science: 87,
+  english: 92,
+  history: 88,
 };
 
 // Get array of values
@@ -138,8 +138,8 @@ console.log(values); // [95, 87, 92, 88]
 
 ```js
 const average =
-    Object.values(scores).reduce((sum, score) => sum + score, 0) /
-    Object.values(scores).length;
+  Object.values(scores).reduce((sum, score) => sum + score, 0) /
+  Object.values(scores).length;
 
 console.log(average); // 90.5
 ```
@@ -161,8 +161,8 @@ console.log(maxScore); // 95
 
 Why spread works:
 
-* `Math.max` expects individual numbers
-* Spread converts array → arguments
+- `Math.max` expects individual numbers
+- Spread converts array → arguments
 
 ---
 
@@ -172,9 +172,9 @@ Why spread works:
 
 `Object.entries(obj)` returns:
 
-* An array of `[key, value]` pairs
-* Most powerful object method
-* Best bridge between objects and arrays
+- An array of `[key, value]` pairs
+- Most powerful object method
+- Best bridge between objects and arrays
 
 Mental model:
 
@@ -186,10 +186,10 @@ Mental model:
 
 ```js
 const product = {
-    name: "Laptop",
-    price: 999,
-    brand: "Dell",
-    inStock: true
+  name: "Laptop",
+  price: 999,
+  brand: "Dell",
+  inStock: true,
 };
 
 const entries = Object.entries(product);
@@ -203,8 +203,8 @@ Result shape:
   ["name", "Laptop"],
   ["price", 999],
   ["brand", "Dell"],
-  ["inStock", true]
-]
+  ["inStock", true],
+];
 ```
 
 ---
@@ -217,8 +217,8 @@ const productMap = new Map(Object.entries(product));
 
 Why Map:
 
-* Better performance for frequent lookups
-* Keys can be non-strings
+- Better performance for frequent lookups
+- Keys can be non-strings
 
 ---
 
@@ -226,14 +226,14 @@ Why Map:
 
 ```js
 const stringEntries = Object.entries(product).filter(
-    ([key, value]) => typeof value === 'string'
+  ([key, value]) => typeof value === "string",
 );
 ```
 
 Destructuring clarity:
 
-* `key` → property name
-* `value` → property value
+- `key` → property name
+- `value` → property value
 
 ---
 
@@ -241,10 +241,10 @@ Destructuring clarity:
 
 ```js
 const upperCaseProduct = Object.fromEntries(
-    Object.entries(product).map(([key, value]) => [
-        key.toUpperCase(),
-        typeof value === 'string' ? value.toUpperCase() : value
-    ])
+  Object.entries(product).map(([key, value]) => [
+    key.toUpperCase(),
+    typeof value === "string" ? value.toUpperCase() : value,
+  ]),
 );
 ```
 
@@ -262,9 +262,9 @@ Mental flow:
 
 `Object.assign(target, ...sources)`:
 
-* Copies properties from sources → target
-* Performs **shallow copy**
-* Mutates target
+- Copies properties from sources → target
+- Performs **shallow copy**
+- Mutates target
 
 ---
 
@@ -281,7 +281,7 @@ console.log(target);
 
 Important rule:
 
-* Later sources override earlier keys
+- Later sources override earlier keys
 
 ---
 
@@ -296,8 +296,8 @@ const combined = Object.assign({}, original, extension);
 
 Why `{}` first:
 
-* Prevents mutation
-* Creates fresh object
+- Prevents mutation
+- Creates fresh object
 
 ---
 
@@ -309,7 +309,7 @@ const finalPrefs = Object.assign({}, defaults, userPrefs, sessionPrefs);
 
 Priority:
 
-* Rightmost object wins
+- Rightmost object wins
 
 ---
 
@@ -321,15 +321,19 @@ Priority:
 
 Used when:
 
-* You filtered or transformed entries
-* You want an object back
+- You filtered or transformed entries
+- You want an object back
 
 ---
 
 ### Basic Conversion
 
 ```js
-const entries = [["name", "Alice"], ["age", 30], ["city", "Boston"]];
+const entries = [
+  ["name", "Alice"],
+  ["age", 30],
+  ["city", "Boston"],
+];
 const person = Object.fromEntries(entries);
 ```
 
@@ -339,7 +343,7 @@ const person = Object.fromEntries(entries);
 
 ```js
 const discountedPrices = Object.fromEntries(
-    Object.entries(prices).map(([item, price]) => [item, price * 0.9])
+  Object.entries(prices).map(([item, price]) => [item, price * 0.9]),
 );
 ```
 
@@ -349,7 +353,7 @@ const discountedPrices = Object.fromEntries(
 
 ```js
 const activeUsers = Object.fromEntries(
-    Object.entries(users).filter(([name, user]) => user.active)
+  Object.entries(users).filter(([name, user]) => user.active),
 );
 ```
 
@@ -361,33 +365,33 @@ const activeUsers = Object.fromEntries(
 
 These methods check:
 
-* Whether a property belongs **directly to the object**
-* Not inherited from prototype
+- Whether a property belongs **directly to the object**
+- Not inherited from prototype
 
 ---
 
 ### Traditional Way
 
 ```js
-person.hasOwnProperty('name');
+person.hasOwnProperty("name");
 ```
 
 Problem:
 
-* Can break if object overrides method
+- Can break if object overrides method
 
 ---
 
 ### Modern Safe Way (ES2022)
 
 ```js
-Object.hasOwn(person, 'name');
+Object.hasOwn(person, "name");
 ```
 
 Recommended for:
 
-* Security
-* Prototype pollution safety
+- Security
+- Prototype pollution safety
 
 ---
 
@@ -395,9 +399,9 @@ Recommended for:
 
 ```js
 for (let key in person) {
-    if (Object.hasOwn(person, key)) {
-        console.log(`${key}: ${person[key]}`);
-    }
+  if (Object.hasOwn(person, key)) {
+    console.log(`${key}: ${person[key]}`);
+  }
 }
 ```
 
@@ -409,22 +413,22 @@ for (let key in person) {
 
 Returns:
 
-* All own string properties
-* Including non-enumerable ones
+- All own string properties
+- Including non-enumerable ones
 
 ---
 
 ```js
-Object.defineProperty(obj, 'hidden', {
-    value: "I'm not enumerable",
-    enumerable: false
+Object.defineProperty(obj, "hidden", {
+  value: "I'm not enumerable",
+  enumerable: false,
 });
 ```
 
 Difference:
 
-* `Object.keys()` → enumerable only
-* `Object.getOwnPropertyNames()` → all
+- `Object.keys()` → enumerable only
+- `Object.getOwnPropertyNames()` → all
 
 ---
 
@@ -434,9 +438,9 @@ Difference:
 
 | Method            | Add | Modify | Delete |
 | ----------------- | --- | ------ | ------ |
-| freeze            | ❌   | ❌      | ❌      |
-| seal              | ❌   | ✅      | ❌      |
-| preventExtensions | ❌   | ✅      | ✅      |
+| freeze            | ❌  | ❌     | ❌     |
+| seal              | ❌  | ✅     | ❌     |
+| preventExtensions | ❌  | ✅     | ✅     |
 
 ---
 
@@ -448,9 +452,9 @@ const frozenUser = Object.freeze({ ...user });
 
 Use cases:
 
-* Redux state
-* Constants
-* Config safety
+- Redux state
+- Constants
+- Config safety
 
 ---
 
@@ -462,8 +466,8 @@ const sealedUser = Object.seal({ ...user });
 
 Use cases:
 
-* Controlled mutation
-* APIs with fixed schema
+- Controlled mutation
+- APIs with fixed schema
 
 ---
 
@@ -475,7 +479,7 @@ const extensibleUser = Object.preventExtensions({ ...user });
 
 Use cases:
 
-* Prevent accidental property injection
+- Prevent accidental property injection
 
 ---
 
@@ -488,10 +492,10 @@ All utilities below rely on **entries + fromEntries**, which is the core pattern
 ### pick / omit / mapValues / filter
 
 ```js
-pick(obj, keys)
-omit(obj, keys)
-mapValues(obj, fn)
-filter(obj, predicate)
+pick(obj, keys);
+omit(obj, keys);
+mapValues(obj, fn);
+filter(obj, predicate);
 ```
 
 Mental model:
@@ -504,26 +508,26 @@ Mental model:
 
 Important concept:
 
-* Shallow copy is not enough for nested objects
-* Recursive merge required
+- Shallow copy is not enough for nested objects
+- Recursive merge required
 
 ---
 
 ## 11. Real-World Use Cases Covered
 
-* Config merging
-* Form cleanup
-* API response normalization
-* Validation engines
-* Data indexing
-* Grouping & counting
+- Config merging
+- Form cleanup
+- API response normalization
+- Validation engines
+- Data indexing
+- Grouping & counting
 
 All patterns use:
 
-* `Object.entries`
-* `Object.fromEntries`
-* `Object.assign`
-* Safe property checks
+- `Object.entries`
+- `Object.fromEntries`
+- `Object.assign`
+- Safe property checks
 
 ---
 
@@ -531,11 +535,11 @@ All patterns use:
 
 Key rules:
 
-* Cache `Object.keys()` for large objects
-* Prefer `Object.hasOwn()`
-* Use `Map` for frequent lookups
-* Prefer spread `{ ...obj }` for readability
-* Use objects for structure, arrays for iteration
+- Cache `Object.keys()` for large objects
+- Prefer `Object.hasOwn()`
+- Use `Map` for frequent lookups
+- Prefer spread `{ ...obj }` for readability
+- Use objects for structure, arrays for iteration
 
 ---
 

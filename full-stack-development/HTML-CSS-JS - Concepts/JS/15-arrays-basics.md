@@ -8,11 +8,11 @@ An **array** is an **ordered collection of values** stored under **one variable 
 
 Key properties of arrays in JavaScript:
 
-* Ordered (index-based)
-* Zero-based indexing
-* Dynamic size (can grow/shrink)
-* Can store **mixed data types**
-* Internally, arrays are **objects with special behavior**
+- Ordered (index-based)
+- Zero-based indexing
+- Dynamic size (can grow/shrink)
+- Can store **mixed data types**
+- Internally, arrays are **objects with special behavior**
 
 Think of an array as:
 
@@ -30,9 +30,9 @@ let fruit2 = "banana";
 let fruit3 = "orange";
 ```
 
-* Hard to manage
-* No looping easily
-* No bulk operations
+- Hard to manage
+- No looping easily
+- No bulk operations
 
 ### Solution
 
@@ -42,9 +42,9 @@ let fruits = ["apple", "banana", "orange"];
 
 Now:
 
-* One variable
-* Indexed access
-* Loops and methods available
+- One variable
+- Indexed access
+- Loops and methods available
 
 ---
 
@@ -63,24 +63,24 @@ const mixed = ["hello", 42, true, null];
 
 Why this is preferred:
 
-* Clean
-* Readable
-* Predictable
+- Clean
+- Readable
+- Predictable
 
 ---
 
 ### 3.2 Array Constructor
 
 ```js
-const arr1 = new Array();        // Empty array
-const arr2 = new Array(5);      // Array with length 5 (empty slots)
+const arr1 = new Array(); // Empty array
+const arr2 = new Array(5); // Array with length 5 (empty slots)
 const arr3 = new Array(1, 2, 3); // [1, 2, 3]
 ```
 
 Important mental note:
 
 ```js
-new Array(5)
+new Array(5);
 ```
 
 ❌ does NOT mean `[5]`
@@ -96,8 +96,8 @@ const empty = [];
 
 Used when:
 
-* Data will be added later
-* Dynamic list (cart, todos, logs)
+- Data will be added later
+- Dynamic list (cart, todos, logs)
 
 ---
 
@@ -105,19 +105,21 @@ Used when:
 
 ```js
 const data = [
-    "string",                    // string
-    123,                         // number
-    true,                        // boolean
-    { name: "John" },            // object
-    [1, 2, 3],                   // array inside array
-    function() { return "hello"; } // function
+  "string", // string
+  123, // number
+  true, // boolean
+  { name: "John" }, // object
+  [1, 2, 3], // array inside array
+  function () {
+    return "hello";
+  }, // function
 ];
 ```
 
 Important concept:
 
-* JavaScript arrays are **not type-restricted**
-* Flexibility is powerful but dangerous if misused
+- JavaScript arrays are **not type-restricted**
+- Flexibility is powerful but dangerous if misused
 
 ---
 
@@ -125,8 +127,8 @@ Important concept:
 
 ### Core Rule
 
-* Index starts at **0**
-* Last index = `length - 1`
+- Index starts at **0**
+- Last index = `length - 1`
 
 ---
 
@@ -149,8 +151,8 @@ console.log(colors[colors.length - 1]);
 
 Why this matters:
 
-* Array size may change
-* This pattern always works
+- Array size may change
+- This pattern always works
 
 ---
 
@@ -178,9 +180,9 @@ JavaScript does **NOT** support negative indexing like Python.
 
 ### What `length` Actually Means
 
-* `length` = highest index + 1
-* NOT count of real values
-* Includes empty slots
+- `length` = highest index + 1
+- NOT count of real values
+- Includes empty slots
 
 ---
 
@@ -200,7 +202,7 @@ console.log(items); // ["a", "b"]
 
 Why this happens:
 
-* JS truncates elements beyond new length
+- JS truncates elements beyond new length
 
 ---
 
@@ -227,9 +229,9 @@ console.log(fruits);
 
 Why `push` is common:
 
-* Fast
-* Preserves order
-* Safe
+- Fast
+- Preserves order
+- Safe
 
 ---
 
@@ -251,8 +253,8 @@ console.log(fruits);
 
 Note:
 
-* Slower than `push`
-* Shifts all indices
+- Slower than `push`
+- Shifts all indices
 
 ---
 
@@ -266,8 +268,8 @@ console.log(fruits.length);
 
 What happens:
 
-* Creates empty slots
-* Avoid in production code
+- Creates empty slots
+- Avoid in production code
 
 ---
 
@@ -295,8 +297,8 @@ console.log(numbers);
 
 Note:
 
-* Slower than `pop`
-* Reindexes entire array
+- Slower than `pop`
+- Reindexes entire array
 
 ---
 
@@ -309,8 +311,8 @@ console.log(numbers);
 
 Why bad:
 
-* Leaves holes
-* Length unchanged
+- Leaves holes
+- Length unchanged
 
 ---
 
@@ -326,9 +328,9 @@ console.log(colors);
 
 Explanation:
 
-* Start index = 1
-* Remove 2 elements
-* Mutates original array
+- Start index = 1
+- Remove 2 elements
+- Mutates original array
 
 ---
 
@@ -353,7 +355,7 @@ console.log(pets);
 
 Mental model:
 
-* Remove → Insert → Shift
+- Remove → Insert → Shift
 
 ---
 
@@ -411,8 +413,8 @@ const copy3 = original.slice();
 
 All three:
 
-* Create new array
-* Different reference
+- Create new array
+- Different reference
 
 ---
 
@@ -438,7 +440,7 @@ console.log(nested);
 
 Why?
 
-* Inner array reference is shared
+- Inner array reference is shared
 
 ---
 
@@ -487,20 +489,20 @@ console.log(combined3);
 const cart = [];
 
 function addToCart(item) {
-    cart.push(item); // add item to cart
-    console.log(`Added ${item} to cart`);
+  cart.push(item); // add item to cart
+  console.log(`Added ${item} to cart`);
 }
 
 function removeFromCart(item) {
-    const index = cart.indexOf(item); // find item
-    if (index > -1) {
-        cart.splice(index, 1); // remove item
-        console.log(`Removed ${item} from cart`);
-    }
+  const index = cart.indexOf(item); // find item
+  if (index > -1) {
+    cart.splice(index, 1); // remove item
+    console.log(`Removed ${item} from cart`);
+  }
 }
 
 function showCart() {
-    console.log("Cart contents:", cart.join(", "));
+  console.log("Cart contents:", cart.join(", "));
 }
 ```
 
@@ -512,11 +514,11 @@ function showCart() {
 const todos = [];
 
 function addTodo(task) {
-    todos.push({
-        id: Date.now(),        // unique id
-        task: task,            // task text
-        completed: false       // status
-    });
+  todos.push({
+    id: Date.now(), // unique id
+    task: task, // task text
+    completed: false, // status
+  });
 }
 ```
 
@@ -528,18 +530,18 @@ function addTodo(task) {
 const grades = [85, 92, 78, 96, 88];
 
 function addGrade(grade) {
-    if (grade >= 0 && grade <= 100) {
-        grades.push(grade);
-    }
+  if (grade >= 0 && grade <= 100) {
+    grades.push(grade);
+  }
 }
 
 function getAverage() {
-    const sum = grades.reduce((total, grade) => total + grade, 0);
-    return sum / grades.length;
+  const sum = grades.reduce((total, grade) => total + grade, 0);
+  return sum / grades.length;
 }
 
 function getHighestGrade() {
-    return Math.max(...grades);
+  return Math.max(...grades);
 }
 ```
 
@@ -575,7 +577,11 @@ const unique = [...new Set(numbers)];
 ### Flatten Array
 
 ```js
-const nested = [[1, 2], [3, 4], [5, 6]];
+const nested = [
+  [1, 2],
+  [3, 4],
+  [5, 6],
+];
 const flattened = [].concat(...nested);
 const flattened2 = nested.flat();
 ```
@@ -586,11 +592,11 @@ const flattened2 = nested.flat();
 
 ```js
 function isEmpty(arr) {
-    return arr.length === 0;
+  return arr.length === 0;
 }
 
 function getRandomElement(arr) {
-    return arr[Math.floor(Math.random() * arr.length)];
+  return arr[Math.floor(Math.random() * arr.length)];
 }
 ```
 
@@ -600,12 +606,12 @@ function getRandomElement(arr) {
 
 ```js
 function shuffle(arr) {
-    const shuffled = [...arr];
-    for (let i = shuffled.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-    }
-    return shuffled;
+  const shuffled = [...arr];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
 }
 ```
 
@@ -613,13 +619,13 @@ function shuffle(arr) {
 
 ## 14. Final Mental Model (Lock This In)
 
-* Arrays are ordered lists
-* Index starts at 0
-* `length` is dynamic
-* Avoid holes
-* Prefer `push/pop`
-* Use `splice` for safe removal
-* Copy arrays carefully
-* Nested arrays need deep copy
+- Arrays are ordered lists
+- Index starts at 0
+- `length` is dynamic
+- Avoid holes
+- Prefer `push/pop`
+- Use `splice` for safe removal
+- Copy arrays carefully
+- Nested arrays need deep copy
 
 ---

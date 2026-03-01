@@ -142,16 +142,13 @@ Alice is 30 years old
 ### Line-by-Line Logic
 
 - `person.greet()`
-
   - The **caller** is `person`
   - So `this === person`
 
 - `this.name`
-
   - Resolves to `person.name`
 
 - `this.age`
-
   - Resolves to `person.age`
 
 This works because **JavaScript decides `this` at call time**, not when the function is written.
@@ -707,7 +704,6 @@ Why this breaks:
 - There is **no caller object**
 - `this` is decided at **call time**
 - So:
-
   - strict mode → `this === undefined`
   - non-strict → `this === window`
 
@@ -823,7 +819,6 @@ Why this existed:
 - `this` is about **how the function is called**
 - If a function is detached → `this` is lost
 - Fix using:
-
   - `bind`
   - arrow wrapper
   - preserved object reference

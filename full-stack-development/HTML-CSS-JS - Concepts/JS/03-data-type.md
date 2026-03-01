@@ -1,4 +1,3 @@
-
 # JavaScript Data Types — Complete Conceptual Mastery
 
 ---
@@ -9,20 +8,20 @@
 
 In simple words:
 
-* Data type tells JS **how much memory to allocate**
-* What **operations are allowed**
-* How values **behave during comparison, copy, and function calls**
+- Data type tells JS **how much memory to allocate**
+- What **operations are allowed**
+- How values **behave during comparison, copy, and function calls**
 
 JavaScript is **dynamically typed**, meaning:
 
-* You do **not** declare a type explicitly
-* The type is decided **at runtime**
-* A variable can **change its type**
+- You do **not** declare a type explicitly
+- The type is decided **at runtime**
+- A variable can **change its type**
 
 ```js
-let value = 10;      // number
-value = "ten";      // string
-value = true;       // boolean
+let value = 10; // number
+value = "ten"; // string
+value = true; // boolean
 ```
 
 This flexibility is powerful, but also the **main source of bugs** if types are not understood deeply.
@@ -47,9 +46,9 @@ Total **7 primitive types**:
 
 Primitive means:
 
-* Stored **directly in memory**
-* Copied **by value**
-* Immutable (cannot be changed internally)
+- Stored **directly in memory**
+- Copied **by value**
+- Immutable (cannot be changed internally)
 
 ---
 
@@ -57,15 +56,15 @@ Primitive means:
 
 These include:
 
-* Object
-* Array
-* Function
+- Object
+- Array
+- Function
 
 Non-primitive means:
 
-* Stored as **references**
-* Copied **by reference**
-* Mutable
+- Stored as **references**
+- Copied **by reference**
+- Mutable
 
 ---
 
@@ -84,9 +83,9 @@ Everything is stored as **64-bit floating point (IEEE-754)**.
 
 ### Why this matters
 
-* Decimal precision issues
-* `NaN`, `Infinity` behave oddly
-* Important for calculations, finance, scoring systems
+- Decimal precision issues
+- `NaN`, `Infinity` behave oddly
+- Important for calculations, finance, scoring systems
 
 ---
 
@@ -104,7 +103,7 @@ let pi = 3.14159;
 let percentage = 0.85;
 
 // Scientific notation
-let bigNumber = 1.5e6;    // 1,500,000
+let bigNumber = 1.5e6; // 1,500,000
 let smallNumber = 2.5e-4; // 0.00025
 
 // Special numeric values
@@ -112,10 +111,10 @@ let infinity = Infinity;
 let negativeInfinity = -Infinity;
 let notANumber = NaN;
 
-console.log(typeof age);        // "number"
-console.log(typeof price);      // "number"
-console.log(typeof infinity);   // "number"
-console.log(typeof NaN);        // "number"
+console.log(typeof age); // "number"
+console.log(typeof price); // "number"
+console.log(typeof infinity); // "number"
+console.log(typeof NaN); // "number"
 ```
 
 ### Mental Model
@@ -130,11 +129,11 @@ console.log(typeof NaN);        // "number"
 let a = 10;
 let b = 3;
 
-console.log(a + b);  // addition
-console.log(a - b);  // subtraction
-console.log(a * b);  // multiplication
-console.log(a / b);  // division
-console.log(a % b);  // remainder
+console.log(a + b); // addition
+console.log(a - b); // subtraction
+console.log(a * b); // multiplication
+console.log(a / b); // division
+console.log(a % b); // remainder
 console.log(a ** b); // power
 ```
 
@@ -145,8 +144,8 @@ console.log(a ** b); // power
 ```js
 let counter = 5;
 
-counter++;   // uses value, then increments
-++counter;   // increments first, then uses value
+counter++; // uses value, then increments
+++counter; // increments first, then uses value
 counter--;
 --counter;
 ```
@@ -158,10 +157,10 @@ counter--;
 ```js
 let num = 123.456;
 
-console.log(num.toFixed(2));        // rounds to 2 decimals
-console.log(num.toPrecision(4));    // total digits
-console.log(parseInt("123.45"));    // integer only
-console.log(parseFloat("123.45"));  // decimal allowed
+console.log(num.toFixed(2)); // rounds to 2 decimals
+console.log(num.toPrecision(4)); // total digits
+console.log(parseInt("123.45")); // integer only
+console.log(parseFloat("123.45")); // decimal allowed
 ```
 
 ---
@@ -169,9 +168,9 @@ console.log(parseFloat("123.45"));  // decimal allowed
 ### Validity Checks
 
 ```js
-console.log(isNaN("hello"));      // true
-console.log(isFinite(100));       // true
-console.log(isFinite(Infinity));  // false
+console.log(isNaN("hello")); // true
+console.log(isFinite(100)); // true
+console.log(isFinite(Infinity)); // false
 ```
 
 ---
@@ -184,16 +183,16 @@ Strings represent **textual data**.
 
 Strings are:
 
-* Immutable
-* Indexed
-* Stored as primitive values
+- Immutable
+- Indexed
+- Stored as primitive values
 
 ---
 
 ### Creation Styles
 
 ```js
-let singleQuotes = 'Hello World';
+let singleQuotes = "Hello World";
 let doubleQuotes = "Hello World";
 let templateLiteral = `Hello World`;
 ```
@@ -212,9 +211,9 @@ console.log(greeting);
 
 Why important:
 
-* Cleaner
-* Supports expressions
-* Supports multi-line strings
+- Cleaner
+- Supports expressions
+- Supports multi-line strings
 
 ---
 
@@ -265,15 +264,15 @@ let fullName3 = firstName.concat(" ", lastName);
 
 Boolean represents **logical state**:
 
-* true
-* false
+- true
+- false
 
 Used heavily in:
 
-* Conditions
-* Loops
-* Validation
-* Access control
+- Conditions
+- Loops
+- Validation
+- Access control
 
 ---
 
@@ -292,14 +291,13 @@ let isAdult = age >= 18;
 Falsy values:
 
 ```js
-false
-0
--0
-0n
-""
-null
-undefined
-NaN
+false;
+0 - 0;
+0n;
+("");
+null;
+undefined;
+NaN;
 ```
 
 Everything else is **truthy**.
@@ -310,15 +308,15 @@ Everything else is **truthy**.
 let userInput = "";
 
 if (userInput) {
-    console.log("User provided input");
+  console.log("User provided input");
 } else {
-    console.log("No input provided");
+  console.log("No input provided");
 }
 ```
 
 Mental model:
 
-* JS auto-converts values to boolean when needed
+- JS auto-converts values to boolean when needed
 
 ---
 
@@ -332,14 +330,14 @@ Means:
 
 ```js
 let userName;
-console.log(userName);        // undefined
+console.log(userName); // undefined
 ```
 
 Also appears when:
 
-* Function has no return
-* Property doesn’t exist
-* Array index out of range
+- Function has no return
+- Property doesn’t exist
+- Array index out of range
 
 ---
 
@@ -370,14 +368,14 @@ This is a **historical bug** in JavaScript.
 ### Null vs Undefined (VERY IMPORTANT)
 
 ```js
-console.log(undefined == null);   // true
-console.log(undefined === null);  // false
+console.log(undefined == null); // true
+console.log(undefined === null); // false
 ```
 
 Rule:
 
-* Use `undefined` → JS system value
-* Use `null` → developer intent
+- Use `undefined` → JS system value
+- Use `null` → developer intent
 
 ---
 
@@ -389,8 +387,8 @@ Symbols create **unique identifiers**.
 
 Used to:
 
-* Avoid property name collisions
-* Create hidden object keys
+- Avoid property name collisions
+- Create hidden object keys
 
 ---
 
@@ -408,8 +406,8 @@ console.log(sym2 === sym3); // false
 
 ```js
 let user = {
-    name: "John",
-    [Symbol("id")]: 123
+  name: "John",
+  [Symbol("id")]: 123,
 };
 
 console.log(Object.keys(user)); // symbol not shown
@@ -424,7 +422,7 @@ console.log(Object.keys(user)); // symbol not shown
 Used for numbers **beyond safe integer limit**.
 
 ```js
-Number.MAX_SAFE_INTEGER
+Number.MAX_SAFE_INTEGER;
 ```
 
 ---
@@ -463,13 +461,13 @@ They represent **real-world entities**.
 
 ```js
 let person = {
-    firstName: "John",
-    lastName: "Doe",
-    age: 30,
-    address: {
-        city: "New York"
-    },
-    hobbies: ["reading", "coding"]
+  firstName: "John",
+  lastName: "Doe",
+  age: 30,
+  address: {
+    city: "New York",
+  },
+  hobbies: ["reading", "coding"],
 };
 ```
 
@@ -504,7 +502,7 @@ Functions are **callable objects**.
 
 ```js
 function greet(name) {
-    return "Hello " + name;
+  return "Hello " + name;
 }
 
 let add = (a, b) => a + b;
@@ -519,10 +517,10 @@ let add = (a, b) => a + b;
 ### typeof Operator
 
 ```js
-typeof "hello"     // string
-typeof 42          // number
-typeof []          // object
-typeof null        // object (quirk)
+typeof "hello"; // string
+typeof 42; // number
+typeof []; // object
+typeof null; // object (quirk)
 ```
 
 ---
@@ -530,8 +528,8 @@ typeof null        // object (quirk)
 ### Better Checks
 
 ```js
-Array.isArray([])
-value instanceof String
+Array.isArray([]);
+value instanceof String;
 ```
 
 ---
@@ -539,15 +537,15 @@ value instanceof String
 ## 6. Type Coercion (Most Bugs Come From Here)
 
 ```js
-"5" + 3   // "53"
-"5" - 3   // 2
-true + 1  // 2
+"5" + 3; // "53"
+"5" - 3; // 2
+true + 1; // 2
 ```
 
 Rule:
 
-* `+` prefers strings
-* Other operators prefer numbers
+- `+` prefers strings
+- Other operators prefer numbers
 
 ---
 
@@ -567,11 +565,11 @@ Rule:
 
 ## Final Mental Model (Key Takeaways)
 
-* JS types are flexible but dangerous if misunderstood
-* Primitives → value copy
-* Objects → reference copy
-* `===` always preferred
-* `null` = intentional absence
-* `undefined` = missing value
-* Arrays & functions are objects
-* Type coercion is powerful but risky
+- JS types are flexible but dangerous if misunderstood
+- Primitives → value copy
+- Objects → reference copy
+- `===` always preferred
+- `null` = intentional absence
+- `undefined` = missing value
+- Arrays & functions are objects
+- Type coercion is powerful but risky

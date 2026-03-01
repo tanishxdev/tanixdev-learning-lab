@@ -1,5 +1,3 @@
-
-
 # Hoisting (JavaScript)
 
 ## 1. Core Concept (What Hoisting REALLY is)
@@ -12,18 +10,17 @@ Hoisting is a result of **JavaScript’s execution model**, which works in **two
 
 Before running your code, JavaScript:
 
-* Scans the entire scope (global / function / block)
-* Allocates memory for:
-
-  * variables (`var`, `let`, `const`)
-  * functions
-  * classes
+- Scans the entire scope (global / function / block)
+- Allocates memory for:
+  - variables (`var`, `let`, `const`)
+  - functions
+  - classes
 
 ### Phase 2 — Execution Phase
 
-* Code runs line by line
-* Assignments happen
-* Function calls execute
+- Code runs line by line
+- Assignments happen
+- Function calls execute
 
 Hoisting happens because **memory is allocated before execution**.
 
@@ -37,16 +34,16 @@ Think of JavaScript like this:
 
 So JavaScript asks:
 
-* What variables exist?
-* What functions exist?
-* Where are the boundaries of scope?
+- What variables exist?
+- What functions exist?
+- Where are the boundaries of scope?
 
 But:
 
-* `var` gets **memory + initialized to `undefined`**
-* `let` / `const` get **memory but NOT initialized**
-* Functions (declarations) get **fully initialized**
-* Classes behave like `let` (memory, no initialization)
+- `var` gets **memory + initialized to `undefined`**
+- `let` / `const` get **memory but NOT initialized**
+- Functions (declarations) get **fully initialized**
+- Classes behave like `let` (memory, no initialization)
 
 ---
 
@@ -81,15 +78,15 @@ var myVar; // declared + initialized to undefined
 
 // Step 2: Execution phase
 console.log(myVar); // undefined
-myVar = 5;          // assignment happens here
+myVar = 5; // assignment happens here
 console.log(myVar); // 5
 ```
 
 ### Key Understanding
 
-* `var` is hoisted **and initialized**
-* Accessing it before assignment gives `undefined`
-* No error → dangerous and confusing
+- `var` is hoisted **and initialized**
+- Accessing it before assignment gives `undefined`
+- No error → dangerous and confusing
 
 ---
 
@@ -105,9 +102,9 @@ const myConst = 20;
 
 ### What happens internally
 
-* Memory is allocated for `myLet` and `myConst`
-* BUT they are **not initialized**
-* Access before initialization → **ReferenceError**
+- Memory is allocated for `myLet` and `myConst`
+- BUT they are **not initialized**
+- Access before initialization → **ReferenceError**
 
 This phase is called **Temporal Dead Zone (TDZ)**
 
@@ -115,17 +112,17 @@ This phase is called **Temporal Dead Zone (TDZ)**
 
 ```js
 function example() {
-    // TDZ starts here
-    console.log(x); // ReferenceError
-    let x = 5;      // TDZ ends here
-    console.log(x); // 5
+  // TDZ starts here
+  console.log(x); // ReferenceError
+  let x = 5; // TDZ ends here
+  console.log(x); // 5
 }
 ```
 
 ### Important Rule
 
-* TDZ exists from **start of scope** until **declaration line**
-* Even `typeof x` fails in TDZ
+- TDZ exists from **start of scope** until **declaration line**
+- Even `typeof x` fails in TDZ
 
 ---
 
@@ -137,7 +134,7 @@ function example() {
 sayHello(); // Works
 
 function sayHello() {
-    console.log("Hello!");
+  console.log("Hello!");
 }
 ```
 
@@ -145,17 +142,16 @@ function sayHello() {
 console.log(add(2, 3)); // Works
 
 function add(a, b) {
-    return a + b;
+  return a + b;
 }
 ```
 
 ### Why this works
 
-* Function declarations are:
-
-  * Allocated memory
-  * Fully initialized
-  * Available before execution starts
+- Function declarations are:
+  - Allocated memory
+  - Fully initialized
+  - Available before execution starts
 
 ---
 
@@ -164,8 +160,8 @@ function add(a, b) {
 ```js
 sayGoodbye(); // TypeError
 
-var sayGoodbye = function() {
-    console.log("Goodbye!");
+var sayGoodbye = function () {
+  console.log("Goodbye!");
 };
 ```
 
@@ -173,7 +169,7 @@ var sayGoodbye = function() {
 
 ```js
 var sayGoodbye; // initialized as undefined
-sayGoodbye();  // trying to call undefined → TypeError
+sayGoodbye(); // trying to call undefined → TypeError
 ```
 
 ### Arrow Functions
@@ -186,8 +182,8 @@ const multiply = (a, b) => a * b;
 
 Reason:
 
-* Arrow functions are **function expressions**
-* Behave like variables, not declarations
+- Arrow functions are **function expressions**
+- Behave like variables, not declarations
 
 ---
 
@@ -202,12 +198,12 @@ var globalVar = "I'm global";
 console.log(globalFunc()); // Works
 
 function globalFunc() {
-    return "Global function";
+  return "Global function";
 }
 ```
 
-* `var` → global object property
-* functions → available immediately
+- `var` → global object property
+- functions → available immediately
 
 ---
 
@@ -215,21 +211,21 @@ function globalFunc() {
 
 ```js
 function example() {
-    console.log(localVar); // undefined
-    var localVar = "I'm local";
+  console.log(localVar); // undefined
+  var localVar = "I'm local";
 
-    console.log(innerFunc()); // Works
+  console.log(innerFunc()); // Works
 
-    function innerFunc() {
-        return "Inner function";
-    }
+  function innerFunc() {
+    return "Inner function";
+  }
 }
 
 example();
 ```
 
-* `var` hoisted inside function
-* inner functions hoisted within function
+- `var` hoisted inside function
+- inner functions hoisted within function
 
 ---
 
@@ -237,23 +233,23 @@ example();
 
 ```js
 function blockScopeExample() {
-    console.log(x); // undefined
+  console.log(x); // undefined
 
-    if (true) {
-        var x = 1;
-        let y = 2;
-        const z = 3;
-    }
+  if (true) {
+    var x = 1;
+    let y = 2;
+    const z = 3;
+  }
 
-    console.log(x); // 1
-    // y and z not accessible here
+  console.log(x); // 1
+  // y and z not accessible here
 }
 ```
 
 Key idea:
 
-* `var` ignores blocks
-* `let` / `const` respect blocks
+- `var` ignores blocks
+- `let` / `const` respect blocks
 
 ---
 
@@ -263,8 +259,8 @@ Key idea:
 
 ```js
 function mistake1() {
-    console.log(name); // ReferenceError
-    let name = "John";
+  console.log(name); // ReferenceError
+  let name = "John";
 }
 ```
 
@@ -274,14 +270,14 @@ function mistake1() {
 
 ```js
 function mistake2() {
-    console.log(typeof myFunc); // undefined
-    console.log(myFunc);        // undefined
+  console.log(typeof myFunc); // undefined
+  console.log(myFunc); // undefined
 
-    var myFunc = function() {
-        return "Hello";
-    };
+  var myFunc = function () {
+    return "Hello";
+  };
 
-    console.log(typeof myFunc); // function
+  console.log(typeof myFunc); // function
 }
 ```
 
@@ -291,19 +287,19 @@ function mistake2() {
 
 ```js
 function mistake3() {
-    for (var i = 0; i < 3; i++) {
-        setTimeout(function() {
-            console.log(i); // 3, 3, 3
-        }, 100);
-    }
-    console.log(i); // 3
+  for (var i = 0; i < 3; i++) {
+    setTimeout(function () {
+      console.log(i); // 3, 3, 3
+    }, 100);
+  }
+  console.log(i); // 3
 }
 ```
 
 Reason:
 
-* Single `i` shared across loop
-* Callback runs after loop ends
+- Single `i` shared across loop
+- Callback runs after loop ends
 
 ---
 
@@ -313,13 +309,13 @@ Reason:
 
 ```js
 function goodExample() {
-    let name, age, city;
+  let name, age, city;
 
-    name = "Alice";
-    age = 25;
-    city = "New York";
+  name = "Alice";
+  age = 25;
+  city = "New York";
 
-    return `${name}, ${age}, from ${city}`;
+  return `${name}, ${age}, from ${city}`;
 }
 ```
 
@@ -329,14 +325,14 @@ function goodExample() {
 
 ```js
 function betterExample() {
-    const users = [];
-    let currentUser = null;
+  const users = [];
+  let currentUser = null;
 
-    for (let i = 0; i < 5; i++) {
-        users.push(`User ${i}`);
-    }
+  for (let i = 0; i < 5; i++) {
+    users.push(`User ${i}`);
+  }
 
-    return users;
+  return users;
 }
 ```
 
@@ -346,9 +342,9 @@ function betterExample() {
 
 ```js
 function temporalDeadZoneExample() {
-    console.log(typeof x); // ReferenceError
-    let x = 5;
-    console.log(x);
+  console.log(typeof x); // ReferenceError
+  let x = 5;
+  console.log(x);
 }
 ```
 
@@ -358,18 +354,18 @@ Even `typeof` fails → TDZ is strict.
 
 ```js
 function parameterTDZ(a = b, b = 2) {
-    return a + b;
+  return a + b;
 }
 ```
 
 Because:
 
-* Parameters are evaluated left to right
-* `b` not initialized when `a` runs
+- Parameters are evaluated left to right
+- `b` not initialized when `a` runs
 
 ```js
 function parameterFixed(a = 1, b = a + 1) {
-    return a + b;
+  return a + b;
 }
 ```
 
@@ -381,24 +377,24 @@ function parameterFixed(a = 1, b = a + 1) {
 console.log(MyClass); // ReferenceError
 
 class MyClass {
-    constructor(name) {
-        this.name = name;
-    }
+  constructor(name) {
+    this.name = name;
+  }
 }
 ```
 
 Classes:
 
-* Hoisted
-* Not initialized
-* Behave like `let`
+- Hoisted
+- Not initialized
+- Behave like `let`
 
 ```js
 console.log(MyClassExpr); // undefined
 var MyClassExpr = class {
-    constructor(name) {
-        this.name = name;
-    }
+  constructor(name) {
+    this.name = name;
+  }
 };
 ```
 
@@ -413,17 +409,17 @@ Class expressions behave like variables.
 ```js
 var a = 1;
 function test() {
-    console.log(a); // undefined
-    var a = 2;
-    console.log(a); // 2
+  console.log(a); // undefined
+  var a = 2;
+  console.log(a); // 2
 }
 test();
 ```
 
 Why:
 
-* Local `a` hoisted
-* Shadows global `a`
+- Local `a` hoisted
+- Shadows global `a`
 
 ---
 
@@ -431,15 +427,15 @@ Why:
 
 ```js
 function question2() {
-    console.log(foo); // function
+  console.log(foo); // function
 
-    var foo = "first";
+  var foo = "first";
 
-    function foo() {
-        return "second";
-    }
+  function foo() {
+    return "second";
+  }
 
-    console.log(foo); // "first"
+  console.log(foo); // "first"
 }
 ```
 
@@ -455,23 +451,23 @@ Order:
 
 ```js
 function fixed1() {
-    for (let i = 0; i < 3; i++) {
-        setTimeout(function() {
-            console.log(i);
-        }, 100);
-    }
+  for (let i = 0; i < 3; i++) {
+    setTimeout(function () {
+      console.log(i);
+    }, 100);
+  }
 }
 ```
 
 ```js
 function fixed2() {
-    for (var i = 0; i < 3; i++) {
-        (function(j) {
-            setTimeout(function() {
-                console.log(j);
-            }, 100);
-        })(i);
-    }
+  for (var i = 0; i < 3; i++) {
+    (function (j) {
+      setTimeout(function () {
+        console.log(j);
+      }, 100);
+    })(i);
+  }
 }
 ```
 

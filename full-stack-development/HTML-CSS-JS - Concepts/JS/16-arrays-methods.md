@@ -11,29 +11,29 @@
 ```js
 let result = [];
 for (let i = 0; i < numbers.length; i++) {
-    result.push(numbers[i] * 2);
+  result.push(numbers[i] * 2);
 }
 ```
 
 Problems:
 
-* More code
-* Harder to read
-* Logic + iteration mixed
-* Easy to introduce bugs
+- More code
+- Harder to read
+- Logic + iteration mixed
+- Easy to introduce bugs
 
 ### Solution: Array methods
 
 ```js
-numbers.map(n => n * 2);
+numbers.map((n) => n * 2);
 ```
 
 Benefits:
 
-* Cleaner
-* Expresses **intent**
-* Less error-prone
-* Chainable
+- Cleaner
+- Expresses **intent**
+- Less error-prone
+- Chainable
 
 ---
 
@@ -41,10 +41,10 @@ Benefits:
 
 Think of array methods like an **assembly line**:
 
-* Input array goes in
-* Each method does **one job**
-* New array/value comes out
-* Original array usually stays unchanged
+- Input array goes in
+- Each method does **one job**
+- New array/value comes out
+- Original array usually stays unchanged
 
 ---
 
@@ -54,9 +54,9 @@ Think of array methods like an **assembly line**:
 
 `map`:
 
-* Iterates over array
-* Transforms each element
-* Returns a **new array of same length**
+- Iterates over array
+- Transforms each element
+- Returns a **new array of same length**
 
 Rule:
 
@@ -70,9 +70,9 @@ Rule:
 const numbers = [1, 2, 3, 4, 5];
 
 // Each number is doubled
-const doubled = numbers.map(num => {
-    // num is current element
-    return num * 2;
+const doubled = numbers.map((num) => {
+  // num is current element
+  return num * 2;
 });
 
 console.log(doubled); // [2, 4, 6, 8, 10]
@@ -91,14 +91,14 @@ What happens internally:
 
 ```js
 const users = [
-    { name: "Alice", age: 25 },
-    { name: "Bob", age: 30 },
-    { name: "Charlie", age: 35 }
+  { name: "Alice", age: 25 },
+  { name: "Bob", age: 30 },
+  { name: "Charlie", age: 35 },
 ];
 
 // Extract only names
-const names = users.map(user => {
-    return user.name;
+const names = users.map((user) => {
+  return user.name;
 });
 
 console.log(names);
@@ -106,17 +106,17 @@ console.log(names);
 
 Why `map` is perfect:
 
-* Input: users
-* Output: names
-* Same count
+- Input: users
+- Output: names
+- Same count
 
 ---
 
 ### Mapping to New Structure
 
 ```js
-const userInfo = users.map(user => {
-    return `${user.name} is ${user.age} years old`;
+const userInfo = users.map((user) => {
+  return `${user.name} is ${user.age} years old`;
 });
 
 console.log(userInfo);
@@ -128,8 +128,8 @@ console.log(userInfo);
 
 ```js
 const indexed = numbers.map((num, index) => {
-    // index is position in array
-    return `${index}: ${num}`;
+  // index is position in array
+  return `${index}: ${num}`;
 });
 
 console.log(indexed);
@@ -143,9 +143,9 @@ console.log(indexed);
 
 `filter`:
 
-* Tests each element
-* Keeps elements that return `true`
-* Returns **new array (possibly smaller)**
+- Tests each element
+- Keeps elements that return `true`
+- Returns **new array (possibly smaller)**
 
 Rule:
 
@@ -156,11 +156,11 @@ Rule:
 ### Basic Filtering
 
 ```js
-const numbers = [1,2,3,4,5,6,7,8,9,10];
+const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 // Keep only even numbers
-const evens = numbers.filter(num => {
-    return num % 2 === 0;
+const evens = numbers.filter((num) => {
+  return num % 2 === 0;
 });
 
 console.log(evens);
@@ -168,9 +168,9 @@ console.log(evens);
 
 Mental flow:
 
-* 1 → false → removed
-* 2 → true → kept
-* Continue…
+- 1 → false → removed
+- 2 → true → kept
+- Continue…
 
 ---
 
@@ -178,19 +178,19 @@ Mental flow:
 
 ```js
 const products = [
-    { name: "Laptop", price: 999, inStock: true },
-    { name: "Phone", price: 599, inStock: false },
-    { name: "Tablet", price: 399, inStock: true }
+  { name: "Laptop", price: 999, inStock: true },
+  { name: "Phone", price: 599, inStock: false },
+  { name: "Tablet", price: 399, inStock: true },
 ];
 
 // Only available products
-const availableProducts = products.filter(product => {
-    return product.inStock === true;
+const availableProducts = products.filter((product) => {
+  return product.inStock === true;
 });
 
 // Only expensive products
-const expensiveProducts = products.filter(product => {
-    return product.price > 500;
+const expensiveProducts = products.filter((product) => {
+  return product.price > 500;
 });
 ```
 
@@ -200,14 +200,14 @@ const expensiveProducts = products.filter(product => {
 
 ```js
 const users = [
-    { name: "Alice", age: 25, active: true },
-    { name: "Bob", age: 17, active: true },
-    { name: "Charlie", age: 30, active: false }
+  { name: "Alice", age: 25, active: true },
+  { name: "Bob", age: 17, active: true },
+  { name: "Charlie", age: 30, active: false },
 ];
 
 // Active adults only
-const activeAdults = users.filter(user => {
-    return user.active && user.age >= 18;
+const activeAdults = users.filter((user) => {
+  return user.active && user.age >= 18;
 });
 
 console.log(activeAdults);
@@ -221,14 +221,14 @@ console.log(activeAdults);
 
 `reduce`:
 
-* Walks through array
-* Accumulates result
-* Returns **single value** (number, object, array, anything)
+- Walks through array
+- Accumulates result
+- Returns **single value** (number, object, array, anything)
 
 Signature:
 
 ```js
-array.reduce((accumulator, currentValue) => newAccumulator, initialValue)
+array.reduce((accumulator, currentValue) => newAccumulator, initialValue);
 ```
 
 ---
@@ -239,8 +239,8 @@ array.reduce((accumulator, currentValue) => newAccumulator, initialValue)
 const numbers = [1, 2, 3, 4, 5];
 
 const sum = numbers.reduce((total, num) => {
-    // total starts as initialValue (0)
-    return total + num;
+  // total starts as initialValue (0)
+  return total + num;
 }, 0);
 
 console.log(sum);
@@ -248,10 +248,10 @@ console.log(sum);
 
 Step-by-step:
 
-* total = 0, num = 1 → 1
-* total = 1, num = 2 → 3
-* total = 3, num = 3 → 6
-* ...
+- total = 0, num = 1 → 1
+- total = 1, num = 2 → 3
+- total = 3, num = 3 → 6
+- ...
 
 ---
 
@@ -259,7 +259,7 @@ Step-by-step:
 
 ```js
 const max = numbers.reduce((currentMax, num) => {
-    return num > currentMax ? num : currentMax;
+  return num > currentMax ? num : currentMax;
 }, numbers[0]);
 
 console.log(max);
@@ -273,10 +273,10 @@ console.log(max);
 const fruits = ["apple", "banana", "apple", "orange", "banana", "apple"];
 
 const count = fruits.reduce((acc, fruit) => {
-    // If key exists, increment
-    // Else initialize to 1
-    acc[fruit] = (acc[fruit] || 0) + 1;
-    return acc;
+  // If key exists, increment
+  // Else initialize to 1
+  acc[fruit] = (acc[fruit] || 0) + 1;
+  return acc;
 }, {});
 
 console.log(count);
@@ -288,20 +288,20 @@ console.log(count);
 
 ```js
 const people = [
-    { name: "Alice", department: "Engineering" },
-    { name: "Bob", department: "Marketing" },
-    { name: "Charlie", department: "Engineering" }
+  { name: "Alice", department: "Engineering" },
+  { name: "Bob", department: "Marketing" },
+  { name: "Charlie", department: "Engineering" },
 ];
 
 const byDepartment = people.reduce((acc, person) => {
-    const dept = person.department;
+  const dept = person.department;
 
-    if (!acc[dept]) {
-        acc[dept] = [];
-    }
+  if (!acc[dept]) {
+    acc[dept] = [];
+  }
 
-    acc[dept].push(person);
-    return acc;
+  acc[dept].push(person);
+  return acc;
 }, {});
 ```
 
@@ -311,8 +311,8 @@ const byDepartment = people.reduce((acc, person) => {
 
 ### Concept
 
-* `find` → first matching element
-* `findIndex` → index of first match
+- `find` → first matching element
+- `findIndex` → index of first match
 
 Stops early (efficient).
 
@@ -320,22 +320,22 @@ Stops early (efficient).
 
 ```js
 const users = [
-    { id: 1, name: "Alice", email: "alice@example.com" },
-    { id: 2, name: "Bob", email: "bob@example.com" },
-    { id: 3, name: "Charlie", email: "charlie@example.com" }
+  { id: 1, name: "Alice", email: "alice@example.com" },
+  { id: 2, name: "Bob", email: "bob@example.com" },
+  { id: 3, name: "Charlie", email: "charlie@example.com" },
 ];
 
-const user = users.find(u => u.name === "Bob");
+const user = users.find((u) => u.name === "Bob");
 console.log(user);
 
-const index = users.findIndex(u => u.name === "Bob");
+const index = users.findIndex((u) => u.name === "Bob");
 console.log(index);
 ```
 
 If not found:
 
-* `find` → `undefined`
-* `findIndex` → `-1`
+- `find` → `undefined`
+- `findIndex` → `-1`
 
 ---
 
@@ -343,8 +343,8 @@ If not found:
 
 ### Concept
 
-* `some` → **any** element matches?
-* `every` → **all** elements match?
+- `some` → **any** element matches?
+- `every` → **all** elements match?
 
 ---
 
@@ -352,8 +352,8 @@ If not found:
 const numbers = [2, 4, 6, 8, 10];
 const mixedNumbers = [1, 2, 3, 4, 5];
 
-console.log(numbers.some(num => num > 5)); // true
-console.log(numbers.every(num => num % 2 === 0)); // true
+console.log(numbers.some((num) => num > 5)); // true
+console.log(numbers.every((num) => num % 2 === 0)); // true
 ```
 
 ---
@@ -362,13 +362,13 @@ console.log(numbers.every(num => num % 2 === 0)); // true
 
 ```js
 const users = [
-    { name: "Alice", age: 25, verified: true },
-    { name: "Bob", age: 30, verified: true },
-    { name: "Charlie", age: 17, verified: false }
+  { name: "Alice", age: 25, verified: true },
+  { name: "Bob", age: 30, verified: true },
+  { name: "Charlie", age: 17, verified: false },
 ];
 
-const hasMinors = users.some(user => user.age < 18);
-const allVerified = users.every(user => user.verified);
+const hasMinors = users.some((user) => user.age < 18);
+const allVerified = users.every((user) => user.verified);
 ```
 
 ---
@@ -377,9 +377,9 @@ const allVerified = users.every(user => user.verified);
 
 ### Concept
 
-* Runs function for each element
-* Returns **nothing**
-* Used for **side effects**
+- Runs function for each element
+- Returns **nothing**
+- Used for **side effects**
 
 ---
 
@@ -387,7 +387,7 @@ const allVerified = users.every(user => user.verified);
 const fruits = ["apple", "banana", "orange"];
 
 fruits.forEach((fruit, index) => {
-    console.log(`${index}: ${fruit}`);
+  console.log(`${index}: ${fruit}`);
 });
 ```
 
@@ -399,8 +399,8 @@ fruits.forEach((fruit, index) => {
 const results = [];
 const numbers = [1, 2, 3, 4, 5];
 
-numbers.forEach(num => {
-    results.push(num * 2);
+numbers.forEach((num) => {
+  results.push(num * 2);
 });
 
 console.log(results);
@@ -408,8 +408,8 @@ console.log(results);
 
 Note:
 
-* If you need a new array → use `map`
-* `forEach` is not chainable
+- If you need a new array → use `map`
+- `forEach` is not chainable
 
 ---
 
@@ -419,8 +419,8 @@ Note:
 
 `sort()`:
 
-* Converts values to strings by default
-* Mutates original array
+- Converts values to strings by default
+- Mutates original array
 
 ---
 
@@ -448,9 +448,9 @@ numbers.sort((a, b) => b - a); // descending
 
 ```js
 const users = [
-    { name: "Charlie", age: 35 },
-    { name: "Alice", age: 25 },
-    { name: "Bob", age: 30 }
+  { name: "Charlie", age: 35 },
+  { name: "Alice", age: 25 },
+  { name: "Bob", age: 30 },
 ];
 
 users.sort((a, b) => a.age - b.age);
@@ -464,7 +464,7 @@ users.sort((a, b) => a.name.localeCompare(b.name));
 ### `reverse()` (Mutates)
 
 ```js
-const numbers = [1,2,3,4,5];
+const numbers = [1, 2, 3, 4, 5];
 numbers.reverse();
 ```
 
@@ -473,7 +473,7 @@ numbers.reverse();
 ### `slice()` (Safe)
 
 ```js
-const original = [1,2,3,4,5];
+const original = [1, 2, 3, 4, 5];
 const portion = original.slice(1, 4);
 ```
 
@@ -483,17 +483,17 @@ const portion = original.slice(1, 4);
 
 ```js
 const result = users
-    .filter(user => user.active)
-    .filter(user => user.age > 25)
-    .map(user => ({ name: user.name, salary: user.salary }))
-    .sort((a, b) => b.salary - a.salary);
+  .filter((user) => user.active)
+  .filter((user) => user.age > 25)
+  .map((user) => ({ name: user.name, salary: user.salary }))
+  .sort((a, b) => b.salary - a.salary);
 ```
 
 Mental model:
 
-* Data flows left → right
-* Each step is readable
-* No mutation
+- Data flows left → right
+- Each step is readable
+- No mutation
 
 ---
 
@@ -503,19 +503,20 @@ Mental model:
 
 ```js
 function filterProducts(products, filters) {
-    return products
-        .filter(product => {
-            if (filters.category && product.category !== filters.category) return false;
-            if (filters.minPrice && product.price < filters.minPrice) return false;
-            if (filters.maxPrice && product.price > filters.maxPrice) return false;
-            if (filters.minRating && product.rating < filters.minRating) return false;
-            return true;
-        })
-        .sort((a, b) => {
-            if (filters.sortBy === 'price') return a.price - b.price;
-            if (filters.sortBy === 'rating') return b.rating - a.rating;
-            return 0;
-        });
+  return products
+    .filter((product) => {
+      if (filters.category && product.category !== filters.category)
+        return false;
+      if (filters.minPrice && product.price < filters.minPrice) return false;
+      if (filters.maxPrice && product.price > filters.maxPrice) return false;
+      if (filters.minRating && product.rating < filters.minRating) return false;
+      return true;
+    })
+    .sort((a, b) => {
+      if (filters.sortBy === "price") return a.price - b.price;
+      if (filters.sortBy === "rating") return b.rating - a.rating;
+      return 0;
+    });
 }
 ```
 
@@ -525,10 +526,11 @@ function filterProducts(products, filters) {
 
 ```js
 const analysis = {
-    totalSales: salesData.reduce((sum, d) => sum + d.sales, 0),
-    totalExpenses: salesData.reduce((sum, d) => sum + d.expenses, 0),
-    profitableMonths: salesData.filter(d => d.sales > d.expenses),
-    averageSales: salesData.reduce((sum, d) => sum + d.sales, 0) / salesData.length
+  totalSales: salesData.reduce((sum, d) => sum + d.sales, 0),
+  totalExpenses: salesData.reduce((sum, d) => sum + d.expenses, 0),
+  profitableMonths: salesData.filter((d) => d.sales > d.expenses),
+  averageSales:
+    salesData.reduce((sum, d) => sum + d.sales, 0) / salesData.length,
 };
 ```
 
@@ -538,10 +540,10 @@ const analysis = {
 
 ```js
 const processed = words
-    .filter(word => word.length > 3)
-    .map(word => word.toUpperCase())
-    .sort()
-    .join(" ");
+  .filter((word) => word.length > 3)
+  .map((word) => word.toUpperCase())
+  .sort()
+  .join(" ");
 ```
 
 ---
@@ -550,30 +552,30 @@ const processed = words
 
 ```js
 // Bad
-numbers.map(n => console.log(n));
+numbers.map((n) => console.log(n));
 
 // Good
-numbers.forEach(n => console.log(n));
+numbers.forEach((n) => console.log(n));
 
 // Bad
 const doubled = [];
-numbers.forEach(n => doubled.push(n * 2));
+numbers.forEach((n) => doubled.push(n * 2));
 
 // Good
-const doubled2 = numbers.map(n => n * 2);
+const doubled2 = numbers.map((n) => n * 2);
 ```
 
 ---
 
 ## 14. Final Mental Cheat Sheet
 
-* `map` → transform
-* `filter` → select
-* `reduce` → combine
-* `find` → first match
-* `some` → any
-* `every` → all
-* `forEach` → side effects
-* `sort` → mutate (careful)
+- `map` → transform
+- `filter` → select
+- `reduce` → combine
+- `find` → first match
+- `some` → any
+- `every` → all
+- `forEach` → side effects
+- `sort` → mutate (careful)
 
 ---

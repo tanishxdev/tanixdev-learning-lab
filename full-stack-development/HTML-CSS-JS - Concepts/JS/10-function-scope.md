@@ -1,4 +1,3 @@
-
 # Function Scope (JavaScript)
 
 ## 1. What is Scope (Core Concept)
@@ -9,9 +8,9 @@ Think of scope as **visibility + lifetime** of variables.
 
 If JavaScript were a building:
 
-* **Global scope** = main lobby (everyone can see it)
-* **Function scope** = private room
-* **Block scope** = locked cupboard inside the room
+- **Global scope** = main lobby (everyone can see it)
+- **Function scope** = private room
+- **Block scope** = locked cupboard inside the room
 
 JavaScript decides variable access based on **where the variable is declared**, not where it is used.
 
@@ -21,17 +20,17 @@ JavaScript decides variable access based on **where the variable is declared**, 
 
 Scope exists to:
 
-* Prevent name collisions
-* Protect internal data
-* Make programs predictable
-* Enable private variables
-* Control memory usage
+- Prevent name collisions
+- Protect internal data
+- Make programs predictable
+- Enable private variables
+- Control memory usage
 
 Without scope:
 
-* Any function could modify any variable
-* Bugs would be silent and dangerous
-* Large codebases would collapse
+- Any function could modify any variable
+- Bugs would be silent and dangerous
+- Large codebases would collapse
 
 ---
 
@@ -57,9 +56,9 @@ A variable declared **outside any function or block** is in **global scope**.
 
 Global variables:
 
-* Are created when the program starts
-* Live until the program ends
-* Are accessible everywhere
+- Are created when the program starts
+- Live until the program ends
+- Are accessible everywhere
 
 This is powerful but **dangerous if overused**.
 
@@ -74,9 +73,9 @@ let globalLet = "I'm also global";
 const globalConst = "Me too!";
 
 function showGlobals() {
-    console.log(globalVar);   // Accessible
-    console.log(globalLet);   // Accessible
-    console.log(globalConst); // Accessible
+  console.log(globalVar); // Accessible
+  console.log(globalLet); // Accessible
+  console.log(globalConst); // Accessible
 }
 
 showGlobals();
@@ -85,10 +84,10 @@ console.log(globalVar); // Also accessible here
 
 ### Explanation (Line by Line Thinking)
 
-* `globalVar`, `globalLet`, `globalConst` are created in the **global execution context**
-* Functions can **read** global variables
-* Global variables can also be accessed outside functions
-* `var`, `let`, and `const` all work globally, but behave differently with hoisting and redeclaration
+- `globalVar`, `globalLet`, `globalConst` are created in the **global execution context**
+- Functions can **read** global variables
+- Global variables can also be accessed outside functions
+- `var`, `let`, and `const` all work globally, but behave differently with hoisting and redeclaration
 
 ---
 
@@ -98,9 +97,9 @@ console.log(globalVar); // Also accessible here
 
 Variables declared **inside a function** are:
 
-* Created when the function runs
-* Destroyed when the function finishes
-* Accessible **only inside that function**
+- Created when the function runs
+- Destroyed when the function finishes
+- Accessible **only inside that function**
 
 This is the most important isolation mechanism in JavaScript.
 
@@ -110,13 +109,13 @@ This is the most important isolation mechanism in JavaScript.
 
 ```js
 function myFunction() {
-    var functionVar = "I'm in function scope";
-    let functionLet = "Me too";
-    const functionConst = "And me";
-    
-    console.log(functionVar);   // Works
-    console.log(functionLet);   // Works
-    console.log(functionConst); // Works
+  var functionVar = "I'm in function scope";
+  let functionLet = "Me too";
+  const functionConst = "And me";
+
+  console.log(functionVar); // Works
+  console.log(functionLet); // Works
+  console.log(functionConst); // Works
 }
 
 myFunction();
@@ -127,9 +126,9 @@ myFunction();
 
 Think of `myFunction` as a **sealed box**:
 
-* Variables go inside the box
-* Once the function finishes, the box is gone
-* Outside code cannot peek inside
+- Variables go inside the box
+- Once the function finishes, the box is gone
+- Outside code cannot peek inside
 
 ---
 
@@ -139,15 +138,15 @@ Think of `myFunction` as a **sealed box**:
 
 A **block** is anything inside `{ }`, like:
 
-* `if`
-* `for`
-* `while`
-* `switch`
+- `if`
+- `for`
+- `while`
+- `switch`
 
 Rules:
 
-* `let` and `const` → block scoped
-* `var` → NOT block scoped (function scoped)
+- `let` and `const` → block scoped
+- `var` → NOT block scoped (function scoped)
 
 ---
 
@@ -155,22 +154,22 @@ Rules:
 
 ```js
 function testBlockScope() {
-    if (true) {
-        var varVariable = "I'm var";
-        let letVariable = "I'm let";
-        const constVariable = "I'm const";
-    }
-    
-    console.log(varVariable);    // Works - var has function scope
-    // console.log(letVariable); // Error - let has block scope
-    // console.log(constVariable); // Error - const has block scope
+  if (true) {
+    var varVariable = "I'm var";
+    let letVariable = "I'm let";
+    const constVariable = "I'm const";
+  }
+
+  console.log(varVariable); // Works - var has function scope
+  // console.log(letVariable); // Error - let has block scope
+  // console.log(constVariable); // Error - const has block scope
 }
 ```
 
 ### Why This Happens
 
-* `var` ignores blocks and attaches itself to the **nearest function**
-* `let` and `const` respect blocks and stay inside `{ }`
+- `var` ignores blocks and attaches itself to the **nearest function**
+- `let` and `const` respect blocks and stay inside `{ }`
 
 ---
 
@@ -178,16 +177,16 @@ function testBlockScope() {
 
 ```js
 for (let i = 0; i < 3; i++) {
-    // i is only accessible within this loop
-    console.log(i);
+  // i is only accessible within this loop
+  console.log(i);
 }
 // console.log(i); // Error! i is not accessible here
 ```
 
 Here:
 
-* `i` exists only during each loop iteration
-* Prevents accidental reuse or bugs
+- `i` exists only during each loop iteration
+- Prevents accidental reuse or bugs
 
 ---
 
@@ -207,26 +206,26 @@ This is called **lexical scoping**:
 
 ```js
 function outerFunction() {
-    let outerVariable = "I'm in outer function";
-    
-    function innerFunction() {
-        let innerVariable = "I'm in inner function";
-        
-        // Inner can access outer
-        console.log(outerVariable);  // Works
-        console.log(innerVariable);  // Works
-        
-        function deeperFunction() {
-            // Can access all outer scopes
-            console.log(outerVariable);  // Works
-            console.log(innerVariable);  // Works
-        }
-        
-        deeperFunction();
+  let outerVariable = "I'm in outer function";
+
+  function innerFunction() {
+    let innerVariable = "I'm in inner function";
+
+    // Inner can access outer
+    console.log(outerVariable); // Works
+    console.log(innerVariable); // Works
+
+    function deeperFunction() {
+      // Can access all outer scopes
+      console.log(outerVariable); // Works
+      console.log(innerVariable); // Works
     }
-    
-    innerFunction();
-    // console.log(innerVariable); // Error! Can't access inner scope
+
+    deeperFunction();
+  }
+
+  innerFunction();
+  // console.log(innerVariable); // Error! Can't access inner scope
 }
 
 outerFunction();
@@ -251,8 +250,8 @@ Each inner level can see **everything above it**.
 
 When a variable with the **same name** exists in multiple scopes:
 
-* The **closest scope wins**
-* Outer variables are temporarily hidden
+- The **closest scope wins**
+- Outer variables are temporarily hidden
 
 ---
 
@@ -262,16 +261,16 @@ When a variable with the **same name** exists in multiple scopes:
 let name = "Global John";
 
 function testShadowing() {
-    let name = "Function John"; // Shadows global name
-    
-    console.log(name); // "Function John"
-    
-    if (true) {
-        let name = "Block John"; // Shadows function name
-        console.log(name); // "Block John"
-    }
-    
-    console.log(name); // "Function John" again
+  let name = "Function John"; // Shadows global name
+
+  console.log(name); // "Function John"
+
+  if (true) {
+    let name = "Block John"; // Shadows function name
+    console.log(name); // "Block John"
+  }
+
+  console.log(name); // "Function John" again
 }
 
 testShadowing();
@@ -282,8 +281,8 @@ console.log(name); // "Global John"
 
 Shadowing is **legal**, but:
 
-* Can confuse readers
-* Should be used carefully
+- Can confuse readers
+- Should be used carefully
 
 ---
 
@@ -295,8 +294,8 @@ Hoisting = JavaScript **moves declarations to the top** of their scope **before 
 
 But:
 
-* `var` is hoisted and initialized as `undefined`
-* `let` and `const` are hoisted but **not accessible** before declaration (TDZ)
+- `var` is hoisted and initialized as `undefined`
+- `let` and `const` are hoisted but **not accessible** before declaration (TDZ)
 
 ---
 
@@ -322,15 +321,15 @@ let hoistedLet = "I'm not accessible before declaration";
 sayHello(); // Works! Function declarations are fully hoisted
 
 function sayHello() {
-    console.log("Hello!");
+  console.log("Hello!");
 }
 ```
 
 ```js
 // Function expression hoisting
 // sayGoodbye(); // Error! Cannot access before initialization
-const sayGoodbye = function() {
-    console.log("Goodbye!");
+const sayGoodbye = function () {
+  console.log("Goodbye!");
 };
 ```
 
@@ -342,48 +341,48 @@ const sayGoodbye = function() {
 
 ```js
 function createCounter() {
-    let count = 0; // Private variable
-    
-    return {
-        increment: function() {
-            count++;
-            return count;
-        },
-        decrement: function() {
-            count--;
-            return count;
-        },
-        getCount: function() {
-            return count;
-        }
-    };
+  let count = 0; // Private variable
+
+  return {
+    increment: function () {
+      count++;
+      return count;
+    },
+    decrement: function () {
+      count--;
+      return count;
+    },
+    getCount: function () {
+      return count;
+    },
+  };
 }
 ```
 
 Here:
 
-* `count` cannot be accessed directly
-* Only controlled access is allowed
+- `count` cannot be accessed directly
+- Only controlled access is allowed
 
 ---
 
 ### Module Pattern
 
 ```js
-const userModule = (function() {
-    let users = []; // Private array
-    
-    return {
-        addUser: function(user) {
-            users.push(user);
-        },
-        getUsers: function() {
-            return [...users]; // Return copy, not original
-        },
-        getUserCount: function() {
-            return users.length;
-        }
-    };
+const userModule = (function () {
+  let users = []; // Private array
+
+  return {
+    addUser: function (user) {
+      users.push(user);
+    },
+    getUsers: function () {
+      return [...users]; // Return copy, not original
+    },
+    getUserCount: function () {
+      return users.length;
+    },
+  };
 })();
 ```
 
@@ -397,16 +396,16 @@ This is **scope-based encapsulation**, used heavily before ES modules.
 
 ```js
 for (var i = 0; i < 3; i++) {
-    setTimeout(function() {
-        console.log(i); // Prints 3, 3, 3
-    }, 100);
+  setTimeout(function () {
+    console.log(i); // Prints 3, 3, 3
+  }, 100);
 }
 ```
 
 Why:
 
-* `var` has one shared binding
-* Loop finishes → `i = 3`
+- `var` has one shared binding
+- Loop finishes → `i = 3`
 
 ---
 
@@ -414,19 +413,19 @@ Why:
 
 ```js
 for (let i = 0; i < 3; i++) {
-    setTimeout(function() {
-        console.log(i);
-    }, 100);
+  setTimeout(function () {
+    console.log(i);
+  }, 100);
 }
 ```
 
 ```js
 for (var i = 0; i < 3; i++) {
-    (function(index) {
-        setTimeout(function() {
-            console.log(index);
-        }, 100);
-    })(i);
+  (function (index) {
+    setTimeout(function () {
+      console.log(index);
+    }, 100);
+  })(i);
 }
 ```
 
@@ -436,15 +435,15 @@ for (var i = 0; i < 3; i++) {
 
 ```js
 function createUser() {
-    name = "John"; // Becomes global
-    let age = 25;
+  name = "John"; // Becomes global
+  let age = 25;
 }
 ```
 
 This happens because:
 
-* Missing `let/var/const`
-* JS assumes global assignment
+- Missing `let/var/const`
+- JS assumes global assignment
 
 ---
 
@@ -459,17 +458,17 @@ This happens because:
 
 Your examples already demonstrate:
 
-* Narrow scope
-* Controlled access
-* Predictable behavior
+- Narrow scope
+- Controlled access
+- Predictable behavior
 
 ---
 
 ## Final Mental Summary
 
-* Scope = visibility + lifetime
-* JS uses lexical scoping
-* `var` = function scoped
-* `let/const` = block scoped
-* Inner scopes can access outer, not reverse
-* Scope enables privacy, safety, and structure
+- Scope = visibility + lifetime
+- JS uses lexical scoping
+- `var` = function scoped
+- `let/const` = block scoped
+- Inner scopes can access outer, not reverse
+- Scope enables privacy, safety, and structure

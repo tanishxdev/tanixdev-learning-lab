@@ -1,5 +1,3 @@
-
-
 # Variables (var, let, const)
 
 ---
@@ -21,10 +19,10 @@ It stores a **reference** to where the value lives.
 
 This distinction becomes very important later with:
 
-* objects
-* arrays
-* const behavior
-* mutation vs reassignment
+- objects
+- arrays
+- const behavior
+- mutation vs reassignment
 
 ---
 
@@ -32,15 +30,13 @@ This distinction becomes very important later with:
 
 Imagine memory like a warehouse.
 
-* `let userAge = 25;`
+- `let userAge = 25;`
+  - Label: `userAge`
+  - Box contains: `25`
 
-  * Label: `userAge`
-  * Box contains: `25`
-
-* Reassignment:
-
-  * You **change what the label points to**
-  * The old value is discarded if nothing else uses it
+- Reassignment:
+  - You **change what the label points to**
+  - The old value is discarded if nothing else uses it
 
 ---
 
@@ -48,16 +44,16 @@ Imagine memory like a warehouse.
 
 Without variables:
 
-* You cannot reuse values
-* You cannot update state
-* You cannot write dynamic programs
+- You cannot reuse values
+- You cannot update state
+- You cannot write dynamic programs
 
 Variables enable:
 
-* state
-* decision making
-* calculations
-* logic flow
+- state
+- decision making
+- calculations
+- logic flow
 
 ---
 
@@ -65,9 +61,9 @@ Variables enable:
 
 JavaScript gives **three ways** to declare variables:
 
-* `let`
-* `const`
-* `var`
+- `let`
+- `const`
+- `var`
 
 Each exists because JavaScript evolved over time.
 
@@ -81,8 +77,8 @@ Each exists because JavaScript evolved over time.
 
 Use `let` when:
 
-* the value will change over time
-* the variable represents state
+- the value will change over time
+- the variable represents state
 
 ### Code (Your Code Preserved)
 
@@ -101,10 +97,10 @@ console.log(userName); // "jane_smith"
 
 ### Step-by-Step Explanation
 
-* `userName`, `userAge`, `isActive` are created
-* Later, they are **reassigned**
-* The variable name stays the same
-* The value it points to changes
+- `userName`, `userAge`, `isActive` are created
+- Later, they are **reassigned**
+- The variable name stays the same
+- The value it points to changes
 
 This is **reassignment**, not mutation.
 
@@ -122,8 +118,8 @@ It means:
 
 ### Simple Rule
 
-* ❌ Reassign → Not allowed
-* ✅ Modify internal data → Allowed (for objects/arrays)
+- ❌ Reassign → Not allowed
+- ✅ Modify internal data → Allowed (for objects/arrays)
 
 ---
 
@@ -140,8 +136,8 @@ const maxUsers = 1000;
 
 Here:
 
-* `PI` always points to the same value
-* You cannot make it point to something else
+- `PI` always points to the same value
+- You cannot make it point to something else
 
 ---
 
@@ -149,8 +145,8 @@ Here:
 
 ```javascript
 const user = {
-    name: "John",
-    age: 25
+  name: "John",
+  age: 25,
 };
 
 // This is allowed (modifying properties):
@@ -163,9 +159,9 @@ user.city = "New York";
 
 ### Why This Works
 
-* `user` → reference (constant)
-* `{ name, age }` → object in memory
-* You are **changing the contents**, not the reference
+- `user` → reference (constant)
+- `{ name, age }` → object in memory
+- You are **changing the contents**, not the reference
 
 ---
 
@@ -173,8 +169,8 @@ user.city = "New York";
 
 ### Why `var` Exists
 
-* `var` is from old JavaScript (pre-ES6)
-* It does not respect modern scoping rules
+- `var` is from old JavaScript (pre-ES6)
+- It does not respect modern scoping rules
 
 ### Code (Your Code Preserved)
 
@@ -249,9 +245,9 @@ Scope answers:
 
 ```javascript
 {
-    let blockVariable = "I'm in a block";
-    const blockConstant = "Me too!";
-    console.log(blockVariable); // Works inside block
+  let blockVariable = "I'm in a block";
+  const blockConstant = "Me too!";
+  console.log(blockVariable); // Works inside block
 }
 
 // console.log(blockVariable); // ReferenceError
@@ -267,9 +263,9 @@ Block = `{ }`
 let score = 85;
 
 if (score >= 80) {
-    let grade = "A";
-    const message = "Excellent work!";
-    console.log(grade, message); // Works here
+  let grade = "A";
+  const message = "Excellent work!";
+  console.log(grade, message); // Works here
 }
 
 // console.log(grade); // ReferenceError
@@ -281,21 +277,21 @@ if (score >= 80) {
 
 ```javascript
 function calculateTotal() {
-    let subtotal = 100;
-    let tax = 0.08;
-    
-    if (subtotal > 50) {
-        let discount = 10; // Block scoped
-        subtotal -= discount;
-    }
-    
-    let total = subtotal * (1 + tax);
-    return total;
+  let subtotal = 100;
+  let tax = 0.08;
+
+  if (subtotal > 50) {
+    let discount = 10; // Block scoped
+    subtotal -= discount;
+  }
+
+  let total = subtotal * (1 + tax);
+  return total;
 }
 ```
 
-* `subtotal`, `tax`, `total` → function scope
-* `discount` → block scope only
+- `subtotal`, `tax`, `total` → function scope
+- `discount` → block scope only
 
 ---
 
@@ -306,7 +302,7 @@ let siteName = "AceDevHub";
 const version = "1.0.0";
 
 function displayInfo() {
-    console.log(`Welcome to ${siteName} v${version}`);
+  console.log(`Welcome to ${siteName} v${version}`);
 }
 
 displayInfo();
@@ -320,7 +316,7 @@ displayInfo();
 
 ```javascript
 if (true) {
-    var message = "Hello";
+  var message = "Hello";
 }
 console.log(message); // "Hello"
 ```
@@ -377,7 +373,9 @@ const PI = 3.14159;
 ## 13. Multiple Declarations
 
 ```javascript
-let firstName = "John", lastName = "Doe", age = 25;
+let firstName = "John",
+  lastName = "Doe",
+  age = 25;
 ```
 
 Better:
@@ -398,8 +396,8 @@ let age = 25;
 const userName = "john_doe";
 const userEmail = "john@example.com";
 const userPreferences = {
-    theme: "dark",
-    language: "en"
+  theme: "dark",
+  language: "en",
 };
 
 let currentPage = 1;
@@ -412,10 +410,10 @@ let isLoading = false;
 
 ```javascript
 function processOrder() {
-    let orderId;
-    let customerInfo;
-    let totalAmount = 0;
-    const taxRate = 0.08;
+  let orderId;
+  let customerInfo;
+  let totalAmount = 0;
+  const taxRate = 0.08;
 }
 ```
 
@@ -425,15 +423,15 @@ function processOrder() {
 
 ```javascript
 const user = {
-    id: 123,
-    name: "john_doe",
-    email: "john@example.com"
+  id: 123,
+  name: "john_doe",
+  email: "john@example.com",
 };
 
 const appConfig = {
-    name: "AceDevHub",
-    version: "1.0.0",
-    debug: false
+  name: "AceDevHub",
+  version: "1.0.0",
+  debug: false,
 };
 ```
 
@@ -445,13 +443,13 @@ All **your code preserved**, now conceptually grounded.
 
 Examples include:
 
-* configuration objects
-* application state
-* calculation functions
-* debugging variables
-* `typeof` checks
-* practice exercises
-* common mistakes
+- configuration objects
+- application state
+- calculation functions
+- debugging variables
+- `typeof` checks
+- practice exercises
+- common mistakes
 
 (Every snippet you provided fits naturally into the concepts above.)
 
@@ -459,9 +457,9 @@ Examples include:
 
 ## Final Mental Model Summary
 
-* `const` → **stable reference**
-* `let` → **mutable state**
-* `var` → **legacy risk**
-* Scope controls **visibility**
-* Reassignment ≠ mutation
-* Clear names = clear thinking
+- `const` → **stable reference**
+- `let` → **mutable state**
+- `var` → **legacy risk**
+- Scope controls **visibility**
+- Reassignment ≠ mutation
+- Clear names = clear thinking

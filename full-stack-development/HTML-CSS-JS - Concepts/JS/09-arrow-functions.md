@@ -62,9 +62,9 @@ So `this` is **dynamic** in normal functions.
 
 A normal function:
 
-* Has its **own `this`**
-* Has its **own `arguments` object**
-* `this` is decided **at call time**
+- Has its **own `this`**
+- Has its **own `arguments` object**
+- `this` is decided **at call time**
 
 #### Example: `this` in normal function
 
@@ -73,7 +73,7 @@ const obj = {
   name: "Tanish",
   greet: function () {
     console.log(this.name);
-  }
+  },
 };
 
 obj.greet(); // "Tanish"
@@ -81,8 +81,8 @@ obj.greet(); // "Tanish"
 
 **Why?**
 
-* Function is called as `obj.greet()`
-* So `this = obj`
+- Function is called as `obj.greet()`
+- So `this = obj`
 
 ---
 
@@ -95,7 +95,7 @@ const obj = {
     setTimeout(function () {
       console.log(this.name);
     }, 1000);
-  }
+  },
 };
 
 obj.greet(); // undefined
@@ -103,9 +103,9 @@ obj.greet(); // undefined
 
 **Why undefined?**
 
-* `setTimeout` calls the function
-* So `this` becomes **window / undefined (strict mode)**
-* Inner function has its **own `this`**, different from outer
+- `setTimeout` calls the function
+- So `this` becomes **window / undefined (strict mode)**
+- Inner function has its **own `this`**, different from outer
 
 This is **normal function behavior**.
 
@@ -127,13 +127,13 @@ Instead:
 
 ##### ❌ Normal Function
 
-* Has its **own `this`**
-* `this` changes depending on **how it is called**
+- Has its **own `this`**
+- `this` changes depending on **how it is called**
 
 ##### ✅ Arrow Function
 
-* **Does NOT create its own `this`**
-* Uses `this` from **where it is written**
+- **Does NOT create its own `this`**
+- Uses `this` from **where it is written**
 
 ---
 
@@ -146,7 +146,7 @@ const obj = {
     setTimeout(() => {
       console.log(this.name);
     }, 1000);
-  }
+  },
 };
 
 obj.greet(); // "Tanish"
@@ -154,9 +154,9 @@ obj.greet(); // "Tanish"
 
 **Why it works:**
 
-* Arrow function does NOT create `this`
-* It takes `this` from `greet`
-* `greet`’s `this` = `obj`
+- Arrow function does NOT create `this`
+- It takes `this` from `greet`
+- `greet`’s `this` = `obj`
 
 ---
 
@@ -180,8 +180,8 @@ Output:
 
 **Why?**
 
-* Normal functions create an **`arguments` object**
-* It contains all passed parameters
+- Normal functions create an **`arguments` object**
+- It contains all passed parameters
 
 ---
 
@@ -203,8 +203,8 @@ ReferenceError: arguments is not defined
 
 **Why?**
 
-* Arrow functions **do NOT have their own `arguments`**
-* They do NOT create this object
+- Arrow functions **do NOT have their own `arguments`**
+- They do NOT create this object
 
 ---
 
@@ -239,15 +239,15 @@ Output:
 
 ### Use **Normal Function** when:
 
-* You need dynamic `this`
-* You are writing object methods meant to be called with `.call`, `.apply`, `.bind`
-* Constructor functions
+- You need dynamic `this`
+- You are writing object methods meant to be called with `.call`, `.apply`, `.bind`
+- Constructor functions
 
 ###### Use **Arrow Function** when:
 
-* You want `this` from outer scope
-* Callbacks (`map`, `filter`, `setTimeout`)
-* You want predictable behavior
+- You want `this` from outer scope
+- Callbacks (`map`, `filter`, `setTimeout`)
+- You want predictable behavior
 
 ---
 
@@ -258,7 +258,7 @@ const obj = {
   name: "JS",
   greet: () => {
     console.log(this.name);
-  }
+  },
 };
 
 obj.greet(); // undefined
@@ -266,9 +266,9 @@ obj.greet(); // undefined
 
 **Why?**
 
-* Arrow function does NOT get `this` from `obj`
-* It takes `this` from outer scope (global)
-* So `this.name` is undefined
+- Arrow function does NOT get `this` from `obj`
+- It takes `this` from outer scope (global)
+- So `this.name` is undefined
 
 ---
 
@@ -278,6 +278,7 @@ obj.greet(); // undefined
 Normal function  → creates its own this & arguments
 Arrow function   → borrows this, no arguments
 ```
+
 ---
 
 ## 3. Basic Syntax — How Arrow Functions Are Written
@@ -485,7 +486,6 @@ const ArrowFunction = (name) => {
 Why:
 
 - Arrow functions do not have:
-
   - `this`
   - `prototype`
 
