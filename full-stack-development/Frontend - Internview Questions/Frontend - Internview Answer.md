@@ -878,3 +878,704 @@ Always allowed.
 Same-Origin Policy is a browser-enforced security rule that prevents scripts from one origin from accessing data or resources of another origin. It protects user data and can only be relaxed through mechanisms like CORS.
 
 ---
+
+# 1. What is semantic HTML and why is it important? _(Easy)_
+
+## Concepts
+
+Semantic HTML means using HTML elements that clearly describe the meaning and purpose of content.
+
+Instead of generic tags like `<div>`, we use meaningful elements such as:
+
+- `<header>`
+- `<nav>`
+- `<main>`
+- `<section>`
+- `<article>`
+- `<footer>`
+
+Why semantic HTML is important:
+
+1. Improves code readability
+2. Helps screen readers understand structure
+3. Improves SEO
+4. Makes document structure predictable
+5. Reduces need for excessive ARIA roles
+
+Important:
+
+Semantic tags describe purpose, not styling.
+
+---
+
+## Code Example
+
+### Non-semantic structure
+
+```html
+<div class="header"></div>
+<div class="menu"></div>
+<div class="content"></div>
+```
+
+Meaning is unclear.
+
+---
+
+### Semantic structure
+
+```html
+<header></header>
+<nav></nav>
+<main></main>
+<footer></footer>
+```
+
+Structure is clear immediately.
+
+---
+
+## Interview-Ready Answer
+
+Semantic HTML uses meaningful elements that describe the purpose of content. It improves accessibility, SEO, maintainability, and helps both browsers and assistive technologies understand page structure.
+
+---
+
+# 2. Difference between `<div>` and semantic tags. _(Easy)_
+
+## Concepts
+
+`<div>`:
+
+- Generic container
+- No semantic meaning
+- Used mainly for grouping or layout
+
+Semantic tags:
+
+- Have built-in meaning
+- Describe purpose of content
+- Improve accessibility and SEO
+
+Key difference:
+
+`<div>` = structure only
+Semantic tag = structure + meaning
+
+---
+
+## Code Example
+
+### Using div
+
+```html
+<div class="navigation"></div>
+```
+
+Browser does not know what it represents.
+
+---
+
+### Using semantic tag
+
+```html
+<nav></nav>
+```
+
+Browser understands this is navigation content.
+
+---
+
+## Interview-Ready Answer
+
+A `<div>` is a generic container without meaning, while semantic tags like `<nav>`, `<header>`, and `<article>` describe the role of content and improve accessibility and SEO.
+
+---
+
+# 3. How does semantic HTML improve accessibility? _(Medium)_
+
+## Concepts
+
+Semantic HTML helps assistive technologies interpret content correctly.
+
+Benefits:
+
+1. Screen readers understand page structure
+2. Users can navigate via landmarks
+3. Clear heading hierarchy
+4. Better keyboard navigation
+5. Reduced reliance on ARIA
+
+Example:
+
+- `<nav>` tells screen reader this is navigation
+- `<main>` tells this is primary content
+
+Without semantics, screen readers must guess.
+
+---
+
+## Code Example
+
+### Proper heading structure
+
+```html
+<h1>Main Title</h1>
+<h2>Section</h2>
+<h3>Subsection</h3>
+```
+
+Screen reader understands hierarchy.
+
+---
+
+### Landmark structure
+
+```html
+<main>
+  <article>
+    <h2>Post</h2>
+  </article>
+</main>
+```
+
+Users can jump directly to main content.
+
+---
+
+## Interview-Ready Answer
+
+Semantic HTML improves accessibility by providing structural meaning that screen readers and assistive tools use to interpret and navigate content effectively.
+
+---
+
+# 4. What is accessibility (a11y) in frontend development? _(Easy)_
+
+## Concepts
+
+Accessibility means building web applications that everyone can use, including people with disabilities.
+
+Types of impairments:
+
+- Visual
+- Motor
+- Hearing
+- Cognitive
+
+Core principles (WCAG):
+
+1. Perceivable
+2. Operable
+3. Understandable
+4. Robust
+
+Accessibility includes:
+
+- Keyboard navigation
+- Screen reader support
+- Proper contrast
+- Semantic HTML
+
+---
+
+## Code Example
+
+### Accessible button
+
+```html
+<button>Submit</button>
+```
+
+Keyboard accessible by default.
+
+---
+
+### Accessible image
+
+```html
+<img src="logo.png" alt="Company Logo" />
+```
+
+Alt text helps screen readers.
+
+---
+
+## Interview-Ready Answer
+
+Accessibility in frontend means designing applications so that users with disabilities can perceive, understand, navigate, and interact with them effectively.
+
+---
+
+# 5. What are screen readers and how do they work? _(Medium)_
+
+## Concepts
+
+Screen readers are assistive software tools that read webpage content aloud.
+
+They work by:
+
+1. Reading the DOM structure
+2. Interpreting semantic HTML
+3. Using ARIA roles when needed
+4. Following heading and landmark structure
+
+They rely heavily on:
+
+- Proper headings
+- Labels
+- Alt attributes
+- ARIA states
+
+Without semantic structure, output becomes confusing.
+
+---
+
+## Code Example
+
+### Proper label association
+
+```html
+<label for="email">Email</label> <input id="email" type="email" />
+```
+
+Screen reader associates label with input.
+
+---
+
+### Missing alt (bad)
+
+```html
+<img src="photo.jpg" />
+```
+
+No description available.
+
+---
+
+## Interview-Ready Answer
+
+Screen readers are assistive technologies that convert webpage content into speech. They rely on semantic HTML, proper labels, and ARIA attributes to interpret and navigate content accurately.
+
+---
+
+# 6. What is ARIA and when should it be used? _(Medium)_
+
+## Concepts
+
+ARIA = Accessible Rich Internet Applications.
+
+It is a set of attributes that enhance accessibility when native HTML is not sufficient.
+
+ARIA defines:
+
+- Roles
+- States
+- Properties
+
+Important rule:
+
+Use semantic HTML first.
+Use ARIA only when necessary.
+
+ARIA does not change UI behavior.
+It only improves interpretation for assistive technologies.
+
+Common attributes:
+
+- role
+- aria-label
+- aria-hidden
+- aria-expanded
+
+---
+
+## Code Example
+
+### Custom button
+
+```html
+<div role="button" tabindex="0">Click</div>
+```
+
+Makes div behave like button for screen readers.
+
+---
+
+### Expandable menu
+
+```html
+<button aria-expanded="false">Menu</button>
+```
+
+Screen reader knows state.
+
+---
+
+## Interview-Ready Answer
+
+ARIA is a set of attributes used to enhance accessibility when native HTML semantics are insufficient. It defines roles and states to help assistive technologies understand custom UI components.
+
+---
+
+# 7. What are landmark roles in HTML? _(Medium)_
+
+## Concepts
+
+Landmark roles define major structural regions of a page.
+
+They allow assistive technologies to navigate quickly.
+
+Common landmark elements:
+
+- `<header>`
+- `<nav>`
+- `<main>`
+- `<aside>`
+- `<footer>`
+
+They create navigation shortcuts.
+
+Example:
+
+Users can jump directly to main content or navigation.
+
+---
+
+## Code Example
+
+```html
+<header></header>
+<nav></nav>
+<main></main>
+<footer></footer>
+```
+
+Clear structural regions.
+
+---
+
+## Interview-Ready Answer
+
+Landmark roles define important structural areas of a webpage, enabling screen readers and assistive tools to navigate efficiently between major sections.
+
+---
+
+# 8. Difference between block-level and inline elements. _(Easy)_
+
+## Concepts
+
+Block-level elements:
+
+- Start on new line
+- Take full width
+- Can contain block and inline elements
+
+Examples:
+
+- `<div>`
+- `<p>`
+- `<section>`
+- `<h1>`
+
+Inline elements:
+
+- Do not start on new line
+- Take only necessary width
+- Cannot contain block elements
+
+Examples:
+
+- `<span>`
+- `<a>`
+- `<strong>`
+
+---
+
+## Code Example
+
+### Block
+
+```html
+<p>Hello</p>
+<p>World</p>
+```
+
+Each appears on new line.
+
+---
+
+### Inline
+
+```html
+<span>Hello</span> <span>World</span>
+```
+
+Appears inline.
+
+---
+
+## Interview-Ready Answer
+
+Block-level elements occupy full width and start on a new line, while inline elements take only necessary width and flow within surrounding content.
+
+---
+
+# 9. What is the purpose of the `<label>` tag? _(Easy)_
+
+## Concepts
+
+`<label>` associates descriptive text with form inputs.
+
+Benefits:
+
+1. Improves accessibility
+2. Expands clickable area
+3. Links input to screen reader output
+
+Two association methods:
+
+1. Using `for` attribute
+2. Wrapping input inside label
+
+---
+
+## Code Example
+
+### Using for
+
+```html
+<label for="email">Email</label> <input id="email" type="email" />
+```
+
+---
+
+### Wrapping method
+
+```html
+<label>
+  Email
+  <input type="email" />
+</label>
+```
+
+---
+
+## Interview-Ready Answer
+
+The `<label>` tag associates descriptive text with form inputs, improving accessibility, usability, and screen reader interpretation.
+
+---
+
+# 10. How does form accessibility work? _(Medium)_
+
+## Concepts
+
+Accessible forms require:
+
+1. Proper labels
+2. Keyboard accessibility
+3. Clear error messages
+4. Required indicators
+5. ARIA roles if needed
+
+Common issues:
+
+- Using placeholder instead of label
+- No error feedback
+- No focus management
+
+Errors should be announced to screen readers.
+
+---
+
+## Code Example
+
+### Accessible input
+
+```html
+<label for="name">Name</label> <input id="name" type="text" required />
+```
+
+---
+
+### Accessible error
+
+```html
+<span role="alert">Name is required</span>
+```
+
+Screen reader announces immediately.
+
+---
+
+## Interview-Ready Answer
+
+Form accessibility ensures inputs are properly labeled, keyboard accessible, and provide clear feedback so assistive technologies can interpret and interact with them effectively.
+
+---
+
+# 11. What is tab order and focus management? _(Medium)_
+
+## Concepts
+
+Tab order defines the sequence in which elements receive keyboard focus when pressing Tab.
+
+Default behavior:
+
+- Follows DOM order
+- Only focusable elements are included
+
+Focusable elements:
+
+- `<a href>`
+- `<button>`
+- `<input>`
+- `<select>`
+- `<textarea>`
+
+`tabindex` values:
+
+- `0` → Follows natural order
+- `-1` → Focusable via JS only
+- `>0` → Custom order (not recommended)
+
+Focus management is important for:
+
+- Modals
+- SPAs
+- Dropdowns
+- Error handling
+
+Poor focus management breaks accessibility.
+
+---
+
+## Code Example
+
+### Making div focusable
+
+```html
+<div tabindex="0">Focusable</div>
+```
+
+---
+
+### Programmatic focus
+
+```js
+document.getElementById("modal").focus();
+```
+
+---
+
+## Interview-Ready Answer
+
+Tab order determines how elements receive keyboard focus, usually based on DOM order. Focus management ensures users navigating via keyboard or screen readers can interact with dynamic components correctly.
+
+---
+
+# 12. How do browsers handle invalid HTML? _(Hard)_
+
+## Concepts
+
+Browsers are fault-tolerant.
+
+They follow the HTML parsing algorithm defined in the specification.
+
+Instead of throwing errors, browsers:
+
+1. Auto-close missing tags
+2. Fix invalid nesting
+3. Insert missing elements like `<html>` or `<body>`
+4. Ignore unknown tags but keep content
+
+Goal:
+
+Render something usable instead of breaking.
+
+---
+
+## Code Example
+
+### Missing closing tag
+
+```html
+<p>Hello</p>
+<p>World</p>
+```
+
+Browser auto-closes first `<p>`.
+
+---
+
+### Invalid nesting
+
+```html
+<p><div>Text</div></p>
+```
+
+Browser restructures DOM automatically.
+
+---
+
+## Interview-Ready Answer
+
+Browsers use a fault-tolerant parsing algorithm to automatically correct invalid HTML by inserting missing tags, fixing nesting, and restructuring elements to build a valid DOM tree.
+
+---
+
+# 13. SEO vs accessibility – how are they related? _(Hard)_
+
+## Concepts
+
+SEO and accessibility both aim to make content understandable to machines.
+
+SEO optimizes for search engines.
+Accessibility optimizes for assistive technologies.
+
+Shared foundations:
+
+- Semantic HTML
+- Proper heading hierarchy
+- Alt text
+- Structured content
+
+Difference:
+
+SEO focuses on ranking and discoverability.
+Accessibility focuses on usability for people with disabilities.
+
+---
+
+## Code Example
+
+### Structured content
+
+```html
+<main>
+  <h1>Guide</h1>
+  <section>
+    <h2>Accessibility</h2>
+  </section>
+</main>
+```
+
+Good for bots and screen readers.
+
+---
+
+### Image alt
+
+```html
+<img src="logo.png" alt="Company Logo" />
+```
+
+Improves both accessibility and image SEO.
+
+---
+
+## Interview-Ready Answer
+
+SEO and accessibility are related because both rely on semantic structure and meaningful content. While SEO improves search engine discoverability, accessibility ensures content is usable by assistive technologies. Proper semantic HTML benefits both.
+
+---
