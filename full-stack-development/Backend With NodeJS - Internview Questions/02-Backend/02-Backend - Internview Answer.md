@@ -1,3 +1,5 @@
+# **Topic 1: HTTP, Web & Networking Fundamentals (15 Questions)**
+
 ## 1. What happens internally when you hit a URL in the browser and press Enter?
 
 ![](https://assets.bytebytego.com/diagrams/0410-what-happens-when-you-type-google-in-your-browser.png)
@@ -806,43 +808,43 @@ To scale horizontally, I would integrate Redis Pub/Sub so multiple server instan
 Add authentication, load balancing, and message persistence in database.
 This architecture supports chat applications, live notifications, and collaborative systems.
 
-## 16. What is REST? What are its core principles?
+---
+
+# **Topic 2: REST API Design & API Architecture (14 Questions)**
+
+## 1. What is REST? What are its core principles?
 
 ### Concepts
 
 REST = Representational State Transfer
-
 Architectural style for designing networked applications.
 
 Core Principles:
 
-1. Client–Server Architecture
-2. Statelessness
+1. Client–Server
+2. Stateless
 3. Cacheable
 4. Uniform Interface
 5. Layered System
-6. Resource-based URLs
+6. (Optional) Code on Demand
 
 REST uses HTTP methods to operate on resources.
-
-Example:
-
-- `/users`
-- `/orders/1`
 
 ---
 
 ### Code example, multiple
 
-```cpp id="rest01"
-// RESTful route example
+```cpp id="r1x9pz"
+// REST example - Resource based
 
-// GET - fetch resource
+// Resource: users
+
+// GET - Fetch users
 app.get("/users", (req, res) => {
     res.json([{ id: 1, name: "Tanish" }]);
 });
 
-// POST - create resource
+// POST - Create user
 app.post("/users", (req, res) => {
     res.status(201).json({ message: "User created" });
 });
@@ -852,154 +854,48 @@ app.post("/users", (req, res) => {
 
 ### Interview ready answer
 
-REST is an architectural style for designing APIs based on resources.
-It follows principles like statelessness, client-server separation, uniform interface, and resource-based URLs.
-REST APIs use standard HTTP methods like GET, POST, PUT, DELETE to perform operations on resources.
+REST is an architectural style where resources are identified by URLs and manipulated using standard HTTP methods.
+It follows principles like statelessness, client-server separation, cacheability, and uniform interface.
 
 ---
 
-## 17. Difference between REST and RPC style APIs.
+## 2. Difference between REST and RPC style APIs.
 
 ### Concepts
 
 REST:
 
 - Resource-based
-- Uses nouns
-- Uses HTTP methods properly
+- Uses nouns (/users)
+- Standard HTTP methods
 
 RPC:
 
 - Action-based
-- Uses verbs
-- Endpoint defines action
+- Uses verbs (/createUser)
+- Focus on procedure call
 
 Example:
 
 REST:
-
-```
-GET /users
-POST /users
-```
+GET /users/1
 
 RPC:
-
-```
-POST /getUsers
-POST /createUser
-```
-
-Difference:
-REST focuses on resources.
-RPC focuses on actions.
+POST /getUser
 
 ---
 
 ### Code example, multiple
 
-```cpp id="rest02"
+```cpp id="v6nqhy"
 // REST style
-app.get("/users", handler);
+app.get("/users/1", (req, res) => {
+    res.send("User 1");
+});
 
 // RPC style
-app.post("/getUsers", handler);
-```
-
----
-
-### Interview ready answer
-
-REST is resource-oriented and uses standard HTTP methods to operate on resources.
-RPC is action-oriented and defines endpoints based on operations.
-REST is more standardized and scalable, while RPC is simpler but less uniform.
-
----
-
-## 18. What makes an API truly RESTful?
-
-### Concepts
-
-To be RESTful, API must:
-
-1. Follow resource-based naming
-2. Use correct HTTP methods
-3. Be stateless
-4. Return proper status codes
-5. Support caching
-6. Maintain uniform interface
-
-Bad Example:
-
-```
-POST /deleteUser
-```
-
-Good Example:
-
-```
-DELETE /users/1
-```
-
----
-
-### Code example, multiple
-
-```cpp id="rest03"
-// Proper RESTful design
-
-app.get("/users/:id", getUser);
-app.post("/users", createUser);
-app.put("/users/:id", replaceUser);
-app.delete("/users/:id", deleteUser);
-```
-
----
-
-### Interview ready answer
-
-An API is truly RESTful if it follows resource-based URLs, uses correct HTTP methods, is stateless, returns proper status codes, and maintains uniform interface.
-It should treat everything as a resource and use standard HTTP semantics.
-
----
-
-## 19. What is idempotency in REST APIs? Why is it important?
-
-### Concepts
-
-Idempotent = Multiple identical requests produce same result.
-
-Examples:
-
-GET → idempotent
-PUT → idempotent
-DELETE → idempotent
-POST → not idempotent
-
-Example:
-
-DELETE /users/1 called multiple times
-First call → deletes
-Next calls → still deleted
-
-Why important?
-
-- Retry safety
-- Network reliability
-- Distributed systems stability
-
----
-
-### Code example, multiple
-
-```cpp id="rest04"
-// Idempotent DELETE
-app.delete("/users/:id", (req, res) => {
-
-    // Delete operation
-    // If already deleted, still return success
-
-    res.status(200).json({ message: "Deleted" });
+app.post("/getUser", (req, res) => {
+    res.send("User 1");
 });
 ```
 
@@ -1007,57 +903,589 @@ app.delete("/users/:id", (req, res) => {
 
 ### Interview ready answer
 
-Idempotency means performing the same request multiple times results in the same outcome.
-It is important for retry mechanisms and network failures.
-GET, PUT, and DELETE are idempotent, while POST is generally not.
+REST is resource-oriented and uses HTTP methods to act on resources.
+RPC is action-oriented and focuses on calling functions or procedures.
+REST promotes standardization and scalability, while RPC is simpler but less structured.
 
 ---
 
-## 20. How do you design clean and consistent API endpoints?
+## 3. What makes an API truly RESTful?
 
 ### Concepts
 
-Best Practices:
+An API is RESTful if it:
 
-1. Use nouns, not verbs
-2. Use plural resource names
-3. Use proper HTTP methods
-4. Keep consistent naming
-5. Version APIs
-6. Use proper status codes
+1. Uses proper HTTP methods
+2. Uses resource-based URLs
+3. Is stateless
+4. Uses proper status codes
+5. Supports caching
+6. Has consistent structure
+
+Example:
 
 Good:
-
-```
-GET /users
-GET /users/1
-POST /users
-```
+GET /users/10
 
 Bad:
-
-```
-GET /getAllUsers
-POST /createNewUser
-```
+POST /getUserById
 
 ---
 
 ### Code example, multiple
 
-```cpp id="rest05"
-// Clean endpoint design
-
-app.get("/api/v1/users", getUsers);
-app.get("/api/v1/users/:id", getUser);
-app.post("/api/v1/users", createUser);
-app.patch("/api/v1/users/:id", updateUser);
-app.delete("/api/v1/users/:id", deleteUser);
+```cpp id="b3km18"
+app.get("/orders/10", (req, res) => {
+    res.status(200).json({ id: 10, item: "Laptop" });
+});
 ```
 
 ---
 
 ### Interview ready answer
 
-To design clean APIs, use nouns for resources, follow consistent naming conventions, use correct HTTP methods, return proper status codes, and version your APIs.
-Consistency improves readability, maintainability, and scalability.
+An API is RESTful when it strictly follows REST constraints: resource-based URLs, correct HTTP methods, stateless communication, proper status codes, and consistent structure.
+
+---
+
+## 4. What is idempotency in REST APIs? Why is it important?
+
+### Concepts
+
+Idempotent = Multiple identical requests produce same result.
+
+Idempotent methods:
+
+- GET
+- PUT
+- DELETE
+
+Not idempotent:
+
+- POST
+
+Example:
+
+PUT /users/1
+Calling 5 times → same final state.
+
+POST /users
+Calling 5 times → creates 5 users.
+
+Why important?
+
+- Safe retries
+- Prevent duplicate operations
+- Important in distributed systems
+
+---
+
+### Code example, multiple
+
+```cpp id="j7mt4l"
+// Idempotent example
+app.put("/users/1", (req, res) => {
+    res.json({ message: "User updated" });
+});
+```
+
+---
+
+### Interview ready answer
+
+Idempotency means repeated identical requests produce the same result.
+PUT and DELETE are idempotent, while POST is not.
+It is important for safe retries and fault tolerance in distributed systems.
+
+---
+
+## 5. How do you design clean and consistent API endpoints?
+
+### Concepts
+
+Best Practices:
+
+1. Use nouns not verbs
+2. Use plural resource names
+3. Follow consistent naming
+4. Use hierarchical structure
+5. Use proper HTTP methods
+6. Keep URLs simple
+
+Example:
+
+Good:
+GET /users/10/orders
+
+Bad:
+GET /getUserOrders
+
+---
+
+### Code example, multiple
+
+```cpp id="t3cw9n"
+app.get("/users/:id/orders", (req, res) => {
+    res.json({ message: "Orders for user" });
+});
+```
+
+---
+
+### Interview ready answer
+
+To design clean APIs, use noun-based resource URLs, plural naming, consistent patterns, proper HTTP methods, and hierarchical structure.
+Avoid verbs in URLs and maintain predictable naming conventions.
+
+## 6. How should errors be handled and returned in REST APIs?
+
+### Concepts
+
+Best Practices:
+
+1. Use proper HTTP status codes
+   - 400 → Bad Request
+   - 401 → Unauthorized
+   - 403 → Forbidden
+   - 404 → Not Found
+   - 500 → Internal Server Error
+
+2. Return structured JSON error response
+
+3. Do not expose internal stack traces
+
+4. Include error code + message
+
+5. Log errors internally
+
+Standard Error Format:
+
+```json
+{
+  "success": false,
+  "error": {
+    "code": "USER_NOT_FOUND",
+    "message": "User does not exist"
+  }
+}
+```
+
+---
+
+### Code example, multiple
+
+```cpp id="f0qk9d"
+app.get("/users/:id", (req, res) => {
+
+    const user = null; // Simulating not found
+
+    if (!user) {
+        return res.status(404).json({
+            success: false,
+            error: {
+                code: "USER_NOT_FOUND",
+                message: "User not found"
+            }
+        });
+    }
+
+    res.status(200).json(user);
+});
+```
+
+---
+
+### Interview ready answer
+
+Errors should use proper HTTP status codes and return structured JSON responses.
+Avoid exposing internal details and maintain consistent error formats.
+Logging should be done internally for debugging.
+
+---
+
+## 7. What is API versioning? Why is it required?
+
+### Concepts
+
+API versioning = Managing API changes without breaking existing clients.
+
+Why needed?
+
+- Backward compatibility
+- Add new features safely
+- Avoid breaking production clients
+
+Example:
+v1 → returns basic user data
+v2 → adds new fields
+
+---
+
+### Code example, multiple
+
+```cpp id="o9x3nm"
+// Version 1
+app.get("/api/v1/users", (req, res) => {
+    res.json({ id: 1, name: "Tanish" });
+});
+
+// Version 2
+app.get("/api/v2/users", (req, res) => {
+    res.json({ id: 1, name: "Tanish", role: "Admin" });
+});
+```
+
+---
+
+### Interview ready answer
+
+API versioning allows evolving APIs without breaking existing consumers.
+It ensures backward compatibility and safer feature rollouts.
+
+---
+
+## 8. Different API versioning strategies (URL, headers, query params).
+
+### Concepts
+
+1. URL Versioning
+   `/api/v1/users`
+
+2. Header Versioning
+   `Accept: application/vnd.myapp.v1+json`
+
+3. Query Param Versioning
+   `/users?version=1`
+
+Most common: URL versioning.
+
+Pros & Cons:
+
+URL → Clear and simple
+Header → Cleaner URLs but harder to debug
+Query → Less preferred in production
+
+---
+
+### Code example, multiple
+
+```cpp id="l2yt7f"
+// Query versioning
+app.get("/users", (req, res) => {
+
+    const version = req.query.version;
+
+    if (version === "2") {
+        return res.json({ newField: true });
+    }
+
+    res.json({ basic: true });
+});
+```
+
+---
+
+### Interview ready answer
+
+API versioning can be implemented using URL paths, headers, or query parameters.
+URL versioning is most common due to clarity and ease of maintenance.
+
+---
+
+## 9. What is HATEOAS? Is it practically used?
+
+### Concepts
+
+HATEOAS = Hypermedia As The Engine Of Application State
+
+Meaning:
+Server response includes links to related actions.
+
+Example Response:
+
+```json
+{
+  "id": 10,
+  "status": "shipped",
+  "links": [
+    { "rel": "cancel", "href": "/orders/10/cancel" },
+    { "rel": "track", "href": "/orders/10/track" }
+  ]
+}
+```
+
+Purpose:
+
+- Self-discoverable APIs
+- Reduce hardcoded endpoints
+
+Reality:
+Rarely fully implemented in real-world systems.
+
+---
+
+### Code example, multiple
+
+```cpp id="r7cz5k"
+app.get("/orders/:id", (req, res) => {
+
+    res.json({
+        id: req.params.id,
+        status: "shipped",
+        links: [
+            { rel: "track", href: `/orders/${req.params.id}/track` }
+        ]
+    });
+});
+```
+
+---
+
+### Interview ready answer
+
+HATEOAS means API responses include hypermedia links to related actions.
+It makes APIs self-discoverable, but in practice, most production systems only partially implement it.
+
+---
+
+## 10. What are pagination strategies in APIs?
+
+### Concepts
+
+Pagination prevents loading large datasets at once.
+
+Common strategies:
+
+1. Offset-based
+2. Cursor-based
+3. Page-based
+
+Example:
+GET /users?page=2&limit=10
+
+Benefits:
+
+- Better performance
+- Reduced payload
+- Improved scalability
+
+---
+
+### Code example, multiple
+
+```cpp id="k8mn2p"
+app.get("/users", (req, res) => {
+
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+
+    const offset = (page - 1) * limit;
+
+    res.json({
+        page,
+        limit,
+        offset
+    });
+});
+```
+
+---
+
+### Interview ready answer
+
+Pagination divides large datasets into smaller chunks using page number, offset, or cursor strategies.
+It improves performance and reduces response size.
+
+---
+
+## 11. Difference between offset-based and cursor-based pagination.
+
+### Concepts
+
+Offset-based:
+
+- Uses limit + offset
+- Example: OFFSET 20 LIMIT 10
+- Slower for large datasets
+
+Cursor-based:
+
+- Uses unique key (like id or timestamp)
+- More efficient for large data
+- No duplicate/skipped records during inserts
+
+Example:
+
+Offset:
+GET /users?offset=20&limit=10
+
+Cursor:
+GET /users?cursor=abc123
+
+---
+
+### Code example, multiple
+
+```cpp id="y4mp0r"
+// Cursor example
+app.get("/users", (req, res) => {
+
+    const cursor = req.query.cursor;
+
+    res.json({
+        nextCursor: "xyz456",
+        data: []
+    });
+});
+```
+
+---
+
+### Interview ready answer
+
+Offset-based pagination uses numeric offset and becomes slow for large datasets.
+Cursor-based pagination uses a unique reference like ID and is more scalable and consistent in high-write systems.
+
+---
+
+## 12. How do you design APIs for backward compatibility?
+
+### Concepts
+
+Strategies:
+
+1. Never remove existing fields
+2. Add optional fields only
+3. Version APIs when breaking changes
+4. Deprecate gradually
+5. Maintain documentation
+
+Rule:
+Breaking change → New version
+
+---
+
+### Code example, multiple
+
+```cpp id="c2sh9q"
+// Adding new optional field (non-breaking)
+res.json({
+    id: 1,
+    name: "Tanish",
+    role: "Admin" // New field
+});
+```
+
+---
+
+### Interview ready answer
+
+To maintain backward compatibility, avoid removing fields, add only optional fields, and version APIs when introducing breaking changes.
+Deprecate old versions gradually instead of removing immediately.
+
+---
+
+## 13. How do you design rate-limited public APIs?
+
+### Concepts
+
+Rate limiting prevents abuse.
+
+Techniques:
+
+1. Token bucket
+2. Leaky bucket
+3. Fixed window
+4. Sliding window
+
+Implementation:
+
+- Use Redis to track request count
+- Limit per IP or per API key
+
+Example:
+100 requests per minute per user
+
+---
+
+### Code example, multiple
+
+```cpp id="d1j7so"
+const rateLimit = require("express-rate-limit");
+
+const limiter = rateLimit({
+    windowMs: 60 * 1000,
+    max: 100
+});
+
+app.use(limiter);
+```
+
+---
+
+### Interview ready answer
+
+Rate limiting restricts number of requests per client within a time window.
+It prevents abuse, ensures fairness, and protects infrastructure.
+It is usually implemented using Redis or middleware like express-rate-limit.
+
+---
+
+## 14. REST vs GraphQL – when would you choose each?
+
+### Concepts
+
+REST:
+
+- Resource-based
+- Multiple endpoints
+- Simple caching
+- Easier to implement
+
+GraphQL:
+
+- Single endpoint
+- Client specifies fields
+- Reduces over-fetching
+- More flexible
+
+Choose REST when:
+
+- Simple CRUD
+- Public APIs
+- Caching required
+
+Choose GraphQL when:
+
+- Complex frontend needs
+- Multiple related resources
+- Avoid over-fetching
+
+---
+
+### Code example, multiple
+
+REST:
+
+```cpp id="x8kt4f"
+GET /users/1
+```
+
+GraphQL:
+
+```graphql
+query {
+  user(id: 1) {
+    name
+    email
+  }
+}
+```
+
+---
+
+### Interview ready answer
+
+REST uses multiple resource-based endpoints and is simple and cache-friendly.
+GraphQL uses a single endpoint and allows clients to request exactly what they need.
+REST is better for simple public APIs, while GraphQL suits complex frontend-driven applications.

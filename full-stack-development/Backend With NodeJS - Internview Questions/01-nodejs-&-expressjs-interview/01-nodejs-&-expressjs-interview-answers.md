@@ -2577,3 +2577,533 @@ console.log("Free Memory:", os.freemem());
 The `os` module provides information about the operating system, including CPU details, memory usage, hostname, platform, uptime, and network interfaces. It is useful for monitoring system health and environment-specific configurations in Node.js applications.
 
 ---
+
+# 48. How do you check system information using the os module?
+
+## Concepts
+
+Node.js provides the built-in `os` module to retrieve system-level information.
+
+Common methods:
+
+- `os.platform()`
+- `os.arch()`
+- `os.cpus()`
+- `os.totalmem()`
+- `os.freemem()`
+- `os.uptime()`
+- `os.hostname()`
+
+Used for:
+
+- Monitoring
+- Debugging
+- Environment-specific logic
+- Performance tracking
+
+---
+
+### Code Example
+
+```js
+const os = require("os");
+
+console.log("Platform:", os.platform());
+console.log("Architecture:", os.arch());
+console.log("CPU Info:", os.cpus().length);
+console.log("Total Memory:", os.totalmem());
+console.log("Free Memory:", os.freemem());
+console.log("System Uptime:", os.uptime());
+console.log("Hostname:", os.hostname());
+```
+
+---
+
+## Interview Ready Answer
+
+The `os` module in Node.js provides information about the operating system such as platform, CPU architecture, memory usage, uptime, and hostname. It is useful for monitoring system resources and writing environment-aware applications. Methods like `os.totalmem()`, `os.cpus()`, and `os.platform()` help retrieve system-level details.
+
+---
+
+# 49. What is the EventEmitter class?
+
+## Concepts
+
+`EventEmitter` is a core class in Node.js from the `events` module.
+
+It enables:
+
+- Event-driven programming
+- Custom event creation
+- Listener registration
+
+Many Node core modules are built on EventEmitter.
+
+Key Methods:
+
+- `on()` → register listener
+- `emit()` → trigger event
+- `once()` → execute once
+- `removeListener()` → remove listener
+
+---
+
+### Code Example
+
+```js
+const EventEmitter = require("events");
+
+const emitter = new EventEmitter();
+
+// Register event listener
+emitter.on("greet", (name) => {
+  console.log(`Hello ${name}`);
+});
+
+// Emit event
+emitter.emit("greet", "Tanish");
+```
+
+Output:
+
+Hello Tanish
+
+---
+
+## Interview Ready Answer
+
+The EventEmitter class in Node.js enables event-driven programming. It allows objects to emit named events and register listeners for those events. Core modules like streams and HTTP are built using EventEmitter. Methods like `on()`, `emit()`, and `once()` are used to manage events.
+
+---
+
+# 50. How do you create custom events?
+
+## Concepts
+
+Custom events are created using:
+
+1. Create EventEmitter instance
+2. Register listener
+3. Emit event
+
+Flow:
+
+Register → Emit → Listener Executes
+
+---
+
+### Code Example
+
+```js
+const EventEmitter = require("events");
+
+class MyEmitter extends EventEmitter {}
+
+const myEmitter = new MyEmitter();
+
+// Register custom event
+myEmitter.on("login", (user) => {
+  console.log(`${user} logged in`);
+});
+
+// Emit custom event
+myEmitter.emit("login", "Tanish");
+```
+
+---
+
+## Interview Ready Answer
+
+Custom events in Node.js are created using the EventEmitter class. You create an instance, register listeners using `on()`, and trigger events using `emit()`. This enables modular, event-driven application design.
+
+---
+
+# 51. Differentiate between `on()`, `once()`, and `emit()` methods.
+
+## Concepts
+
+### `on()`
+
+- Registers event listener
+- Executes every time event is emitted
+
+### `once()`
+
+- Executes only first time
+- Listener removed automatically after execution
+
+### `emit()`
+
+- Triggers the event
+- Calls all registered listeners
+
+---
+
+### Code Example
+
+```js
+const EventEmitter = require("events");
+
+const emitter = new EventEmitter();
+
+emitter.on("event", () => {
+  console.log("on triggered");
+});
+
+emitter.once("event", () => {
+  console.log("once triggered");
+});
+
+emitter.emit("event");
+emitter.emit("event");
+```
+
+Output:
+
+on triggered
+once triggered
+on triggered
+
+---
+
+## Interview Ready Answer
+
+`on()` registers a persistent event listener that executes every time the event is emitted. `once()` registers a listener that runs only once and is automatically removed after execution. `emit()` triggers the event and executes all associated listeners.
+
+---
+
+# 52. What is event-driven programming in Node.js?
+
+## Concepts
+
+Event-driven programming is a paradigm where:
+
+- Execution flow is determined by events
+- Events trigger callbacks
+- System reacts to external actions
+
+In Node.js:
+
+- Built on EventEmitter
+- Used heavily in streams, HTTP, and async I/O
+
+Example Events:
+
+- HTTP request received
+- File read completed
+- Timer expired
+
+---
+
+### Code Example
+
+```js
+const fs = require("fs");
+
+fs.readFile("data.txt", () => {
+  console.log("File Read Completed");
+});
+```
+
+Here:
+
+- File read completion triggers callback
+- Event loop handles event
+
+---
+
+## Interview Ready Answer
+
+Event-driven programming in Node.js is a model where the application flow is controlled by events and their associated callbacks. Node.js uses EventEmitter and the event loop to handle asynchronous operations efficiently. This model allows high scalability and non-blocking behavior.
+
+---
+
+# 53. What is the `process` object in Node.js?
+
+## Concepts
+
+`process` is a global object that provides information about the current Node.js process.
+
+Common Uses:
+
+- Environment variables
+- Command-line arguments
+- Exit codes
+- Process events
+- Memory usage
+
+Important Properties:
+
+- `process.env`
+- `process.argv`
+- `process.exit()`
+- `process.pid`
+- `process.cwd()`
+
+---
+
+### Code Example
+
+```js
+console.log("Process ID:", process.pid);
+console.log("Current Working Directory:", process.cwd());
+console.log("Environment Variables:", process.env.NODE_ENV);
+```
+
+---
+
+## Interview Ready Answer
+
+The `process` object is a global object in Node.js that provides information and control over the current running process. It allows access to environment variables, command-line arguments, process ID, working directory, and exit handling.
+
+---
+
+# 54. How do you access environment variables?
+
+## Concepts
+
+Environment variables are accessed using:
+
+```
+process.env
+```
+
+Common practice:
+
+Use `.env` file with dotenv package.
+
+---
+
+### Code Example
+
+Using environment variable directly:
+
+```js
+console.log(process.env.PORT);
+```
+
+Using dotenv:
+
+```js
+require("dotenv").config();
+
+console.log(process.env.PORT);
+```
+
+`.env` file:
+
+```
+PORT=5000
+```
+
+---
+
+## Interview Ready Answer
+
+Environment variables in Node.js are accessed using `process.env`. They are commonly used to store configuration such as database URLs, API keys, and ports. In development, the dotenv package is often used to load variables from a `.env` file into `process.env`.
+
+---
+
+# 55. What is `process.nextTick()` and how does it differ from `setImmediate()`?
+
+## Concepts
+
+Both are used to schedule callbacks.
+
+### `process.nextTick()`
+
+- Executes after current operation
+- Runs before event loop continues
+- Microtask queue
+
+### `setImmediate()`
+
+- Executes in the check phase
+- After I/O callbacks
+- Macrotask queue
+
+Execution Order:
+
+1. Synchronous code
+2. process.nextTick()
+3. Promise callbacks
+4. setImmediate()
+
+---
+
+### Code Example
+
+```js
+console.log("Start");
+
+setImmediate(() => {
+  console.log("setImmediate");
+});
+
+process.nextTick(() => {
+  console.log("nextTick");
+});
+
+console.log("End");
+```
+
+Output:
+
+Start
+End
+nextTick
+setImmediate
+
+---
+
+## Interview Ready Answer
+
+`process.nextTick()` schedules a callback to run immediately after the current operation completes, before the event loop continues. It is part of the microtask queue. `setImmediate()` schedules a callback in the check phase of the event loop, after I/O events. Therefore, `process.nextTick()` executes before `setImmediate()`.
+
+---
+
+# 56. How do you handle process signals?
+
+## Concepts
+
+Process signals are system-level notifications sent to a Node.js process.
+
+Common Signals:
+
+- `SIGINT` → Interrupt signal (Ctrl + C)
+- `SIGTERM` → Termination signal
+- `SIGHUP` → Terminal closed
+- `SIGUSR1`, `SIGUSR2` → Custom signals
+
+Used for:
+
+- Graceful shutdown
+- Cleaning resources
+- Closing database connections
+- Stopping servers safely
+
+Node.js listens to signals using:
+
+```js
+process.on("SIGNAL_NAME", callback);
+```
+
+---
+
+### Example: Handling SIGINT (Ctrl + C)
+
+```js
+const http = require("http");
+
+const server = http.createServer((req, res) => {
+  res.end("Server Running");
+});
+
+server.listen(3000, () => {
+  console.log("Server started on port 3000");
+});
+
+// Handle Ctrl + C
+process.on("SIGINT", () => {
+  console.log("SIGINT received. Shutting down gracefully...");
+
+  server.close(() => {
+    console.log("Server closed.");
+    process.exit(0);
+  });
+});
+```
+
+Explanation:
+
+- User presses Ctrl + C
+- `SIGINT` signal received
+- Server closed properly
+- Process exits safely
+
+---
+
+### Graceful Shutdown Best Practice
+
+In production:
+
+- Close HTTP server
+- Close DB connections
+- Clear timers
+- Flush logs
+- Then exit process
+
+---
+
+## Interview Ready Answer
+
+Process signals are OS-level notifications sent to a Node.js process. They can be handled using `process.on("SIGNAL", callback)`. Common signals include `SIGINT` and `SIGTERM`. These are typically used for graceful shutdown, where the server stops accepting new requests, closes database connections, and then exits cleanly.
+
+---
+
+# 57. What is `process.argv` and how do you use it?
+
+## Concepts
+
+`process.argv` is an array containing command-line arguments passed to a Node.js application.
+
+Structure:
+
+```
+[
+  path_to_node,
+  path_to_script,
+  argument1,
+  argument2,
+  ...
+]
+```
+
+Example Command:
+
+```bash
+node app.js hello 123
+```
+
+`process.argv` becomes:
+
+```js
+["/usr/local/bin/node", "/project/app.js", "hello", "123"];
+```
+
+---
+
+### Code Example
+
+```js
+// app.js
+console.log("All arguments:", process.argv);
+
+const name = process.argv[2];
+console.log("Hello", name);
+```
+
+Run:
+
+```bash
+node app.js Tanish
+```
+
+Output:
+
+Hello Tanish
+
+---
+
+### Real Use Cases
+
+- CLI tools
+- Passing environment configs
+- Script automation
+- Custom build tools
+
+---
+
+## Interview Ready Answer
+
+`process.argv` is an array that contains command-line arguments passed to a Node.js application. The first element is the Node executable path, the second is the script path, and the remaining elements are user-provided arguments. It is commonly used for building CLI tools and passing runtime parameters to applications.
