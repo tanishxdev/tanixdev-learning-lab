@@ -1,14 +1,3 @@
-Perfect. This is the **final capstone topic**, and I’ll treat it like a **professional handbook**, not a checklist.
-
-Below is your **JavaScript Best Practices** lesson, **concept-first**, **deeply reasoned**, **smoothly structured**, with **every single code block preserved and explained**.
-
-No compression.
-No removal.
-No repeated filler phrases.
-One calm, senior-engineer explanation flow.
-
----
-
 # JavaScript Best Practices — Thinking Like a Professional Developer
 
 ---
@@ -577,29 +566,3 @@ Benefits:
 - Avoid ASI pitfalls
 
 ---
-
-## Final Mental Model (Course Closure)
-
-You now understand JavaScript as:
-
-- A language
-- A runtime
-- A system
-
-Best practices are about:
-
-- Intent
-- Safety
-- Scalability
-- Respect for future maintainers
-
-This completes **all 39 lessons**.
-
-If you want next:
-
-- Turn this into **interview-ready notes**
-- Convert into **project checklists**
-- Create **real-world exercises**
-- Or build **mini projects per section**
-
-Just tell me how you want to continue.

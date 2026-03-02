@@ -1,15 +1,3 @@
-Perfect.
-I’ll now **organize + expand this exact Prototypes & Inheritance content**, strictly following your rules:
-
-* **Every code block you provided is included**
-* **No code removed, no logic altered**
-* I only **add missing theory, mental models, and smooth explanations**
-* One continuous explanation style (no mixed wording)
-* Code is **fully explainable with comments**
-* No phrases like *unchanged / same as given*
-
----
-
 # Prototypes and Inheritance in JavaScript
 
 (Deep Conceptual + Practical Understanding)
@@ -24,9 +12,9 @@ Instead, JavaScript uses **prototype-based inheritance**.
 
 ### Mental Model
 
-* Every object in JavaScript has a **hidden link** to another object
-* That linked object is called its **prototype**
-* If a property/method is not found on the object itself, JavaScript **looks up the prototype chain**
+- Every object in JavaScript has a **hidden link** to another object
+- That linked object is called its **prototype**
+- If a property/method is not found on the object itself, JavaScript **looks up the prototype chain**
 
 This lookup process is called the **Prototype Chain**.
 
@@ -36,13 +24,13 @@ This lookup process is called the **Prototype Chain**.
 
 If every object stored its own copy of methods:
 
-* Memory usage would explode
-* Same logic would be duplicated
+- Memory usage would explode
+- Same logic would be duplicated
 
 Instead:
 
-* Methods are stored **once** on the prototype
-* All objects **share** those methods
+- Methods are stored **once** on the prototype
+- All objects **share** those methods
 
 This is **memory-efficient** and **fast**.
 
@@ -52,8 +40,8 @@ This is **memory-efficient** and **fast**.
 
 In JavaScript:
 
-* **Every function automatically gets a `prototype` property**
-* This prototype is used when creating objects via `new`
+- **Every function automatically gets a `prototype` property**
+- This prototype is used when creating objects via `new`
 
 ---
 
@@ -70,8 +58,8 @@ function Person(name, age) {
 
 At this point:
 
-* `Person.prototype` exists automatically
-* It is an object
+- `Person.prototype` exists automatically
+- It is an object
 
 ---
 
@@ -79,27 +67,27 @@ At this point:
 
 ```js
 // Add methods to prototype
-Person.prototype.greet = function() {
+Person.prototype.greet = function () {
   return `Hello, I'm ${this.name}`;
 };
 
-Person.prototype.getAge = function() {
+Person.prototype.getAge = function () {
   return this.age;
 };
 ```
 
 Why add methods to prototype?
 
-* So all instances share the same method reference
-* Avoid recreating functions for every object
+- So all instances share the same method reference
+- Avoid recreating functions for every object
 
 ---
 
 ### Creating Instances
 
 ```js
-const person1 = new Person('Alice', 30);
-const person2 = new Person('Bob', 25);
+const person1 = new Person("Alice", 30);
+const person2 = new Person("Bob", 25);
 ```
 
 What `new` does internally:
@@ -120,8 +108,8 @@ console.log(person2.greet()); // Hello, I'm Bob
 
 Both objects:
 
-* Do NOT have `greet` directly
-* They **delegate** to `Person.prototype`
+- Do NOT have `greet` directly
+- They **delegate** to `Person.prototype`
 
 ---
 
@@ -133,8 +121,8 @@ console.log(person1.greet === person2.greet); // true
 
 This confirms:
 
-* Same function reference
-* Shared via prototype
+- Same function reference
+- Shared via prototype
 
 ---
 
@@ -161,25 +149,25 @@ console.log(Object.prototype.__proto__); // null
 
 Important notes:
 
-* `__proto__` is internal (avoid using directly)
-* Preferred method is `Object.getPrototypeOf`
+- `__proto__` is internal (avoid using directly)
+- Preferred method is `Object.getPrototypeOf`
 
 ---
 
 ### Own Properties vs Inherited Properties
 
 ```js
-person1.species = 'Human';
+person1.species = "Human";
 
-console.log(person1.hasOwnProperty('name')); // true
-console.log(person1.hasOwnProperty('greet')); // false
-console.log('greet' in person1); // true
+console.log(person1.hasOwnProperty("name")); // true
+console.log(person1.hasOwnProperty("greet")); // false
+console.log("greet" in person1); // true
 ```
 
 Explanation:
 
-* `hasOwnProperty` → checks only the object itself
-* `in` → checks entire prototype chain
+- `hasOwnProperty` → checks only the object itself
+- `in` → checks entire prototype chain
 
 ---
 
@@ -200,7 +188,7 @@ console.log(person1 instanceof Object); // true
 
 `instanceof` checks:
 
-* Whether `Person.prototype` exists in the object’s prototype chain
+- Whether `Person.prototype` exists in the object’s prototype chain
 
 ---
 
@@ -210,8 +198,8 @@ console.log(person1 instanceof Object); // true
 
 We want:
 
-* A child object to reuse parent behavior
-* But also have its own behavior
+- A child object to reuse parent behavior
+- But also have its own behavior
 
 ---
 
@@ -223,11 +211,11 @@ function Animal(name, species) {
   this.species = species;
 }
 
-Animal.prototype.makeSound = function() {
-  return 'Some generic sound';
+Animal.prototype.makeSound = function () {
+  return "Some generic sound";
 };
 
-Animal.prototype.info = function() {
+Animal.prototype.info = function () {
   return `${this.name} is a ${this.species}`;
 };
 ```
@@ -239,15 +227,15 @@ Animal.prototype.info = function() {
 ```js
 function Dog(name, breed) {
   // Call parent constructor with child's this
-  Animal.call(this, name, 'Dog');
+  Animal.call(this, name, "Dog");
   this.breed = breed;
 }
 ```
 
 Why `Animal.call`?
 
-* It copies parent’s instance properties
-* Ensures `this` is correctly set
+- It copies parent’s instance properties
+- Ensures `this` is correctly set
 
 ---
 
@@ -260,29 +248,29 @@ Dog.prototype.constructor = Dog;
 
 What this does:
 
-* Dog prototype delegates to Animal prototype
-* Establishes prototype chain
+- Dog prototype delegates to Animal prototype
+- Establishes prototype chain
 
 ---
 
 ### Overriding Parent Methods
 
 ```js
-Dog.prototype.makeSound = function() {
-  return 'Woof! Woof!';
+Dog.prototype.makeSound = function () {
+  return "Woof! Woof!";
 };
 ```
 
 Method lookup:
 
-* Dog → override found → stops lookup
+- Dog → override found → stops lookup
 
 ---
 
 ### Adding Child-Specific Methods
 
 ```js
-Dog.prototype.wagTail = function() {
+Dog.prototype.wagTail = function () {
   return `${this.name} is wagging tail!`;
 };
 ```
@@ -292,7 +280,7 @@ Dog.prototype.wagTail = function() {
 ### Using the Child Object
 
 ```js
-const dog = new Dog('Buddy', 'Golden Retriever');
+const dog = new Dog("Buddy", "Golden Retriever");
 
 console.log(dog.info());
 console.log(dog.makeSound());
@@ -319,10 +307,10 @@ const personPrototype = {
   greet() {
     return `Hello, I'm ${this.name}`;
   },
-  
+
   setAge(age) {
     this.age = age;
-  }
+  },
 };
 ```
 
@@ -332,7 +320,7 @@ const personPrototype = {
 
 ```js
 const person = Object.create(personPrototype);
-person.name = 'Charlie';
+person.name = "Charlie";
 person.age = 35;
 
 console.log(person.greet());
@@ -355,9 +343,9 @@ function createPerson(name, age) {
 
 Why factory + prototype?
 
-* Cleaner
-* More predictable
-* Avoids `this` pitfalls
+- Cleaner
+- More predictable
+- Avoids `this` pitfalls
 
 ---
 
@@ -370,14 +358,14 @@ const vehicle = {
     this.model = model;
     return this;
   },
-  
+
   start() {
     return `${this.make} ${this.model} is starting`;
-  }
+  },
 };
 
 const car = Object.create(vehicle);
-car.init('Toyota', 'Camry');
+car.init("Toyota", "Camry");
 console.log(car.start());
 ```
 
@@ -390,21 +378,21 @@ This is **pure delegation**, not inheritance.
 ### Extending Built-in Prototypes (Risky)
 
 ```js
-String.prototype.capitalize = function() {
+String.prototype.capitalize = function () {
   return this.charAt(0).toUpperCase() + this.slice(1).toLowerCase();
 };
 ```
 
 Risk:
 
-* Can break libraries
-* Name collisions
-* Avoid in production code
+- Can break libraries
+- Name collisions
+- Avoid in production code
 
 ---
 
 ```js
-Array.prototype.last = function() {
+Array.prototype.last = function () {
   return this[this.length - 1];
 };
 ```
@@ -418,7 +406,7 @@ function User(name) {
   this.name = name;
 }
 
-User.prototype.getName = function() {
+User.prototype.getName = function () {
   return this.name;
 };
 ```
@@ -428,20 +416,20 @@ User.prototype.getName = function() {
 ### Adding Methods After Object Creation
 
 ```js
-const user = new User('John');
+const user = new User("John");
 
-User.prototype.setName = function(name) {
+User.prototype.setName = function (name) {
   this.name = name;
 };
 
-user.setName('Jane');
+user.setName("Jane");
 console.log(user.getName());
 ```
 
 Reason it works:
 
-* Prototype lookup is **dynamic**
-* Existing objects see new prototype methods
+- Prototype lookup is **dynamic**
+- Existing objects see new prototype methods
 
 ---
 
@@ -450,8 +438,8 @@ Reason it works:
 ```js
 const newPrototype = {
   newMethod() {
-    return 'New method called';
-  }
+    return "New method called";
+  },
 };
 
 Object.setPrototypeOf(user, newPrototype);
@@ -460,8 +448,8 @@ console.log(user.newMethod());
 
 Why not recommended:
 
-* Performance hit
-* Breaks engine optimizations
+- Performance hit
+- Breaks engine optimizations
 
 ---
 
@@ -477,21 +465,21 @@ function EventEmitter() {
 
 Methods added to prototype:
 
-* `on`
-* `emit`
-* `off`
+- `on`
+- `emit`
+- `off`
 
 This ensures:
 
-* All emitters share logic
-* Only state is instance-specific
+- All emitters share logic
+- Only state is instance-specific
 
 ---
 
 ### Calculator with Method Chaining
 
 ```js
-Calculator.prototype.add = function(num) {
+Calculator.prototype.add = function (num) {
   this.result += num;
   return this;
 };
@@ -500,7 +488,7 @@ Calculator.prototype.add = function(num) {
 Returning `this` enables:
 
 ```js
-calc.add(10).multiply(2).subtract(5)
+calc.add(10).multiply(2).subtract(5);
 ```
 
 ---
@@ -529,8 +517,8 @@ class PersonClass {
 
 Important Truth:
 
-* **Classes are just syntax sugar**
-* Under the hood → prototypes
+- **Classes are just syntax sugar**
+- Under the hood → prototypes
 
 ```js
 console.log(typeof PersonClass); // function
@@ -541,13 +529,13 @@ console.log(PersonClass.prototype.greet); // function
 
 ## 11. Final Mental Model (Lock This In)
 
-* Objects delegate behavior via prototypes
-* Prototype chain = fallback lookup system
-* Inheritance = delegation, not copying
-* Methods belong on prototypes
-* Data belongs on instances
-* `class` is just cleaner syntax
-* Understanding prototypes = mastering JS internals
+- Objects delegate behavior via prototypes
+- Prototype chain = fallback lookup system
+- Inheritance = delegation, not copying
+- Methods belong on prototypes
+- Data belongs on instances
+- `class` is just cleaner syntax
+- Understanding prototypes = mastering JS internals
 
 ---
 

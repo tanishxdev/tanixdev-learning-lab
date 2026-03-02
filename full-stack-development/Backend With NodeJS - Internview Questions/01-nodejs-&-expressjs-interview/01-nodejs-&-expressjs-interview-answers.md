@@ -401,10 +401,6 @@ libuv is a C library used by Node.js to implement the event loop and provide asy
 
 ---
 
-Source:
-
----
-
 # 6. Why is Node.js single-threaded? How does it handle concurrency?
 
 ## Concepts

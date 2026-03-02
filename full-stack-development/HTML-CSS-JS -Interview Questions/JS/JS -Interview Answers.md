@@ -539,10 +539,6 @@ A **closure** is created when a function **remembers variables from its lexical 
 In simple words:
 Inner function + outer function’s variables = **closure**
 
-Closures exist because JavaScript uses **lexical scoping**.
-
----
-
 ### Example 1: Basic closure
 
 ```js

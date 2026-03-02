@@ -1,14 +1,3 @@
-Perfect. Continuing **exactly with the same discipline and rules**.
-
-Below is your **Regex (Regular Expressions)** lesson, **concept-first**, **smooth**, **expanded**, and **mentally structured**, while **preserving every single code block and logic you provided**.
-
-Nothing is compressed.
-Nothing is removed.
-No “same as before / unchanged” wording.
-Single, calm explanation flow.
-
----
-
 # Regex (Regular Expressions) — Deep Conceptual Understanding
 
 ---
@@ -23,18 +12,18 @@ Think of regex as:
 
 Regex answers questions like:
 
-* Does this string follow a format?
-* Where does this pattern appear?
-* How can I extract specific parts?
-* How can I transform text safely?
+- Does this string follow a format?
+- Where does this pattern appear?
+- How can I extract specific parts?
+- How can I transform text safely?
 
 Regex is heavily used in:
 
-* Validation (email, phone, password)
-* Parsing text
-* Search & replace
-* Syntax highlighting
-* Input sanitization
+- Validation (email, phone, password)
+- Parsing text
+- Search & replace
+- Syntax highlighting
+- Input sanitization
 
 ---
 
@@ -54,8 +43,8 @@ Basic flow:
 
 Important:
 
-* Regex is **pattern-driven**, not value-driven
-* Small pattern changes = big behavior changes
+- Regex is **pattern-driven**, not value-driven
+- Small pattern changes = big behavior changes
 
 ---
 
@@ -63,29 +52,29 @@ Important:
 
 ```js
 const regex1 = /hello/;
-const regex2 = new RegExp('hello');
-const regex3 = new RegExp('hello', 'i');
+const regex2 = new RegExp("hello");
+const regex3 = new RegExp("hello", "i");
 ```
 
 ### Conceptual Differences
 
-* `/hello/` → literal, faster, clearer
-* `RegExp()` → dynamic creation (runtime patterns)
-* Flags modify how pattern behaves
+- `/hello/` → literal, faster, clearer
+- `RegExp()` → dynamic creation (runtime patterns)
+- Flags modify how pattern behaves
 
 ---
 
 ### Basic Matching
 
 ```js
-const text = 'Hello World';
+const text = "Hello World";
 
-console.log(/hello/i.test(text)); 
+console.log(/hello/i.test(text));
 console.log(text.match(/hello/i));
 ```
 
-* `test()` → boolean check
-* `match()` → returns match details
+- `test()` → boolean check
+- `match()` → returns match details
 
 ---
 
@@ -97,12 +86,12 @@ const pattern = /hello/gi;
 
 Flags meaning:
 
-* `g` → global (find all matches)
-* `i` → case insensitive
-* `m` → multiline
-* `s` → dot matches newline
-* `u` → unicode
-* `y` → sticky (advanced scanning)
+- `g` → global (find all matches)
+- `i` → case insensitive
+- `m` → multiline
+- `s` → dot matches newline
+- `u` → unicode
+- `y` → sticky (advanced scanning)
 
 Flags **change how the engine scans**, not the pattern itself.
 
@@ -120,9 +109,9 @@ const spacePattern = /\s/;
 
 Mental mapping:
 
-* `\d` → digits
-* `\w` → letters + digits + `_`
-* `\s` → whitespace
+- `\d` → digits
+- `\w` → letters + digits + `_`
+- `\s` → whitespace
 
 ---
 
@@ -136,7 +125,7 @@ const nonSpace = /\S/;
 
 Rule:
 
-* Capital letter = **NOT**
+- Capital letter = **NOT**
 
 ---
 
@@ -150,8 +139,8 @@ const hexDigit = /[0-9a-fA-F]/;
 
 Square brackets:
 
-* Match **one character** from the set
-* `^` inside brackets negates the set
+- Match **one character** from the set
+- `^` inside brackets negates the set
 
 ---
 
@@ -170,19 +159,19 @@ const atLeast2 = /\d{2,}/;
 
 Mental rule:
 
-* `+` → must exist
-* `*` → optional
-* `?` → optional but single
-* `{}` → explicit control
+- `+` → must exist
+- `*` → optional
+- `?` → optional but single
+- `{}` → explicit control
 
 ---
 
 ### Practical Examples
 
 ```js
-console.log('123'.match(/\d+/));
-console.log('abc123def'.match(/\d+/));
-console.log('phone: 555-1234'.match(/\d{3}-\d{4}/));
+console.log("123".match(/\d+/));
+console.log("abc123def".match(/\d+/));
+console.log("phone: 555-1234".match(/\d{3}-\d{4}/));
 ```
 
 ---
@@ -199,8 +188,8 @@ const exactMatch = /^hello$/;
 
 Meaning:
 
-* `^` → start
-* `$` → end
+- `^` → start
+- `$` → end
 
 Anchors **do not consume characters**, they assert position.
 
@@ -213,8 +202,8 @@ const wordBoundary = /\bhello\b/;
 const nonWordBoundary = /\Bhello\B/;
 ```
 
-* `\b` → boundary between word & non-word
-* Prevents partial matches
+- `\b` → boundary between word & non-word
+- Prevents partial matches
 
 ---
 
@@ -228,13 +217,13 @@ const namePattern = /(\w+)\s+(\w+)/;
 
 Groups allow:
 
-* Extracting parts
-* Reusing matched values
+- Extracting parts
+- Reusing matched values
 
 ---
 
 ```js
-const match = 'John Doe'.match(namePattern);
+const match = "John Doe".match(namePattern);
 
 console.log(match[0]);
 console.log(match[1]);
@@ -243,8 +232,8 @@ console.log(match[2]);
 
 Index meaning:
 
-* `[0]` → full match
-* `[1+]` → captured groups
+- `[0]` → full match
+- `[1+]` → captured groups
 
 ---
 
@@ -256,8 +245,8 @@ const emailPattern = /(?<username>\w+)@(?<domain>\w+\.\w+)/;
 
 Advantage:
 
-* Self-documenting
-* More readable than numeric indexes
+- Self-documenting
+- More readable than numeric indexes
 
 ---
 
@@ -269,8 +258,8 @@ const nonCapturing = /(?:Mr|Mrs|Ms)\.\s+(\w+)/;
 
 Used when:
 
-* Grouping needed
-* Capturing not needed
+- Grouping needed
+- Capturing not needed
 
 ---
 
@@ -294,9 +283,9 @@ const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 Logic:
 
-* No spaces
-* One `@`
-* Domain must exist
+- No spaces
+- One `@`
+- Domain must exist
 
 ---
 
@@ -308,8 +297,8 @@ const phoneRegex = /^\+?[1-9]\d{1,14}$/;
 
 Supports:
 
-* Optional country code
-* International format
+- Optional country code
+- International format
 
 ---
 
@@ -326,7 +315,7 @@ const hasSpecial = /[!@#$%^&*(),.?":{}|<>]/;
 
 Design principle:
 
-* One responsibility per regex
+- One responsibility per regex
 
 ---
 
@@ -349,8 +338,8 @@ text.match(/\b\w{4}\b/g);
 [...text.matchAll(/\b(\w{4})\b/g)];
 ```
 
-* `match()` → array or null
-* `matchAll()` → iterator with groups
+- `match()` → array or null
+- `matchAll()` → iterator with groups
 
 ---
 
@@ -367,15 +356,15 @@ Returns index or `-1`.
 ### replace() and replaceAll()
 
 ```js
-text.replace(/fox/, 'cat');
-text.replace(/\b\w{3}\b/g, 'XXX');
+text.replace(/fox/, "cat");
+text.replace(/\b\w{3}\b/g, "XXX");
 ```
 
 Supports:
 
-* Regex replacement
-* Backreferences
-* Functions
+- Regex replacement
+- Backreferences
+- Functions
 
 ---
 
@@ -399,8 +388,8 @@ Regex defines **split points**, not values.
 
 Means:
 
-* Pattern must exist **ahead**
-* Does not consume characters
+- Pattern must exist **ahead**
+- Does not consume characters
 
 ---
 
@@ -423,8 +412,8 @@ Matches digits **only if preceded by `$`**.
 
 Rule:
 
-* Greedy grabs maximum
-* `?` makes it minimal
+- Greedy grabs maximum
+- `?` makes it minimal
 
 ---
 
@@ -441,7 +430,7 @@ const duplicateWords = /(\b\w+)\s+\1\b/;
 ### Replace with Backreferences
 
 ```js
-'John Doe'.replace(/(\w+)\s+(\w+)/, '$2, $1');
+"John Doe".replace(/(\w+)\s+(\w+)/, "$2, $1");
 ```
 
 ---
@@ -451,14 +440,14 @@ const duplicateWords = /(\b\w+)\s+\1\b/;
 ### Extract Phone Numbers
 
 ```js
-return [...text.matchAll(phoneRegex)].map(match => match[0]);
+return [...text.matchAll(phoneRegex)].map((match) => match[0]);
 ```
 
 Flow:
 
-* Find all matches
-* Convert iterator to array
-* Extract full match
+- Find all matches
+- Convert iterator to array
+- Extract full match
 
 ---
 
@@ -482,15 +471,15 @@ Pipeline:
 
 Regex handles:
 
-* Commas inside quotes
-* Correct splitting
+- Commas inside quotes
+- Correct splitting
 
 ---
 
 ### Highlight Search Terms
 
 ```js
-new RegExp(`(${searchTerm})`, 'gi');
+new RegExp(`(${searchTerm})`, "gi");
 ```
 
 Dynamic regex creation requires **escaping user input**.
@@ -507,8 +496,8 @@ const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 Why:
 
-* Regex compilation is expensive
-* Reuse improves performance
+- Regex compilation is expensive
+- Reuse improves performance
 
 ---
 
@@ -534,13 +523,13 @@ Nested quantifiers cause exponential time.
 
 ## Final Mental Model
 
-* Regex is **pattern logic**, not string logic
-* Anchors control position
-* Classes control character sets
-* Quantifiers control repetition
-* Groups extract structure
-* Lookarounds assert conditions
-* Performance matters at scale
+- Regex is **pattern logic**, not string logic
+- Anchors control position
+- Classes control character sets
+- Quantifiers control repetition
+- Groups extract structure
+- Lookarounds assert conditions
+- Performance matters at scale
 
 ---
 

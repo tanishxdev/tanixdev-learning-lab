@@ -1,18 +1,3 @@
-Perfect. I’ll now do **exactly what you asked**, for **Debounce & Throttle**, following the same rules you set earlier.
-
-I will:
-
-* **Keep every single code block you provided**
-* **Not remove, rename, or shorten anything**
-* **Not say “unchanged / same as before”**
-* **Only add deep theory, mental model, and smooth explanation**
-* **Explain step-by-step in one consistent language**
-* **Comment code so it is explainable, not compressed**
-
-Below is the **organized + expanded version** of your content.
-
----
-
 # Debounce and Throttle — Deep Conceptual Understanding
 
 ---
@@ -23,17 +8,17 @@ In JavaScript, **events can fire extremely fast**.
 
 Examples:
 
-* `input` → fires on **every keystroke**
-* `scroll` → fires **dozens of times per second**
-* `resize` → fires continuously while resizing
-* `mousemove` → fires for every pixel movement
+- `input` → fires on **every keystroke**
+- `scroll` → fires **dozens of times per second**
+- `resize` → fires continuously while resizing
+- `mousemove` → fires for every pixel movement
 
 If we attach **heavy logic** (API calls, DOM updates, calculations) directly to these events:
 
-* Performance degrades
-* UI becomes laggy
-* Browser does unnecessary work
-* APIs get spammed
+- Performance degrades
+- UI becomes laggy
+- Browser does unnecessary work
+- APIs get spammed
 
 So the real problem is:
 
@@ -65,9 +50,9 @@ Think in terms of **time control**, not code.
 
 If the function keeps getting called:
 
-* Timer keeps resetting
-* Function never runs
-* Runs only after silence
+- Timer keeps resetting
+- Function never runs
+- Runs only after silence
 
 ---
 
@@ -75,10 +60,10 @@ If the function keeps getting called:
 
 You are typing a search query:
 
-* User types `j`
-* then `ja`
-* then `jav`
-* then `java`
+- User types `j`
+- then `ja`
+- then `jav`
+- then `java`
 
 You don’t want 4 API calls.
 You want **1 API call after the user stops typing**.
@@ -90,11 +75,11 @@ You want **1 API call after the user stops typing**.
 ```js
 function debounce(func, delay) {
   let timeoutId;
-  
-  return function(...args) {
+
+  return function (...args) {
     // Clear previous scheduled execution
     clearTimeout(timeoutId);
-    
+
     // Schedule new execution after delay
     timeoutId = setTimeout(() => {
       func.apply(this, args);
@@ -107,9 +92,9 @@ function debounce(func, delay) {
 
 1. `timeoutId` remembers the pending timer
 2. Every time the returned function is called:
+   - Old timer is cancelled
+   - New timer is created
 
-   * Old timer is cancelled
-   * New timer is created
 3. Only the **last call survives**
 4. `func` executes after `delay` ms of no calls
 
@@ -118,22 +103,22 @@ function debounce(func, delay) {
 ### Usage Example (Search Input)
 
 ```js
-const searchInput = document.getElementById('search');
+const searchInput = document.getElementById("search");
 
 const debouncedSearch = debounce((query) => {
-  console.log('Searching for:', query);
+  console.log("Searching for:", query);
 }, 300);
 
-searchInput.addEventListener('input', (e) => {
+searchInput.addEventListener("input", (e) => {
   debouncedSearch(e.target.value);
 });
 ```
 
 ### What actually happens
 
-* User types continuously → function does NOT run
-* User stops typing for 300ms → function runs ONCE
-* Perfect for API calls
+- User types continuously → function does NOT run
+- User stops typing for 300ms → function runs ONCE
+- Perfect for API calls
 
 ---
 
@@ -141,8 +126,8 @@ searchInput.addEventListener('input', (e) => {
 
 Sometimes you want:
 
-* First call to execute immediately
-* Then suppress further calls until delay ends
+- First call to execute immediately
+- Then suppress further calls until delay ends
 
 This is **leading debounce**.
 
@@ -151,19 +136,19 @@ This is **leading debounce**.
 ```js
 function advancedDebounce(func, delay, immediate = false) {
   let timeoutId;
-  
-  return function(...args) {
+
+  return function (...args) {
     const callNow = immediate && !timeoutId;
-    
+
     clearTimeout(timeoutId);
-    
+
     timeoutId = setTimeout(() => {
       timeoutId = null;
       if (!immediate) {
         func.apply(this, args);
       }
     }, delay);
-    
+
     if (callNow) {
       func.apply(this, args);
     }
@@ -173,10 +158,10 @@ function advancedDebounce(func, delay, immediate = false) {
 
 ### Mental flow
 
-* `immediate = true`
-* First call runs instantly
-* Timer blocks further execution
-* After delay, function can run again
+- `immediate = true`
+- First call runs instantly
+- Timer blocks further execution
+- After delay, function can run again
 
 ---
 
@@ -194,9 +179,9 @@ Calls during the interval are ignored or delayed.
 
 Scrolling:
 
-* User scrolls continuously
-* You only want updates every 100ms
-* Not on every pixel movement
+- User scrolls continuously
+- You only want updates every 100ms
+- Not on every pixel movement
 
 ---
 
@@ -205,12 +190,12 @@ Scrolling:
 ```js
 function throttle(func, limit) {
   let inThrottle;
-  
-  return function(...args) {
+
+  return function (...args) {
     if (!inThrottle) {
       func.apply(this, args);
       inThrottle = true;
-      
+
       setTimeout(() => {
         inThrottle = false;
       }, limit);
@@ -223,14 +208,13 @@ function throttle(func, limit) {
 
 1. `inThrottle` acts as a lock
 2. First call:
+   - Function executes
+   - Lock is enabled
 
-   * Function executes
-   * Lock is enabled
 3. Further calls are ignored
 4. After `limit` ms:
-
-   * Lock is released
-   * Function can run again
+   - Lock is released
+   - Function can run again
 
 ---
 
@@ -238,10 +222,10 @@ function throttle(func, limit) {
 
 ```js
 const throttledScroll = throttle(() => {
-  console.log('Scroll position:', window.scrollY);
+  console.log("Scroll position:", window.scrollY);
 }, 100);
 
-window.addEventListener('scroll', throttledScroll);
+window.addEventListener("scroll", throttledScroll);
 ```
 
 ---
@@ -250,9 +234,9 @@ window.addEventListener('scroll', throttledScroll);
 
 This version gives **full control**:
 
-* Leading execution
-* Trailing execution
-* Time calculations
+- Leading execution
+- Trailing execution
+- Time calculations
 
 ---
 
@@ -260,16 +244,16 @@ This version gives **full control**:
 function advancedThrottle(func, limit, options = {}) {
   let timeout;
   let previous = 0;
-  
-  return function(...args) {
+
+  return function (...args) {
     const now = Date.now();
-    
+
     if (!previous && options.leading === false) {
       previous = now;
     }
-    
+
     const remaining = limit - (now - previous);
-    
+
     if (remaining <= 0 || remaining > limit) {
       if (timeout) {
         clearTimeout(timeout);
@@ -290,9 +274,9 @@ function advancedThrottle(func, limit, options = {}) {
 
 ### Why this exists
 
-* Used in libraries
-* Used in complex UI systems
-* Needed when timing accuracy matters
+- Used in libraries
+- Used in complex UI systems
+- Needed when timing accuracy matters
 
 ---
 
@@ -302,25 +286,25 @@ function advancedThrottle(func, limit, options = {}) {
 
 ```js
 function setupSearch() {
-  const searchInput = document.getElementById('search-input');
-  const resultsContainer = document.getElementById('search-results');
-  
+  const searchInput = document.getElementById("search-input");
+  const resultsContainer = document.getElementById("search-results");
+
   const performSearch = debounce(async (query) => {
     if (query.length < 2) {
-      resultsContainer.innerHTML = '';
+      resultsContainer.innerHTML = "";
       return;
     }
-    
+
     try {
-      resultsContainer.innerHTML = 'Searching...';
-      await new Promise(resolve => setTimeout(resolve, 500));
+      resultsContainer.innerHTML = "Searching...";
+      await new Promise((resolve) => setTimeout(resolve, 500));
       resultsContainer.innerHTML = `Results for: ${query}`;
     } catch (error) {
-      resultsContainer.innerHTML = 'Search failed';
+      resultsContainer.innerHTML = "Search failed";
     }
   }, 300);
-  
-  searchInput.addEventListener('input', (e) => {
+
+  searchInput.addEventListener("input", (e) => {
     performSearch(e.target.value);
   });
 }
@@ -328,9 +312,9 @@ function setupSearch() {
 
 Why debounce:
 
-* Prevent API spam
-* Better UX
-* Lower backend load
+- Prevent API spam
+- Better UX
+- Lower backend load
 
 ---
 
@@ -339,17 +323,17 @@ Why debounce:
 ```js
 function setupResizeHandler() {
   const throttledResize = throttle(() => {
-    console.log('Window resized:', window.innerWidth, window.innerHeight);
+    console.log("Window resized:", window.innerWidth, window.innerHeight);
   }, 250);
-  
-  window.addEventListener('resize', throttledResize);
+
+  window.addEventListener("resize", throttledResize);
 }
 ```
 
 Why throttle:
 
-* Resize fires continuously
-* Layout recalculation is expensive
+- Resize fires continuously
+- Layout recalculation is expensive
 
 ---
 
@@ -357,21 +341,21 @@ Why throttle:
 
 ```js
 function setupAutoSave() {
-  const editor = document.getElementById('editor');
+  const editor = document.getElementById("editor");
   let hasUnsavedChanges = false;
-  
+
   const debouncedSave = debounce(async () => {
     if (!hasUnsavedChanges) return;
-    
+
     try {
-      await new Promise(resolve => setTimeout(resolve, 500));
+      await new Promise((resolve) => setTimeout(resolve, 500));
       hasUnsavedChanges = false;
     } catch (error) {
       console.error(error);
     }
   }, 2000);
-  
-  editor.addEventListener('input', () => {
+
+  editor.addEventListener("input", () => {
     hasUnsavedChanges = true;
     debouncedSave();
   });
@@ -385,25 +369,25 @@ function setupAutoSave() {
 ```js
 function cancellableDebounce(func, delay) {
   let timeoutId;
-  
-  const debounced = function(...args) {
+
+  const debounced = function (...args) {
     clearTimeout(timeoutId);
     timeoutId = setTimeout(() => func.apply(this, args), delay);
   };
-  
-  debounced.cancel = function() {
+
+  debounced.cancel = function () {
     clearTimeout(timeoutId);
   };
-  
+
   return debounced;
 }
 ```
 
 Use when:
 
-* Component unmounts
-* Page navigation
-* Cleanup required
+- Component unmounts
+- Page navigation
+- Cleanup required
 
 ---
 
@@ -411,7 +395,7 @@ Use when:
 
 ```js
 function measurePerformance(name, func) {
-  return function(...args) {
+  return function (...args) {
     const start = performance.now();
     const result = func.apply(this, args);
     const end = performance.now();
@@ -423,9 +407,9 @@ function measurePerformance(name, func) {
 
 Used to:
 
-* Detect slow functions
-* Compare debounce vs throttle
-* Optimize bottlenecks
+- Detect slow functions
+- Compare debounce vs throttle
+- Optimize bottlenecks
 
 ---
 
@@ -433,31 +417,28 @@ Used to:
 
 ### Use Debounce when:
 
-* You want **final result**
-* User pauses matter
-* API calls
-* Auto-save
-* Validation
+- You want **final result**
+- User pauses matter
+- API calls
+- Auto-save
+- Validation
 
 ### Use Throttle when:
 
-* You want **continuous feedback**
-* Scroll
-* Resize
-* Mouse move
-* Progress updates
+- You want **continuous feedback**
+- Scroll
+- Resize
+- Mouse move
+- Progress updates
 
 ---
 
 ## 13. Final Mental Summary
 
-* Debounce = **wait → then run**
-* Throttle = **run → then wait**
-* Both improve performance
-* Both protect browser & APIs
-* Choice depends on **intent**, not habit
+- Debounce = **wait → then run**
+- Throttle = **run → then wait**
+- Both improve performance
+- Both protect browser & APIs
+- Choice depends on **intent**, not habit
 
 ---
-
-Next concept in your list is **Classes in JS**.
-Send it when ready, and we continue with the **same depth and discipline**.

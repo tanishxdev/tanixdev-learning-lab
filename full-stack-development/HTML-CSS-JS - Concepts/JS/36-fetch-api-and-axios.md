@@ -1,12 +1,3 @@
-Perfect. I’ll do **exactly what you asked**, step-by-step, without compressing anything and **without removing or altering a single line of your code**.
-
-Below is your **Fetch API + Axios** lesson, **re-organized conceptually**, with **deep theory, mental model, algorithmic flow**, and **your full code explained line-by-line** in a **single smooth explanation style**.
-
-I will **not** say things like “same code”, “unchanged”, etc.
-I will **only expand understanding**.
-
----
-
 # Fetch API + Axios — Deep Conceptual Understanding
 
 ---
@@ -111,7 +102,7 @@ fetch("https://jsonplaceholder.typicode.com/posts/1")
 async function fetchPost(id) {
   try {
     const response = await fetch(
-      `https://jsonplaceholder.typicode.com/posts/${id}`
+      `https://jsonplaceholder.typicode.com/posts/${id}`,
     );
 
     if (!response.ok) {
@@ -253,7 +244,7 @@ function fetchWithTimeout(url, options = {}, timeout = 5000) {
   return Promise.race([
     fetch(url, options),
     new Promise((_, reject) =>
-      setTimeout(() => reject(new Error("Request timeout")), timeout)
+      setTimeout(() => reject(new Error("Request timeout")), timeout),
     ),
   ]);
 }
@@ -339,7 +330,7 @@ Key difference:
 async function fetchPostAxios(id) {
   try {
     const response = await axios.get(
-      `https://jsonplaceholder.typicode.com/posts/${id}`
+      `https://jsonplaceholder.typicode.com/posts/${id}`,
     );
     return response.data;
   } catch (error) {
@@ -426,7 +417,7 @@ apiClient.interceptors.response.use(
       window.location.href = "/login";
     }
     return Promise.reject(error);
-  }
+  },
 );
 ```
 
@@ -487,16 +478,12 @@ source.cancel();
 - **Fetch** = low-level, explicit, manual control
 - **Axios** = high-level, ergonomic, scalable
 - Use Fetch for:
-
   - Small scripts
   - Lightweight usage
 
 - Use Axios for:
-
   - Real applications
   - Authentication
   - Centralized API layer
 
 ---
-
-When you’re ready, send **ES6+ Features**, and we’ll continue **with the same depth and clarity**.
