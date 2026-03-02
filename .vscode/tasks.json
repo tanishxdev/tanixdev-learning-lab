@@ -1,0 +1,25 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Run C++ (Global IO)",
+      "type": "shell",
+      "command": "clear && g++ -std=gnu++17 -Wall -Wextra -O2 \"${relativeFile}\" -o a.exe && ./a.exe < input.txt > output.txt && rm -f a.exe",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "reveal": "never",
+        "panel": "shared",
+        "focus": false,
+        "clear": false,
+        "showReuseMessage": false
+      },
+      "problemMatcher": "$gcc"
+    }
+  ]
+}
