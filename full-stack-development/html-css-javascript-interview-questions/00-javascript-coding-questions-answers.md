@@ -3536,6 +3536,1652 @@ join → "geksfor"
 
 ---
 
+I understand! You want me to create JavaScript coding questions **in the same format** as your original 50 questions document, but **only new questions** that are NOT already covered in that document.
+
+Let me analyze what's already covered in your original 50 questions:
+
+**Already Covered Topics:**
+
+- String reversal, palindrome, anagrams
+- Array sum, largest/min, merge, intersection, union, remove duplicates
+- Object property add/delete, frequency counting
+- Type coercion, equality operators
+- Factorial, Fibonacci, prime, power, temperature conversion
+- Sorting (ascending/descending)
+- Callback functions, arrow functions
+- Map, filter, reduce
+- Class creation, JSON methods
+- Switch statements
+- Even/odd check
+- String contains, first non-repeated char, longest word, capitalize words
+- Array to uppercase, reverse array, last element, remove falsy
+- Recursion (factorial)
+- Count vowels, unique characters
+- And many more...
+
+Now I'll create **new questions** in the same format:
+
+---
+
+## Problem 51: Find the Second Largest Number in an Array
+
+Input: `[10, 5, 8, 12, 3]`
+Output: `10`
+
+---
+
+### Approach 1: Single pass with two variables
+
+#### Thinking aloud
+
+- Track both largest and second largest in one pass.
+- Initialize both as -Infinity (or first element with careful handling).
+- For each element:
+  - If current > largest → update secondLargest = largest, largest = current
+  - Else if current > secondLargest and current != largest → update secondLargest
+- Handle edge cases: array length < 2 returns null.
+
+#### Code
+
+```js
+function findSecondLargest(arr) {
+  if (arr.length < 2) {
+    return null;
+  }
+
+  let largest = -Infinity;
+  let secondLargest = -Infinity;
+
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] > largest) {
+      secondLargest = largest;
+      largest = arr[i];
+    } else if (arr[i] > secondLargest && arr[i] !== largest) {
+      secondLargest = arr[i];
+    }
+  }
+
+  return secondLargest === -Infinity ? null : secondLargest;
+}
+
+// Example usage
+console.log(findSecondLargest([10, 5, 8, 12, 3])); // 10
+```
+
+#### Dry Run
+
+```
+arr = [10, 5, 8, 12, 3]
+largest = -Infinity, second = -Infinity
+
+i=0: 10 > -Infinity → second = -Infinity, largest = 10
+i=1: 5 > 10? false, 5 > -Infinity? true → second = 5
+i=2: 8 > 10? false, 8 > 5? true → second = 8
+i=3: 12 > 10? true → second = 10, largest = 12
+i=4: 3 > 12? false, 3 > 10? false
+
+return 10
+```
+
+#### Complexity
+
+- Time: **O(n)**
+- Space: **O(1)**
+
+#### Interview Notes
+
+- Edge case: all elements same → returns null
+- Single pass is optimal
+- Can also sort and pick second last, but that's O(n log n)
+
+---
+
+## Problem 52: Implement a Queue Using Two Stacks
+
+Input: Enqueue 1, 2, 3 → Dequeue → Output: 1
+
+---
+
+### Approach: Two stacks for FIFO behavior
+
+#### Thinking aloud
+
+- Queue is FIFO, stack is LIFO.
+- Use two stacks: `inbox` for enqueue, `outbox` for dequeue.
+- On dequeue:
+  - If outbox empty, pop all from inbox and push to outbox (reverses order).
+  - Pop from outbox.
+
+#### Code
+
+```js
+class QueueUsingStacks {
+  constructor() {
+    this.inbox = [];
+    this.outbox = [];
+  }
+
+  enqueue(item) {
+    this.inbox.push(item);
+  }
+
+  dequeue() {
+    if (this.outbox.length === 0) {
+      // Transfer all elements from inbox to outbox (reverses order)
+      while (this.inbox.length > 0) {
+        this.outbox.push(this.inbox.pop());
+      }
+    }
+
+    if (this.outbox.length === 0) {
+      return null; // Queue is empty
+    }
+
+    return this.outbox.pop();
+  }
+
+  isEmpty() {
+    return this.inbox.length === 0 && this.outbox.length === 0;
+  }
+
+  size() {
+    return this.inbox.length + this.outbox.length;
+  }
+}
+
+// Example usage
+const queue = new QueueUsingStacks();
+queue.enqueue(1);
+queue.enqueue(2);
+queue.enqueue(3);
+console.log(queue.dequeue()); // 1
+console.log(queue.dequeue()); // 2
+queue.enqueue(4);
+console.log(queue.dequeue()); // 3
+console.log(queue.dequeue()); // 4
+```
+
+#### Dry Run
+
+```
+enqueue(1): inbox=[1], outbox=[]
+enqueue(2): inbox=[1,2], outbox=[]
+enqueue(3): inbox=[1,2,3], outbox=[]
+
+dequeue(): outbox empty → transfer:
+  pop inbox 3 → outbox=[3]
+  pop inbox 2 → outbox=[3,2]
+  pop inbox 1 → outbox=[3,2,1]
+  pop outbox → return 1
+
+dequeue(): outbox=[3,2] → pop outbox → return 2
+
+enqueue(4): inbox=[4], outbox=[3]
+
+dequeue(): outbox=[3] → pop outbox → return 3
+
+dequeue(): outbox empty → transfer inbox 4 → outbox=[4] → pop → return 4
+```
+
+#### Complexity
+
+- Enqueue: **O(1)**
+- Dequeue: Amortized **O(1)** (each element moved at most once)
+- Space: **O(n)**
+
+#### Interview Notes
+
+- Classic interview question
+- Demonstrates understanding of data structures
+- Amortized analysis important to mention
+
+---
+
+## Problem 53: Find the Missing Number in an Array of 1 to N
+
+Input: `[1, 2, 4, 5, 6]` (N=6)
+Output: `3`
+
+---
+
+### Approach 1: Sum formula
+
+#### Thinking aloud
+
+- Array contains numbers from 1 to N with one missing.
+- Sum of 1 to N = N \* (N+1) / 2
+- Sum of given array = actual sum
+- Missing number = expected sum - actual sum
+
+#### Code
+
+```js
+function findMissingNumber(arr, n) {
+  // Expected sum of 1 to n
+  const expectedSum = (n * (n + 1)) / 2;
+
+  // Actual sum of array
+  const actualSum = arr.reduce((sum, num) => sum + num, 0);
+
+  return expectedSum - actualSum;
+}
+
+// Example usage
+console.log(findMissingNumber([1, 2, 4, 5, 6], 6)); // 3
+```
+
+#### Dry Run
+
+```
+arr = [1,2,4,5,6], n=6
+expectedSum = 6*7/2 = 21
+actualSum = 1+2+4+5+6 = 18
+missing = 21-18 = 3
+```
+
+#### Complexity
+
+- Time: **O(n)**
+- Space: **O(1)**
+
+#### Interview Notes
+
+- Simple mathematical approach
+- Works only if exactly one number missing
+- For large n, watch for integer overflow
+
+---
+
+### Approach 2: XOR method
+
+#### Thinking aloud
+
+- XOR of a number with itself is 0.
+- XOR all numbers 1 to N with all array elements.
+- Result is the missing number.
+
+#### Code
+
+```js
+function findMissingNumberXOR(arr, n) {
+  let xor1 = 0;
+  let xor2 = 0;
+
+  // XOR all numbers from 1 to n
+  for (let i = 1; i <= n; i++) {
+    xor1 ^= i;
+  }
+
+  // XOR all array elements
+  for (let i = 0; i < arr.length; i++) {
+    xor2 ^= arr[i];
+  }
+
+  return xor1 ^ xor2;
+}
+
+console.log(findMissingNumberXOR([1, 2, 4, 5, 6], 6)); // 3
+```
+
+#### Complexity
+
+- Time: **O(n)**
+- Space: **O(1)**
+
+#### Interview Notes
+
+- XOR approach avoids overflow issues
+- Works with any range of numbers
+- Good to mention both approaches
+
+---
+
+## Problem 54: Flatten a Nested Object
+
+Input: `{ a: 1, b: { c: 2, d: { e: 3 } } }`
+Output: `{ 'a': 1, 'b.c': 2, 'b.d.e': 3 }`
+
+---
+
+### Approach: Recursive traversal
+
+#### Thinking aloud
+
+- Create empty result object.
+- Recursively traverse input object.
+- Keep track of current path as key prefix.
+- If value is object, recurse with updated path.
+- If value is primitive, add to result with full path.
+
+#### Code
+
+```js
+function flattenObject(obj, prefix = "", result = {}) {
+  for (let key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      const newKey = prefix ? `${prefix}.${key}` : key;
+
+      if (
+        typeof obj[key] === "object" &&
+        obj[key] !== null &&
+        !Array.isArray(obj[key])
+      ) {
+        // Recursively flatten nested object
+        flattenObject(obj[key], newKey, result);
+      } else {
+        // Add primitive value or array to result
+        result[newKey] = obj[key];
+      }
+    }
+  }
+  return result;
+}
+
+// Example usage
+const nested = { a: 1, b: { c: 2, d: { e: 3 } } };
+console.log(flattenObject(nested));
+// Output: { 'a': 1, 'b.c': 2, 'b.d.e': 3 }
+```
+
+#### Dry Run
+
+```
+obj = { a: 1, b: { c: 2, d: { e: 3 } } }, prefix='', result={}
+
+key='a': newKey='a', value=1 → result['a']=1
+key='b': newKey='b', value={c:2,d:{e:3}} → recurse flattenObject({c:2,d:{e:3}}, 'b')
+
+  key='c': newKey='b.c', value=2 → result['b.c']=2
+  key='d': newKey='b.d', value={e:3} → recurse flattenObject({e:3}, 'b.d')
+
+    key='e': newKey='b.d.e', value=3 → result['b.d.e']=3
+
+return result
+```
+
+#### Complexity
+
+- Time: **O(n)** where n is number of properties
+- Space: **O(n)** for result object
+
+#### Interview Notes
+
+- Common in data transformation tasks
+- Handle arrays specially if needed
+- Can also implement iteratively with stack
+
+---
+
+## Problem 55: Implement a Simple Pub/Sub Pattern
+
+Input: Subscribe to 'event1' with callback, publish 'event1' with data
+Output: Callback executes with data
+
+---
+
+### Approach: Event emitter pattern
+
+#### Thinking aloud
+
+- Create an object to store events and their subscribers.
+- Each event maps to an array of callback functions.
+- `subscribe` adds callback to event's array.
+- `publish` iterates through callbacks and executes with data.
+- `unsubscribe` removes specific callback.
+
+#### Code
+
+```js
+class PubSub {
+  constructor() {
+    this.events = {};
+  }
+
+  // Subscribe to an event
+  subscribe(event, callback) {
+    if (!this.events[event]) {
+      this.events[event] = [];
+    }
+
+    this.events[event].push(callback);
+
+    // Return unsubscribe function
+    return () => {
+      this.events[event] = this.events[event].filter((cb) => cb !== callback);
+    };
+  }
+
+  // Publish to an event with data
+  publish(event, data) {
+    if (!this.events[event]) {
+      return; // No subscribers
+    }
+
+    this.events[event].forEach((callback) => {
+      callback(data);
+    });
+  }
+
+  // Remove all subscribers for an event
+  clear(event) {
+    if (event) {
+      delete this.events[event];
+    } else {
+      this.events = {};
+    }
+  }
+}
+
+// Example usage
+const pubsub = new PubSub();
+
+const unsubscribe = pubsub.subscribe("userLoggedIn", (data) => {
+  console.log(`User logged in: ${data.name}`);
+});
+
+pubsub.subscribe("userLoggedIn", (data) => {
+  console.log(`Send welcome email to ${data.email}`);
+});
+
+pubsub.publish("userLoggedIn", { name: "John", email: "john@example.com" });
+// Output:
+// User logged in: John
+// Send welcome email to john@example.com
+
+// Unsubscribe first callback
+unsubscribe();
+pubsub.publish("userLoggedIn", { name: "Jane", email: "jane@example.com" });
+// Output only second callback
+```
+
+#### Complexity
+
+- Subscribe: **O(1)**
+- Publish: **O(m)** where m is number of subscribers
+- Unsubscribe: **O(m)**
+
+#### Interview Notes
+
+- Core pattern in many frameworks
+- Great for decoupling components
+- Can add once() method for one-time subscription
+
+---
+
+## Problem 56: Group Array of Objects by Property
+
+Input:
+
+```js
+[
+  { name: "John", dept: "Engineering" },
+  { name: "Jane", dept: "Marketing" },
+  { name: "Bob", dept: "Engineering" },
+];
+```
+
+Output:
+
+```js
+{
+  Engineering: [
+    { name: 'John', dept: 'Engineering' },
+    { name: 'Bob', dept: 'Engineering' }
+  ],
+  Marketing: [
+    { name: 'Jane', dept: 'Marketing' }
+  ]
+}
+```
+
+---
+
+### Approach: Reduce method
+
+#### Thinking aloud
+
+- Use `reduce()` to build grouped object.
+- For each item, get the grouping key value.
+- If key not in result, create empty array.
+- Push current item to that array.
+
+#### Code
+
+```js
+function groupBy(arr, property) {
+  return arr.reduce((result, item) => {
+    const key = item[property];
+
+    if (!result[key]) {
+      result[key] = [];
+    }
+
+    result[key].push(item);
+    return result;
+  }, {});
+}
+
+// Example usage
+const employees = [
+  { name: "John", dept: "Engineering" },
+  { name: "Jane", dept: "Marketing" },
+  { name: "Bob", dept: "Engineering" },
+];
+
+console.log(groupBy(employees, "dept"));
+```
+
+#### Dry Run
+
+```
+arr = [emp1, emp2, emp3], property='dept'
+result = {}
+
+emp1: key='Engineering', result['Engineering']=[] → push emp1
+emp2: key='Marketing', result['Marketing']=[] → push emp2
+emp3: key='Engineering', result['Engineering'] exists → push emp3
+
+return result
+```
+
+#### Complexity
+
+- Time: **O(n)**
+- Space: **O(n)**
+
+#### Interview Notes
+
+- Very common data transformation
+- Can group by nested property with dot notation support
+- Alternative: use Map for non-string keys
+
+---
+
+## Problem 57: Deep Clone an Object (Handling Circular References)
+
+Input: Object with nested properties and circular reference
+Output: Complete independent copy
+
+---
+
+### Approach: WeakMap to track visited objects
+
+#### Thinking aloud
+
+- Simple JSON methods fail for circular references.
+- Use recursion with a WeakMap to track already cloned objects.
+- If object already cloned, return the clone reference.
+- Handle arrays and objects separately.
+
+#### Code
+
+```js
+function deepClone(obj, hash = new WeakMap()) {
+  // Handle null or non-objects
+  if (obj === null || typeof obj !== "object") {
+    return obj;
+  }
+
+  // Handle Date
+  if (obj instanceof Date) {
+    return new Date(obj);
+  }
+
+  // Handle RegExp
+  if (obj instanceof RegExp) {
+    return new RegExp(obj);
+  }
+
+  // If already cloned, return the clone
+  if (hash.has(obj)) {
+    return hash.get(obj);
+  }
+
+  // Create clone based on constructor
+  const clone = Array.isArray(obj) ? [] : {};
+
+  // Store in hash before recursive cloning
+  hash.set(obj, clone);
+
+  // Copy all properties recursively
+  for (let key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      clone[key] = deepClone(obj[key], hash);
+    }
+  }
+
+  return clone;
+}
+
+// Example with circular reference
+const original = {
+  name: "John",
+  address: {
+    city: "NYC",
+  },
+};
+original.self = original; // Circular reference
+
+const cloned = deepClone(original);
+console.log(cloned.name); // 'John'
+console.log(cloned.address.city); // 'NYC'
+console.log(cloned.self === cloned); // true (circular preserved)
+console.log(cloned === original); // false (different object)
+```
+
+#### Complexity
+
+- Time: **O(n)** where n is number of properties
+- Space: **O(n)** for clone + WeakMap
+
+#### Interview Notes
+
+- Shows deep understanding of references
+- WeakMap prevents memory leaks
+- Must handle special objects (Date, RegExp, Map, Set)
+
+---
+
+## Problem 58: Implement a Function to Check Balanced Parentheses
+
+Input: `"({[]})"`
+Output: `true`
+
+Input: `"({[})"`
+Output: `false`
+
+---
+
+### Approach: Stack data structure
+
+#### Thinking aloud
+
+- Use stack to track opening brackets.
+- For each character:
+  - If opening bracket → push to stack.
+  - If closing bracket → check if matches top of stack.
+- At end, stack should be empty.
+
+#### Code
+
+```js
+function isBalanced(str) {
+  const stack = [];
+  const pairs = {
+    "(": ")",
+    "{": "}",
+    "[": "]",
+  };
+
+  for (let i = 0; i < str.length; i++) {
+    const char = str[i];
+
+    // If opening bracket, push to stack
+    if (pairs[char]) {
+      stack.push(char);
+    }
+    // If closing bracket
+    else if (char === ")" || char === "}" || char === "]") {
+      const lastOpening = stack.pop();
+
+      // If no matching opening or wrong type
+      if (!lastOpening || pairs[lastOpening] !== char) {
+        return false;
+      }
+    }
+    // Ignore other characters
+  }
+
+  // Stack should be empty if balanced
+  return stack.length === 0;
+}
+
+// Example usage
+console.log(isBalanced("({[]})")); // true
+console.log(isBalanced("({[})")); // false
+console.log(isBalanced("(hello) {world}")); // true (ignores letters)
+```
+
+#### Dry Run for `"({[]})"`
+
+```
+char='(' → push '(' → stack=['(']
+char='{' → push '{' → stack=['(','{']
+char='[' → push '[' → stack=['(','{','[']
+char=']' → pop '[' → pairs['[']=']' matches → stack=['(','{']
+char='}' → pop '{' → pairs['{']='}' matches → stack=['(']
+char=')' → pop '(' → pairs['(']=')' matches → stack=[]
+return true
+```
+
+#### Complexity
+
+- Time: **O(n)**
+- Space: **O(n)**
+
+#### Interview Notes
+
+- Classic stack problem
+- Can extend to handle different bracket types
+- Also useful for XML/HTML tag validation
+
+---
+
+## Problem 59: Find All Pairs in Array That Sum to Target
+
+Input: `[2, 4, 3, 5, 7, 8, 9]`, target `10`
+Output: `[[2,8], [3,7], [5,5]]` (if same element can be used twice? Usually distinct indices)
+
+---
+
+### Approach: Using a Set/HashMap
+
+#### Thinking aloud
+
+- Use a Set to track numbers seen.
+- For each number, calculate complement = target - num.
+- If complement exists in set, found a pair.
+- Add current number to set for future matches.
+- Handle duplicates carefully.
+
+#### Code
+
+```js
+function findPairs(arr, target) {
+  const seen = new Set();
+  const pairs = [];
+  const used = new Set(); // To avoid duplicate pairs like [2,8] and [8,2]
+
+  for (let i = 0; i < arr.length; i++) {
+    const num = arr[i];
+    const complement = target - num;
+
+    // Check if complement exists in seen
+    if (seen.has(complement)) {
+      // Create pair in sorted order to avoid duplicates
+      const pair = [Math.min(num, complement), Math.max(num, complement)];
+      const pairKey = pair.join(",");
+
+      if (!used.has(pairKey)) {
+        pairs.push(pair);
+        used.add(pairKey);
+      }
+    }
+
+    seen.add(num);
+  }
+
+  return pairs;
+}
+
+// Example usage
+console.log(findPairs([2, 4, 3, 5, 7, 8, 9], 10));
+// Output: [[2,8], [3,7], [5,5]]
+```
+
+#### Complexity
+
+- Time: **O(n)**
+- Space: **O(n)**
+
+#### Interview Notes
+
+- Efficient single pass solution
+- Handle duplicate pairs with sorting or Set
+- Can modify to return indices instead of values
+
+---
+
+## Problem 60: Implement a Simple Promise with Retry Logic
+
+Input: Async function that may fail, retry 3 times
+Output: Promise that resolves if any attempt succeeds
+
+---
+
+### Approach: Recursive retry with delay
+
+#### Thinking aloud
+
+- Create function that returns a Promise.
+- Attempt the async operation.
+- If fails and retries left, wait and retry.
+- If all retries fail, reject with last error.
+
+#### Code
+
+```js
+function withRetry(asyncFn, maxRetries = 3, delay = 1000) {
+  return new Promise((resolve, reject) => {
+    let attempts = 0;
+
+    function attempt() {
+      attempts++;
+
+      asyncFn()
+        .then(resolve)
+        .catch((error) => {
+          console.log(`Attempt ${attempts} failed`);
+
+          if (attempts < maxRetries) {
+            console.log(`Retrying in ${delay}ms...`);
+            setTimeout(attempt, delay);
+          } else {
+            reject(
+              new Error(
+                `Failed after ${maxRetries} attempts: ${error.message}`,
+              ),
+            );
+          }
+        });
+    }
+
+    attempt();
+  });
+}
+
+// Example usage
+let attemptCount = 0;
+
+function flakyApiCall() {
+  return new Promise((resolve, reject) => {
+    attemptCount++;
+    // Fail first 2 times, succeed on 3rd
+    if (attemptCount < 3) {
+      reject(new Error("Network error"));
+    } else {
+      resolve("Success!");
+    }
+  });
+}
+
+withRetry(flakyApiCall, 3, 1000)
+  .then((result) => console.log("Result:", result))
+  .catch((error) => console.error("Final error:", error));
+
+// Output:
+// Attempt 1 failed
+// Retrying in 1000ms...
+// Attempt 2 failed
+// Retrying in 1000ms...
+// Result: Success!
+```
+
+#### Complexity
+
+- Time: Depends on retries
+- Space: **O(1)**
+
+#### Interview Notes
+
+- Essential for handling unreliable APIs
+- Can add exponential backoff
+- Consider abort signal for cancellation
+
+---
+
+## Problem 61: Convert Roman Numerals to Integer
+
+Input: `"XIV"`
+Output: `14`
+
+---
+
+### Approach: Left-to-right with subtraction rule
+
+#### Thinking aloud
+
+- Map Roman symbols to values.
+- Traverse string left to right.
+- If current value < next value → subtract current.
+- Else → add current.
+- Add last value.
+
+#### Code
+
+```js
+function romanToInt(roman) {
+  const map = {
+    I: 1,
+    V: 5,
+    X: 10,
+    L: 50,
+    C: 100,
+    D: 500,
+    M: 1000,
+  };
+
+  let result = 0;
+
+  for (let i = 0; i < roman.length; i++) {
+    const current = map[roman[i]];
+    const next = map[roman[i + 1]];
+
+    if (next && current < next) {
+      // Subtraction case (e.g., IV = 4)
+      result -= current;
+    } else {
+      result += current;
+    }
+  }
+
+  return result;
+}
+
+// Example usage
+console.log(romanToInt("XIV")); // 10 + (1 < 5? subtract) = 10 -1 +5 = 14
+console.log(romanToInt("MCMXC")); // 1000 + (100<1000? -100) + (1000<10? +1000) + (10<100? -10) + 100 = 1990
+```
+
+#### Dry Run for `"XIV"`
+
+```
+i=0: current='X'=10, next='I'=1 → 10<1? false → result=10
+i=1: current='I'=1, next='V'=5 → 1<5? true → result=10-1=9
+i=2: current='V'=5, next=undefined → result=9+5=14
+return 14
+```
+
+#### Complexity
+
+- Time: **O(n)**
+- Space: **O(1)**
+
+#### Interview Notes
+
+- Understand subtraction rule (IV=4, IX=9, XL=40, etc.)
+- Input validation for invalid numerals
+- Can also implement reverse (integer to Roman)
+
+---
+
+## Problem 62: Implement a Function to Shuffle an Array (Fisher-Yates)
+
+Input: `[1, 2, 3, 4, 5]`
+Output: Random permutation e.g., `[3, 1, 5, 2, 4]`
+
+---
+
+### Approach: Fisher-Yates (Knuth) Shuffle
+
+#### Thinking aloud
+
+- Start from last index.
+- Pick random index from 0 to current.
+- Swap current with random index.
+- Move to previous index and repeat.
+
+#### Code
+
+```js
+function shuffleArray(arr) {
+  // Create a copy to avoid mutating original
+  const shuffled = [...arr];
+
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    // Generate random index from 0 to i
+    const j = Math.floor(Math.random() * (i + 1));
+
+    // Swap elements at i and j
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+
+  return shuffled;
+}
+
+// Example usage
+const original = [1, 2, 3, 4, 5];
+console.log(shuffleArray(original)); // Random order
+console.log(original); // Original unchanged [1,2,3,4,5]
+```
+
+#### Dry Run (example random indices)
+
+```
+arr = [1,2,3,4,5]
+
+i=4, random j=2 → swap 4 and 3 → [1,2,5,4,3]
+i=3, random j=0 → swap 4 and 1 → [4,2,5,1,3]
+i=2, random j=2 → swap 5 and 5 → [4,2,5,1,3]
+i=1, random j=0 → swap 2 and 4 → [2,4,5,1,3]
+
+return [2,4,5,1,3]
+```
+
+#### Complexity
+
+- Time: **O(n)**
+- Space: **O(n)** if copying, O(1) if in-place
+
+#### Interview Notes
+
+- Fisher-Yates gives uniform distribution
+- Math.random() is not cryptographically secure
+- Can modify in-place or return new array
+
+---
+
+## Problem 63: Find the Longest Substring Without Repeating Characters
+
+Input: `"abcabcbb"`
+Output: `3` (substring `"abc"`)
+
+---
+
+### Approach: Sliding window with Set
+
+#### Thinking aloud
+
+- Use two pointers (left, right) for window.
+- Use Set to track characters in current window.
+- Expand right pointer, add character.
+- If duplicate found, move left pointer and remove from set.
+- Track maximum window size.
+
+#### Code
+
+```js
+function lengthOfLongestSubstring(s) {
+  const charSet = new Set();
+  let left = 0;
+  let maxLength = 0;
+
+  for (let right = 0; right < s.length; right++) {
+    // If duplicate found, shrink window from left
+    while (charSet.has(s[right])) {
+      charSet.delete(s[left]);
+      left++;
+    }
+
+    // Add current character to set
+    charSet.add(s[right]);
+
+    // Update max length
+    maxLength = Math.max(maxLength, right - left + 1);
+  }
+
+  return maxLength;
+}
+
+// Example usage
+console.log(lengthOfLongestSubstring("abcabcbb")); // 3
+console.log(lengthOfLongestSubstring("bbbbb")); // 1
+console.log(lengthOfLongestSubstring("pwwkew")); // 3 ("wke")
+```
+
+#### Dry Run for `"abcabcbb"`
+
+```
+right=0, 'a' not in set → add 'a', set={'a'}, max=1
+right=1, 'b' not in set → add 'b', set={'a','b'}, max=2
+right=2, 'c' not in set → add 'c', set={'a','b','c'}, max=3
+right=3, 'a' in set → remove 'a', left=1, set={'b','c'}
+           add 'a', set={'b','c','a'}, max=3
+right=4, 'b' in set → remove 'b', left=2, set={'c','a'}
+           add 'b', set={'c','a','b'}, max=3
+... continues
+return 3
+```
+
+#### Complexity
+
+- Time: **O(n)** (each character added/removed once)
+- Space: **O(min(n, alphabet size))**
+
+#### Interview Notes
+
+- Classic sliding window problem
+- Can use Map to store indices for optimization
+- Important for string manipulation interviews
+
+---
+
+## Problem 64: Implement a Simple Rate Limiter
+
+Input: Function calls, limit 5 per minute
+Output: Some calls allowed, some blocked
+
+---
+
+### Approach: Token bucket or sliding window
+
+#### Thinking aloud
+
+- Track timestamps of recent calls.
+- When new call arrives, remove timestamps older than window.
+- If count < limit, allow and add timestamp.
+- Else, block.
+
+#### Code
+
+```js
+class RateLimiter {
+  constructor(limit, windowMs) {
+    this.limit = limit; // Max calls per window
+    this.windowMs = windowMs; // Window size in milliseconds
+    this.timestamps = []; // Queue of call timestamps
+  }
+
+  tryCall() {
+    const now = Date.now();
+
+    // Remove timestamps outside current window
+    this.timestamps = this.timestamps.filter(
+      (timestamp) => now - timestamp < this.windowMs,
+    );
+
+    // Check if under limit
+    if (this.timestamps.length < this.limit) {
+      this.timestamps.push(now);
+      return { allowed: true, remaining: this.limit - this.timestamps.length };
+    } else {
+      // Calculate time until next available slot
+      const oldest = this.timestamps[0];
+      const waitTime = this.windowMs - (now - oldest);
+      return {
+        allowed: false,
+        remaining: 0,
+        retryAfter: waitTime,
+      };
+    }
+  }
+}
+
+// Example usage
+const limiter = new RateLimiter(3, 60000); // 3 calls per minute
+
+console.log(limiter.tryCall()); // { allowed: true, remaining: 2 }
+console.log(limiter.tryCall()); // { allowed: true, remaining: 1 }
+console.log(limiter.tryCall()); // { allowed: true, remaining: 0 }
+console.log(limiter.tryCall()); // { allowed: false, remaining: 0, retryAfter: ... }
+
+// Simulate time passing (in real code, this would be actual time)
+```
+
+#### Complexity
+
+- Time: **O(n)** for filtering (can optimize with queue)
+- Space: **O(limit)**
+
+#### Interview Notes
+
+- Critical for API rate limiting
+- Can implement token bucket for smoother limiting
+- Distributed rate limiting needs Redis
+
+---
+
+## Problem 65: Convert Snake Case to Camel Case
+
+Input: `"hello_world_example"`
+Output: `"helloWorldExample"`
+
+---
+
+### Approach: Split and transform
+
+#### Thinking aloud
+
+- Split string by underscore.
+- First word remains lowercase.
+- Subsequent words: capitalize first letter.
+
+#### Code
+
+```js
+function snakeToCamel(snakeStr) {
+  const words = snakeStr.split("_");
+
+  // First word as is, rest capitalized
+  const camelWords = words.map((word, index) => {
+    if (index === 0) {
+      return word;
+    }
+    return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+  });
+
+  return camelWords.join("");
+}
+
+// Example usage
+console.log(snakeToCamel("hello_world_example")); // "helloWorldExample"
+console.log(snakeToCamel("user_first_name")); // "userFirstName"
+console.log(snakeToCamel("alreadyCamel")); // "alreadyCamel" (no underscores)
+```
+
+#### Dry Run for `"hello_world_example"`
+
+```
+split('_') → ['hello', 'world', 'example']
+
+index=0: 'hello' → 'hello'
+index=1: 'world' → 'W' + 'orld' = 'World'
+index=2: 'example' → 'E' + 'xample' = 'Example'
+
+join → 'helloWorldExample'
+```
+
+#### Complexity
+
+- Time: **O(n)**
+- Space: **O(n)**
+
+#### Interview Notes
+
+- Common in API response transformations
+- Handle edge cases: multiple underscores, empty string
+- Reverse operation (camel to snake) also common
+
+---
+
+## Problem 66: Find the Majority Element (Appears More Than n/2 Times)
+
+Input: `[3, 2, 3]`
+Output: `3`
+
+Input: `[2, 2, 1, 1, 1, 2, 2]`
+Output: `2`
+
+---
+
+### Approach 1: Boyer-Moore Voting Algorithm
+
+#### Thinking aloud
+
+- Candidate selection phase: pair different elements and cancel them.
+- Verification phase: count occurrences of candidate.
+- If count > n/2, candidate is majority.
+
+#### Code
+
+```js
+function majorityElement(nums) {
+  // Boyer-Moore Majority Vote Algorithm
+  let candidate = null;
+  let count = 0;
+
+  // Phase 1: Find candidate
+  for (let num of nums) {
+    if (count === 0) {
+      candidate = num;
+      count = 1;
+    } else if (num === candidate) {
+      count++;
+    } else {
+      count--;
+    }
+  }
+
+  // Phase 2: Verify candidate
+  let occurrences = 0;
+  for (let num of nums) {
+    if (num === candidate) {
+      occurrences++;
+    }
+  }
+
+  return occurrences > nums.length / 2 ? candidate : null;
+}
+
+// Example usage
+console.log(majorityElement([3, 2, 3])); // 3
+console.log(majorityElement([2, 2, 1, 1, 1, 2, 2])); // 2
+```
+
+#### Dry Run for `[2,2,1,1,1,2,2]`
+
+```
+candidate=null, count=0
+
+2: count=0 → candidate=2, count=1
+2: num===candidate → count=2
+1: num!==candidate → count=1
+1: num!==candidate → count=0
+1: count=0 → candidate=1, count=1
+2: num!==candidate → count=0
+2: count=0 → candidate=2, count=1
+
+Verify: count 2 in array = 4 times, length=7 → 4>3.5? true → return 2
+```
+
+#### Complexity
+
+- Time: **O(n)**
+- Space: **O(1)**
+
+#### Interview Notes
+
+- Optimal O(n) time, O(1) space
+- Assumes majority element always exists
+- Verification phase handles no majority case
+
+---
+
+## Problem 67: Implement Deep Object Comparison (Deep Equal)
+
+Input:
+
+```js
+obj1 = { a: 1, b: { c: 2 } };
+obj2 = { a: 1, b: { c: 2 } };
+```
+
+Output: `true`
+
+---
+
+### Approach: Recursive comparison
+
+#### Thinking aloud
+
+- Handle primitive values with strict equality.
+- Handle null and undefined.
+- Check if both are objects.
+- Compare number of keys.
+- Recursively compare each property.
+
+#### Code
+
+```js
+function deepEqual(obj1, obj2) {
+  // Same reference or both primitives equal
+  if (obj1 === obj2) return true;
+
+  // If either is null or not object
+  if (
+    obj1 === null ||
+    obj2 === null ||
+    typeof obj1 !== "object" ||
+    typeof obj2 !== "object"
+  ) {
+    return false;
+  }
+
+  // Handle arrays
+  if (Array.isArray(obj1) !== Array.isArray(obj2)) return false;
+
+  // Get keys
+  const keys1 = Object.keys(obj1);
+  const keys2 = Object.keys(obj2);
+
+  // Different number of keys
+  if (keys1.length !== keys2.length) return false;
+
+  // Check each key
+  for (let key of keys1) {
+    if (!keys2.includes(key)) return false;
+    if (!deepEqual(obj1[key], obj2[key])) return false;
+  }
+
+  return true;
+}
+
+// Example usage
+const obj1 = { a: 1, b: { c: 2 } };
+const obj2 = { a: 1, b: { c: 2 } };
+const obj3 = { a: 1, b: { c: 3 } };
+
+console.log(deepEqual(obj1, obj2)); // true
+console.log(deepEqual(obj1, obj3)); // false
+```
+
+#### Complexity
+
+- Time: **O(n)** where n is total properties
+- Space: **O(d)** where d is depth (call stack)
+
+#### Interview Notes
+
+- Handle special objects (Date, RegExp) if needed
+- Circular references need WeakMap tracking
+- Often used in testing frameworks
+
+---
+
+## Problem 68: Generate All Permutations of a String
+
+Input: `"abc"`
+Output: `["abc", "acb", "bac", "bca", "cab", "cba"]`
+
+---
+
+### Approach: Backtracking recursion
+
+#### Thinking aloud
+
+- Base case: if current permutation length equals string length, add to results.
+- For each character not used, add to current and recurse.
+- Backtrack by removing last character.
+
+#### Code
+
+```js
+function permutations(str) {
+  const result = [];
+
+  function backtrack(current, remaining) {
+    if (current.length === str.length) {
+      result.push(current);
+      return;
+    }
+
+    for (let i = 0; i < remaining.length; i++) {
+      // Choose character
+      const char = remaining[i];
+      // Recurse with character added to current, removed from remaining
+      backtrack(current + char, remaining.slice(0, i) + remaining.slice(i + 1));
+    }
+  }
+
+  backtrack("", str);
+  return result;
+}
+
+// Example usage
+console.log(permutations("abc"));
+// ['abc', 'acb', 'bac', 'bca', 'cab', 'cba']
+```
+
+#### Dry Run for `"abc"`
+
+```
+backtrack('', 'abc')
+  i=0: char='a' → backtrack('a', 'bc')
+    i=0: char='b' → backtrack('ab', 'c')
+      i=0: char='c' → backtrack('abc', '') → push 'abc'
+    i=1: char='c' → backtrack('ac', 'b')
+      i=0: char='b' → backtrack('acb', '') → push 'acb'
+  i=1: char='b' → backtrack('b', 'ac')
+    i=0: char='a' → backtrack('ba', 'c')
+      i=0: char='c' → backtrack('bac', '') → push 'bac'
+    i=1: char='c' → backtrack('bc', 'a')
+      i=0: char='a' → backtrack('bca', '') → push 'bca'
+  i=2: char='c' → backtrack('c', 'ab')
+    i=0: char='a' → backtrack('ca', 'b')
+      i=0: char='b' → backtrack('cab', '') → push 'cab'
+    i=1: char='b' → backtrack('cb', 'a')
+      i=0: char='a' → backtrack('cba', '') → push 'cba'
+```
+
+#### Complexity
+
+- Time: **O(n!)** (n factorial)
+- Space: **O(n! \* n)** for storing results
+
+#### Interview Notes
+
+- Classic backtracking problem
+- For duplicates, use Set or skip if character same as previous
+- Can also swap characters in-place for better space
+
+---
+
+## Problem 69: Implement a Simple LRU Cache
+
+Input: Capacity 2, put(1,1), put(2,2), get(1), put(3,3)
+Output: get(1)=1, get(2)=-1 (evicted)
+
+---
+
+### Approach: Map + Doubly Linked List
+
+#### Thinking aloud
+
+- Use Map for O(1) access.
+- Maintain order with doubly linked list (most recent at head, least at tail).
+- On get: move accessed item to head.
+- On put: if exists, update and move to head; else add to head.
+- If over capacity, remove tail.
+
+#### Code (simplified with Map only - maintains insertion order)
+
+```js
+class LRUCache {
+  constructor(capacity) {
+    this.capacity = capacity;
+    this.cache = new Map(); // Maintains insertion order
+  }
+
+  get(key) {
+    if (!this.cache.has(key)) return -1;
+
+    // Get value and refresh position
+    const value = this.cache.get(key);
+    this.cache.delete(key);
+    this.cache.set(key, value); // Re-inserts at end (most recent)
+    return value;
+  }
+
+  put(key, value) {
+    // If key exists, delete it first
+    if (this.cache.has(key)) {
+      this.cache.delete(key);
+    }
+
+    // Add new key-value (will be most recent)
+    this.cache.set(key, value);
+
+    // If over capacity, remove least recently used (first item)
+    if (this.cache.size > this.capacity) {
+      const firstKey = this.cache.keys().next().value;
+      this.cache.delete(firstKey);
+    }
+  }
+}
+
+// Example usage
+const cache = new LRUCache(2);
+cache.put(1, 1);
+cache.put(2, 2);
+console.log(cache.get(1)); // 1
+cache.put(3, 3); // Evicts key 2
+console.log(cache.get(2)); // -1
+console.log(cache.get(3)); // 3
+```
+
+#### Complexity
+
+- Get: **O(1)**
+- Put: **O(1)**
+- Space: **O(capacity)**
+
+#### Interview Notes
+
+- Map maintains insertion order in JS
+- For true LRU, need to track access order
+- Interviewers may expect doubly linked list implementation
+
+---
+
+## Problem 70: Implement a Function to Check if Sudoku is Valid
+
+Input: 9x9 Sudoku board (partial)
+Output: `true` if valid, `false` otherwise
+
+---
+
+### Approach: Track seen numbers in rows, columns, boxes
+
+#### Thinking aloud
+
+- Use Sets for each row, column, and 3x3 box.
+- Iterate through each cell.
+- If cell not empty, check if number already in row/col/box Set.
+- If duplicate found, return false.
+- Add to all three Sets.
+
+#### Code
+
+```js
+function isValidSudoku(board) {
+  // Initialize Sets for rows, columns, and boxes
+  const rows = Array(9)
+    .fill()
+    .map(() => new Set());
+  const cols = Array(9)
+    .fill()
+    .map(() => new Set());
+  const boxes = Array(9)
+    .fill()
+    .map(() => new Set());
+
+  for (let i = 0; i < 9; i++) {
+    for (let j = 0; j < 9; j++) {
+      const cell = board[i][j];
+
+      if (cell !== ".") {
+        // Calculate box index (0-8)
+        const boxIndex = Math.floor(i / 3) * 3 + Math.floor(j / 3);
+
+        // Check for duplicates
+        if (
+          rows[i].has(cell) ||
+          cols[j].has(cell) ||
+          boxes[boxIndex].has(cell)
+        ) {
+          return false;
+        }
+
+        // Add to Sets
+        rows[i].add(cell);
+        cols[j].add(cell);
+        boxes[boxIndex].add(cell);
+      }
+    }
+  }
+
+  return true;
+}
+
+// Example usage
+const board = [
+  ["5", "3", ".", ".", "7", ".", ".", ".", "."],
+  ["6", ".", ".", "1", "9", "5", ".", ".", "."],
+  [".", "9", "8", ".", ".", ".", ".", "6", "."],
+  ["8", ".", ".", ".", "6", ".", ".", ".", "3"],
+  ["4", ".", ".", "8", ".", "3", ".", ".", "1"],
+  ["7", ".", ".", ".", "2", ".", ".", ".", "6"],
+  [".", "6", ".", ".", ".", ".", "2", "8", "."],
+  [".", ".", ".", "4", "1", "9", ".", ".", "5"],
+  [".", ".", ".", ".", "8", ".", ".", "7", "9"],
+];
+
+console.log(isValidSudoku(board)); // true
+```
+
+#### Complexity
+
+- Time: **O(81)** → **O(1)** (fixed board size)
+- Space: **O(81)** → **O(1)**
+
+#### Interview Notes
+
+- Box index calculation is key
+- Can use bitmasking for optimization
+- Problem tests matrix traversal and duplicate checking
+
+---
+
 ## Summary of Interview Questions Covered
 
 | Problem                         | Key Concept                      | Time Complexity |
@@ -3590,3 +5236,25 @@ join → "geksfor"
 | 48. Remove duplicates           | Set                              | O(n)            |
 | 49. Count vowels                | Loop + vowel check               | O(n)            |
 | 50. Unique characters           | Set                              | O(n)            |
+| 51. Find second largest         | Single pass tracking             | O(n)            |
+| 52. Queue with two stacks       | Stack reversal                   | O(1) amortized  |
+| 53. Missing number              | Sum formula / XOR                | O(n)            |
+| 54. Flatten nested object       | Recursive traversal              | O(n)            |
+| 55. Pub/Sub pattern             | Event emitter                    | O(m) publish    |
+| 56. Group array by property     | Reduce                           | O(n)            |
+| 57. Deep clone with circular    | WeakMap tracking                 | O(n)            |
+| 58. Balanced parentheses        | Stack                            | O(n)            |
+| 59. Pairs sum to target         | Set lookup                       | O(n)            |
+| 60. Promise with retry          | Recursive retry                  | Depends         |
+| 61. Roman to integer            | Left-to-right parsing            | O(n)            |
+| 62. Shuffle array               | Fisher-Yates                     | O(n)            |
+| 63. Longest substring           | Sliding window                   | O(n)            |
+| 64. Rate limiter                | Timestamp queue                  | O(n)            |
+| 65. Snake to camel case         | Split and map                    | O(n)            |
+| 66. Majority element            | Boyer-Moore voting               | O(n)            |
+| 67. Deep equal                  | Recursive comparison             | O(n)            |
+| 68. String permutations         | Backtracking                     | O(n!)           |
+| 69. LRU cache                   | Map + order tracking             | O(1)            |
+| 70. Valid Sudoku                | Set tracking                     | O(1)            |
+
+---
