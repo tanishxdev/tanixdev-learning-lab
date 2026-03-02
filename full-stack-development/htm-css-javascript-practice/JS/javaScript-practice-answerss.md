@@ -9885,3 +9885,1364 @@ setInterval(() => scheduler.checkUpcoming(), 30000); // Check every 30 seconds
 ```
 
 ---
+
+# 23 - String
+
+## Conceptual Understanding
+
+1. **What is a string in JavaScript?**
+   - A sequence of characters used to represent text, enclosed in quotes (single, double, or backticks).
+
+2. **How are strings represented internally in JavaScript?**
+   - As sequences of UTF-16 code units, each typically 16 bits, stored in a contiguous memory location.
+
+3. **Are strings primitive or reference types?**
+   - Primitive types, but they have object-like behavior due to temporary wrapper objects when methods are called.
+
+4. **What is difference between string primitive and String object?**
+   - String primitive: `"hello"` - primitive value, lightweight
+   - String object: `new String("hello")` - object wrapper, rarely used, can cause confusion
+
+5. **How do you create a string in JavaScript?**
+   - Using quotes: `'single'`, `"double"`, or backticks `` `template` ``
+   - Using String constructor: `String(123)` or `new String("text")`
+
+6. **What is difference between single quotes, double quotes, and backticks?**
+   - Single/double quotes: functionally identical, no interpolation
+   - Backticks: template literals with interpolation, multi-line support
+
+7. **What are template literals?**
+   - Strings enclosed in backticks that support interpolation `${expression}` and multi-line strings.
+
+8. **Why are strings immutable in JavaScript?**
+   - For performance optimization, security, and simpler memory management; once created, string cannot be changed.
+
+9. **What does immutability mean in context of strings?**
+   - Any operation that appears to modify string actually creates new string; original unchanged.
+
+10. **What happens when you try to modify a character in a string?**
+    - Fails silently (no error) but doesn't change string; assignment ignored in non-strict mode.
+
+11. **How does JavaScript handle Unicode characters in strings?**
+    - Uses UTF-16 encoding; characters outside basic multilingual plane represented as surrogate pairs.
+
+12. **What is UTF-16 encoding?**
+    - Variable-length encoding where most characters use 2 bytes, some use 4 bytes (surrogate pairs).
+
+13. **What is difference between length and actual character count?**
+    - `length` counts UTF-16 code units, not characters; emoji or special chars may count as 2.
+
+14. **What are escape characters in strings?**
+    - Special sequences starting with backslash: `\n` (newline), `\t` (tab), `\\` (backslash), `\'` (quote), `\"` (double quote)
+
+15. **What is difference between `\n`, `\t`, and `\\`?**
+    - `\n`: newline (line break)
+    - `\t`: tab (horizontal tab)
+    - `\\`: actual backslash character
+
+16. **What happens if string contains special characters?**
+    - They can be escaped or used directly depending on context.
+
+17. **Can strings span multiple lines?**
+    - With regular quotes: no (needs `\n` or concatenation)
+    - With backticks: yes, directly
+
+18. **What is string interpolation?**
+    - Embedding expressions inside template literals using `${expression}` syntax.
+
+19. **What is string coercion?**
+    - Automatic conversion of non-string values to strings when needed (e.g., in concatenation).
+
+20. **How does JavaScript convert number to string automatically?**
+    - When using `+` with string, or in contexts expecting string, number converted to string representation.
+
+## String Properties & Basics
+
+21. **What is `length` property of string?**
+    - Returns number of UTF-16 code units in string.
+
+22. **Is `length` a method or property?**
+    - Property (no parentheses).
+
+23. **Can length be changed manually?**
+    - No, it's read-only; attempts to assign ignored in non-strict, error in strict.
+
+24. **What is indexing in strings?**
+    - Accessing individual characters using zero-based index in brackets.
+
+25. **How do you access character using bracket notation?**
+    - `str[index]` returns character at that index or undefined.
+
+26. **What is difference between `str[0]` and `str.charAt(0)`?**
+    - Both return character at index 0
+    - `str[0]`: returns undefined for out-of-range
+    - `charAt()`: returns empty string for out-of-range
+
+27. **What happens if index is out of range?**
+    - Bracket notation: returns `undefined`
+    - `charAt()`: returns empty string `""`
+
+28. **Are negative indexes allowed in strings?**
+    - Bracket notation: no, returns undefined
+    - `slice()`: yes, counts from end
+
+29. **What does `str.at()` do?**
+    - Modern method (ES2022) that accepts negative indexes, returns character or undefined.
+
+30. **What is difference between `charCodeAt()` and `codePointAt()`?**
+    - `charCodeAt()`: returns UTF-16 code unit (0-65535)
+    - `codePointAt()`: returns full Unicode code point, handles surrogate pairs
+
+## String Methods (Search & Check)
+
+31. **What does `includes()` do?**
+    - Returns boolean if substring found in string.
+
+32. **What does `indexOf()` return?**
+    - Returns first index of substring, or -1 if not found.
+
+33. **What does `lastIndexOf()` return?**
+    - Returns last index of substring, searching from end.
+
+34. **What does `startsWith()` do?**
+    - Checks if string starts with specified substring.
+
+35. **What does `endsWith()` do?**
+    - Checks if string ends with specified substring.
+
+36. **What does `search()` do?**
+    - Like `indexOf()` but accepts regular expression.
+
+37. **What is difference between `includes()` and `indexOf()`?**
+    - `includes()`: returns boolean
+    - `indexOf()`: returns index or -1
+
+38. **What is difference between `match()` and `search()`?**
+    - `search()`: returns index of first match
+    - `match()`: returns array of matches or null
+
+39. **What happens if substring is not found?**
+    - `indexOf()`/`lastIndexOf()`: returns -1
+    - `includes()`/`startsWith()`/`endsWith()`: returns false
+
+40. **Are string search methods case-sensitive?**
+    - Yes, by default all are case-sensitive.
+
+## String Methods (Extraction)
+
+41. **What does `slice()` do?**
+    - Extracts section of string and returns new string (start inclusive, end exclusive).
+
+42. **What is difference between `slice()` and `substring()`?**
+    - Both extract substring
+    - `slice()`: accepts negative indexes (counts from end)
+    - `substring()`: treats negative as 0
+
+43. **Can `slice()` accept negative indexes?**
+    - Yes, negative counts from end.
+
+44. **What does `substr()` do?**
+    - Extracts substring of given length from start index (deprecated, not recommended).
+
+45. **Why is `substr()` deprecated?**
+    - Legacy function, not part of core ECMAScript, inconsistent behavior.
+
+46. **What happens if start index > end index in substring?**
+    - `substring()` swaps them to ensure start ≤ end.
+
+47. **What happens if negative values are used in substring?**
+    - Treated as 0.
+
+48. **Does extraction method modify original string?**
+    - No, strings are immutable; returns new string.
+
+49. **What is shallow vs deep copy in string extraction?**
+    - Strings are primitive, so extraction creates new independent string.
+
+50. **Which extraction method is safest to use?**
+    - `slice()` - most predictable, supports negative indexes.
+
+## String Methods (Modification)
+
+51. **What does `toUpperCase()` do?**
+    - Returns new string with all characters converted to uppercase.
+
+52. **What does `toLowerCase()` do?**
+    - Returns new string with all characters converted to lowercase.
+
+53. **What does `trim()` do?**
+    - Removes whitespace from both ends of string.
+
+54. **What is difference between `trim()`, `trimStart()`, and `trimEnd()`?**
+    - `trim()`: both ends
+    - `trimStart()`: beginning only
+    - `trimEnd()`: end only
+
+55. **What does `replace()` do?**
+    - Replaces first occurrence of substring/pattern with replacement.
+
+56. **What is difference between `replace()` and `replaceAll()`?**
+    - `replace()`: replaces first match only (unless regex with global flag)
+    - `replaceAll()`: replaces all matches
+
+57. **What does `split()` do?**
+    - Splits string into array of substrings based on separator.
+
+58. **What does `concat()` do?**
+    - Joins strings together (similar to + operator).
+
+59. **What does `repeat()` do?**
+    - Returns new string repeated specified number of times.
+
+60. **Do string modification methods mutate original string?**
+    - No, all return new strings; original unchanged.
+
+## Template Literals & Advanced Concepts
+
+61. **What are template literals?**
+    - Strings enclosed in backticks with interpolation and multi-line support.
+
+62. **What is `${}` syntax called?**
+    - Template literal interpolation or expression embedding.
+
+63. **Can expressions be used inside template literals?**
+    - Yes, any JavaScript expression can be inside `${}`.
+
+64. **What are tagged template literals?**
+    - Template literal with function tag that processes template parts.
+
+65. **What is multi-line string using backticks?**
+    - Strings that span multiple lines without needing `\n`.
+
+66. **What is difference between string concatenation and interpolation?**
+    - Concatenation: `"Hello " + name`
+    - Interpolation: `` `Hello ${name}` `` (cleaner, more readable)
+
+67. **What is raw string in template literals?**
+    - Access with `String.raw` - treats backslashes as literal characters.
+
+68. **How are template literals helpful in HTML generation?**
+    - Easy embedding of variables and multi-line HTML structures.
+
+69. **What are security risks with template literals?**
+    - XSS if interpolating user input without sanitization.
+
+70. **Can template literals evaluate functions inside?**
+    - Yes, any expression including function calls.
+
+## Debug Thinking
+
+71. **What is output of:**
+
+```js
+let str = "hello";
+str[0] = "H";
+console.log(str);
+```
+
+- `"hello"` (strings immutable, assignment ignored)
+
+72. **What is output of:**
+
+```js
+console.log("5" + 2);
+```
+
+- `"52"` (string concatenation)
+
+73. **What is output of:**
+
+```js
+console.log("5" - 2);
+```
+
+- `3` (numeric conversion for subtraction)
+
+74. **What is output of:**
+
+```js
+console.log("abc".length);
+```
+
+- `3`
+
+75. **What is output of:**
+
+```js
+console.log("hello".slice(-2));
+```
+
+- `"lo"` (last 2 characters)
+
+76. **What is output of:**
+
+```js
+console.log("hello".substring(-2));
+```
+
+- `"hello"` (negative treated as 0)
+
+77. **What is output of:**
+
+```js
+console.log("hello".indexOf("z"));
+```
+
+- `-1`
+
+78. **What is output of:**
+
+```js
+console.log("hello".includes("he"));
+```
+
+- `true`
+
+79. **What is output of:**
+
+```js
+console.log("Hello".toLowerCase());
+```
+
+- `"hello"`
+
+80. **Why does this not work?**
+
+```js
+let str = "abc";
+str += "d";
+```
+
+- It does work - `str` becomes `"abcd"` (new string created, original not mutated)
+
+## Coding Practice (Basic to Advanced)
+
+81. **Write a function to reverse a string.**
+
+```js
+function reverseString(str) {
+  let reversed = "";
+  for (let i = str.length - 1; i >= 0; i--) {
+    reversed += str[i];
+  }
+  return reversed;
+}
+console.log(reverseString("hello")); // "olleh"
+```
+
+82. **Write a function to check if string is palindrome.**
+
+```js
+function isPalindrome(str) {
+  str = str.toLowerCase().replace(/[^a-z0-9]/g, "");
+  let left = 0,
+    right = str.length - 1;
+  while (left < right) {
+    if (str[left] !== str[right]) return false;
+    left++;
+    right--;
+  }
+  return true;
+}
+console.log(isPalindrome("racecar")); // true
+console.log(isPalindrome("A man, a plan, a canal: Panama")); // true
+```
+
+83. **Write a function to count vowels in string.**
+
+```js
+function countVowels(str) {
+  const vowels = "aeiouAEIOU";
+  let count = 0;
+  for (let char of str) {
+    if (vowels.includes(char)) count++;
+  }
+  return count;
+}
+console.log(countVowels("Hello World")); // 3
+```
+
+84. **Write a function to capitalize first letter.**
+
+```js
+function capitalizeFirst(str) {
+  if (!str) return str;
+  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+}
+console.log(capitalizeFirst("hello")); // "Hello"
+console.log(capitalizeFirst("hELLO")); // "Hello"
+```
+
+85. **Write a function to convert string to title case.**
+
+```js
+function toTitleCase(str) {
+  return str
+    .toLowerCase()
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+}
+console.log(toTitleCase("hello world from javascript")); // "Hello World From Javascript"
+```
+
+86. **Write a function to remove all spaces from string.**
+
+```js
+function removeSpaces(str) {
+  let result = "";
+  for (let char of str) {
+    if (char !== " ") result += char;
+  }
+  return result;
+}
+console.log(removeSpaces("Hello World JavaScript")); // "HelloWorldJavaScript"
+```
+
+87. **Write a function to check if string contains only digits.**
+
+```js
+function isNumeric(str) {
+  for (let char of str) {
+    if (char < "0" || char > "9") return false;
+  }
+  return str.length > 0;
+}
+console.log(isNumeric("12345")); // true
+console.log(isNumeric("123a5")); // false
+```
+
+88. **Write a function to count frequency of characters.**
+
+```js
+function charFrequency(str) {
+  const freq = {};
+  for (let char of str) {
+    freq[char] = (freq[char] || 0) + 1;
+  }
+  return freq;
+}
+console.log(charFrequency("hello")); // {h:1, e:1, l:2, o:1}
+```
+
+89. **Write a function to remove duplicate characters.**
+
+```js
+function removeDuplicates(str) {
+  let result = "";
+  for (let char of str) {
+    if (!result.includes(char)) {
+      result += char;
+    }
+  }
+  return result;
+}
+console.log(removeDuplicates("hello")); // "helo"
+```
+
+90. **Write a function to check anagram.**
+
+```js
+function areAnagrams(str1, str2) {
+  const clean = (s) =>
+    s
+      .toLowerCase()
+      .replace(/[^a-z]/g, "")
+      .split("")
+      .sort()
+      .join("");
+  return clean(str1) === clean(str2);
+}
+console.log(areAnagrams("listen", "silent")); // true
+console.log(areAnagrams("hello", "world")); // false
+```
+
+91. **Write a function to truncate string to given length.**
+
+```js
+function truncate(str, maxLength, suffix = "...") {
+  if (str.length <= maxLength) return str;
+  return str.slice(0, maxLength - suffix.length) + suffix;
+}
+console.log(truncate("This is a long sentence", 10)); // "This is..."
+```
+
+92. **Write a function to mask email string.**
+
+```js
+function maskEmail(email) {
+  const [local, domain] = email.split("@");
+  if (local.length <= 2) return email;
+  const masked =
+    local[0] + "*".repeat(local.length - 2) + local[local.length - 1];
+  return `${masked}@${domain}`;
+}
+console.log(maskEmail("john.doe@example.com")); // "j********e@example.com"
+```
+
+93. **Write a function to format phone number.**
+
+```js
+function formatPhoneNumber(phone) {
+  const digits = phone.replace(/\D/g, "");
+  if (digits.length === 10) {
+    return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
+  }
+  return phone;
+}
+console.log(formatPhoneNumber("1234567890")); // "(123) 456-7890"
+```
+
+94. **Write a function to compress string (basic idea).**
+
+```js
+function compressString(str) {
+  let result = "";
+  let count = 1;
+  for (let i = 0; i < str.length; i++) {
+    if (str[i] === str[i + 1]) {
+      count++;
+    } else {
+      result += str[i] + (count > 1 ? count : "");
+      count = 1;
+    }
+  }
+  return result;
+}
+console.log(compressString("aabcccccaaa")); // "a2b1c5a3"
+```
+
+95. **Write a function to convert snake_case to camelCase.**
+
+```js
+function snakeToCamel(str) {
+  return str.replace(/_([a-z])/g, (_, letter) => letter.toUpperCase());
+}
+console.log(snakeToCamel("hello_world_example")); // "helloWorldExample"
+```
+
+96. **Write a function to convert camelCase to snake_case.**
+
+```js
+function camelToSnake(str) {
+  return str.replace(/[A-Z]/g, (letter) => `_${letter.toLowerCase()}`);
+}
+console.log(camelToSnake("helloWorldExample")); // "hello_world_example"
+```
+
+97. **Write a function to validate strong password.**
+
+```js
+function validatePassword(password) {
+  if (password.length < 8) return "Too short";
+  if (!/[A-Z]/.test(password)) return "Need uppercase";
+  if (!/[a-z]/.test(password)) return "Need lowercase";
+  if (!/[0-9]/.test(password)) return "Need number";
+  if (!/[!@#$%^&*]/.test(password)) return "Need special character";
+  return "Valid";
+}
+console.log(validatePassword("Pass123!")); // "Valid"
+console.log(validatePassword("pass123")); // "Need uppercase"
+```
+
+98. **Write a function to generate random string.**
+
+```js
+function randomString(length) {
+  const chars =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  let result = "";
+  for (let i = 0; i < length; i++) {
+    result += chars[Math.floor(Math.random() * chars.length)];
+  }
+  return result;
+}
+console.log(randomString(8)); // e.g., "aB3xK9pQ"
+```
+
+99. **Write a function to check substring occurrence count.**
+
+```js
+function countOccurrences(str, substr) {
+  let count = 0;
+  let pos = str.indexOf(substr);
+  while (pos !== -1) {
+    count++;
+    pos = str.indexOf(substr, pos + 1);
+  }
+  return count;
+}
+console.log(countOccurrences("hello hello world hello", "hello")); // 3
+```
+
+100. **Build small text analyzer using string methods.**
+
+```js
+function textAnalyzer(text) {
+  const words = text.trim().split(/\s+/);
+  const sentences = text.split(/[.!?]+/).filter((s) => s.trim().length > 0);
+
+  return {
+    characters: text.length,
+    charactersNoSpaces: text.replace(/\s/g, "").length,
+    words: words.length,
+    sentences: sentences.length,
+    longestWord: words.reduce((a, b) => (a.length >= b.length ? a : b), ""),
+    averageWordLength: (
+      words.reduce((sum, w) => sum + w.length, 0) / words.length
+    ).toFixed(2),
+    letterFrequency: (() => {
+      const freq = {};
+      for (let char of text.toLowerCase()) {
+        if (char >= "a" && char <= "z") {
+          freq[char] = (freq[char] || 0) + 1;
+        }
+      }
+      return freq;
+    })(),
+    reversed: text.split("").reverse().join(""),
+    isPalindrome: (() => {
+      const clean = text.toLowerCase().replace(/[^a-z0-9]/g, "");
+      return clean === clean.split("").reverse().join("");
+    })(),
+  };
+}
+const analysis = textAnalyzer("Hello world! This is JavaScript. It's awesome.");
+console.log(analysis);
+```
+
+# 24 - Set
+
+## Conceptual Understanding
+
+1. **What is Set in JavaScript?**
+   - A built-in object that stores unique values of any type, whether primitive values or object references.
+
+2. **Why was Set introduced in ES6?**
+   - To provide a standard way to store unique values and perform set operations efficiently.
+
+3. **What problem does Set solve compared to arrays?**
+   - Arrays can have duplicates and checking uniqueness requires manual code; Set automatically enforces uniqueness.
+
+4. **How does Set store values internally?**
+   - Uses hash-like mechanism for O(1) average lookup, insertion, and deletion.
+
+5. **Does Set allow duplicate values?**
+   - No, each value can appear only once; duplicates are ignored.
+
+6. **How does Set determine uniqueness?**
+   - Uses SameValueZero algorithm (similar to `===` but treats `NaN` as equal to itself).
+
+7. **Is Set ordered or unordered?**
+   - Ordered - values are iterated in insertion order.
+
+8. **What is insertion order in Set?**
+   - Values are iterated in the order they were added.
+
+9. **What is difference between Set and Array?**
+   - Set: unique values, no indexing, O(1) lookup
+   - Array: can have duplicates, indexed, O(n) lookup for includes()
+
+10. **What is difference between Set and Object?**
+    - Set: values only, iterable, maintains insertion order
+    - Object: key-value pairs, keys are strings/symbols
+
+11. **Can Set store different data types?**
+    - Yes, mixed types allowed (numbers, strings, objects, etc.)
+
+12. **Can Set store objects?**
+    - Yes, objects are stored by reference; two different objects are considered unique even if identical.
+
+13. **How does Set compare object references?**
+    - Uses reference equality; two different objects with same properties are different values.
+
+14. **Is Set iterable?**
+    - Yes, implements iterable protocol, can use `for...of`, spread, etc.
+
+15. **Is Set mutable?**
+    - Yes, can add, delete, and clear values.
+
+16. **What is time complexity of basic Set operations?**
+    - `add`, `delete`, `has`: O(1) average
+    - Iteration: O(n)
+
+17. **When should you prefer Set over Array?**
+    - When need to ensure uniqueness, frequent membership testing, or remove duplicates.
+
+18. **Can Set be nested?**
+    - Not directly nested, but can store arrays/objects that contain other Sets.
+
+19. **What is WeakSet?**
+    - Set variant that holds objects weakly, allowing garbage collection.
+
+20. **What is difference between Set and WeakSet?**
+    - WeakSet: only objects, no iteration, no size, garbage-collected references.
+
+## Creating and Initializing Set
+
+21. **How do you create a new Set?**
+    - `new Set()` creates empty Set.
+
+22. **How do you initialize Set with values?**
+    - Pass iterable to constructor: `new Set([1,2,3])`
+
+23. **What happens if duplicate values are passed during initialization?**
+    - Duplicates ignored; only first occurrence kept.
+
+24. **What is output of `new Set([1,1,2,3])`?**
+    - Set with values `{1,2,3}` (size 3)
+
+25. **Can you create empty Set?**
+    - Yes, `new Set()`
+
+26. **What happens if you pass string to Set constructor?**
+    - String is iterable; creates Set of characters: `new Set("hello")` → `{'h','e','l','o'}`
+
+27. **How to convert array into Set?**
+    - `const set = new Set(array)`
+
+28. **How to convert Set back to array?**
+    - `Array.from(set)` or `[...set]`
+
+29. **Can Set accept another Set inside it?**
+    - Can add entire Set as value, but it becomes single element (the Set object), not its values.
+
+30. **What happens if null or undefined is passed?**
+    - TypeError (null/undefined not iterable).
+
+## Set Methods
+
+31. **What does `add()` do?**
+    - Adds value to Set; returns Set object (chainable).
+
+32. **What does `delete()` do?**
+    - Removes value; returns true if existed, false otherwise.
+
+33. **What does `has()` do?**
+    - Returns boolean if value exists.
+
+34. **What does `clear()` do?**
+    - Removes all values from Set.
+
+35. **What does `size` property represent?**
+    - Number of values in Set.
+
+36. **Is `size` a method or property?**
+    - Property (no parentheses), read-only.
+
+37. **Does `add()` return anything?**
+    - Returns the Set object (allows chaining).
+
+38. **What happens if you add duplicate value?**
+    - No effect; Set unchanged.
+
+39. **What is return value of `delete()`?**
+    - Boolean: true if value existed and removed, false otherwise.
+
+40. **Does `clear()` return anything?**
+    - Returns undefined.
+
+## Iteration in Set
+
+41. **How to iterate over Set?**
+    - `for...of`, `forEach()`, or use iterator methods.
+
+42. **Can you use `for...of` with Set?**
+    - Yes, Set is iterable.
+
+43. **What does `forEach()` do in Set?**
+    - Executes callback for each value (value, value, set) - value appears twice for Map compatibility.
+
+44. **What are parameters of Set `forEach()` callback?**
+    - (value, value, set) - same value twice for consistency with Map.
+
+45. **What does `values()` return?**
+    - Iterator for Set values.
+
+46. **What does `keys()` return in Set?**
+    - Same as `values()` (for compatibility with Map).
+
+47. **Why does `keys()` behave same as `values()` in Set?**
+    - For API consistency with Map; Set has no keys, just values.
+
+48. **What does `entries()` return?**
+    - Iterator of `[value, value]` pairs.
+
+49. **What is structure of entry in Set?**
+    - Array `[value, value]` (both elements same).
+
+50. **Can you use spread operator with Set?**
+    - Yes, `[...set]` converts to array.
+
+## Set Operations (Logical Operations)
+
+51. **How to perform union of two sets?**
+    - `new Set([...set1, ...set2])`
+
+52. **How to perform intersection of two sets?**
+    - `new Set([...set1].filter(x => set2.has(x)))`
+
+53. **How to perform difference between two sets?**
+    - `new Set([...set1].filter(x => !set2.has(x)))`
+
+54. **How to check if one set is subset of another?**
+    - `[...subset].every(x => superset.has(x))`
+
+55. **How to remove duplicates from array using Set?**
+    - `[...new Set(array)]`
+
+56. **How to merge two arrays using Set?**
+    - `[...new Set([...arr1, ...arr2])]`
+
+57. **How to count unique elements using Set?**
+    - `new Set(array).size`
+
+58. **How to check if Set is empty?**
+    - `set.size === 0`
+
+59. **Can Set store NaN?**
+    - Yes, NaN is treated as equal to itself (unlike `===`).
+
+60. **Can Set differentiate between +0 and -0?**
+    - No, they are considered equal (SameValueZero algorithm).
+
+## WeakSet
+
+61. **What is WeakSet?**
+    - Set-like collection that holds objects weakly, allowing garbage collection.
+
+62. **What type of values can WeakSet store?**
+    - Only objects (not primitives).
+
+63. **Does WeakSet allow primitive values?**
+    - No, throws TypeError if primitive added.
+
+64. **Why WeakSet does not have size property?**
+    - Because contents could be garbage collected at any time, size would be unreliable.
+
+65. **Why WeakSet is not iterable?**
+    - Due to non-deterministic garbage collection; iteration would be unreliable.
+
+66. **What is garbage collection behavior in WeakSet?**
+    - Objects can be garbage collected if no other references exist; automatically removed from WeakSet.
+
+67. **When should WeakSet be used?**
+    - For tracking objects without preventing garbage collection (e.g., marking objects as visited).
+
+68. **What methods does WeakSet support?**
+    - `add()`, `delete()`, `has()` only.
+
+69. **Can WeakSet be cleared manually?**
+    - No `clear()` method; must delete individually or rely on garbage collection.
+
+70. **What is difference between WeakSet and WeakMap?**
+    - WeakSet: collection of objects only
+    - WeakMap: collection of key-value pairs with object keys
+
+## Debug Thinking
+
+71. **What is output of:**
+
+```js
+const s = new Set([1, 2, 2, 3]);
+console.log(s.size);
+```
+
+- `3` (duplicates removed)
+
+72. **What is output of:**
+
+```js
+const s = new Set();
+s.add(1);
+s.add(1);
+console.log(s);
+```
+
+- `Set {1}` (duplicate ignored)
+
+73. **What is output of:**
+
+```js
+const s = new Set("hello");
+console.log(s);
+```
+
+- `Set {'h','e','l','o'}` (duplicate l removed)
+
+74. **What is output of:**
+
+```js
+const s = new Set([NaN, NaN]);
+console.log(s.size);
+```
+
+- `1` (NaN equals NaN in Set)
+
+75. **What happens if you try:**
+
+```js
+const ws = new WeakSet();
+ws.add(1);
+```
+
+- `TypeError: Invalid value used in weak set`
+
+76. **What is output of:**
+
+```js
+const s = new Set([{ a: 1 }, { a: 1 }]);
+console.log(s.size);
+```
+
+- `2` (different object references)
+
+77. **What happens if you delete non-existing value from Set?**
+
+- Returns `false`, Set unchanged.
+
+78. **Does Set maintain order after deletion and addition?**
+
+- Yes, insertion order preserved; new values added at end.
+
+79. **What is output of:**
+
+```js
+const s = new Set([1, 2, 3]);
+console.log([...s]);
+```
+
+- `[1,2,3]`
+
+80. **What happens if you compare two Sets using `===`?**
+
+- Compares references, not contents; `false` unless same object.
+
+## Coding Practice (Basic to Advanced)
+
+81. **Create a Set and add 5 unique values.**
+
+```js
+const set = new Set();
+set.add(10);
+set.add(20);
+set.add(30);
+set.add(40);
+set.add(50);
+console.log(set); // Set {10,20,30,40,50}
+```
+
+82. **Remove duplicate values from an array using Set.**
+
+```js
+const arr = [1, 2, 2, 3, 3, 3, 4, 5, 5];
+const unique = [...new Set(arr)];
+console.log(unique); // [1,2,3,4,5]
+```
+
+83. **Write a function to check if array has duplicates using Set.**
+
+```js
+function hasDuplicates(arr) {
+  return new Set(arr).size !== arr.length;
+}
+console.log(hasDuplicates([1, 2, 3, 4])); // false
+console.log(hasDuplicates([1, 2, 2, 3])); // true
+```
+
+84. **Write a function to find union of two arrays using Set.**
+
+```js
+function union(arr1, arr2) {
+  return [...new Set([...arr1, ...arr2])];
+}
+console.log(union([1, 2, 3], [2, 3, 4])); // [1,2,3,4]
+```
+
+85. **Write a function to find intersection of two arrays using Set.**
+
+```js
+function intersection(arr1, arr2) {
+  const set2 = new Set(arr2);
+  return [...new Set(arr1.filter((x) => set2.has(x)))];
+}
+console.log(intersection([1, 2, 3, 4], [3, 4, 5, 6])); // [3,4]
+```
+
+86. **Write a function to find difference between two arrays using Set.**
+
+```js
+function difference(arr1, arr2) {
+  const set2 = new Set(arr2);
+  return [...new Set(arr1.filter((x) => !set2.has(x)))];
+}
+console.log(difference([1, 2, 3, 4], [3, 4, 5, 6])); // [1,2]
+```
+
+87. **Write a function to count unique characters in string using Set.**
+
+```js
+function countUniqueChars(str) {
+  return new Set(str).size;
+}
+console.log(countUniqueChars("hello")); // 4
+console.log(countUniqueChars("javascript")); // 9
+```
+
+88. **Write a function to check if two arrays have common elements using Set.**
+
+```js
+function haveCommonElements(arr1, arr2) {
+  const set1 = new Set(arr1);
+  return arr2.some((x) => set1.has(x));
+}
+console.log(haveCommonElements([1, 2, 3], [4, 5, 6])); // false
+console.log(haveCommonElements([1, 2, 3], [3, 4, 5])); // true
+```
+
+89. **Write a function to remove duplicates from string using Set.**
+
+```js
+function removeDuplicateChars(str) {
+  return [...new Set(str)].join("");
+}
+console.log(removeDuplicateChars("hello")); // "helo"
+```
+
+90. **Convert Set to array and sort it.**
+
+```js
+const set = new Set([5, 2, 8, 1, 9, 3]);
+const sorted = [...set].sort((a, b) => a - b);
+console.log(sorted); // [1,2,3,5,8,9]
+```
+
+91. **Implement simple tag manager using Set.**
+
+```js
+function createTagManager() {
+  const tags = new Set();
+
+  return {
+    add(tag) {
+      tags.add(tag.toLowerCase());
+      return this;
+    },
+    remove(tag) {
+      return tags.delete(tag.toLowerCase());
+    },
+    has(tag) {
+      return tags.has(tag.toLowerCase());
+    },
+    getAll() {
+      return [...tags];
+    },
+    clear() {
+      tags.clear();
+    },
+    count() {
+      return tags.size;
+    },
+  };
+}
+const manager = createTagManager();
+manager.add("JavaScript").add("React").add("javascript");
+console.log(manager.getAll()); // ["javascript", "react"]
+```
+
+92. **Implement visited nodes tracker using Set (basic idea).**
+
+```js
+function createGraphTraversal() {
+  const visited = new Set();
+
+  return {
+    visit(node) {
+      visited.add(node);
+      console.log(`Visiting: ${node}`);
+    },
+    isVisited(node) {
+      return visited.has(node);
+    },
+    getVisited() {
+      return [...visited];
+    },
+    clear() {
+      visited.clear();
+    },
+    bfs(start, graph) {
+      const queue = [start];
+      this.visit(start);
+
+      while (queue.length > 0) {
+        const current = queue.shift();
+        for (const neighbor of graph[current] || []) {
+          if (!this.isVisited(neighbor)) {
+            this.visit(neighbor);
+            queue.push(neighbor);
+          }
+        }
+      }
+    },
+  };
+}
+const graph = {
+  A: ["B", "C"],
+  B: ["A", "D", "E"],
+  C: ["A", "F"],
+  D: ["B"],
+  E: ["B", "F"],
+  F: ["C", "E"],
+};
+const traversal = createGraphTraversal();
+traversal.bfs("A", graph);
+console.log(traversal.getVisited()); // ['A','B','C','D','E','F']
+```
+
+93. **Implement simple permission system using Set.**
+
+```js
+function createUserPermissions() {
+  const permissions = new Set();
+
+  return {
+    grant(permission) {
+      permissions.add(permission);
+      return this;
+    },
+    revoke(permission) {
+      permissions.delete(permission);
+      return this;
+    },
+    has(permission) {
+      return permissions.has(permission);
+    },
+    hasAll(requiredPermissions) {
+      return requiredPermissions.every((p) => permissions.has(p));
+    },
+    hasAny(requiredPermissions) {
+      return requiredPermissions.some((p) => permissions.has(p));
+    },
+    list() {
+      return [...permissions];
+    },
+  };
+}
+const user = createUserPermissions()
+  .grant("read")
+  .grant("write")
+  .grant("delete");
+
+console.log(user.has("read")); // true
+console.log(user.hasAll(["read", "write"])); // true
+console.log(user.hasAny(["admin", "write"])); // true
+```
+
+94. **Build unique email collector using Set.**
+
+```js
+function emailCollector() {
+  const emails = new Set();
+
+  return {
+    add(email) {
+      if (email.includes("@") && email.includes(".")) {
+        emails.add(email.toLowerCase());
+        return true;
+      }
+      return false;
+    },
+    addMultiple(emailList) {
+      let added = 0;
+      for (const email of emailList) {
+        if (this.add(email)) added++;
+      }
+      return added;
+    },
+    remove(email) {
+      return emails.delete(email.toLowerCase());
+    },
+    has(email) {
+      return emails.has(email.toLowerCase());
+    },
+    getAll() {
+      return [...emails];
+    },
+    count() {
+      return emails.size;
+    },
+    clear() {
+      emails.clear();
+    },
+  };
+}
+const collector = emailCollector();
+collector.add("john@example.com");
+collector.add("JOHN@example.com"); // duplicate
+collector.addMultiple(["alice@test.com", "bob@test.com", "invalid"]);
+console.log(collector.getAll());
+// ['john@example.com', 'alice@test.com', 'bob@test.com']
+```
+
+95. **Write function to check subset relation between two Sets.**
+
+```js
+function isSubset(subset, superset) {
+  for (const item of subset) {
+    if (!superset.has(item)) return false;
+  }
+  return true;
+}
+const setA = new Set([1, 2, 3]);
+const setB = new Set([1, 2, 3, 4, 5]);
+const setC = new Set([1, 2, 6]);
+
+console.log(isSubset(setA, setB)); // true
+console.log(isSubset(setC, setB)); // false
+```
+
+96. **Write function to toggle value in Set.**
+
+```js
+function toggleSet(set, value) {
+  if (set.has(value)) {
+    set.delete(value);
+    return false;
+  } else {
+    set.add(value);
+    return true;
+  }
+}
+const mySet = new Set([1, 2, 3]);
+toggleSet(mySet, 2); // returns false, set now [1,3]
+toggleSet(mySet, 4); // returns true, set now [1,3,4]
+```
+
+97. **Build small cache using Set (basic idea).**
+
+```js
+function createCache(maxSize = 10) {
+  const cache = new Set();
+
+  return {
+    add(item) {
+      if (cache.size >= maxSize) {
+        const first = cache.values().next().value;
+        cache.delete(first);
+      }
+      cache.add(item);
+    },
+    has(item) {
+      return cache.has(item);
+    },
+    delete(item) {
+      return cache.delete(item);
+    },
+    clear() {
+      cache.clear();
+    },
+    getItems() {
+      return [...cache];
+    },
+    getSize() {
+      return cache.size;
+    },
+  };
+}
+const cache = createCache(3);
+cache.add("a");
+cache.add("b");
+cache.add("c");
+cache.add("d"); // removes 'a'
+console.log(cache.getItems()); // ['b','c','d']
+```
+
+98. **Write function to merge multiple arrays into unique array using Set.**
+
+```js
+function mergeUnique(...arrays) {
+  return [...new Set(arrays.flat())];
+}
+console.log(mergeUnique([1, 2], [2, 3], [3, 4], [4, 5])); // [1,2,3,4,5]
+```
+
+99. **Write function to compare two Sets for equality.**
+
+```js
+function setsEqual(set1, set2) {
+  if (set1.size !== set2.size) return false;
+  for (const item of set1) {
+    if (!set2.has(item)) return false;
+  }
+  return true;
+}
+const set1 = new Set([1, 2, 3]);
+const set2 = new Set([3, 2, 1]);
+const set3 = new Set([1, 2, 3, 4]);
+
+console.log(setsEqual(set1, set2)); // true
+console.log(setsEqual(set1, set3)); // false
+```
+
+100. **Build small uniqueness validator using Set.**
+
+```js
+function createUniquenessValidator() {
+  const seenValues = new Set();
+
+  return {
+    check(value) {
+      if (seenValues.has(value)) {
+        return {
+          unique: false,
+          message: `'${value}' is duplicate`,
+        };
+      }
+      seenValues.add(value);
+      return {
+        unique: true,
+        message: `'${value}' is unique`,
+      };
+    },
+
+    validateArray(arr, strict = false) {
+      const duplicates = [];
+      const unique = new Set();
+
+      for (const item of arr) {
+        if (unique.has(item)) {
+          if (strict) return false;
+          duplicates.push(item);
+        } else {
+          unique.add(item);
+        }
+      }
+
+      return strict
+        ? true
+        : {
+            isUnique: duplicates.length === 0,
+            duplicates: [...new Set(duplicates)],
+            uniqueCount: unique.size,
+            duplicateCount: duplicates.length,
+          };
+    },
+
+    reset() {
+      seenValues.clear();
+    },
+
+    getSeen() {
+      return [...seenValues];
+    },
+  };
+}
+const validator = createUniquenessValidator();
+console.log(validator.check("apple")); // {unique: true, message: "'apple' is unique"}
+console.log(validator.check("banana")); // {unique: true, message: "'banana' is unique"}
+console.log(validator.check("apple")); // {unique: false, message: "'apple' is duplicate"}
+
+const result = validator.validateArray([1, 2, 3, 2, 4, 3, 5]);
+console.log(result);
+// { isUnique: false, duplicates: [2,3], uniqueCount: 5, duplicateCount: 2 }
+```
