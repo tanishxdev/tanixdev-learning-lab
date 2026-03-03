@@ -1,473 +1,544 @@
-# Koko Eating Bananas(Binary Search on Answer)
+# PROBLEM (Original Statement)
+
+Koko loves to eat bananas. There are `n` piles of bananas, where the `i-th` pile has `piles[i]` bananas.
+
+The guards will return in `h` hours.
+
+Koko can decide her banana-eating speed `k` (bananas per hour).
+
+Each hour:
+
+- She chooses one pile.
+- Eats up to `k` bananas from that pile.
+- If the pile has less than `k`, she eats all and does not continue to another pile in that hour.
+
+Return the minimum integer `k` such that she can eat all bananas within `h` hours.
 
 ---
 
-## 1. Problem Statement
+## Topics / Patterns
 
-**English**:
-You are given an array `piles[]` where each element represents the number of bananas in a pile.
-You are also given an integer `H` representing the number of hours.
+**Topic:** Binary Search
 
-Koko can eat **K bananas per hour**.
-In one hour, she can choose **only one pile** and eat up to `K` bananas from it.
+**Pattern:** Binary Search on Answer
 
-Your task is to find the **minimum integer K** such that Koko can eat **all bananas within `H` hours**.
+Why?
 
-**Hinglish**:
-Bananas ke piles diye hain aur total `H` hours diye gaye hain.
-Koko har hour mein **sirf ek pile** se **K bananas** kha sakti hai.
+- We are not searching inside array.
+- We are searching for minimum valid speed `k`.
+- Condition:
+  - If speed works → try smaller.
+  - If speed fails → increase speed.
 
-Batana hai:
-
-> **minimum K** kya hoga jisse saare bananas `H` hours ke andar khatam ho jaayein.
+This is classic **monotonic condition**.
 
 ---
 
-## 2. Examples (Must Know)
+## BREAKDOWN PROBLEM
 
-### Example 1
+Given:
 
-```
-piles = [3,6,7,11], H = 8
-Output = 4
-```
+- Array `piles`
+- Integer `h`
 
-**Explanation**:
+Find:
 
-* K = 4 bananas/hour
-* Hours needed:
+- Minimum integer `k` such that total hours needed ≤ `h`.
 
-  * 3 → 1 hour
-  * 6 → 2 hours
-  * 7 → 2 hours
-  * 11 → 3 hours
-* Total = 8 hours (valid)
+Key Observation:
 
----
+If speed `k` increases:
 
-### Example 2
+- Required time decreases.
 
-```
-piles = [30,11,23,4,20], H = 5
-Output = 30
-```
+If speed `k` decreases:
+
+- Required time increases.
+
+This is monotonic.
 
 ---
 
-## 3. Brute Force Approach (For Understanding)
+## CONSTRAINT UNDERSTANDING
 
-### Intuition
+Typical constraints:
 
-> Try every possible eating speed `K` starting from 1
-> Check if Koko can finish all bananas within `H` hours.
+- 1 ≤ piles.length ≤ 10⁴
+- 1 ≤ piles[i] ≤ 10⁹
+- piles.length ≤ h ≤ 10⁹
 
----
+Important:
 
-### Algorithm
+- Max pile can be 10⁹.
+- Speed range: 1 → max(piles)
 
-```text
-for K from 1 to max(piles):
-    calculate total hours needed
-    if hours <= H:
-        return K
-```
+Brute force from 1 to 10⁹ is impossible.
 
-```cpp
-// ⭐ Helper function
-// Calculates total hours needed if Koko eats at speed k
-long long calculateHours(vector<int>& piles, int k)
-{
-    long long hours = 0;
-
-    for (int bananas : piles)
-    {
-        // ceil(bananas / k)
-        hours += (bananas + k - 1) / k;
-    }
-
-    return hours;
-}
-
-int minEatingSpeed_Brute(vector<int>& piles, int H)
-{
-    int maxPile = *max_element(piles.begin(), piles.end());
-
-    for (int k = 1; k <= maxPile; k++)
-    {
-        long long hours = calculateHours(piles, k);
-
-        if (hours <= H)
-            return k;
-    }
-
-    return -1;
-```
----
-
-### Dry Run (Brute Force)
-
-**Input**
-
-```
-piles = [3, 6, 7, 11]
-H = 8
-```
-
-**Try K = 1**
-
-```
-hours = ceil(3/1) + ceil(6/1) + ceil(7/1) + ceil(11/1)
-       = 3 + 6 + 7 + 11
-       = 27
-
-27 > 8 → not possible
-```
-
-**Try K = 2**
-
-```
-hours = ceil(3/2) + ceil(6/2) + ceil(7/2) + ceil(11/2)
-       = 2 + 3 + 4 + 6
-       = 15
-
-15 > 8 → not possible
-```
-
-**Try K = 3**
-
-```
-hours = ceil(3/3) + ceil(6/3) + ceil(7/3) + ceil(11/3)
-       = 1 + 2 + 3 + 4
-       = 10
-
-10 > 8 → not possible
-```
-
-**Try K = 4**
-
-```
-hours = ceil(3/4) + ceil(6/4) + ceil(7/4) + ceil(11/4)
-       = 1 + 2 + 2 + 3
-       = 8
-
-8 <= 8 → valid
-Return K = 4
-```
+We must binary search.
 
 ---
 
-### Time Complexity
+# BRUTE FORCE APPROACH
 
-| Metric | Value            |
-| ------ | ---------------- |
-| Time   | O(N × max(pile)) |
-| Space  | O(1)             |
+## First Thought Intuition
 
-❌ Too slow
-❌ Not acceptable in interviews
+Try all possible speeds from 1 to max(piles).
 
----
+For each speed:
 
-## 4. Core Intuition (Binary Search Thinking)
+- Calculate total hours needed.
+- If ≤ h → return speed.
 
-> This is a **Binary Search on Answer** problem.
+Feels natural but expensive.
 
 ---
 
-### 4.1 What is the search space?
+## Thought Process (Step-wise)
 
-* Minimum speed = `1`
-* Maximum speed = `max(piles)`
+1. Find maxPile.
+2. For k from 1 to maxPile:
+   - Compute total hours required.
+   - If totalHours ≤ h:
+     return k.
 
-```
-K ∈ [1 ... max(piles)]
-```
-
-This range is **sorted**.
-
----
-
-### 4.2 Key Observation (Very Important)
-
-If Koko can finish all bananas at speed `K`:
-
-* She can also finish at **any speed > K**
-
-This means:
-
-```
-false false false true true true
-```
-
-👉 **Monotonic behavior** → Binary Search applicable.
-
----
-
-### 4.3 What are we minimizing?
-
-> **Minimum K** such that total hours ≤ H
-
----
-
-## 5. How to Calculate Hours for a Given K
-
+To compute hours:
 For each pile:
 
 ```
-hours = ceil(pile / K)
-```
-
-To avoid floating point:
-
-```text
-hours += pile / K
-if pile % K != 0:
-    hours += 1
+hours += ceil(pile / k)
 ```
 
 ---
 
-## 6. Binary Search Algorithm
+## Pseudocode
 
-```text
+```
+maxPile = maximum element
+
+for k from 1 to maxPile:
+    totalHours = 0
+    for each pile:
+        totalHours += ceil(pile / k)
+
+    if totalHours <= h:
+        return k
+```
+
+---
+
+## Algorithm
+
+1. Try all speeds.
+2. Check feasibility.
+3. Return first valid.
+
+---
+
+## CODE
+
+### C++
+
+#### V1 (Only Required Function)
+
+```cpp
+int minEatingSpeed(vector<int>& piles, int h) {
+
+    int maxPile = *max_element(piles.begin(), piles.end());
+
+    for (int k = 1; k <= maxPile; k++) {
+
+        long long totalHours = 0;
+
+        for (int pile : piles) {
+
+            // Ceil division formula
+            totalHours += (pile + k - 1) / k;
+        }
+
+        if (totalHours <= h)
+            return k;
+    }
+
+    return maxPile;
+}
+```
+
+---
+
+#### V2 (Complete Program)
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int minEatingSpeed(vector<int>& piles, int h) {
+
+    int maxPile = *max_element(piles.begin(), piles.end());
+
+    for (int k = 1; k <= maxPile; k++) {
+
+        long long totalHours = 0;
+
+        for (int pile : piles) {
+
+            // Compute ceil(pile / k)
+            totalHours += (pile + k - 1) / k;
+        }
+
+        if (totalHours <= h)
+            return k;
+    }
+
+    return maxPile;
+}
+
+int main() {
+
+    vector<int> piles = {3, 6, 7, 11};
+    int h = 8;
+
+    cout << minEatingSpeed(piles, h);
+
+    return 0;
+}
+```
+
+---
+
+## Time and Space Complexity
+
+Time:
+Worst case:
+O(maxPile × n)
+
+If maxPile = 10⁹ → impossible.
+
+Space:
+O(1)
+
+---
+
+## Dry Run
+
+piles = [3,6,7,11]
+h = 8
+
+Try k=1 → too slow
+k=2 → slow
+k=3 → slow
+k=4 → works → answer
+
+---
+
+## Does This Approach Fail?
+
+YES.
+
+Fails due to huge search space (up to 10⁹).
+
+We need optimization.
+
+---
+
+# BETTER APPROACH
+
+Actually brute idea reveals something:
+
+We are searching for **minimum k** that satisfies condition.
+
+Observe:
+
+If k works → any k' > k also works.
+
+This is monotonic.
+
+That means:
+
+Binary Search on answer.
+
+---
+
+# OPTIMAL APPROACH
+
+## First Thought Intuition
+
+Search space:
+
+Minimum speed = 1
+Maximum speed = max(piles)
+
+Binary search between them.
+
+At each mid:
+
+- Check if feasible.
+- If feasible → move left.
+- Else → move right.
+
+---
+
+## Thought Process (Step-wise)
+
+1. low = 1
+2. high = maxPile
+3. While low <= high:
+   - mid = (low + high) / 2
+   - compute totalHours
+   - if totalHours <= h:
+     - store answer
+     - try smaller → high = mid - 1
+
+   - else:
+     - increase speed → low = mid + 1
+
+Return answer.
+
+---
+
+## Why Ceil Formula Works
+
+Instead of:
+
+```
+ceil(pile / k)
+```
+
+We use:
+
+```
+(pile + k - 1) / k
+```
+
+Avoids floating point.
+
+---
+
+## Pseudocode
+
+```
 low = 1
-high = max(piles)
+high = maxPile
 ans = high
 
 while low <= high:
-    mid = low + (high-low)/2
+    mid = (low + high) / 2
 
-    if canFinish(mid):
+    totalHours = 0
+    for each pile:
+        totalHours += ceil(pile / mid)
+
+    if totalHours <= h:
         ans = mid
-        high = mid - 1    // try smaller K
+        high = mid - 1
     else:
-        low = mid + 1     // need bigger K
+        low = mid + 1
 
 return ans
 ```
 
 ---
 
-## 7. Dry Run
+## CODE
 
-### Input
+### C++
 
-```
-piles = [3,6,7,11], H = 8
-```
-
-| K | Hours Needed | Valid? | Move  |
-| - | ------------ | ------ | ----- |
-| 6 | 6            | Yes    | left  |
-| 3 | 10           | No     | right |
-| 4 | 8            | Yes    | left  |
-| 3 | 10           | No     | stop  |
-
-✅ **Answer = 4**
-
-### Detailed - Dry Run (Binary Search)
-
-**Input**
-
-```
-piles = [3, 6, 7, 11]
-H = 8
-```
-
-**Initial Search Space**
-
-```
-low = 1
-high = 11   (max pile)
-```
-
-**Iteration 1**
-
-```
-mid = (1 + 11) / 2 = 6
-
-hours = ceil(3/6) + ceil(6/6) + ceil(7/6) + ceil(11/6)
-       = 1 + 1 + 2 + 2
-       = 6
-
-6 <= 8  → valid speed
-ans = 6
-high = 5
-```
-
-**Iteration 2**
-
-```
-mid = (1 + 5) / 2 = 3
-
-hours = ceil(3/3) + ceil(6/3) + ceil(7/3) + ceil(11/3)
-       = 1 + 2 + 3 + 4
-       = 10
-
-10 > 8 → too slow
-low = 4
-```
-
-**Iteration 3**
-
-```
-mid = (4 + 5) / 2 = 4
-
-hours = ceil(3/4) + ceil(6/4) + ceil(7/4) + ceil(11/4)
-       = 1 + 2 + 2 + 3
-       = 8
-
-8 <= 8 → valid speed
-ans = 4
-high = 3
-```
-
-**Loop Ends**
-
-```
-low > high
-Final Answer = 4
-```
-
----
-
-## 8. Full Working Code
-
-### C++ (Interview Preferred)
+#### V1 (Only Required Function)
 
 ```cpp
-class Solution
-{
-public:
-    bool canEatAll(vector<int> &piles, int H, int K)
-    {
-        long long hours = 0;
+int minEatingSpeed(vector<int>& piles, int h) {
 
-        for (int bananas : piles)
-        {
-            hours += bananas / K;
-            if (bananas % K != 0)
-                hours += 1;
+    int low = 1;
+    int high = *max_element(piles.begin(), piles.end());
+
+    int ans = high;
+
+    while (low <= high) {
+
+        int mid = low + (high - low) / 2;
+
+        long long totalHours = 0;
+
+        for (int pile : piles) {
+
+            totalHours += (pile + mid - 1) / mid;
         }
-        return hours <= H;
+
+        if (totalHours <= h) {
+
+            ans = mid;        // Possible answer
+            high = mid - 1;   // Try smaller speed
+        }
+        else {
+            low = mid + 1;    // Increase speed
+        }
     }
 
-    int minEatingSpeed(vector<int> &piles, int H)
-    {
-        int low = 1;
-        int high = *max_element(piles.begin(), piles.end());
-        int ans = high;
-
-        while (low <= high)
-        {
-            int mid = low + (high - low) / 2;
-
-            if (canEatAll(piles, H, mid))
-            {
-                ans = mid;
-                high = mid - 1; // minimize K
-            }
-            else
-            {
-                low = mid + 1;
-            }
-        }
-        return ans;
-    }
-};
+    return ans;
+}
 ```
 
 ---
 
-### JavaScript
+#### V2 (Complete Program)
 
-```js
-        function
-        canEatAll(piles, H, K)
-{
-    let hours = 0;
+```cpp
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
 
-    for (let bananas of piles)
-    {
-        hours += Math.floor(bananas / K);
-        if (bananas % K != = 0)
-            hours += 1;
-    }
-    return hours <= H;
-}
+int minEatingSpeed(vector<int>& piles, int h) {
 
-function minEatingSpeed(piles, H)
-{
-    let low = 1;
-    let high = Math.max(... piles);
-    let ans = high;
+    int low = 1;  // Minimum possible speed
 
-    while (low <= high)
-    {
-        let mid = low + Math.floor((high - low) / 2);
+    int high = *max_element(piles.begin(), piles.end());  // Max possible speed
 
-        if (canEatAll(piles, H, mid))
-        {
-            ans = mid;
-            high = mid - 1;
+    int ans = high;  // Store best answer
+
+    while (low <= high) {
+
+        int mid = low + (high - low) / 2;  // Avoid overflow
+
+        long long totalHours = 0;  // May exceed int
+
+        // Calculate hours needed at speed mid
+        for (int pile : piles) {
+
+            totalHours += (pile + mid - 1) / mid;  // Ceil division
         }
-        else
-        {
-            low = mid + 1;
+
+        // If Koko can finish within h hours
+        if (totalHours <= h) {
+
+            ans = mid;       // Store this speed
+
+            high = mid - 1;  // Try smaller speed
+        }
+        else {
+
+            low = mid + 1;   // Need higher speed
         }
     }
+
     return ans;
 }
 
-// Test
-console.log(minEatingSpeed([ 3, 6, 7, 11 ], 8)); // 4
+int main() {
+
+    vector<int> piles = {3, 6, 7, 11};
+
+    int h = 8;
+
+    cout << "Minimum Speed: " << minEatingSpeed(piles, h);
+
+    return 0;
+}
 ```
 
 ---
 
-## 9. Edge Cases Covered
+## Time and Space Complexity
 
-| Case                | Result       |
-| ------------------- | ------------ |
-| One pile            | works        |
-| H = number of piles | K = max pile |
-| Very large piles    | safe         |
-| Minimum K needed    | found        |
+Binary search range: log(maxPile)
 
----
+Each check: O(n)
 
-## 10. Complexity Analysis
+Total:
 
-| Metric | Value               |
-| ------ | ------------------- |
-| Time   | O(N × log(maxPile)) |
-| Space  | O(1)                |
+O(n log maxPile)
+
+Which is efficient.
+
+Space:
+O(1)
 
 ---
 
-## 11. Interview Pattern Recognition
+## Dry Run
 
-This problem is a **template** for:
+piles = [3,6,7,11]
+h = 8
 
-* Minimum speed / capacity
-* Minimum days / time
-* Binary Search on Answer
+low=1 high=11
 
-Related problems:
+mid=6
+hours=1+1+2+2=6 ≤8 → valid
+try smaller
 
-* Koko Eating Bananas
-* Min days to make bouquets
-* Capacity to ship packages
-* Allocate books
+mid=3
+hours=1+2+3+4=10 >8 → too slow
+
+mid=4
+hours=1+2+2+3=8 → valid
+
+mid=3 invalid
+
+Answer=4
 
 ---
 
-## Final Notes (Yaad Rakhna)
+## Edge Cases
 
-1. This is **not array binary search**
-2. Search space is **answer range**
-3. Valid mid → go **LEFT**
-4. Invalid mid → go **RIGHT**
-5. Always minimize the answer
+1. h == piles.size()
+   → speed must be max(pile)
+
+2. h very large
+   → speed = 1
+
+3. Single pile
+   → ceil(pile / h)
+
+All handled.
+
+---
+
+## How This Approach Handles the Problem
+
+Binary search narrows search space from 10⁹ possibilities to log₂(10⁹) ≈ 30 checks.
+
+Each check O(n).
+
+Very efficient.
+
+---
+
+## Why This Is Optimal
+
+Lower bound:
+
+We must inspect all piles at least once → O(n)
+
+Search space large → must use log factor.
+
+So best possible is:
+
+O(n log maxPile)
+
+Cannot do better.
+
+---
+
+# Pattern Recognition Mindset
+
+When you see:
+
+- "Minimum X such that condition satisfied"
+- "If X works, bigger X also works"
+- Monotonic feasibility
+
+Immediately think:
+
+Binary Search on Answer.
+
+Other problems same pattern:
+
+- Capacity to Ship Packages
+- Allocate Books
+- Aggressive Cows
+- Painter Partition
+- Minimum Days to Make Bouquets
+- Split Array Largest Sum
 
 ---

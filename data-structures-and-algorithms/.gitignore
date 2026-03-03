@@ -1,5 +1,5 @@
 # Ignore VS Code settings
-.vscode/
+# .vscode/
 
 # Ignore input/output files
 input.txt

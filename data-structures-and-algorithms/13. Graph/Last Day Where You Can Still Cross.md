@@ -1,62 +1,94 @@
 # PROBLEM (Original Statement)
 
-There is a **1-based binary matrix** where:
+You are given:
 
-* `0` represents **land**
-* `1` represents **water**
+- `row` and `col` → dimensions of a grid.
+- A list `cells`, where `cells[i] = [ri, ci]`.
 
-You are given integers `row` and `col` representing the grid size.
+On day `i` (1-indexed), the cell `(ri, ci)` becomes flooded (water).
 
-Initially (day 0), the entire matrix is land.
+Initially:
 
-Each day, **one new cell becomes flooded with water**, given by `cells[i] = [ri, ci]` (1-based index), meaning on **day i**, cell `(ri, ci)` becomes water.
+- All cells are land.
 
-You want to find the **last day** such that it is still possible to **walk from the top row to the bottom row** by moving only through land cells.
+Each day:
 
-Rules:
+- One new cell becomes water.
 
-* You can start from **any cell in the top row**
-* You can end at **any cell in the bottom row**
-* You can move only in **4 directions** (up, down, left, right)
+Return the **last day** when it is still possible to walk from the **top row to the bottom row**, moving only:
 
-Return the **last day** when crossing is possible.
+- Up
+- Down
+- Left
+- Right
+
+And only through **land cells**.
+
+---
+
+## Topics / Patterns
+
+**Topics:**
+
+- Binary Search
+- Graph Traversal (BFS / DFS)
+- Disjoint Set Union (Advanced solution)
+
+**Patterns:**
+
+1. Binary Search on Answer
+   Because:
+   - If crossing is possible on day D,
+   - Then it is also possible for any day < D.
+   - Monotonic property.
+
+2. Grid Traversal
+   Check if path exists from top to bottom.
+
+3. Reverse Simulation + DSU (Optimal trick)
 
 ---
 
 ## BREAKDOWN PROBLEM
 
-What is being asked?
+We have a grid.
 
-* Find the **maximum day `d`** such that after flooding cells `0..d`, there is **still a path of land** from top to bottom.
+Each day:
 
-Input:
+- One land cell becomes water.
 
-* `row`, `col` → grid size
-* `cells[]` → flooding order (day-wise)
+We must find:
 
-Output:
+- The last day where a path exists from top row to bottom row.
 
-* An integer → last valid day to cross
+Important:
+
+Path must:
+
+- Start from any cell in first row
+- End at any cell in last row
+- Move only on land
 
 ---
 
 ## CONSTRAINT UNDERSTANDING
 
-* `2 <= row, col <= 2 * 10^4`
-* `row * col <= 2 * 10^4`
-* `cells.length = row * col`
+Typical constraints:
 
-### Key implications
+- 1 ≤ row, col ≤ 200
+- 1 ≤ cells.length ≤ row \* col
 
-* Grid can be **large**
-* We **cannot simulate day-by-day DFS/BFS naively** (TLE)
-* We need an **optimized strategy**
-* Answer is **monotonic**:
+Worst-case grid size:
+200 × 200 = 40,000 cells
 
-  * If crossing is possible on day `d`
-  * Then it is also possible on **any day < d**
+Total days = 40,000
 
-This monotonic property is crucial.
+If we try to simulate each day fully:
+
+- For each day → BFS (40,000)
+- Total → 40,000 × 40,000 = 1.6 billion → too slow.
+
+We need better.
 
 ---
 
@@ -66,164 +98,205 @@ This monotonic property is crucial.
 
 Simulate day by day:
 
-* Flood the grid
-* Check if there is a path from top to bottom using BFS/DFS
+For each day:
+
+1. Mark that cell as water.
+2. Run BFS from top row.
+3. Check if bottom reachable.
+4. Stop when impossible.
+
+Return previous day.
+
+Feels natural.
 
 ---
 
 ## Thought Process (Step-wise)
 
-1. For day `d`, mark first `d` cells as water
-2. Run BFS from all land cells in top row
-3. If we reach bottom row → crossing possible
-4. Repeat for all days
+1. Create grid initially all land.
+2. For day = 1 to totalDays:
+   - Flood the cell.
+   - Run BFS from all top-row land cells.
+   - If bottom reachable → continue.
+   - Else → return day - 1.
 
 ---
 
 ## Pseudocode
 
 ```
-for day = 0 to n:
-    mark flooded cells
-    if canReachBottom():
-        answer = day
+initialize grid as land
+
+for day in 1 to N:
+    flood cells[day]
+
+    if not canCross(grid):
+        return day - 1
+
+return N
 ```
 
 ---
 
-## Algorithm
+## Time Complexity
 
-* Simulate grid for each day
-* BFS check connectivity
+Each day BFS = O(row \* col)
 
----
+Total days = row \* col
 
-## CODE (C++ and JavaScript)
+Total:
+O((row\*col)²)
 
-❌ **Not written intentionally**
-
----
-
-## Time and Space Complexity
-
-* Time: `O(N * (R*C))` → too large
-* Space: `O(R*C)`
-
----
-
-## Dry Run (All Cases)
-
-Fails for large input.
-
----
-
-## Edge Cases
-
-Handled, but too slow.
-
----
-
-## How This Approach Handles the Problem
-
-Correct but inefficient.
+Too slow.
 
 ---
 
 ## Does This Approach Fail?
 
-**YES**
+YES.
 
-* Time limit exceeded
-* Constraint `row * col = 2e4` breaks it
+Because:
+40,000² = 1.6B operations.
 
-➡️ Move to next approach.
+We need optimization.
 
 ---
 
 # BETTER APPROACH
 
+Now observe something critical.
+
+Monotonic Property:
+
+If you can cross on day D,
+You can also cross on day D-1.
+
+Because earlier days have more land.
+
+Meaning:
+
+Feasibility is monotonic decreasing.
+
+So we can:
+
+Binary Search on day.
+
+---
+
+# OPTIMAL APPROACH (Binary Search + BFS)
+
 ## First Thought Intuition
 
-Use **Binary Search on Days**.
+Instead of simulating every day:
 
-Why?
+Binary search the last valid day.
 
-* The answer is monotonic:
+For a given day:
 
-  * Crossing possible → then impossible forever after some day
+- Build grid up to that day.
+- Check if crossing possible.
 
 ---
 
 ## Thought Process (Step-wise)
 
-1. Binary search on day `d`
-2. For a mid day:
+1. low = 1
+2. high = totalDays
+3. While low <= high:
+   - mid = (low + high) / 2
+   - Build grid with first mid cells flooded.
+   - Run BFS.
+   - If path exists:
+     → try later days (low = mid + 1)
+   - Else:
+     → try earlier days (high = mid - 1)
 
-   * Build grid with flooded cells
-   * Check if crossing is possible using BFS
-3. If possible → try later days
-4. Else → try earlier days
+Return high.
+
+---
+
+## Checking Feasibility (Key Part)
+
+To check crossing:
+
+1. Initialize visited array.
+2. Push all land cells in top row into queue.
+3. BFS:
+   - Move 4 directions.
+
+4. If reach bottom row → return true.
 
 ---
 
 ## Pseudocode
 
 ```
-low = 0, high = total_days
-while low <= high:
-    mid = (low + high) / 2
-    if canCross(mid):
-        answer = mid
-        low = mid + 1
-    else:
-        high = mid - 1
+function canCross(day):
+    create grid
+    mark first 'day' cells as water
+
+    queue = all top row land cells
+
+    while queue not empty:
+        cell = pop
+        if cell in bottom row:
+            return true
+
+        explore neighbors
+
+    return false
 ```
 
 ---
 
-## Algorithm
-
-* Binary search + BFS validation
-
----
-
-## CODE (C++ and JavaScript)
-
----
+## CODE
 
 ### C++
 
 #### V1 (Only Required Function)
 
 ```cpp
-bool canCross(int day, int row, int col, vector<vector<int>>& cells) {
+bool canCross(int row, int col, vector<vector<int>>& cells, int day) {
+
     vector<vector<int>> grid(row, vector<int>(col, 0));
 
+    // Mark flooded cells
     for (int i = 0; i < day; i++) {
-        grid[cells[i][0]-1][cells[i][1]-1] = 1;
+        grid[cells[i][0] - 1][cells[i][1] - 1] = 1;
     }
 
     queue<pair<int,int>> q;
-    vector<vector<bool>> vis(row, vector<bool>(col, false));
+    vector<vector<int>> visited(row, vector<int>(col, 0));
 
+    // Add top row land cells
     for (int c = 0; c < col; c++) {
         if (grid[0][c] == 0) {
             q.push({0, c});
-            vis[0][c] = true;
+            visited[0][c] = 1;
         }
     }
 
-    int dirs[4][2] = {{1,0},{-1,0},{0,1},{0,-1}};
+    int directions[4][2] = {{1,0},{-1,0},{0,1},{0,-1}};
 
     while (!q.empty()) {
-        auto [r, c] = q.front(); q.pop();
-        if (r == row - 1) return true;
 
-        for (auto& d : dirs) {
-            int nr = r + d[0], nc = c + d[1];
-            if (nr >= 0 && nr < row && nc >= 0 && nc < col &&
-                !vis[nr][nc] && grid[nr][nc] == 0) {
-                vis[nr][nc] = true;
+        auto [r, c] = q.front();
+        q.pop();
+
+        if (r == row - 1)
+            return true;
+
+        for (auto& d : directions) {
+
+            int nr = r + d[0];
+            int nc = c + d[1];
+
+            if (nr >= 0 && nr < row &&
+                nc >= 0 && nc < col &&
+                grid[nr][nc] == 0 &&
+                !visited[nr][nc]) {
+
+                visited[nr][nc] = 1;
                 q.push({nr, nc});
             }
         }
@@ -233,302 +306,133 @@ bool canCross(int day, int row, int col, vector<vector<int>>& cells) {
 }
 
 int latestDayToCross(int row, int col, vector<vector<int>>& cells) {
-    int low = 0, high = cells.size(), ans = 0;
+
+    int low = 1;
+    int high = cells.size();
+    int ans = 0;
 
     while (low <= high) {
-        int mid = (low + high) / 2;
-        if (canCross(mid, row, col, cells)) {
+
+        int mid = low + (high - low) / 2;
+
+        if (canCross(row, col, cells, mid)) {
             ans = mid;
             low = mid + 1;
-        } else {
+        }
+        else {
             high = mid - 1;
         }
     }
+
     return ans;
 }
 ```
 
 ---
 
-### JavaScript
-
-#### V1 (Only Required Function)
-
-```js
-var latestDayToCross = function(row, col, cells) {
-    const dirs = [[1,0],[-1,0],[0,1],[0,-1]];
-
-    function canCross(day) {
-        const grid = Array.from({length: row}, () => Array(col).fill(0));
-        for (let i = 0; i < day; i++) {
-            const [r, c] = cells[i];
-            grid[r-1][c-1] = 1;
-        }
-
-        const queue = [];
-        const vis = Array.from({length: row}, () => Array(col).fill(false));
-
-        for (let c = 0; c < col; c++) {
-            if (grid[0][c] === 0) {
-                queue.push([0, c]);
-                vis[0][c] = true;
-            }
-        }
-
-        while (queue.length) {
-            const [r, c] = queue.shift();
-            if (r === row - 1) return true;
-
-            for (const [dr, dc] of dirs) {
-                const nr = r + dr, nc = c + dc;
-                if (nr >= 0 && nr < row && nc >= 0 && nc < col &&
-                    !vis[nr][nc] && grid[nr][nc] === 0) {
-                    vis[nr][nc] = true;
-                    queue.push([nr, nc]);
-                }
-            }
-        }
-        return false;
-    }
-
-    let low = 0, high = cells.length, ans = 0;
-    while (low <= high) {
-        const mid = Math.floor((low + high) / 2);
-        if (canCross(mid)) {
-            ans = mid;
-            low = mid + 1;
-        } else {
-            high = mid - 1;
-        }
-    }
-    return ans;
-};
-```
-
----
-
 ## Time and Space Complexity
 
-* Time: `O(logN * R * C)`
-* Space: `O(R * C)`
+Binary search: log(N)
+
+Each BFS: O(row \* col)
+
+Total:
+O((row*col) * log(row\*col))
+
+≈ 40,000 \* log(40,000)
+
+Efficient.
+
+Space:
+O(row\*col)
 
 ---
 
-## Dry Run (All Cases)
+# EVEN MORE OPTIMAL APPROACH (DSU + Reverse Simulation)
 
-Works but still **heavy**.
+Now comes advanced trick.
 
----
+Instead of forward simulation:
 
-## Edge Cases
+Think reverse.
 
-Handled.
+At last day:
+All cells water.
 
----
+We reverse days:
+Convert water → land.
 
-## How This Approach Handles the Problem
+And union adjacent land cells.
 
-Uses monotonicity + BFS.
-
----
-
-## Does This Approach Fail?
-
-**YES (borderline TLE in worst cases)**
-
-Because BFS is repeated `logN` times.
-
-➡️ Move to optimal.
+Goal:
+Check when top and bottom become connected.
 
 ---
 
-# OPTIMAL APPROACH
+## Key Insight
 
-## First Thought Intuition
+We create:
 
-Reverse the process.
+- Virtual top node
+- Virtual bottom node
 
-Instead of **flooding day by day**,
-**unflood from last day to first**.
+When:
 
-Use **Union Find (DSU)** to track connectivity.
+- Any cell in top row becomes land → connect to top node.
+- Any cell in bottom row becomes land → connect to bottom node.
 
----
+As soon as:
+top and bottom nodes connected
 
-## Thought Process (Step-wise)
-
-1. Start with **all cells flooded**
-2. Unflood one cell per day (reverse order)
-3. Union adjacent land cells
-4. Track:
-
-   * Any land cell in top row connected to bottom row?
-5. The moment it becomes true → that day is the answer
+That day (in reverse) gives answer.
 
 ---
 
-## Pseudocode
+## Why Reverse Helps?
 
-```
-mark all as water
-for day from last to first:
-    make cell land
-    union with neighbors
-    if top connected to bottom:
-        return day
-```
+Because:
+Instead of removing edges,
+We add edges (which DSU handles easily).
+
+DSU handles dynamic connectivity efficiently.
 
 ---
 
-## Algorithm
+## Time Complexity
 
-* DSU with path compression
-* Two virtual nodes:
+O(N α(N))
 
-  * Top
-  * Bottom
+Almost linear.
 
----
-
-## CODE (C++ and JavaScript)
+This is the most optimal.
 
 ---
 
-### C++
+# Pattern Recognition Mindset
 
-#### V1 (Only Required Function)
+When you see:
 
-```cpp
-int latestDayToCross(int row, int col, vector<vector<int>>& cells) {
-    int n = row * col;
-    vector<int> parent(n + 2);
-    iota(parent.begin(), parent.end(), 0);
+- “Last day”
+- “Maximum day such that condition holds”
+- Monotonic feasibility
 
-    auto find = [&](int x) {
-        while (x != parent[x]) {
-            parent[x] = parent[parent[x]];
-            x = parent[x];
-        }
-        return x;
-    };
+Think:
+Binary Search on Answer.
 
-    auto unite = [&](int a, int b) {
-        a = find(a); b = find(b);
-        if (a != b) parent[a] = b;
-    };
+When you see:
 
-    vector<vector<bool>> land(row, vector<bool>(col, false));
-    int top = n, bottom = n + 1;
+- Dynamic connectivity
+- Cells turning on/off
 
-    int dirs[4][2] = {{1,0},{-1,0},{0,1},{0,-1}};
-
-    for (int d = n - 1; d >= 0; d--) {
-        int r = cells[d][0] - 1;
-        int c = cells[d][1] - 1;
-        land[r][c] = true;
-        int idx = r * col + c;
-
-        if (r == 0) unite(idx, top);
-        if (r == row - 1) unite(idx, bottom);
-
-        for (auto& dir : dirs) {
-            int nr = r + dir[0], nc = c + dir[1];
-            if (nr >= 0 && nr < row && nc >= 0 && nc < col && land[nr][nc]) {
-                unite(idx, nr * col + nc);
-            }
-        }
-
-        if (find(top) == find(bottom)) return d;
-    }
-    return 0;
-}
-```
+Think:
+Reverse + DSU trick.
 
 ---
 
-### JavaScript
+This problem teaches:
 
-#### V1 (Only Required Function)
-
-```js
-var latestDayToCross = function(row, col, cells) {
-    const n = row * col;
-    const parent = Array(n + 2).fill(0).map((_, i) => i);
-
-    function find(x) {
-        if (parent[x] !== x) parent[x] = find(parent[x]);
-        return parent[x];
-    }
-
-    function union(a, b) {
-        a = find(a);
-        b = find(b);
-        if (a !== b) parent[a] = b;
-    }
-
-    const land = Array.from({length: row}, () => Array(col).fill(false));
-    const top = n, bottom = n + 1;
-    const dirs = [[1,0],[-1,0],[0,1],[0,-1]];
-
-    for (let d = n - 1; d >= 0; d--) {
-        const [r, c] = cells[d];
-        const rr = r - 1, cc = c - 1;
-        land[rr][cc] = true;
-        const idx = rr * col + cc;
-
-        if (rr === 0) union(idx, top);
-        if (rr === row - 1) union(idx, bottom);
-
-        for (const [dr, dc] of dirs) {
-            const nr = rr + dr, nc = cc + dc;
-            if (nr >= 0 && nr < row && nc >= 0 && nc < col && land[nr][nc]) {
-                union(idx, nr * col + nc);
-            }
-        }
-
-        if (find(top) === find(bottom)) return d;
-    }
-    return 0;
-};
-```
-
----
-
-## Time and Space Complexity
-
-* **Time:** `O(R * C * α(N))` ≈ linear
-* **Space:** `O(R * C)`
-
----
-
-## Dry Run (All Cases)
-
-Works efficiently even at max constraints.
-
----
-
-## Edge Cases
-
-* Single column
-* Immediate disconnect
-* Late reconnection
-
-All handled.
-
----
-
-## How This Approach Handles the Problem
-
-* Avoids repeated BFS
-* Uses connectivity logic
-* Reverses time to make problem easy
-
----
-
-## Why This Is Optimal
-
-* Each cell processed once
-* DSU operations are nearly constant
-* Matches constraint limits perfectly
+Level 1 → BFS
+Level 2 → Binary Search + BFS
+Level 3 → Reverse Simulation + DSU
 
 ---
