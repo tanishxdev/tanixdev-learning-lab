@@ -1,0 +1,1 @@
+![](https://media.geeksforgeeks.org/wp-content/uploads/20250703171634069003/RDBMS-vs-MongoDB.webp)

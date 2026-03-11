@@ -57,7 +57,7 @@ _Build complete backend applications_
 
 #### **Category C: Database-Driven APIs**
 
-13. **Blogging Platform API** - Full CRUD with PostgreSQL
+13. **Blogging Platform API** - Full CRUD with MongoDB
 14. **Expense Tracker API** - Financial system with analytics
 15. **Contact Manager API** - Search & pagination
 16. **Book Library API** - Advanced querying

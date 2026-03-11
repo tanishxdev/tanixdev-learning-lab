@@ -1,4 +1,3 @@
-
 ![](https://www.tutorialrepublic.com/lib/images/sql-illustration.png)
 
 # SQL Mental Model + Learning Roadmap

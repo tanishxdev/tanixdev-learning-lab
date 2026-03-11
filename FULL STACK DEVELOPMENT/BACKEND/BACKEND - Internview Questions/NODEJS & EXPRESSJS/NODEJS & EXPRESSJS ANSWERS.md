@@ -12120,6 +12120,5580 @@ app.listen(3000);
 
 ---
 
-## Interview Ready Answer
+## Interview Ready Answerg
 
 CSRF protection in Express.js is typically implemented using CSRF tokens. A unique token is generated on the server and included in forms or requests. When the request is submitted, the server validates the token to ensure the request originated from the legitimate client. Middleware such as `csurf` is commonly used to implement CSRF protection in Express applications.
+
+# 36. How do you implement authentication with Passport.js?
+
+## Concepts
+
+Passport.js is a popular **authentication middleware for Node.js and Express**.
+
+It provides a flexible way to implement authentication using different strategies like:
+
+- Local authentication (username/password)
+- JWT authentication
+- OAuth (Google, Facebook, GitHub)
+- Session-based authentication
+
+Passport itself does not handle authentication logic. Instead, it uses **strategies** that define how authentication should work.
+
+Authentication Flow:
+
+Client Login Request
+→ Passport Middleware
+→ Strategy verifies credentials
+→ If valid → user authenticated
+→ If invalid → authentication failed
+
+Passport works with:
+
+- Sessions
+- JWT tokens
+- OAuth providers
+
+---
+
+### Steps to Implement Passport Authentication
+
+1. Install dependencies
+
+```bash
+npm install passport passport-local express-session
+```
+
+---
+
+2. Configure Passport
+
+```js
+const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
+
+passport.use(
+  new LocalStrategy((username, password, done) => {
+    const user = { id: 1, username: "admin", password: "1234" };
+
+    if (username === user.username && password === user.password) {
+      return done(null, user);
+    } else {
+      return done(null, false, { message: "Invalid credentials" });
+    }
+  }),
+);
+```
+
+---
+
+3. Serialize and Deserialize User
+
+```js
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+passport.deserializeUser((id, done) => {
+  const user = { id: 1, username: "admin" };
+  done(null, user);
+});
+```
+
+---
+
+4. Use Passport Middleware
+
+```js
+app.use(passport.initialize());
+app.use(passport.session());
+```
+
+---
+
+5. Protect Routes
+
+```js
+app.post(
+  "/login",
+  passport.authenticate("local", {
+    successRedirect: "/dashboard",
+    failureRedirect: "/login",
+  }),
+);
+```
+
+---
+
+## Interview Ready Answer
+
+Passport.js is an authentication middleware for Node.js that simplifies implementing authentication in Express applications. It works using strategies such as local authentication, OAuth, or JWT. Passport handles authentication by verifying credentials through a strategy and attaching the authenticated user to the request object. It also supports session-based authentication through serialization and deserialization of user data.
+
+---
+
+# 37. What are Passport strategies?
+
+## Concepts
+
+Passport strategies define **how authentication is performed**.
+
+A strategy is a **plugin** that tells Passport how to verify user identity.
+
+Different applications use different strategies depending on the authentication method.
+
+---
+
+### Common Passport Strategies
+
+| Strategy                | Purpose                          |
+| ----------------------- | -------------------------------- |
+| passport-local          | Username/password authentication |
+| passport-jwt            | Token-based authentication       |
+| passport-google-oauth20 | Google OAuth login               |
+| passport-facebook       | Facebook login                   |
+| passport-github         | GitHub authentication            |
+
+---
+
+### Example: Local Strategy
+
+```js
+const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
+
+passport.use(
+  new LocalStrategy((username, password, done) => {
+    if (username === "admin" && password === "1234") {
+      return done(null, { id: 1, username: "admin" });
+    }
+
+    return done(null, false);
+  }),
+);
+```
+
+Explanation:
+
+- Strategy receives credentials
+- Verifies them against database
+- Calls `done()` with result
+
+---
+
+### Strategy Execution Flow
+
+Login Request
+→ Passport Strategy
+→ Verify credentials
+→ Success → authenticated user
+→ Failure → authentication error
+
+---
+
+## Interview Ready Answer
+
+Passport strategies define the mechanism used to authenticate users. Each strategy implements a specific authentication method such as username-password authentication, JWT-based authentication, or OAuth login with providers like Google or GitHub. Passport delegates the authentication logic to these strategies, making it flexible and modular.
+
+---
+
+# 38. How do you use JWT with Express.js?
+
+## Concepts
+
+JWT (JSON Web Token) is used for **stateless authentication**.
+
+Instead of storing sessions on the server, authentication information is stored inside a token.
+
+JWT Structure:
+
+Header
+Payload
+Signature
+
+Flow:
+
+User Login
+→ Server verifies credentials
+→ Server generates JWT
+→ Client stores token
+→ Client sends token in Authorization header
+→ Server verifies token for protected routes
+
+---
+
+### Install Packages
+
+```bash
+npm install jsonwebtoken
+```
+
+---
+
+### Generate Token
+
+```js
+const jwt = require("jsonwebtoken");
+
+app.post("/login", (req, res) => {
+  const user = { id: 1, username: "admin" };
+
+  const token = jwt.sign(user, "secretKey", {
+    expiresIn: "1h",
+  });
+
+  res.json({ token });
+});
+```
+
+---
+
+### Middleware to Verify Token
+
+```js
+function authenticateToken(req, res, next) {
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1];
+
+  if (!token) return res.sendStatus(401);
+
+  jwt.verify(token, "secretKey", (err, user) => {
+    if (err) return res.sendStatus(403);
+
+    req.user = user;
+    next();
+  });
+}
+```
+
+---
+
+### Protect Route
+
+```js
+app.get("/profile", authenticateToken, (req, res) => {
+  res.json({ message: "Protected data", user: req.user });
+});
+```
+
+---
+
+## Interview Ready Answer
+
+JWT authentication in Express.js involves generating a signed token after verifying user credentials. The token is sent to the client and stored on the client side. For subsequent requests, the client sends the token in the Authorization header. The server verifies the token using middleware and allows access to protected routes if the token is valid.
+
+---
+
+# 39. How do you handle sessions in Express.js?
+
+## Concepts
+
+Sessions allow the server to **store user state between requests**.
+
+Instead of sending user data on every request, the server stores session data and sends a **session ID cookie** to the client.
+
+Session Flow:
+
+User Login
+→ Server creates session
+→ Session ID stored in cookie
+→ Client sends cookie on each request
+→ Server retrieves session data
+
+---
+
+### Install Middleware
+
+```bash
+npm install express-session
+```
+
+---
+
+### Example Implementation
+
+```js
+const session = require("express-session");
+
+app.use(
+  session({
+    secret: "secret-key",
+    resave: false,
+    saveUninitialized: true,
+  }),
+);
+
+app.get("/login", (req, res) => {
+  req.session.user = { id: 1, username: "admin" };
+  res.send("Logged in");
+});
+
+app.get("/profile", (req, res) => {
+  if (req.session.user) {
+    res.send("Welcome " + req.session.user.username);
+  } else {
+    res.send("Not authenticated");
+  }
+});
+```
+
+---
+
+## Interview Ready Answer
+
+Sessions in Express.js allow the server to maintain user state between HTTP requests. Using middleware like express-session, the server stores session data and sends a session ID to the client via cookies. On subsequent requests, the session ID is used to retrieve user session data, enabling authentication and state management.
+
+---
+
+# 40. What is `express-session` middleware?
+
+## Concepts
+
+`express-session` is middleware used to manage **server-side sessions** in Express applications.
+
+It stores session data on the server and sends a **session ID cookie** to the client.
+
+Important Options:
+
+| Option            | Purpose                  |
+| ----------------- | ------------------------ |
+| secret            | Used to sign session ID  |
+| resave            | Forces session save      |
+| saveUninitialized | Save empty sessions      |
+| cookie            | Configure session cookie |
+
+---
+
+### Example
+
+```js
+const session = require("express-session");
+
+app.use(
+  session({
+    secret: "keyboard-cat",
+    resave: false,
+    saveUninitialized: false,
+  }),
+);
+```
+
+---
+
+### Session Data Example
+
+```js
+req.session.user = {
+  id: 1,
+  username: "Tanish",
+};
+```
+
+---
+
+## Interview Ready Answer
+
+express-session is middleware used to create and manage server-side sessions in Express.js applications. It stores session data on the server and sends a session ID cookie to the client. This allows the server to identify users across multiple requests.
+
+---
+
+# 41. How do you store sessions in Redis?
+
+## Concepts
+
+By default, `express-session` stores sessions in **memory**, which is not suitable for production.
+
+Problems with memory store:
+
+- Not scalable
+- Sessions lost on server restart
+- Not suitable for distributed systems
+
+Solution:
+
+Use **Redis as session store**.
+
+Redis provides:
+
+- Fast in-memory storage
+- Shared session storage across servers
+- Persistence options
+
+---
+
+### Install Packages
+
+```bash
+npm install connect-redis redis express-session
+```
+
+---
+
+### Example Implementation
+
+```js
+const session = require("express-session");
+const RedisStore = require("connect-redis").default;
+const { createClient } = require("redis");
+
+const redisClient = createClient();
+
+app.use(
+  session({
+    store: new RedisStore({ client: redisClient }),
+    secret: "secret-key",
+    resave: false,
+    saveUninitialized: false,
+  }),
+);
+```
+
+---
+
+## Interview Ready Answer
+
+Sessions can be stored in Redis using the connect-redis package with express-session. Redis acts as a centralized session store, allowing multiple servers to share session data. This improves scalability and reliability compared to the default in-memory session store.
+
+---
+
+# 42. Differentiate between session-based and token-based authentication.
+
+## Concepts
+
+Authentication systems generally use two approaches:
+
+1. Session-based authentication
+2. Token-based authentication
+
+---
+
+### Session-Based Authentication
+
+Flow:
+
+Login
+→ Server creates session
+→ Session ID stored in cookie
+→ Server stores session data
+
+Characteristics:
+
+- Stateful
+- Server stores session data
+- Requires session store
+
+---
+
+### Token-Based Authentication
+
+Flow:
+
+Login
+→ Server generates token (JWT)
+→ Client stores token
+→ Token sent with each request
+
+Characteristics:
+
+- Stateless
+- No session storage
+- Suitable for APIs
+
+---
+
+### Comparison Table
+
+| Feature     | Session Auth | Token Auth           |
+| ----------- | ------------ | -------------------- |
+| State       | Stateful     | Stateless            |
+| Storage     | Server       | Client               |
+| Scalability | Harder       | Easier               |
+| Usage       | Web apps     | APIs / Microservices |
+
+---
+
+## Interview Ready Answer
+
+Session-based authentication stores user session data on the server and sends a session ID cookie to the client. Token-based authentication, such as JWT, stores authentication information inside a signed token that the client sends with each request. Session authentication is stateful, while token authentication is stateless and better suited for APIs and distributed systems.
+
+---
+
+# 43. How do you implement logging in Express.js?
+
+## Concepts
+
+Logging is important for:
+
+- Debugging
+- Monitoring
+- Security auditing
+- Performance analysis
+
+In Express.js, logging is typically implemented using middleware.
+
+Common logging tools:
+
+- Morgan
+- Winston
+- Pino
+
+---
+
+### Example: Simple Logging Middleware
+
+```js
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.url}`);
+  next();
+});
+```
+
+---
+
+### Example Using Morgan
+
+```js
+const morgan = require("morgan");
+
+app.use(morgan("combined"));
+```
+
+---
+
+## Interview Ready Answer
+
+Logging in Express.js is implemented using middleware that records request and response information. Tools like Morgan provide HTTP request logging, while libraries like Winston or Pino provide advanced logging features such as log levels, file logging, and structured logs for production environments.
+
+---
+
+# 44. What is Morgan middleware?
+
+## Concepts
+
+Morgan is an **HTTP request logger middleware** for Node.js.
+
+It logs information about incoming requests such as:
+
+- HTTP method
+- URL
+- Status code
+- Response time
+- IP address
+
+Useful for:
+
+- Debugging
+- API monitoring
+- Development logging
+
+---
+
+### Install Morgan
+
+```bash
+npm install morgan
+```
+
+---
+
+### Example
+
+```js
+const morgan = require("morgan");
+
+app.use(morgan("dev"));
+```
+
+Output Example:
+
+```
+GET /api/users 200 15ms
+```
+
+---
+
+### Morgan Formats
+
+| Format   | Description              |
+| -------- | ------------------------ |
+| dev      | Colored development logs |
+| combined | Standard Apache format   |
+| tiny     | Minimal logs             |
+
+---
+
+## Interview Ready Answer
+
+Morgan is middleware used in Express.js to log HTTP requests. It records details such as request method, URL, response status, and response time. It is commonly used during development and monitoring to track incoming requests.
+
+---
+
+# 45. How do you use Winston for logging?
+
+## Concepts
+
+Winston is a **powerful logging library for Node.js**.
+
+Features:
+
+- Multiple log levels
+- Log files
+- JSON structured logs
+- Transport system
+- Production monitoring
+
+Log Levels:
+
+error
+warn
+info
+http
+verbose
+debug
+
+---
+
+### Install Winston
+
+```bash
+npm install winston
+```
+
+---
+
+### Example Implementation
+
+```js
+const winston = require("winston");
+
+const logger = winston.createLogger({
+  level: "info",
+  transports: [
+    new winston.transports.Console(),
+    new winston.transports.File({ filename: "app.log" }),
+  ],
+});
+
+logger.info("Server started");
+logger.error("Something went wrong");
+```
+
+---
+
+### Express Integration
+
+```js
+app.use((req, res, next) => {
+  logger.info(`${req.method} ${req.url}`);
+  next();
+});
+```
+
+---
+
+## Interview Ready Answer
+
+Winston is a logging library used in Node.js applications to implement structured and configurable logging. It supports multiple log levels and transports such as console or file logging. In Express.js applications, Winston is often used for production logging and monitoring.
+
+---
+
+# 46. How do you validate request data?
+
+## Concepts
+
+Request validation ensures that incoming data is:
+
+- Correct format
+- Required fields present
+- Secure
+
+Validation prevents:
+
+- Invalid data
+- Security vulnerabilities
+- Application crashes
+
+Common Tools:
+
+- express-validator
+- Joi
+- Zod
+- Yup
+
+---
+
+### Example Using express-validator
+
+```js
+const { body, validationResult } = require("express-validator");
+
+app.post(
+  "/register",
+  body("email").isEmail(),
+  body("password").isLength({ min: 6 }),
+  (req, res) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(400).json(errors.array());
+    }
+
+    res.send("Valid data");
+  },
+);
+```
+
+---
+
+## Interview Ready Answer
+
+Request validation in Express.js ensures that incoming data meets expected formats and constraints. Middleware libraries like express-validator allow defining validation rules for request fields. If validation fails, the server returns an error response before processing the request further.
+
+---
+
+# 47. What is `express-validator`?
+
+## Concepts
+
+express-validator is a middleware library used to **validate and sanitize request data** in Express applications.
+
+It works by:
+
+- Defining validation rules
+- Checking request fields
+- Returning validation errors
+
+---
+
+### Install
+
+```bash
+npm install express-validator
+```
+
+---
+
+### Example
+
+```js
+const { body, validationResult } = require("express-validator");
+
+app.post(
+  "/user",
+  body("email").isEmail(),
+  body("age").isInt({ min: 18 }),
+  (req, res) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(400).json(errors.array());
+    }
+
+    res.send("User created");
+  },
+);
+```
+
+---
+
+## Interview Ready Answer
+
+express-validator is middleware used in Express.js to validate and sanitize incoming request data. It provides a set of validation rules that can be applied to request parameters, body fields, and query strings. If validation fails, it returns structured error messages to the client.
+
+---
+
+# 48. How do you sanitize user input?
+
+## Concepts
+
+Sanitization removes or escapes **malicious or unsafe input**.
+
+Purpose:
+
+- Prevent XSS
+- Prevent injection attacks
+- Ensure clean data
+
+Sanitization techniques:
+
+- Escaping HTML
+- Trimming whitespace
+- Normalizing emails
+- Removing scripts
+
+---
+
+### Example Using express-validator
+
+```js
+const { body } = require("express-validator");
+
+app.post(
+  "/register",
+  body("email").isEmail().normalizeEmail(),
+  body("name").trim().escape(),
+  (req, res) => {
+    res.send("Sanitized input");
+  },
+);
+```
+
+---
+
+## Interview Ready Answer
+
+User input sanitization ensures that incoming data is cleaned and safe before processing or storing it. Libraries like express-validator provide sanitization methods such as trim(), escape(), and normalizeEmail() to remove harmful characters and prevent security vulnerabilities like XSS attacks.
+
+---
+
+# 49. How do you implement rate limiting in Express.js?
+
+## Concepts
+
+Rate limiting restricts how many requests a client can make within a specific time window.
+
+Purpose:
+
+- Prevent brute-force attacks
+- Protect APIs
+- Avoid server overload
+
+Rate limiting is usually implemented using middleware.
+
+---
+
+### Install
+
+```bash
+npm install express-rate-limit
+```
+
+---
+
+### Example
+
+```js
+const rateLimit = require("express-rate-limit");
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 100,
+});
+
+app.use("/api", limiter);
+```
+
+Explanation:
+
+- `windowMs` → time window
+- `max` → allowed requests
+
+---
+
+## Interview Ready Answer
+
+Rate limiting in Express.js is implemented using middleware such as express-rate-limit. It restricts the number of requests a client can make within a specified time window. This helps protect APIs from abuse, brute-force attacks, and excessive traffic.
+
+---
+
+# 50. What is `express-rate-limit` middleware?
+
+## Concepts
+
+`express-rate-limit` is middleware used to **limit repeated requests** to APIs.
+
+It works by:
+
+- Tracking request counts
+- Blocking requests after limit exceeded
+
+---
+
+### Example
+
+```js
+const rateLimit = require("express-rate-limit");
+
+const limiter = rateLimit({
+  windowMs: 10 * 60 * 1000,
+  max: 50,
+  message: "Too many requests, try again later.",
+});
+
+app.use(limiter);
+```
+
+---
+
+### Production Setup
+
+Often combined with:
+
+- Redis
+- IP-based limiting
+- User-based limiting
+
+---
+
+## Interview Ready Answer
+
+express-rate-limit is middleware for Express.js that limits the number of requests a client can make within a defined time window. It helps prevent abuse, brute-force attacks, and excessive traffic by automatically blocking requests that exceed the configured limit.
+
+# 51. How do you handle errors in Express.js?
+
+## Concepts
+
+Error handling in Express.js is done using **middleware**.
+
+Types of error handling:
+
+1. **Synchronous Errors**
+2. **Asynchronous Errors**
+3. **Error-handling middleware**
+
+Express captures errors when:
+
+- `next(error)` is called
+- An exception occurs in synchronous code
+
+For async code, errors must be **forwarded to middleware**.
+
+Typical flow:
+
+Request → Route Handler → Error occurs → `next(error)` → Error Middleware → Response sent
+
+---
+
+### Best Practices
+
+- Use **centralized error middleware**
+- Avoid sending raw stack traces in production
+- Use **custom error classes**
+- Log errors before responding
+
+---
+
+## Code Example
+
+Basic error handling in Express:
+
+```js
+const express = require("express");
+
+const app = express();
+
+app.get("/user", (req, res, next) => {
+  try {
+    throw new Error("User not found");
+  } catch (err) {
+    next(err);
+  }
+});
+
+app.use((err, req, res, next) => {
+  res.status(500).json({
+    message: err.message,
+  });
+});
+
+app.listen(3000);
+```
+
+Explanation:
+
+- Error thrown inside route
+- Passed to middleware using `next(err)`
+- Middleware sends error response
+
+---
+
+## Interview Ready Answer
+
+Errors in Express.js are handled using error-handling middleware. When an error occurs, it can be passed to the middleware using `next(error)`. Express then skips normal middleware and executes the error-handling middleware, which logs the error and sends an appropriate response to the client. Centralized error handling improves maintainability and consistency across the application.
+
+---
+
+# 52. What is the error-handling middleware signature?
+
+## Concepts
+
+Express middleware normally has the signature:
+
+```
+(req, res, next)
+```
+
+Error-handling middleware has **four parameters**:
+
+```
+(err, req, res, next)
+```
+
+The presence of **`err` as the first parameter** tells Express that it is an error middleware.
+
+Execution order:
+
+Route Handler
+→ `next(error)`
+→ Error Middleware
+
+Express automatically routes errors to middleware with **4 arguments**.
+
+---
+
+## Code Example
+
+```js
+const express = require("express");
+
+const app = express();
+
+app.get("/", (req, res, next) => {
+  next(new Error("Something went wrong"));
+});
+
+app.use((err, req, res, next) => {
+  console.error(err.message);
+
+  res.status(500).json({
+    error: err.message,
+  });
+});
+
+app.listen(3000);
+```
+
+Explanation:
+
+- `next()` passes error to middleware
+- Express detects 4-argument middleware
+- Sends error response
+
+---
+
+## Interview Ready Answer
+
+Error-handling middleware in Express has the signature `(err, req, res, next)`. The presence of the `err` parameter tells Express that this middleware handles errors. When `next(error)` is called inside a route or middleware, Express skips normal middleware and executes the error-handling middleware to process the error and send a response.
+
+---
+
+# 53. How do you create custom error classes?
+
+## Concepts
+
+Custom error classes help:
+
+- Standardize error structure
+- Add status codes
+- Improve error clarity
+- Separate business errors from system errors
+
+Custom errors typically extend the **JavaScript `Error` class**.
+
+Benefits:
+
+- Consistent error responses
+- Easier debugging
+- Better API error design
+
+---
+
+## Code Example
+
+Create custom error class:
+
+```js
+class ApiError extends Error {
+  constructor(statusCode, message) {
+    super(message);
+
+    this.statusCode = statusCode;
+    this.status = "error";
+  }
+}
+
+module.exports = ApiError;
+```
+
+Using custom error:
+
+```js
+const ApiError = require("./ApiError");
+
+app.get("/user", (req, res, next) => {
+  return next(new ApiError(404, "User not found"));
+});
+```
+
+Error middleware:
+
+```js
+app.use((err, req, res, next) => {
+  res.status(err.statusCode || 500).json({
+    status: err.status || "error",
+    message: err.message,
+  });
+});
+```
+
+---
+
+## Interview Ready Answer
+
+Custom error classes are created by extending the built-in JavaScript `Error` class. They allow attaching additional information such as HTTP status codes and error types. This helps standardize API error responses and makes error handling more structured and maintainable in Express applications.
+
+---
+
+# 54. How do you handle async errors in Express.js?
+
+## Concepts
+
+Async errors occur when using:
+
+- Promises
+- async/await
+- Database queries
+- API calls
+
+Express **does not automatically catch async errors**.
+
+Without handling:
+
+Unhandled Promise Rejection may occur.
+
+Solutions:
+
+1. Try/Catch inside async functions
+2. Use async wrapper
+3. Use libraries like `express-async-handler`
+
+---
+
+## Code Example
+
+### Method 1: Try/Catch
+
+```js
+app.get("/users", async (req, res, next) => {
+  try {
+    const users = await getUsersFromDB();
+    res.json(users);
+  } catch (err) {
+    next(err);
+  }
+});
+```
+
+---
+
+### Method 2: Async Wrapper
+
+```js
+const asyncHandler = (fn) => (req, res, next) =>
+  Promise.resolve(fn(req, res, next)).catch(next);
+
+app.get(
+  "/users",
+  asyncHandler(async (req, res) => {
+    const users = await getUsersFromDB();
+    res.json(users);
+  }),
+);
+```
+
+---
+
+## Interview Ready Answer
+
+Async errors in Express must be handled manually because Express does not automatically catch rejected promises. Typically, async routes are wrapped in try/catch blocks and errors are passed to `next(error)`. A common pattern is using an async wrapper function that automatically catches promise rejections and forwards them to the global error middleware.
+
+---
+
+# 55. How do you handle 404 errors?
+
+## Concepts
+
+A **404 error** occurs when:
+
+- No route matches the request
+
+In Express:
+
+404 handling is implemented using **middleware placed after all routes**.
+
+Flow:
+
+Routes checked
+→ No match
+→ 404 middleware executes
+
+---
+
+## Code Example
+
+```js
+const express = require("express");
+
+const app = express();
+
+app.get("/", (req, res) => {
+  res.send("Home Page");
+});
+
+// 404 handler
+app.use((req, res, next) => {
+  res.status(404).json({
+    message: "Route not found",
+  });
+});
+
+app.listen(3000);
+```
+
+---
+
+## Interview Ready Answer
+
+404 errors are handled in Express by defining middleware after all route definitions. If no route matches the request, this middleware executes and returns a 404 response indicating that the requested resource was not found.
+
+---
+
+# 56. How do you implement global error handling?
+
+## Concepts
+
+Global error handling centralizes all error responses.
+
+Benefits:
+
+- Consistent responses
+- Clean route handlers
+- Easier debugging
+- Security (hide internal errors)
+
+Flow:
+
+Route → Error occurs → `next(error)` → Global Error Middleware
+
+---
+
+## Code Example
+
+```js
+app.use((err, req, res, next) => {
+  console.error(err);
+
+  res.status(err.statusCode || 500).json({
+    status: "error",
+    message: err.message || "Internal Server Error",
+  });
+});
+```
+
+Key points:
+
+- Placed **after all routes**
+- Handles every error in app
+
+---
+
+## Interview Ready Answer
+
+Global error handling in Express is implemented using a centralized error-handling middleware placed after all routes. When `next(error)` is called, Express forwards the error to this middleware, which logs the error and sends a standardized response to the client.
+
+---
+
+# 57. How do you log errors in production?
+
+## Concepts
+
+Production logging should:
+
+- Persist logs
+- Structure logs
+- Avoid console-only logging
+
+Popular logging tools:
+
+- **Winston**
+- **Pino**
+- **Bunyan**
+- **Morgan** (HTTP logging)
+
+Logs should include:
+
+- Timestamp
+- Error message
+- Stack trace
+- Request info
+
+Logs are often sent to:
+
+- Log files
+- Cloud logging systems
+- Monitoring tools
+
+---
+
+## Code Example
+
+Using Winston logger:
+
+```js
+const winston = require("winston");
+
+const logger = winston.createLogger({
+  level: "error",
+  transports: [new winston.transports.Console()],
+});
+
+app.use((err, req, res, next) => {
+  logger.error(err.stack);
+
+  res.status(500).json({
+    message: "Internal Server Error",
+  });
+});
+```
+
+---
+
+## Interview Ready Answer
+
+In production, errors should be logged using structured logging libraries like Winston or Pino instead of console logs. These tools allow storing logs in files or external monitoring systems and include metadata such as timestamps, stack traces, and request information for debugging and observability.
+
+---
+
+# 58. How do you send appropriate error responses to clients?
+
+## Concepts
+
+Error responses should follow a **consistent API format**.
+
+Important elements:
+
+- HTTP status code
+- Error message
+- Error type
+- Optional details
+
+Avoid exposing:
+
+- Stack traces
+- Internal implementation details
+
+---
+
+### Standard Error Response Structure
+
+```
+{
+  "status": "error",
+  "message": "User not found"
+}
+```
+
+Possible status codes:
+
+- 400 → Bad Request
+- 401 → Unauthorized
+- 403 → Forbidden
+- 404 → Not Found
+- 500 → Server Error
+
+---
+
+## Code Example
+
+```js
+app.use((err, req, res, next) => {
+  const statusCode = err.statusCode || 500;
+
+  res.status(statusCode).json({
+    status: "error",
+    message: err.message || "Internal Server Error",
+  });
+});
+```
+
+---
+
+## Interview Ready Answer
+
+Appropriate error responses should include the correct HTTP status code and a clear error message while avoiding exposure of internal details. A consistent JSON structure should be used across the API so that clients can reliably handle errors. Centralized error middleware is typically used to standardize these responses.
+
+# 59. What are template engines in Express.js?
+
+## Concepts
+
+Template engines allow you to generate **dynamic HTML pages on the server**.
+
+Instead of sending static HTML, the server can **inject data into templates** before sending them to the client.
+
+Template engines combine:
+
+HTML + Data → Final HTML page
+
+Express integrates with template engines to render **views dynamically**.
+
+---
+
+### Why Template Engines Are Used
+
+- Dynamic content rendering
+- Server-side rendering (SSR)
+- Reusable layouts
+- Cleaner separation of logic and presentation
+
+---
+
+### How They Work
+
+Flow:
+
+Request → Express Route
+→ Render Template
+→ Inject Data
+→ Generate HTML
+→ Send Response
+
+---
+
+## Code Example
+
+```js
+app.get("/profile", (req, res) => {
+  res.render("profile", { name: "Tanish", age: 21 });
+});
+```
+
+Template (EJS):
+
+```html
+<h1>Hello <%= name %></h1>
+<p>Age: <%= age %></p>
+```
+
+Output HTML sent to browser:
+
+```html
+<h1>Hello Tanish</h1>
+<p>Age: 21</p>
+```
+
+---
+
+## Interview Ready Answer
+
+Template engines in Express.js allow developers to generate dynamic HTML by combining templates with server-side data. Instead of sending static files, Express renders a template and injects data before sending the final HTML response to the client. Common template engines include EJS, Pug, and Handlebars.
+
+---
+
+# 60. How do you set up a template engine?
+
+## Concepts
+
+Setting up a template engine in Express requires:
+
+1. Installing the template engine
+2. Configuring Express
+3. Creating a `views` folder
+4. Rendering templates using `res.render()`
+
+Express automatically looks for templates in the **views directory**.
+
+---
+
+## Code Example
+
+### Install EJS
+
+```bash
+npm install ejs
+```
+
+---
+
+### Setup in Express
+
+```js
+const express = require("express");
+const app = express();
+
+// Set template engine
+app.set("view engine", "ejs");
+
+// Route
+app.get("/", (req, res) => {
+  res.render("index", { name: "Tanish" });
+});
+
+app.listen(3000);
+```
+
+---
+
+### Folder Structure
+
+```
+project
+ ├─ views
+ │   └─ index.ejs
+ ├─ app.js
+```
+
+---
+
+### Template File (index.ejs)
+
+```html
+<h1>Hello <%= name %></h1>
+```
+
+---
+
+## Interview Ready Answer
+
+To set up a template engine in Express, you first install the engine (for example EJS), then configure Express using `app.set("view engine", "ejs")`. Templates are placed in the `views` folder, and dynamic content is rendered using `res.render(template, data)`.
+
+---
+
+# 61. What are popular template engines for Express.js?
+
+## Concepts
+
+Express supports many template engines.
+
+Popular ones include:
+
+1. EJS
+2. Pug
+3. Handlebars
+4. Mustache
+5. Nunjucks
+
+---
+
+### EJS
+
+- Embedded JavaScript
+- Simple syntax
+- HTML-like structure
+
+Example:
+
+```html
+<h1><%= name %></h1>
+```
+
+---
+
+### Pug
+
+- Indentation-based syntax
+- No closing tags
+- Very compact
+
+Example:
+
+```
+h1= name
+```
+
+---
+
+### Handlebars
+
+- Logic-less template engine
+- Uses placeholders
+
+Example:
+
+```
+<h1>{{name}}</h1>
+```
+
+---
+
+### Comparison
+
+| Engine     | Syntax Style | Complexity | Popularity |
+| ---------- | ------------ | ---------- | ---------- |
+| EJS        | HTML + JS    | Easy       | High       |
+| Pug        | Indentation  | Medium     | Medium     |
+| Handlebars | Logic-less   | Easy       | High       |
+
+---
+
+## Interview Ready Answer
+
+Popular template engines for Express.js include EJS, Pug, and Handlebars. EJS allows embedding JavaScript inside HTML, Pug uses a concise indentation-based syntax, and Handlebars uses logic-less templates with placeholders. EJS is one of the most commonly used due to its simplicity.
+
+---
+
+# 62. How do you render dynamic views?
+
+## Concepts
+
+Dynamic views are rendered using the Express method:
+
+```
+res.render()
+```
+
+This method:
+
+1. Loads template file
+2. Injects provided data
+3. Generates HTML
+4. Sends response
+
+---
+
+### Rendering Process
+
+Client Request
+→ Express Route
+→ `res.render()`
+→ Template Engine
+→ Final HTML
+
+---
+
+## Code Example
+
+### Express Route
+
+```js
+app.get("/user", (req, res) => {
+  const user = {
+    name: "Tanish",
+    age: 21,
+  };
+
+  res.render("user", { user });
+});
+```
+
+---
+
+### Template (user.ejs)
+
+```html
+<h1>User Profile</h1>
+<p>Name: <%= user.name %></p>
+<p>Age: <%= user.age %></p>
+```
+
+---
+
+## Interview Ready Answer
+
+Dynamic views in Express are rendered using the `res.render()` method. This method loads a template file, injects the provided data, generates the final HTML using the template engine, and sends it as the response to the client.
+
+---
+
+# 63. What is the difference between server-side rendering and client-side rendering?
+
+## Concepts
+
+Rendering refers to **how HTML is generated**.
+
+Two approaches:
+
+1. Server-Side Rendering (SSR)
+2. Client-Side Rendering (CSR)
+
+---
+
+### Server-Side Rendering (SSR)
+
+HTML generated on server.
+
+Flow:
+
+Browser → Request → Server renders HTML → Response → Display
+
+Example:
+
+Express + EJS
+
+---
+
+### Client-Side Rendering (CSR)
+
+Server sends minimal HTML + JavaScript.
+
+JS fetches data and renders UI.
+
+Flow:
+
+Browser → Download JS → Fetch API → Render UI
+
+Example:
+
+React / Vue / Angular
+
+---
+
+### Comparison Table
+
+| Feature        | SSR              | CSR              |
+| -------------- | ---------------- | ---------------- |
+| Rendering      | Server           | Browser          |
+| Initial Load   | Fast             | Slower           |
+| SEO            | Better           | Poor without SSR |
+| JS Requirement | Optional         | Required         |
+| Examples       | EJS, Next.js SSR | React SPA        |
+
+---
+
+## Interview Ready Answer
+
+Server-side rendering generates HTML on the server and sends the fully rendered page to the browser. Client-side rendering sends minimal HTML and uses JavaScript in the browser to generate the UI dynamically. SSR improves SEO and initial load time, while CSR provides better interactivity for modern web applications.
+
+---
+
+# 64. How do you use EJS with Express.js?
+
+## Concepts
+
+EJS (Embedded JavaScript) allows embedding JavaScript directly inside HTML.
+
+Syntax:
+
+```
+<%= value %>
+```
+
+Steps:
+
+1. Install EJS
+2. Set view engine
+3. Create `.ejs` files
+4. Render views
+
+---
+
+## Code Example
+
+### Install
+
+```bash
+npm install ejs
+```
+
+---
+
+### Express Setup
+
+```js
+const express = require("express");
+const app = express();
+
+app.set("view engine", "ejs");
+
+app.get("/", (req, res) => {
+  res.render("home", { name: "Tanish" });
+});
+
+app.listen(3000);
+```
+
+---
+
+### home.ejs
+
+```html
+<h1>Hello <%= name %></h1>
+```
+
+---
+
+## Interview Ready Answer
+
+EJS is a template engine that allows embedding JavaScript inside HTML. In Express, it is used by installing EJS, setting it as the view engine using `app.set("view engine", "ejs")`, creating `.ejs` templates inside the views folder, and rendering them using `res.render()`.
+
+---
+
+# 65. How do you use Pug (Jade) with Express.js?
+
+## Concepts
+
+Pug is a template engine that uses **indentation instead of HTML tags**.
+
+It produces very concise templates.
+
+---
+
+## Code Example
+
+### Install Pug
+
+```bash
+npm install pug
+```
+
+---
+
+### Express Setup
+
+```js
+const express = require("express");
+const app = express();
+
+app.set("view engine", "pug");
+
+app.get("/", (req, res) => {
+  res.render("index", { name: "Tanish" });
+});
+
+app.listen(3000);
+```
+
+---
+
+### index.pug
+
+```
+html
+  head
+    title Profile
+  body
+    h1 Hello #{name}
+```
+
+---
+
+## Interview Ready Answer
+
+Pug is a template engine that uses indentation-based syntax instead of traditional HTML tags. In Express, it can be used by installing Pug, setting the view engine to `pug`, creating `.pug` template files, and rendering them using `res.render()`.
+
+---
+
+# 66. How do you use Handlebars with Express.js?
+
+## Concepts
+
+Handlebars is a **logic-less template engine**.
+
+It focuses on:
+
+- Clean templates
+- Separation of logic and presentation
+
+Syntax:
+
+```
+{{variable}}
+```
+
+---
+
+## Code Example
+
+### Install
+
+```bash
+npm install express-handlebars
+```
+
+---
+
+### Setup
+
+```js
+const express = require("express");
+const exphbs = require("express-handlebars");
+
+const app = express();
+
+app.engine("handlebars", exphbs.engine());
+app.set("view engine", "handlebars");
+
+app.get("/", (req, res) => {
+  res.render("home", { name: "Tanish" });
+});
+
+app.listen(3000);
+```
+
+---
+
+### Template
+
+```
+<h1>Hello {{name}}</h1>
+```
+
+---
+
+## Interview Ready Answer
+
+Handlebars is a logic-less template engine that uses placeholders like `{{variable}}` to inject data into templates. In Express, it can be used by installing express-handlebars, configuring it as the view engine, and rendering templates using `res.render()`.
+
+---
+
+# 67. How do you pass data to templates?
+
+## Concepts
+
+Data is passed from Express routes to templates using the second argument of:
+
+```
+res.render(view, data)
+```
+
+The data becomes available inside the template.
+
+---
+
+### Data Passing Flow
+
+Route → res.render() → Template → Rendered HTML
+
+---
+
+## Code Example
+
+### Express Route
+
+```js
+app.get("/dashboard", (req, res) => {
+  res.render("dashboard", {
+    username: "Tanish",
+    notifications: 5,
+  });
+});
+```
+
+---
+
+### Template (EJS)
+
+```html
+<h1>Welcome <%= username %></h1>
+<p>You have <%= notifications %> notifications</p>
+```
+
+---
+
+## Interview Ready Answer
+
+Data is passed to templates in Express using the `res.render()` method. The second argument is an object containing key-value pairs, which become available inside the template for rendering dynamic content.
+
+# 68. How do you connect Express.js to databases?
+
+## Concepts
+
+Express.js itself does not connect directly to databases. Instead, we use **database drivers or ORMs/ODMs**.
+
+Common databases used with Express:
+
+**SQL Databases**
+
+- PostgreSQL
+- MySQL
+- SQLite
+
+**NoSQL Databases**
+
+- MongoDB
+
+Connection is usually handled in a **separate configuration file** and reused across the application.
+
+Common tools:
+
+| Database   | Library / ORM           |
+| ---------- | ----------------------- |
+| MongoDB    | Mongoose                |
+| PostgreSQL | pg / Prisma / Sequelize |
+| MySQL      | mysql2 / Sequelize      |
+
+Typical architecture:
+
+Express App
+→ Database Driver / ORM
+→ Database Server
+
+---
+
+### Connection Flow
+
+1. Install database library
+2. Configure connection string
+3. Initialize connection when server starts
+4. Use models/queries inside controllers
+
+---
+
+## Code Example
+
+### Example: MongoDB with Mongoose
+
+Install dependency
+
+```bash
+npm install mongoose
+```
+
+Create database connection
+
+```js
+const mongoose = require("mongoose");
+
+mongoose
+  .connect("mongodb://localhost:27017/myapp")
+  .then(() => {
+    console.log("Database connected");
+  })
+  .catch((err) => {
+    console.error("Database connection error:", err);
+  });
+```
+
+Use in Express server
+
+```js
+const express = require("express");
+const app = express();
+
+app.get("/users", async (req, res) => {
+  const users = await User.find();
+  res.json(users);
+});
+
+app.listen(3000);
+```
+
+---
+
+## Interview Ready Answer
+
+Express.js connects to databases using database drivers or ORMs/ODMs. For example, MongoDB is typically connected using Mongoose, while SQL databases like PostgreSQL or MySQL use libraries such as pg or Sequelize. The database connection is usually initialized during server startup, and models or query methods are used inside route handlers or services to interact with the database.
+
+---
+
+# 69. What is connection pooling in Express.js?
+
+## Concepts
+
+Connection pooling is a technique where **a pool of reusable database connections** is maintained instead of creating a new connection for every request.
+
+Creating a new DB connection for each request is expensive because:
+
+- Connection handshake takes time
+- High memory overhead
+- Limits database scalability
+
+Instead:
+
+Application
+→ Connection Pool
+→ Reused DB connections
+
+---
+
+### How It Works
+
+1. Application starts
+2. Pool creates multiple DB connections
+3. Requests borrow a connection
+4. Query executes
+5. Connection returned to pool
+
+---
+
+### Advantages
+
+- Faster performance
+- Reduced latency
+- Better scalability
+- Controlled resource usage
+
+---
+
+### Example Pool Configuration
+
+Example using **PostgreSQL**
+
+```js
+const { Pool } = require("pg");
+
+const pool = new Pool({
+  user: "postgres",
+  host: "localhost",
+  database: "mydb",
+  password: "password",
+  port: 5432,
+  max: 10,
+});
+```
+
+Query usage
+
+```js
+const users = await pool.query("SELECT * FROM users");
+```
+
+Here:
+
+- `max: 10` means maximum 10 connections in pool.
+
+---
+
+## Interview Ready Answer
+
+Connection pooling is a technique where a set of reusable database connections is maintained instead of creating a new connection for every request. When a request needs to interact with the database, it borrows a connection from the pool, executes the query, and then returns the connection to the pool. This improves performance, reduces latency, and prevents database overload in high-traffic applications.
+
+---
+
+# 70. How do you handle database migrations?
+
+## Concepts
+
+Database migrations are a way to **manage and version control database schema changes**.
+
+Examples of schema changes:
+
+- Creating tables
+- Adding columns
+- Modifying constraints
+- Creating indexes
+
+Instead of manually changing the database, migrations allow **automated schema updates**.
+
+---
+
+### Migration Workflow
+
+1. Create migration file
+2. Define schema change
+3. Apply migration
+4. Track migration history
+
+---
+
+### Benefits
+
+- Version-controlled schema
+- Team collaboration
+- Reproducible environments
+- Safe production updates
+
+---
+
+### Tools for Migrations
+
+| Database   | Migration Tool                     |
+| ---------- | ---------------------------------- |
+| PostgreSQL | Prisma / Sequelize / Knex          |
+| MongoDB    | Mongoose scripts / migration tools |
+
+---
+
+## Code Example
+
+Example using **Sequelize CLI**
+
+Create migration
+
+```bash
+npx sequelize-cli migration:generate --name create-users-table
+```
+
+Migration file
+
+```js
+module.exports = {
+  up: async (queryInterface, Sequelize) => {
+    await queryInterface.createTable("Users", {
+      id: {
+        type: Sequelize.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+      },
+      name: Sequelize.STRING,
+      email: Sequelize.STRING,
+    });
+  },
+
+  down: async (queryInterface) => {
+    await queryInterface.dropTable("Users");
+  },
+};
+```
+
+Run migration
+
+```bash
+npx sequelize-cli db:migrate
+```
+
+---
+
+## Interview Ready Answer
+
+Database migrations are a structured way to manage schema changes in a database over time. Instead of manually altering tables, developers create migration scripts that define changes such as creating tables or adding columns. Tools like Prisma, Sequelize, and Knex track migration history and allow applying or rolling back changes safely across development, staging, and production environments.
+
+---
+
+# 71. How do you use Mongoose with Express.js?
+
+## Concepts
+
+Mongoose is an **ODM (Object Document Mapper)** for MongoDB.
+
+It provides:
+
+- Schema definitions
+- Model abstraction
+- Validation
+- Middleware
+- Query helpers
+
+Architecture:
+
+Express Route
+→ Controller
+→ Mongoose Model
+→ MongoDB
+
+---
+
+### Steps to Use Mongoose
+
+1. Install mongoose
+2. Connect database
+3. Define schema
+4. Create model
+5. Use model in routes
+
+---
+
+## Code Example
+
+Install
+
+```bash
+npm install mongoose
+```
+
+Create schema and model
+
+```js
+const mongoose = require("mongoose");
+
+const userSchema = new mongoose.Schema({
+  name: String,
+  email: String,
+});
+
+const User = mongoose.model("User", userSchema);
+```
+
+Express route
+
+```js
+app.post("/users", async (req, res) => {
+  const user = new User(req.body);
+  await user.save();
+
+  res.json(user);
+});
+```
+
+---
+
+## Interview Ready Answer
+
+Mongoose is an ODM library used to interact with MongoDB in Node.js applications. It allows developers to define schemas, create models, validate data, and perform database operations using JavaScript objects. In an Express application, Mongoose models are typically used inside controllers or services to perform CRUD operations on MongoDB collections.
+
+---
+
+# 72. How do you use Sequelize with Express.js?
+
+## Concepts
+
+Sequelize is an **ORM for SQL databases**.
+
+Supported databases:
+
+- PostgreSQL
+- MySQL
+- SQLite
+- MariaDB
+
+Sequelize provides:
+
+- Models
+- Relationships
+- Migrations
+- Query abstraction
+
+---
+
+### Architecture
+
+Express Route
+→ Controller
+→ Sequelize Model
+→ SQL Database
+
+---
+
+## Code Example
+
+Install Sequelize
+
+```bash
+npm install sequelize pg pg-hstore
+```
+
+Create Sequelize instance
+
+```js
+const { Sequelize } = require("sequelize");
+
+const sequelize = new Sequelize("database", "user", "password", {
+  host: "localhost",
+  dialect: "postgres",
+});
+```
+
+Create model
+
+```js
+const User = sequelize.define("User", {
+  name: Sequelize.STRING,
+  email: Sequelize.STRING,
+});
+```
+
+Insert data
+
+```js
+app.post("/users", async (req, res) => {
+  const user = await User.create(req.body);
+  res.json(user);
+});
+```
+
+---
+
+## Interview Ready Answer
+
+Sequelize is an ORM used with Express.js to interact with SQL databases like PostgreSQL or MySQL. It allows defining models that map to database tables and provides methods for CRUD operations. Sequelize also supports migrations, associations, and transactions, making it useful for building structured relational database applications.
+
+---
+
+# 73. How do you handle database transactions?
+
+## Concepts
+
+A transaction is a sequence of operations executed as a **single atomic unit**.
+
+Either:
+
+- All operations succeed
+  OR
+- All operations rollback
+
+This ensures **data consistency**.
+
+---
+
+### ACID Properties
+
+| Property    | Meaning                  |
+| ----------- | ------------------------ |
+| Atomicity   | All or nothing           |
+| Consistency | Valid data state         |
+| Isolation   | Independent transactions |
+| Durability  | Data persists            |
+
+---
+
+### Use Cases
+
+- Payment processing
+- Order creation
+- Inventory updates
+- Multi-table updates
+
+---
+
+## Code Example
+
+Example using **Sequelize transaction**
+
+```js
+const t = await sequelize.transaction();
+
+try {
+  const user = await User.create({ name: "John" }, { transaction: t });
+
+  const order = await Order.create({ userId: user.id }, { transaction: t });
+
+  await t.commit();
+} catch (error) {
+  await t.rollback();
+}
+```
+
+---
+
+## Interview Ready Answer
+
+Database transactions ensure that multiple operations execute as a single atomic unit. If any operation fails, the entire transaction is rolled back to maintain data consistency. ORMs like Sequelize provide transaction APIs that allow grouping queries within a transaction block and committing or rolling back based on success or failure.
+
+---
+
+# 74. How do you design RESTful APIs with Express.js and databases?
+
+## Concepts
+
+RESTful APIs follow **resource-based design**.
+
+Example resource:
+
+Users
+
+Endpoints:
+
+| Method | Endpoint   | Purpose         |
+| ------ | ---------- | --------------- |
+| GET    | /users     | Get all users   |
+| GET    | /users/:id | Get single user |
+| POST   | /users     | Create user     |
+| PUT    | /users/:id | Update user     |
+| DELETE | /users/:id | Delete user     |
+
+---
+
+### Best Practices
+
+- Use nouns for resources
+- Use HTTP methods correctly
+- Return proper status codes
+- Separate controllers and services
+
+---
+
+## Code Example
+
+```js
+app.get("/users", async (req, res) => {
+  const users = await User.find();
+  res.json(users);
+});
+
+app.post("/users", async (req, res) => {
+  const user = await User.create(req.body);
+  res.status(201).json(user);
+});
+```
+
+---
+
+## Interview Ready Answer
+
+RESTful APIs are designed around resources and standard HTTP methods such as GET, POST, PUT, and DELETE. In an Express.js application, routes handle incoming requests, controllers perform business logic, and database models interact with the database. Following REST principles ensures predictable and scalable API design.
+
+---
+
+# 75. How do you handle pagination?
+
+## Concepts
+
+Pagination is used to **limit the number of records returned per request**.
+
+Benefits:
+
+- Improves performance
+- Reduces payload size
+- Better user experience
+
+---
+
+### Common Parameters
+
+```
+?page=1
+&limit=10
+```
+
+---
+
+### Pagination Formula
+
+```
+skip = (page - 1) * limit
+```
+
+---
+
+## Code Example
+
+MongoDB pagination
+
+```js
+app.get("/users", async (req, res) => {
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 10;
+
+  const users = await User.find()
+    .skip((page - 1) * limit)
+    .limit(limit);
+
+  res.json(users);
+});
+```
+
+---
+
+## Interview Ready Answer
+
+Pagination limits the number of records returned by an API to improve performance and usability. It is commonly implemented using query parameters such as page and limit. The backend calculates the offset and fetches only the required records using database methods like skip and limit.
+
+---
+
+# 76. How do you implement filtering and sorting?
+
+## Concepts
+
+Filtering allows selecting specific data.
+
+Sorting orders results.
+
+Example:
+
+```
+/products?category=books
+/products?sort=price
+```
+
+---
+
+## Code Example
+
+```js
+app.get("/products", async (req, res) => {
+  const { category, sort } = req.query;
+
+  const query = {};
+
+  if (category) {
+    query.category = category;
+  }
+
+  const products = await Product.find(query).sort(sort || "createdAt");
+
+  res.json(products);
+});
+```
+
+---
+
+## Interview Ready Answer
+
+Filtering allows clients to retrieve specific data based on criteria, while sorting controls the order of returned records. These features are usually implemented using query parameters in REST APIs and translated into database queries using methods like `find()` and `sort()`.
+
+---
+
+# 77. How do you handle relationships in API responses?
+
+## Concepts
+
+Relationships exist between entities.
+
+Example:
+
+User → Posts
+Order → Items
+
+---
+
+### In SQL
+
+Use:
+
+- JOIN queries
+- ORM associations
+
+Example:
+
+```
+User hasMany Orders
+```
+
+---
+
+### In MongoDB
+
+Use:
+
+- References (ObjectId)
+- Populate
+
+---
+
+## Code Example
+
+MongoDB example
+
+```js
+const postSchema = new mongoose.Schema({
+  title: String,
+  author: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  },
+});
+```
+
+Populate relationship
+
+```js
+const posts = await Post.find().populate("author");
+```
+
+---
+
+## Interview Ready Answer
+
+Relationships between entities are handled differently depending on the database type. In SQL databases, relationships are implemented using foreign keys and JOIN queries. In MongoDB, references between documents can be created using ObjectIds and retrieved using populate. ORMs and ODMs simplify managing these relationships in application code.
+
+# 78. What are RESTful principles?
+
+## Concepts
+
+REST stands for **Representational State Transfer**.
+It is an **architectural style for designing web APIs**.
+
+REST APIs are designed around **resources**, which are identified by **URLs** and manipulated using **HTTP methods**.
+
+### Core REST Principles
+
+1. **Client–Server Architecture**
+
+Client and server are separated.
+
+- Client → Handles UI
+- Server → Handles business logic and data
+
+Example:
+
+Frontend (React) → calls → Backend API (Express)
+
+---
+
+2. **Statelessness**
+
+Each request must contain **all necessary information**.
+
+Server does **not store session state** between requests.
+
+Example:
+
+```
+GET /users/123
+Authorization: Bearer token
+```
+
+Every request carries authentication info.
+
+---
+
+3. **Resource-Based URLs**
+
+Everything is treated as a **resource**.
+
+Example resources:
+
+```
+/users
+/products
+/orders
+```
+
+---
+
+4. **Use of HTTP Methods**
+
+Different HTTP methods represent actions.
+
+| Method | Purpose           |
+| ------ | ----------------- |
+| GET    | Retrieve resource |
+| POST   | Create resource   |
+| PUT    | Update resource   |
+| PATCH  | Partial update    |
+| DELETE | Remove resource   |
+
+---
+
+5. **Representation of Resources**
+
+Resources are returned in formats like:
+
+- JSON
+- XML
+
+Example response:
+
+```json
+{
+  "id": 1,
+  "name": "Tanish"
+}
+```
+
+---
+
+6. **Uniform Interface**
+
+REST APIs follow **consistent conventions**:
+
+```
+GET /users
+GET /users/1
+POST /users
+DELETE /users/1
+```
+
+---
+
+7. **Layered Architecture**
+
+Client does not know whether it communicates with:
+
+- API server
+- Load balancer
+- Cache
+- Microservice
+
+---
+
+## Code Example
+
+```javascript
+const express = require("express");
+const app = express();
+
+app.use(express.json());
+
+app.get("/users", (req, res) => {
+  res.json([{ id: 1, name: "Tanish" }]);
+});
+
+app.post("/users", (req, res) => {
+  const user = req.body;
+  res.status(201).json(user);
+});
+
+app.delete("/users/:id", (req, res) => {
+  res.status(204).send();
+});
+
+app.listen(3000);
+```
+
+---
+
+## Interview Ready Answer
+
+RESTful principles define guidelines for designing scalable web APIs. REST APIs are resource-oriented and use standard HTTP methods like GET, POST, PUT, and DELETE to manipulate resources. They follow a stateless client-server architecture, meaning each request contains all necessary information. REST also promotes a uniform interface, resource-based URLs, and layered architecture, which improves scalability and maintainability of web services.
+
+---
+
+# 79. How do you design RESTful routes?
+
+## Concepts
+
+RESTful routes represent **resources using nouns instead of verbs**.
+
+Bad example:
+
+```
+/getUsers
+/createUser
+/deleteUser
+```
+
+Good RESTful design:
+
+```
+/users
+/users/:id
+```
+
+---
+
+### Standard REST Route Pattern
+
+| Operation       | Method    | Route      |
+| --------------- | --------- | ---------- |
+| Get all users   | GET       | /users     |
+| Get single user | GET       | /users/:id |
+| Create user     | POST      | /users     |
+| Update user     | PUT/PATCH | /users/:id |
+| Delete user     | DELETE    | /users/:id |
+
+---
+
+### Nested Resources
+
+Example:
+
+```
+/users/:id/orders
+```
+
+User → Orders relationship.
+
+---
+
+### Naming Best Practices
+
+1. Use **nouns not verbs**
+2. Use **plural resources**
+3. Use **HTTP methods for actions**
+4. Keep URLs **consistent and predictable**
+
+---
+
+## Code Example
+
+```javascript
+const express = require("express");
+const router = express.Router();
+
+router.get("/users", getUsers);
+router.get("/users/:id", getUserById);
+router.post("/users", createUser);
+router.put("/users/:id", updateUser);
+router.delete("/users/:id", deleteUser);
+
+module.exports = router;
+```
+
+---
+
+## Interview Ready Answer
+
+RESTful routes are designed around resources rather than actions. Resources are represented using nouns and manipulated using HTTP methods. For example, `GET /users` retrieves users, `POST /users` creates a new user, and `DELETE /users/:id` removes a user. This approach creates consistent and predictable APIs that are easier to maintain and consume.
+
+---
+
+# 80. What are HTTP status codes and when to use them?
+
+## Concepts
+
+HTTP status codes indicate the **result of an HTTP request**.
+
+They are grouped into categories.
+
+---
+
+### 1xx – Informational
+
+Rarely used.
+
+Example:
+
+```
+100 Continue
+```
+
+---
+
+### 2xx – Success
+
+| Code | Meaning    |
+| ---- | ---------- |
+| 200  | OK         |
+| 201  | Created    |
+| 204  | No Content |
+
+Example:
+
+```
+POST /users → 201 Created
+```
+
+---
+
+### 3xx – Redirection
+
+| Code | Meaning            |
+| ---- | ------------------ |
+| 301  | Permanent redirect |
+| 302  | Temporary redirect |
+
+---
+
+### 4xx – Client Errors
+
+| Code | Meaning          |
+| ---- | ---------------- |
+| 400  | Bad Request      |
+| 401  | Unauthorized     |
+| 403  | Forbidden        |
+| 404  | Not Found        |
+| 409  | Conflict         |
+| 422  | Validation Error |
+
+---
+
+### 5xx – Server Errors
+
+| Code | Meaning               |
+| ---- | --------------------- |
+| 500  | Internal Server Error |
+| 502  | Bad Gateway           |
+| 503  | Service Unavailable   |
+
+---
+
+## Code Example
+
+```javascript
+app.post("/users", (req, res) => {
+  if (!req.body.name) {
+    return res.status(400).json({ error: "Name required" });
+  }
+
+  const user = { id: 1, name: req.body.name };
+
+  res.status(201).json(user);
+});
+```
+
+---
+
+## Interview Ready Answer
+
+HTTP status codes communicate the result of a request between client and server. Successful responses use codes like 200 or 201, client errors use codes like 400 or 404, and server errors use codes like 500. Using correct status codes improves API clarity and helps clients handle responses properly.
+
+---
+
+# 81. How do you version APIs in Express.js?
+
+## Concepts
+
+API versioning prevents **breaking changes** from affecting existing clients.
+
+Common strategies:
+
+1. URL versioning
+2. Header versioning
+3. Query parameter versioning
+
+---
+
+### 1. URL Versioning (Most Common)
+
+```
+/api/v1/users
+/api/v2/users
+```
+
+---
+
+### 2. Header Versioning
+
+```
+Accept: application/vnd.api.v1+json
+```
+
+---
+
+### 3. Query Versioning
+
+```
+/users?version=1
+```
+
+---
+
+### Recommended Practice
+
+Use **URL versioning** because it is simple and explicit.
+
+---
+
+## Code Example
+
+```javascript
+const express = require("express");
+const app = express();
+
+app.get("/api/v1/users", (req, res) => {
+  res.json({ version: "v1", users: [] });
+});
+
+app.get("/api/v2/users", (req, res) => {
+  res.json({ version: "v2", users: [] });
+});
+
+app.listen(3000);
+```
+
+---
+
+## Interview Ready Answer
+
+API versioning allows backward compatibility when APIs evolve. The most common approach is URL versioning such as `/api/v1/users` and `/api/v2/users`. Other methods include header-based or query-based versioning. Versioning ensures existing clients continue working even after API updates.
+
+---
+
+# 82. What is HATEOAS?
+
+## Concepts
+
+HATEOAS stands for:
+
+**Hypermedia As The Engine Of Application State**
+
+It is a REST principle where **API responses include links to related actions**.
+
+Instead of clients manually constructing URLs, the API **provides navigation links**.
+
+---
+
+### Example Without HATEOAS
+
+Response:
+
+```json
+{
+  "id": 1,
+  "name": "Tanish"
+}
+```
+
+Client must guess:
+
+```
+/users/1/orders
+```
+
+---
+
+### Example With HATEOAS
+
+```json
+{
+  "id": 1,
+  "name": "Tanish",
+  "links": {
+    "self": "/users/1",
+    "orders": "/users/1/orders",
+    "delete": "/users/1"
+  }
+}
+```
+
+---
+
+### Benefits
+
+- Self-discoverable APIs
+- Better client navigation
+- Loose coupling
+
+---
+
+## Code Example
+
+```javascript
+app.get("/users/:id", (req, res) => {
+  const id = req.params.id;
+
+  res.json({
+    id,
+    name: "Tanish",
+    links: {
+      self: `/users/${id}`,
+      orders: `/users/${id}/orders`,
+    },
+  });
+});
+```
+
+---
+
+## Interview Ready Answer
+
+HATEOAS is a REST principle where API responses include hyperlinks to related resources and actions. This allows clients to dynamically navigate the API without hardcoding endpoints. It improves API discoverability and reduces coupling between client and server.
+
+---
+
+# 83. How do you structure a large Express.js API?
+
+## Concepts
+
+Large APIs require **modular architecture**.
+
+Typical structure:
+
+```
+project
+│
+├── controllers
+├── routes
+├── services
+├── middlewares
+├── models
+├── utils
+├── config
+└── app.js
+```
+
+---
+
+### Layer Responsibilities
+
+Controllers → request handling
+Services → business logic
+Models → database logic
+Routes → endpoint definitions
+Middleware → authentication / validation
+
+---
+
+## Code Example
+
+Routes:
+
+```javascript
+const express = require("express");
+const router = express.Router();
+const userController = require("../controllers/userController");
+
+router.get("/", userController.getUsers);
+router.post("/", userController.createUser);
+
+module.exports = router;
+```
+
+App setup:
+
+```javascript
+const userRoutes = require("./routes/users");
+
+app.use("/api/users", userRoutes);
+```
+
+---
+
+## Interview Ready Answer
+
+A large Express.js API should follow a modular architecture separating routes, controllers, services, and models. Routes define endpoints, controllers handle requests, services implement business logic, and models interact with the database. This separation of concerns improves scalability, maintainability, and testability.
+
+---
+
+# 84. How do you handle API documentation?
+
+## Concepts
+
+API documentation explains:
+
+- Endpoints
+- Request parameters
+- Response formats
+- Authentication
+- Status codes
+
+Documentation approaches:
+
+1. Manual documentation
+2. Swagger / OpenAPI
+3. Postman collections
+
+---
+
+### Best Practice
+
+Use **auto-generated documentation**.
+
+Example tools:
+
+- Swagger
+- Redoc
+- Postman
+
+---
+
+## Code Example
+
+Swagger setup:
+
+```javascript
+const swaggerUi = require("swagger-ui-express");
+const swaggerDoc = require("./swagger.json");
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDoc));
+```
+
+Access documentation:
+
+```
+http://localhost:3000/api-docs
+```
+
+---
+
+## Interview Ready Answer
+
+API documentation describes endpoints, request formats, authentication methods, and responses. It helps developers understand how to use the API. Tools like Swagger or OpenAPI are commonly used with Express.js to generate interactive API documentation automatically.
+
+---
+
+# 85. What is Swagger/OpenAPI and how do you use it with Express.js?
+
+## Concepts
+
+Swagger/OpenAPI is a **standard specification for documenting APIs**.
+
+It allows:
+
+- Interactive documentation
+- API testing in browser
+- Automatic client generation
+
+---
+
+### Components
+
+OpenAPI spec file:
+
+```
+openapi.yaml
+```
+
+Swagger UI:
+
+Interactive API documentation.
+
+---
+
+## Code Example
+
+Install:
+
+```
+npm install swagger-ui-express swagger-jsdoc
+```
+
+Setup:
+
+```javascript
+const swaggerJsDoc = require("swagger-jsdoc");
+const swaggerUi = require("swagger-ui-express");
+
+const specs = swaggerJsDoc({
+  definition: {
+    openapi: "3.0.0",
+    info: {
+      title: "API",
+      version: "1.0.0",
+    },
+  },
+  apis: ["./routes/*.js"],
+});
+
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(specs));
+```
+
+---
+
+## Interview Ready Answer
+
+Swagger/OpenAPI is a specification used to document REST APIs in a standardized format. It allows generating interactive documentation where developers can explore endpoints and test API requests. In Express.js, Swagger can be integrated using packages like swagger-ui-express and swagger-jsdoc.
+
+---
+
+# 86. How do you implement API rate limiting?
+
+## Concepts
+
+Rate limiting prevents **API abuse or excessive requests**.
+
+Example:
+
+```
+100 requests per minute per IP
+```
+
+Benefits:
+
+- Protect servers
+- Prevent brute-force attacks
+- Control API usage
+
+---
+
+### Common Tools
+
+Express middleware:
+
+```
+express-rate-limit
+```
+
+---
+
+## Code Example
+
+Install:
+
+```
+npm install express-rate-limit
+```
+
+Implementation:
+
+```javascript
+const rateLimit = require("express-rate-limit");
+
+const limiter = rateLimit({
+  windowMs: 60 * 1000,
+  max: 100,
+});
+
+app.use(limiter);
+```
+
+---
+
+## Interview Ready Answer
+
+API rate limiting restricts the number of requests a client can make within a specific time window. It protects servers from abuse and denial-of-service attacks. In Express.js, rate limiting can be implemented using middleware like express-rate-limit, which tracks requests per IP and blocks excessive requests.
+
+---
+
+# 87. What is GraphQL and how does it differ from REST?
+
+## Concepts
+
+GraphQL is a **query language for APIs** developed by Facebook.
+
+It allows clients to **request exactly the data they need**.
+
+---
+
+### REST Problems
+
+Over-fetching:
+
+```
+GET /users/1
+```
+
+Returns unnecessary fields.
+
+Under-fetching:
+
+Client must call multiple endpoints.
+
+---
+
+### GraphQL Solution
+
+Client defines query.
+
+Example:
+
+```graphql
+{
+  user(id: 1) {
+    name
+    email
+  }
+}
+```
+
+Only requested fields returned.
+
+---
+
+### REST vs GraphQL
+
+| Feature        | REST         | GraphQL         |
+| -------------- | ------------ | --------------- |
+| Endpoints      | Multiple     | Single          |
+| Data fetching  | Fixed        | Flexible        |
+| Over-fetching  | Possible     | Avoided         |
+| Query language | HTTP methods | GraphQL queries |
+
+---
+
+## Code Example
+
+```javascript
+const { graphql, buildSchema } = require("graphql");
+
+const schema = buildSchema(`
+  type Query {
+    hello: String
+  }
+`);
+
+const root = {
+  hello: () => "Hello GraphQL",
+};
+```
+
+---
+
+## Interview Ready Answer
+
+GraphQL is a query language for APIs that allows clients to request specific data fields. Unlike REST which exposes multiple endpoints, GraphQL uses a single endpoint where clients define the exact data they need. This reduces over-fetching and under-fetching and provides more flexibility in data retrieval.
+
+---
+
+# 88. How do you implement GraphQL with Express.js?
+
+## Concepts
+
+GraphQL can be integrated with Express using libraries such as:
+
+- express-graphql
+- Apollo Server
+
+Steps:
+
+1. Define schema
+2. Create resolvers
+3. Connect GraphQL middleware
+
+---
+
+## Code Example
+
+```javascript
+const express = require("express");
+const { graphqlHTTP } = require("express-graphql");
+const { buildSchema } = require("graphql");
+
+const app = express();
+
+const schema = buildSchema(`
+  type Query {
+    hello: String
+  }
+`);
+
+const root = {
+  hello: () => "Hello GraphQL",
+};
+
+app.use(
+  "/graphql",
+  graphqlHTTP({
+    schema: schema,
+    rootValue: root,
+    graphiql: true,
+  }),
+);
+
+app.listen(4000);
+```
+
+---
+
+## Interview Ready Answer
+
+GraphQL can be implemented with Express.js using middleware such as express-graphql or Apollo Server. The process involves defining a schema that describes available data types, creating resolver functions to fetch data, and attaching the GraphQL middleware to an endpoint like `/graphql`.
+
+---
+
+# 89. What is Apollo Server with Express?
+
+## Concepts
+
+Apollo Server is a **GraphQL server implementation**.
+
+Features:
+
+- Schema management
+- Resolver support
+- GraphQL playground
+- Performance tools
+
+It integrates easily with Express.
+
+---
+
+## Code Example
+
+```javascript
+const express = require("express");
+const { ApolloServer, gql } = require("apollo-server-express");
+
+const typeDefs = gql`
+  type Query {
+    hello: String
+  }
+`;
+
+const resolvers = {
+  Query: {
+    hello: () => "Hello Apollo",
+  },
+};
+
+async function startServer() {
+  const app = express();
+
+  const server = new ApolloServer({
+    typeDefs,
+    resolvers,
+  });
+
+  await server.start();
+  server.applyMiddleware({ app });
+
+  app.listen(4000);
+}
+
+startServer();
+```
+
+---
+
+## Interview Ready Answer
+
+Apollo Server is a popular GraphQL server implementation that provides tools for building scalable GraphQL APIs. It integrates with Express.js and allows defining schemas and resolvers easily. Apollo also provides features like GraphQL playground, caching, and performance monitoring.
+
+# 90. How do you secure Express.js applications?
+
+## Concepts
+
+Securing an Express.js application involves protecting the API, server, and data from common attacks.
+
+### Key Security Practices
+
+1. **Use HTTPS**
+   - Encrypts communication using SSL/TLS
+   - Prevents man-in-the-middle attacks
+
+2. **Use Security Middleware**
+   - `helmet` → sets secure HTTP headers
+   - `cors` → controls cross-origin requests
+
+3. **Input Validation**
+   - Prevent malicious input
+   - Use libraries like `express-validator` or `Joi`
+
+4. **Authentication & Authorization**
+   - Use JWT or sessions
+   - Restrict access using roles/permissions
+
+5. **Rate Limiting**
+   - Prevent brute force attacks
+   - Use `express-rate-limit`
+
+6. **Hide Sensitive Information**
+   - Do not expose stack traces in production
+   - Disable `x-powered-by`
+
+7. **Secure Environment Variables**
+   - Store secrets in `.env` files
+
+8. **Use Secure Cookies**
+   - `httpOnly`
+   - `secure`
+   - `sameSite`
+
+9. **Dependency Security**
+   - Regularly run:
+
+```
+npm audit
+```
+
+---
+
+## Code Example
+
+```js
+const express = require("express");
+const helmet = require("helmet");
+const rateLimit = require("express-rate-limit");
+
+const app = express();
+
+// Security headers
+app.use(helmet());
+
+// Rate limiting
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 100,
+});
+
+app.use(limiter);
+
+// Disable Express signature
+app.disable("x-powered-by");
+
+app.get("/", (req, res) => {
+  res.send("Secure Express App");
+});
+
+app.listen(3000);
+```
+
+---
+
+## Interview Ready Answer
+
+To secure an Express.js application, several practices should be followed. These include using HTTPS for encrypted communication, implementing security middleware like Helmet to set secure HTTP headers, validating user input to prevent injection attacks, and implementing authentication and authorization mechanisms. Additional measures include rate limiting to prevent brute force attacks, storing sensitive configuration in environment variables, and regularly auditing dependencies for vulnerabilities.
+
+---
+
+# 91. What are common security vulnerabilities in Express.js?
+
+## Concepts
+
+Express applications are vulnerable to several common web security threats.
+
+### Common Vulnerabilities
+
+1. **SQL Injection**
+
+Attackers manipulate queries through user input.
+
+Example:
+
+```
+SELECT * FROM users WHERE email = '${input}'
+```
+
+Solution:
+
+- Use parameterized queries
+- Use ORM/ODM
+
+---
+
+2. **Cross-Site Scripting (XSS)**
+
+Injecting malicious JavaScript into web pages.
+
+Example:
+
+```html
+<script>
+  alert("hacked");
+</script>
+```
+
+Solution:
+
+- Escape output
+- Use `helmet`
+- Sanitize input
+
+---
+
+3. **Cross-Site Request Forgery (CSRF)**
+
+Forcing a user to perform unwanted actions.
+
+Solution:
+
+- CSRF tokens
+- SameSite cookies
+
+---
+
+4. **NoSQL Injection**
+
+Occurs in MongoDB queries when user input is injected into query objects.
+
+Solution:
+
+- Input validation
+- Use strict query checks
+
+---
+
+5. **Broken Authentication**
+
+Weak password storage or poor session management.
+
+Solution:
+
+- Use `bcrypt`
+- Implement JWT or secure sessions
+
+---
+
+6. **Sensitive Data Exposure**
+
+Hardcoding API keys or database credentials.
+
+Solution:
+
+- Use environment variables
+
+---
+
+7. **Denial of Service (DoS)**
+
+Overloading server with too many requests.
+
+Solution:
+
+- Rate limiting
+- Request size limits
+
+---
+
+## Code Example
+
+```js
+const rateLimit = require("express-rate-limit");
+
+app.use(
+  rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 100,
+  }),
+);
+```
+
+---
+
+## Interview Ready Answer
+
+Common security vulnerabilities in Express.js include SQL injection, cross-site scripting (XSS), cross-site request forgery (CSRF), NoSQL injection, broken authentication, sensitive data exposure, and denial-of-service attacks. These can be mitigated using input validation, parameterized queries, security middleware like Helmet, rate limiting, and secure authentication mechanisms.
+
+---
+
+# 92. How do you implement HTTPS in Express.js?
+
+## Concepts
+
+HTTPS provides **encrypted communication using SSL/TLS**.
+
+Benefits:
+
+- Protects sensitive data
+- Prevents MITM attacks
+- Required for production APIs
+
+Requirements:
+
+1. SSL certificate
+2. Private key
+3. HTTPS server
+
+Certificates can come from:
+
+- Let's Encrypt
+- Cloud providers
+- Self-signed (development)
+
+---
+
+## Code Example
+
+```js
+const https = require("https");
+const fs = require("fs");
+const express = require("express");
+
+const app = express();
+
+const options = {
+  key: fs.readFileSync("server.key"),
+  cert: fs.readFileSync("server.cert"),
+};
+
+https.createServer(options, app).listen(443, () => {
+  console.log("HTTPS server running");
+});
+```
+
+---
+
+## Interview Ready Answer
+
+HTTPS in Express.js is implemented using the HTTPS module with SSL/TLS certificates. The server requires a private key and certificate to encrypt communication between the client and server. In production environments, certificates are typically obtained from trusted authorities like Let's Encrypt. HTTPS ensures secure data transmission and protects against man-in-the-middle attacks.
+
+---
+
+# 93. How do you use environment variables for sensitive data?
+
+## Concepts
+
+Sensitive information should never be hardcoded.
+
+Examples:
+
+- API keys
+- Database credentials
+- JWT secrets
+- Cloud credentials
+
+These should be stored in **environment variables**.
+
+Common approach:
+
+Use `.env` file with `dotenv`.
+
+---
+
+### Example `.env`
+
+```
+PORT=3000
+DB_URI=mongodb://localhost:27017/app
+JWT_SECRET=mysecretkey
+```
+
+---
+
+### Best Practices
+
+- Never commit `.env` to Git
+- Use `.env.example`
+- Use different env files per environment
+
+```
+.env.development
+.env.production
+```
+
+---
+
+## Code Example
+
+```js
+require("dotenv").config();
+
+const express = require("express");
+
+const app = express();
+
+const PORT = process.env.PORT;
+const SECRET = process.env.JWT_SECRET;
+
+app.listen(PORT, () => {
+  console.log("Server running on port", PORT);
+});
+```
+
+---
+
+## Interview Ready Answer
+
+Environment variables are used to store sensitive configuration such as database credentials, API keys, and JWT secrets. In Node.js applications, they are accessed using `process.env`. During development, tools like dotenv load variables from a `.env` file. This approach keeps secrets out of the codebase and improves security.
+
+---
+
+# 94. How do you validate and sanitize user input?
+
+## Concepts
+
+User input must be validated and sanitized to prevent:
+
+- Injection attacks
+- Malicious data
+- Application crashes
+
+Two steps:
+
+### Validation
+
+Ensures data meets expected format.
+
+Examples:
+
+- Email format
+- Password length
+- Required fields
+
+---
+
+### Sanitization
+
+Cleans input by removing harmful characters.
+
+Examples:
+
+- Escape HTML
+- Remove scripts
+
+---
+
+### Libraries
+
+Common libraries:
+
+- `express-validator`
+- `Joi`
+- `zod`
+
+---
+
+## Code Example
+
+Using **express-validator**
+
+```js
+const { body, validationResult } = require("express-validator");
+
+app.post(
+  "/register",
+  body("email").isEmail(),
+  body("password").isLength({ min: 6 }),
+  (req, res) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    res.send("User registered");
+  },
+);
+```
+
+---
+
+## Interview Ready Answer
+
+User input validation ensures that incoming data matches expected formats, such as checking email structure or password length. Sanitization removes potentially harmful content like scripts. In Express.js, libraries such as express-validator or Joi are commonly used to validate and sanitize input, helping prevent injection attacks and ensuring data integrity.
+
+---
+
+# 95. What is SQL injection and how do you prevent it?
+
+## Concepts
+
+SQL injection occurs when attackers insert malicious SQL code into queries.
+
+Example:
+
+Input:
+
+```
+' OR 1=1 --
+```
+
+Query becomes:
+
+```
+SELECT * FROM users WHERE email = '' OR 1=1 --
+```
+
+This can bypass authentication.
+
+---
+
+### Prevention Techniques
+
+1. Parameterized queries
+2. Prepared statements
+3. ORM usage
+4. Input validation
+
+---
+
+## Code Example
+
+Unsafe query:
+
+```js
+db.query("SELECT * FROM users WHERE email = '" + email + "'");
+```
+
+Safe query:
+
+```js
+db.query("SELECT * FROM users WHERE email = ?", [email]);
+```
+
+---
+
+## Interview Ready Answer
+
+SQL injection is a security vulnerability where attackers manipulate database queries by injecting malicious SQL through user input. It can lead to unauthorized access or data leakage. It is prevented by using parameterized queries, prepared statements, ORMs, and proper input validation.
+
+---
+
+# 96. How do you prevent NoSQL injection?
+
+## Concepts
+
+NoSQL injection occurs when malicious input manipulates database queries in NoSQL databases like MongoDB.
+
+Example attack:
+
+```js
+{ "username": { "$ne": null } }
+```
+
+This could bypass authentication.
+
+---
+
+### Prevention Methods
+
+1. Input validation
+2. Sanitize user input
+3. Use strict query structures
+4. Use ODM like Mongoose
+
+---
+
+## Code Example
+
+Unsafe:
+
+```js
+User.find(req.body);
+```
+
+Safe:
+
+```js
+User.find({
+  email: req.body.email,
+});
+```
+
+---
+
+## Interview Ready Answer
+
+NoSQL injection occurs when attackers manipulate query objects in NoSQL databases like MongoDB. It can be prevented by validating and sanitizing user input, avoiding direct use of user input in queries, and using ODM libraries like Mongoose which enforce schema validation.
+
+---
+
+# 97. How do you implement JWT authentication in Express.js?
+
+## Concepts
+
+JWT (JSON Web Token) is a **token-based authentication mechanism**.
+
+Flow:
+
+1. User logs in
+2. Server verifies credentials
+3. Server generates JWT
+4. Client stores token
+5. Client sends token in requests
+6. Server verifies token
+
+---
+
+## Code Example
+
+```js
+const jwt = require("jsonwebtoken");
+
+const SECRET = "secretkey";
+
+app.post("/login", (req, res) => {
+  const user = { id: 1, name: "Tanish" };
+
+  const token = jwt.sign(user, SECRET, { expiresIn: "1h" });
+
+  res.json({ token });
+});
+```
+
+Middleware:
+
+```js
+function authenticate(req, res, next) {
+  const token = req.headers.authorization;
+
+  if (!token) return res.sendStatus(401);
+
+  jwt.verify(token, SECRET, (err, user) => {
+    if (err) return res.sendStatus(403);
+
+    req.user = user;
+    next();
+  });
+}
+```
+
+---
+
+## Interview Ready Answer
+
+JWT authentication in Express.js works by generating a signed token after successful login. The client stores the token and sends it with subsequent requests, typically in the Authorization header. The server verifies the token using a secret key and grants access to protected routes if the token is valid.
+
+---
+
+# 98. How do you handle role-based access control (RBAC)?
+
+## Concepts
+
+RBAC restricts access based on **user roles**.
+
+Example roles:
+
+- admin
+- moderator
+- user
+
+Each role has different permissions.
+
+---
+
+### Flow
+
+User logs in
+→ Token includes role
+→ Middleware checks role
+→ Access allowed/denied
+
+---
+
+## Code Example
+
+```js
+function authorize(role) {
+  return (req, res, next) => {
+    if (req.user.role !== role) {
+      return res.status(403).send("Access denied");
+    }
+
+    next();
+  };
+}
+
+app.get("/admin", authenticate, authorize("admin"), (req, res) => {
+  res.send("Admin panel");
+});
+```
+
+---
+
+## Interview Ready Answer
+
+Role-based access control restricts access to resources based on user roles. After authentication, the user’s role is included in the token or session. Middleware checks this role before granting access to protected routes, ensuring that only authorized users can perform certain actions.
+
+---
+
+# 99. How do you implement OAuth with Express.js?
+
+## Concepts
+
+OAuth allows users to log in using **third-party providers** like:
+
+- Google
+- GitHub
+- Facebook
+
+Instead of storing passwords.
+
+Common library:
+
+```
+passport.js
+```
+
+---
+
+### OAuth Flow
+
+User clicks "Login with Google"
+→ Redirect to provider
+→ User grants permission
+→ Provider sends authorization code
+→ Server exchanges code for access token
+→ User authenticated
+
+---
+
+## Code Example
+
+```js
+const passport = require("passport");
+const GoogleStrategy = require("passport-google-oauth20").Strategy;
+
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: process.env.CLIENT_ID,
+      clientSecret: process.env.CLIENT_SECRET,
+      callbackURL: "/auth/google/callback",
+    },
+    (accessToken, refreshToken, profile, done) => {
+      return done(null, profile);
+    },
+  ),
+);
+```
+
+---
+
+## Interview Ready Answer
+
+OAuth allows users to authenticate using third-party identity providers like Google or GitHub. In Express.js, OAuth is commonly implemented using Passport.js strategies. The user is redirected to the provider for authentication, and after authorization, the provider returns an access token which the server uses to authenticate the user.
+
+---
+
+# 100. How do you refresh tokens?
+
+## Concepts
+
+Access tokens should be **short-lived**.
+
+Example:
+
+```
+Access Token → 15 minutes
+Refresh Token → 7 days
+```
+
+Flow:
+
+1. User logs in
+2. Server sends access token + refresh token
+3. Access token expires
+4. Client sends refresh token
+5. Server issues new access token
+
+---
+
+## Code Example
+
+```js
+app.post("/refresh", (req, res) => {
+  const refreshToken = req.body.token;
+
+  if (!refreshToken) return res.sendStatus(401);
+
+  jwt.verify(refreshToken, REFRESH_SECRET, (err, user) => {
+    if (err) return res.sendStatus(403);
+
+    const newAccessToken = jwt.sign({ id: user.id }, ACCESS_SECRET, {
+      expiresIn: "15m",
+    });
+
+    res.json({ accessToken: newAccessToken });
+  });
+});
+```
+
+---
+
+## Interview Ready Answer
+
+Token refreshing is implemented by issuing short-lived access tokens and long-lived refresh tokens. When the access token expires, the client sends the refresh token to the server. The server verifies the refresh token and generates a new access token, allowing the user to stay authenticated without logging in again.
+
+# 101. How do you implement caching in Express.js?
+
+## Concepts
+
+Caching stores frequently requested data temporarily so the server does not recompute or refetch it every time.
+
+Benefits:
+
+- Reduces database load
+- Improves response time
+- Reduces server CPU usage
+- Improves scalability
+
+Caching can be implemented at multiple layers:
+
+1. In-memory caching
+2. Redis / external cache
+3. HTTP caching headers
+4. Reverse proxy caching
+
+---
+
+### In-Memory Caching
+
+Useful for small applications.
+
+Libraries:
+
+- `node-cache`
+- `lru-cache`
+
+Example use cases:
+
+- Frequently accessed API responses
+- Configuration data
+- Computed results
+
+---
+
+### HTTP Cache Headers
+
+Server instructs the browser or CDN to cache responses.
+
+Common headers:
+
+- `Cache-Control`
+- `ETag`
+- `Last-Modified`
+
+---
+
+### Redis Caching
+
+External distributed cache.
+
+Advantages:
+
+- Shared across servers
+- High performance
+- Persistence options
+
+---
+
+## Code Example
+
+### Basic In-Memory Cache
+
+```js
+const express = require("express");
+const NodeCache = require("node-cache");
+
+const app = express();
+const cache = new NodeCache({ stdTTL: 60 });
+
+app.get("/data", (req, res) => {
+  const cachedData = cache.get("data");
+
+  if (cachedData) {
+    return res.json({ source: "cache", data: cachedData });
+  }
+
+  const data = { message: "Fresh data from server" };
+
+  cache.set("data", data);
+
+  res.json({ source: "server", data });
+});
+
+app.listen(3000);
+```
+
+---
+
+## Interview Ready Answer
+
+Caching in Express.js can be implemented using in-memory caches like NodeCache, external systems like Redis, or HTTP caching headers. When a request arrives, the server first checks the cache. If the data exists, it returns the cached result; otherwise, it fetches the data, stores it in the cache, and then responds. This significantly improves performance and reduces database load.
+
+---
+
+# 102. What are different caching strategies?
+
+## Concepts
+
+Different caching strategies determine how and when cached data is used or updated.
+
+---
+
+### 1. Cache Aside (Lazy Loading)
+
+Flow:
+
+Request
+→ Check cache
+→ If miss → fetch from DB
+→ Store in cache
+→ Return result
+
+Advantages:
+
+- Simple
+- Only caches frequently used data
+
+Disadvantages:
+
+- First request slow (cache miss)
+
+---
+
+### 2. Write Through Cache
+
+Flow:
+
+Write to cache
+→ Write to database
+
+Advantages:
+
+- Cache always consistent
+
+Disadvantages:
+
+- Slower writes
+
+---
+
+### 3. Write Back (Write Behind)
+
+Flow:
+
+Write to cache
+→ Cache asynchronously writes to database
+
+Advantages:
+
+- Faster writes
+
+Disadvantages:
+
+- Risk of data loss
+
+---
+
+### 4. Read Through Cache
+
+Application only reads cache.
+
+Cache system automatically fetches data from database if missing.
+
+---
+
+### 5. Refresh Ahead
+
+Cache refreshes automatically before expiration.
+
+---
+
+### Comparison
+
+| Strategy      | Best Use Case            |
+| ------------- | ------------------------ |
+| Cache Aside   | Most common web APIs     |
+| Write Through | Financial systems        |
+| Write Back    | High write workloads     |
+| Read Through  | Managed cache systems    |
+| Refresh Ahead | Frequently accessed data |
+
+---
+
+## Interview Ready Answer
+
+Common caching strategies include Cache Aside, Write Through, Write Back, Read Through, and Refresh Ahead. Cache Aside is the most commonly used strategy in web applications, where the application first checks the cache and falls back to the database on a cache miss. These strategies help balance performance, consistency, and reliability.
+
+---
+
+# 103. How do you use Redis for caching in Express.js?
+
+## Concepts
+
+Redis is an in-memory data store commonly used as a caching layer.
+
+Advantages:
+
+- Extremely fast
+- Supports TTL expiration
+- Shared across multiple servers
+- Ideal for distributed systems
+
+Common use cases:
+
+- API response caching
+- Session storage
+- Rate limiting
+- Queue management
+
+---
+
+### Architecture
+
+Client Request
+→ Express Server
+→ Check Redis Cache
+→ If hit → return data
+→ If miss → query DB → store in Redis
+
+---
+
+## Code Example
+
+### Redis Caching Example
+
+Install dependencies:
+
+```bash
+npm install redis
+```
+
+Server code:
+
+```js
+const express = require("express");
+const redis = require("redis");
+
+const app = express();
+
+const client = redis.createClient();
+
+client.connect();
+
+app.get("/users", async (req, res) => {
+  const cachedUsers = await client.get("users");
+
+  if (cachedUsers) {
+    return res.json(JSON.parse(cachedUsers));
+  }
+
+  const users = [
+    { id: 1, name: "John" },
+    { id: 2, name: "Jane" },
+  ];
+
+  await client.setEx("users", 60, JSON.stringify(users));
+
+  res.json(users);
+});
+
+app.listen(3000);
+```
+
+Explanation:
+
+- `get()` checks cache
+- `setEx()` stores data with expiration
+- Reduces repeated database queries
+
+---
+
+## Interview Ready Answer
+
+Redis is commonly used in Express.js as a distributed in-memory cache. The application first checks Redis for cached data. If the data exists, it returns it immediately; otherwise, it queries the database, stores the result in Redis with a TTL, and then returns the response. This reduces database load and significantly improves response time.
+
+---
+
+# 104. How do you implement ETags for caching?
+
+## Concepts
+
+ETag = Entity Tag
+
+It is a response header used for HTTP caching.
+
+ETag represents a unique identifier for a resource version.
+
+Flow:
+
+Client request
+→ Server sends ETag
+→ Client stores ETag
+→ Next request includes `If-None-Match`
+
+Server compares:
+
+- If unchanged → return `304 Not Modified`
+- If changed → return new content
+
+Benefits:
+
+- Reduces bandwidth
+- Avoids sending unchanged data
+
+---
+
+## Code Example
+
+Express automatically supports ETag.
+
+```js
+const express = require("express");
+
+const app = express();
+
+app.set("etag", true);
+
+app.get("/data", (req, res) => {
+  res.json({ message: "Cached response example" });
+});
+
+app.listen(3000);
+```
+
+Manual ETag example:
+
+```js
+const crypto = require("crypto");
+
+app.get("/data", (req, res) => {
+  const data = JSON.stringify({ message: "Hello" });
+
+  const etag = crypto.createHash("md5").update(data).digest("hex");
+
+  if (req.headers["if-none-match"] === etag) {
+    return res.status(304).end();
+  }
+
+  res.setHeader("ETag", etag);
+  res.send(data);
+});
+```
+
+---
+
+## Interview Ready Answer
+
+ETags are HTTP response headers used for cache validation. The server generates a unique identifier for a resource and sends it with the response. On subsequent requests, the client sends the ETag using the If-None-Match header. If the resource hasn't changed, the server responds with a 304 Not Modified status, avoiding unnecessary data transfer.
+
+---
+
+# 105. How do you optimize Express.js application performance?
+
+## Concepts
+
+Performance optimization focuses on improving response time, scalability, and resource efficiency.
+
+Major areas:
+
+1. Efficient middleware usage
+2. Caching strategies
+3. Compression
+4. Database optimization
+5. Load balancing
+6. Clustering
+7. Asynchronous processing
+
+---
+
+### Key Techniques
+
+Avoid blocking code
+Use async operations
+Use caching (Redis)
+Enable compression
+Optimize database queries
+Use CDN for static assets
+Implement rate limiting
+
+---
+
+## Code Example
+
+Enable compression middleware:
+
+```js
+const express = require("express");
+const compression = require("compression");
+
+const app = express();
+
+app.use(compression());
+
+app.get("/", (req, res) => {
+  res.send("Optimized Express Server");
+});
+
+app.listen(3000);
+```
+
+---
+
+## Interview Ready Answer
+
+Optimizing an Express.js application involves reducing response time and improving scalability. Common techniques include enabling compression, implementing caching with Redis, optimizing database queries, minimizing middleware usage, and using clustering or load balancing to utilize multiple CPU cores. These strategies help improve performance under high traffic.
+
+---
+
+# 106. What are common performance bottlenecks?
+
+## Concepts
+
+Common performance issues in Express applications include:
+
+---
+
+### 1. Blocking Code
+
+CPU-heavy tasks block the event loop.
+
+Example:
+
+- Image processing
+- Complex calculations
+
+Solution:
+
+- Worker threads
+- Background jobs
+
+---
+
+### 2. Slow Database Queries
+
+Unoptimized queries can delay responses.
+
+Solution:
+
+- Indexing
+- Query optimization
+- Caching
+
+---
+
+### 3. Memory Leaks
+
+Objects not released from memory.
+
+Solution:
+
+- Monitor heap usage
+- Use profiling tools
+
+---
+
+### 4. Excessive Middleware
+
+Too many middleware functions slow request handling.
+
+---
+
+### 5. Network Latency
+
+Slow external API calls.
+
+Solution:
+
+- Caching
+- Circuit breakers
+
+---
+
+## Interview Ready Answer
+
+Common performance bottlenecks in Express.js include blocking CPU-intensive tasks, slow database queries, excessive middleware usage, memory leaks, and network latency from external services. These issues can be mitigated using caching, query optimization, background job processing, and performance monitoring tools.
+
+---
+
+# 107. How do you implement response compression?
+
+## Concepts
+
+Compression reduces response size before sending to clients.
+
+Common algorithms:
+
+- Gzip
+- Brotli
+
+Benefits:
+
+- Faster data transfer
+- Reduced bandwidth usage
+- Improved load times
+
+---
+
+## Code Example
+
+Install middleware:
+
+```bash
+npm install compression
+```
+
+Implementation:
+
+```js
+const express = require("express");
+const compression = require("compression");
+
+const app = express();
+
+app.use(compression());
+
+app.get("/data", (req, res) => {
+  res.json({ message: "Compressed response" });
+});
+
+app.listen(3000);
+```
+
+---
+
+## Interview Ready Answer
+
+Response compression in Express.js is implemented using middleware such as the compression package. It compresses HTTP responses using algorithms like gzip or Brotli before sending them to clients. This reduces bandwidth usage and improves response times, especially for large payloads.
+
+---
+
+# 108. How do you use clustering with Express.js?
+
+## Concepts
+
+Node.js runs on a single thread.
+
+Clustering allows multiple Node processes to run across CPU cores.
+
+Benefits:
+
+- Utilizes multi-core CPUs
+- Handles more requests
+- Improves scalability
+
+---
+
+### Architecture
+
+Load Balancer
+→ Multiple Node.js Workers
+
+---
+
+## Code Example
+
+```js
+const cluster = require("cluster");
+const os = require("os");
+const express = require("express");
+
+if (cluster.isMaster) {
+  const numCPUs = os.cpus().length;
+
+  for (let i = 0; i < numCPUs; i++) {
+    cluster.fork();
+  }
+} else {
+  const app = express();
+
+  app.get("/", (req, res) => {
+    res.send("Handled by worker " + process.pid);
+  });
+
+  app.listen(3000);
+}
+```
+
+---
+
+## Interview Ready Answer
+
+Clustering in Node.js allows multiple worker processes to run on different CPU cores. The master process distributes incoming requests among worker processes. This enables better CPU utilization and improves application scalability, especially for high-traffic Express.js servers.
+
+---
+
+# 109. How do you load balance Express.js applications?
+
+## Concepts
+
+Load balancing distributes incoming traffic across multiple servers.
+
+Benefits:
+
+- High availability
+- Improved scalability
+- Fault tolerance
+
+---
+
+### Common Methods
+
+1. Reverse proxy (Nginx)
+2. Cloud load balancers
+3. Application-level load balancing
+
+---
+
+### Algorithms
+
+- Round Robin
+- Least Connections
+- IP Hash
+
+---
+
+## Interview Ready Answer
+
+Load balancing distributes incoming requests across multiple Express.js instances to improve scalability and reliability. This is typically implemented using reverse proxies like Nginx, cloud load balancers, or container orchestration systems. Load balancing prevents any single server from becoming overloaded.
+
+---
+
+# 110. How do you handle sticky sessions?
+
+## Concepts
+
+Sticky sessions ensure that requests from the same client are routed to the same server.
+
+Needed when using:
+
+- Session-based authentication
+- In-memory session storage
+
+Problem:
+
+Without sticky sessions, requests may hit different servers and lose session data.
+
+---
+
+### Solutions
+
+1. Use Redis session store
+2. Enable sticky sessions in load balancer
+3. Use token-based authentication (JWT)
+
+---
+
+## Code Example
+
+Using Redis session store:
+
+```js
+const session = require("express-session");
+const RedisStore = require("connect-redis");
+
+app.use(
+  session({
+    store: new RedisStore({ client: redisClient }),
+    secret: "secret",
+    resave: false,
+    saveUninitialized: false,
+  }),
+);
+```
+
+---
+
+## Interview Ready Answer
+
+Sticky sessions ensure that requests from a client are consistently routed to the same server instance. This is important when session data is stored in memory. A better solution in distributed systems is storing sessions in a shared store like Redis, allowing any server instance to access session data.
+
+---
+
+# 111. How do you use Nginx with Express.js?
+
+## Concepts
+
+Nginx is commonly used as a reverse proxy in front of Express.js.
+
+Benefits:
+
+- Load balancing
+- SSL termination
+- Static file serving
+- Rate limiting
+- Security layer
+
+---
+
+### Architecture
+
+Client
+→ Nginx
+→ Express Server
+
+---
+
+## Example Nginx Configuration
+
+```
+server {
+    listen 80;
+
+    location / {
+        proxy_pass http://localhost:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+    }
+}
+```
+
+---
+
+## Interview Ready Answer
+
+Nginx is commonly used as a reverse proxy in front of Express.js applications. It forwards client requests to the Node.js server, handles SSL termination, serves static files, and can distribute traffic across multiple backend servers. This improves performance, security, and scalability in production environments.
+
+# 112. How do you test Express.js applications?
+
+## Concepts
+
+Testing an Express.js application ensures that APIs behave correctly, logic works as expected, and regressions are prevented.
+
+Testing usually happens at multiple levels:
+
+1. **Unit Testing**
+   - Tests individual functions or modules
+   - No real database or external services
+
+2. **Integration Testing**
+   - Tests interaction between components
+   - Example: route → controller → database
+
+3. **End-to-End Testing**
+   - Tests full application flow
+   - Simulates real user behavior
+
+Common testing approach in Express:
+
+- Test **controllers**
+- Test **routes**
+- Test **middleware**
+- Test **error handling**
+- Test **API responses**
+
+Common tools used:
+
+- Jest
+- Mocha
+- Chai
+- Supertest
+
+---
+
+## Code Example
+
+Example Express App:
+
+```js
+// app.js
+const express = require("express");
+const app = express();
+
+app.get("/hello", (req, res) => {
+  res.json({ message: "Hello World" });
+});
+
+module.exports = app;
+```
+
+Test File:
+
+```js
+const request = require("supertest");
+const app = require("./app");
+
+describe("GET /hello", () => {
+  it("should return hello message", async () => {
+    const res = await request(app).get("/hello");
+
+    expect(res.statusCode).toBe(200);
+    expect(res.body.message).toBe("Hello World");
+  });
+});
+```
+
+Explanation:
+
+- `supertest` simulates HTTP requests
+- No need to start real server
+- Test checks response status and body
+
+---
+
+## Interview Ready Answer
+
+Express.js applications are tested using automated tests at different levels such as unit tests, integration tests, and end-to-end tests. Tools like Jest or Mocha are used for test runners, while Supertest is commonly used to simulate HTTP requests to Express APIs. Tests verify routes, controllers, middleware, and error handling to ensure the API behaves correctly.
+
+---
+
+# 113. What is the difference between unit, integration, and end-to-end tests?
+
+## Concepts
+
+### Unit Tests
+
+Unit tests verify **smallest units of code**, such as functions or methods.
+
+Characteristics:
+
+- Fast
+- Isolated
+- Dependencies mocked
+
+Example:
+
+Testing a utility function.
+
+---
+
+### Integration Tests
+
+Integration tests verify **interaction between multiple components**.
+
+Example:
+
+- Route
+- Controller
+- Database
+
+These tests ensure components work together correctly.
+
+---
+
+### End-to-End (E2E) Tests
+
+End-to-end tests simulate **real user workflows**.
+
+Example flow:
+
+User → API → Database → Response
+
+They validate the entire application.
+
+---
+
+### Comparison Table
+
+| Test Type   | Scope            | Dependencies  | Speed  |
+| ----------- | ---------------- | ------------- | ------ |
+| Unit        | Single function  | Mocked        | Fast   |
+| Integration | Multiple modules | Partial real  | Medium |
+| End-to-End  | Full system      | Real services | Slow   |
+
+---
+
+## Code Example
+
+Unit Test Example:
+
+```js
+function add(a, b) {
+  return a + b;
+}
+
+test("adds numbers", () => {
+  expect(add(2, 3)).toBe(5);
+});
+```
+
+Integration Test Example:
+
+```js
+request(app).post("/users").send({ name: "Tanish" }).expect(201);
+```
+
+---
+
+## Interview Ready Answer
+
+Unit tests verify individual functions in isolation, usually with mocked dependencies. Integration tests verify interactions between multiple modules such as routes, controllers, and databases. End-to-end tests validate the entire application flow from request to response, simulating real user behavior.
+
+---
+
+# 114. How do you mock dependencies in tests?
+
+## Concepts
+
+Mocking replaces real dependencies with simulated versions.
+
+Why mocking is needed:
+
+- Avoid external API calls
+- Avoid database operations
+- Control test behavior
+- Improve test speed
+
+Common dependencies mocked:
+
+- Database
+- External APIs
+- Authentication services
+- File system
+
+Tools used:
+
+- Jest mocks
+- Sinon
+- Manual stubs
+
+---
+
+## Code Example
+
+Example Controller:
+
+```js
+const userService = require("./userService");
+
+exports.getUser = async (req, res) => {
+  const user = await userService.getUserById(1);
+  res.json(user);
+};
+```
+
+Mocking in Jest:
+
+```js
+jest.mock("./userService");
+
+const userService = require("./userService");
+
+userService.getUserById.mockResolvedValue({
+  id: 1,
+  name: "Tanish",
+});
+```
+
+Test:
+
+```js
+test("should return mocked user", async () => {
+  const res = await request(app).get("/user");
+
+  expect(res.body.name).toBe("Tanish");
+});
+```
+
+Explanation:
+
+- Real service not called
+- Mock response returned
+
+---
+
+## Interview Ready Answer
+
+Mocking replaces real dependencies such as databases or external APIs with simulated implementations during testing. This isolates the unit being tested and improves test speed and reliability. Tools like Jest provide built-in mocking capabilities using jest.mock() to simulate module behavior.
+
+---
+
+# 115. How do you use Jest with Express.js?
+
+## Concepts
+
+Jest is a popular testing framework for JavaScript.
+
+Features:
+
+- Test runner
+- Assertions
+- Mocking
+- Snapshot testing
+- Coverage reports
+
+Typical setup:
+
+1. Install Jest
+2. Write test files
+3. Run tests using npm scripts
+
+---
+
+## Code Example
+
+Install:
+
+```bash
+npm install --save-dev jest supertest
+```
+
+package.json:
+
+```json
+{
+  "scripts": {
+    "test": "jest"
+  }
+}
+```
+
+Test Example:
+
+```js
+const request = require("supertest");
+const app = require("./app");
+
+describe("GET /hello", () => {
+  it("should return message", async () => {
+    const res = await request(app).get("/hello");
+
+    expect(res.statusCode).toBe(200);
+    expect(res.body.message).toBe("Hello World");
+  });
+});
+```
+
+Run tests:
+
+```bash
+npm test
+```
+
+---
+
+## Interview Ready Answer
+
+Jest is commonly used to test Express.js applications as it provides a test runner, assertions, and mocking utilities. Express routes are usually tested using Supertest to simulate HTTP requests. Tests are written in separate files and executed using the Jest CLI through npm scripts.
+
+---
+
+# 116. How do you use Mocha/Chai with Express.js?
+
+## Concepts
+
+Mocha and Chai are commonly used together for testing.
+
+Mocha:
+
+- Test runner
+
+Chai:
+
+- Assertion library
+
+Additional tools:
+
+- Supertest → HTTP testing
+- Sinon → mocking
+
+---
+
+## Code Example
+
+Install:
+
+```bash
+npm install mocha chai supertest --save-dev
+```
+
+Test Example:
+
+```js
+const request = require("supertest");
+const chai = require("chai");
+const expect = chai.expect;
+const app = require("./app");
+
+describe("GET /hello", () => {
+  it("should return hello message", async () => {
+    const res = await request(app).get("/hello");
+
+    expect(res.status).to.equal(200);
+    expect(res.body.message).to.equal("Hello World");
+  });
+});
+```
+
+Run tests:
+
+```bash
+npx mocha
+```
+
+---
+
+## Interview Ready Answer
+
+Mocha is used as a test runner while Chai provides assertion utilities. Supertest is commonly used alongside them to test Express APIs. Mocha executes the test cases and Chai verifies the expected results using assertion methods like expect or should.
+
+---
+
+# 117. How do you test API endpoints?
+
+## Concepts
+
+API endpoints are tested by sending simulated HTTP requests and verifying the responses.
+
+Typical checks include:
+
+- Status code
+- Response body
+- Headers
+- Error responses
+
+Common tool:
+
+- Supertest
+
+---
+
+## Code Example
+
+```js
+const request = require("supertest");
+const app = require("./app");
+
+describe("POST /users", () => {
+  it("should create a user", async () => {
+    const res = await request(app).post("/users").send({ name: "Tanish" });
+
+    expect(res.statusCode).toBe(201);
+    expect(res.body.name).toBe("Tanish");
+  });
+});
+```
+
+Explanation:
+
+- `supertest` sends HTTP request
+- Express route executed
+- Response validated
+
+---
+
+## Interview Ready Answer
+
+API endpoints in Express.js are typically tested using Supertest, which allows sending HTTP requests directly to the Express application. Tests verify status codes, response data, and headers to ensure the API behaves as expected.
+
+---
+
+# 118. How do you test middleware functions?
+
+## Concepts
+
+Middleware functions process requests before reaching route handlers.
+
+Testing focuses on:
+
+- Request modification
+- Response handling
+- `next()` behavior
+
+Approach:
+
+- Mock request object
+- Mock response object
+- Mock next function
+
+---
+
+## Code Example
+
+Middleware:
+
+```js
+function logger(req, res, next) {
+  console.log("Request received");
+  next();
+}
+```
+
+Test:
+
+```js
+test("middleware should call next", () => {
+  const req = {};
+  const res = {};
+  const next = jest.fn();
+
+  logger(req, res, next);
+
+  expect(next).toHaveBeenCalled();
+});
+```
+
+---
+
+## Interview Ready Answer
+
+Middleware functions can be tested by mocking the request, response, and next objects. The test verifies whether the middleware modifies the request correctly or calls the next function as expected.
+
+---
+
+# 119. How do you measure test coverage?
+
+## Concepts
+
+Test coverage measures how much of the codebase is executed during tests.
+
+Metrics include:
+
+- Statements
+- Branches
+- Functions
+- Lines
+
+Coverage helps identify untested parts of the code.
+
+Tools:
+
+- Jest
+- Istanbul
+- nyc
+
+---
+
+## Code Example
+
+Run coverage in Jest:
+
+```bash
+npm test -- --coverage
+```
+
+Example output:
+
+```
+Statements : 85%
+Branches   : 80%
+Functions  : 90%
+Lines      : 85%
+```
+
+Coverage report generated in:
+
+```
+coverage/
+```
+
+---
+
+## Interview Ready Answer
+
+Test coverage measures how much of the application's code is executed during testing. Tools like Jest and Istanbul generate coverage reports that include metrics such as statements, branches, functions, and lines covered. This helps identify untested code and improve overall test quality.
+
+---
+
+# 120. How do you write tests for error cases?
+
+## Concepts
+
+Error case testing ensures that the application handles failures correctly.
+
+Common cases:
+
+- Invalid input
+- Authentication failure
+- Database errors
+- Internal server errors
+
+Tests should verify:
+
+- Correct status code
+- Error message
+- Proper error handling middleware
+
+---
+
+## Code Example
+
+Express Route:
+
+```js
+app.get("/user/:id", (req, res) => {
+  if (!req.params.id) {
+    return res.status(400).json({ error: "Invalid ID" });
+  }
+
+  res.json({ id: req.params.id });
+});
+```
+
+Test:
+
+```js
+test("should return error for invalid id", async () => {
+  const res = await request(app).get("/user/");
+
+  expect(res.statusCode).toBe(400);
+  expect(res.body.error).toBe("Invalid ID");
+});
+```
+
+---
+
+## Interview Ready Answer
+
+Error case testing verifies that the application handles invalid inputs and failures properly. Tests simulate error scenarios and check whether the correct status codes and error messages are returned. This ensures that APIs fail gracefully and maintain reliability.
