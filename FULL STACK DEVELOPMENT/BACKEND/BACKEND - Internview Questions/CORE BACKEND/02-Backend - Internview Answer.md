@@ -115,6 +115,7 @@ Route is internal definition, endpoint is externally consumable access point.
 
 ## 3. Explain the complete HTTP request–response lifecycle.
 
+![](https://bteccomputing.co.uk/wp-content/uploads/2020/04/bjlpij3gtr7peg2c5in7lalldd6jc3sachvcdoaizecfr3dnitcq_3_0.png)
 **HTTP methods** are standardized request types that define the action a client wants to perform on a server resource (like GET to fetch, POST to create, PUT to update, DELETE to remove).
 
 ### Concepts

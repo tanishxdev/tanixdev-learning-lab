@@ -134,6 +134,8 @@ It is best suited for I/O-heavy workloads rather than CPU-intensive tasks.
 
 ---
 
+![](https://assets.digitalocean.com/articles/alligator/js/v8-engine/javascript_journey.png)
+
 ### Role in Node.js
 
 1. Converts JavaScript → Machine Code
@@ -185,6 +187,8 @@ V8 is Google’s high-performance JavaScript engine written in C++. It compiles 
 ---
 
 # 3. What is the event loop in Node.js? Explain its phases.
+
+![](https://miro.medium.com/0*6T6KIVRkN9nWb3QU.gif)
 
 ## Concepts
 
@@ -276,6 +280,10 @@ The event loop is the core mechanism that enables Node.js to perform non-blockin
 
 # 4. How does Node.js handle asynchronous operations?
 
+![](https://miro.medium.com/v2/da:true/resize:fit:1200/0*8NUhlzZCQALRYaQp)
+![](https://www.freecodecamp.org/news/content/images/2023/05/asynchronous-javascript---Page-2--5-.png)
+![](https://bs-uploads.toptal.io/blackfish-uploads/uploaded_file/file/190741/image-1582215000590-ffa807c19d5f6959de485fc66664e123.png)
+
 ## Concepts
 
 Node.js uses:
@@ -337,6 +345,9 @@ Node.js handles asynchronous operations using the event loop and libuv thread po
 ---
 
 # 5. What is libuv and what role does it play in Node.js?
+
+![](https://miro.medium.com/0*tKlj2lrXFPOPSXQr)
+![](https://miro.medium.com/1*o60tEVVfSNI3oHwqhgN2iQ.jpeg)
 
 ## Concepts
 
@@ -402,6 +413,8 @@ libuv is a C library used by Node.js to implement the event loop and provide asy
 ---
 
 # 6. Why is Node.js single-threaded? How does it handle concurrency?
+
+![](https://media.licdn.com/dms/image/v2/D5612AQFKkQnKhmgNtw/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1735634599257?e=2147483647&v=beta&t=TZojRXiNoKVgX9m0VQ_UfBMqkw7iKZo-EMrDDX4Qi3k)
 
 ## Concepts
 
@@ -496,6 +509,8 @@ Node.js is single-threaded to simplify concurrency and avoid thread management o
 ---
 
 # 7. Differentiate between blocking and non-blocking I/O in Node.js.
+
+![](https://media.geeksforgeeks.org/wp-content/uploads/20220208171854/resizedimagePromo1-660x371.jpeg)
 
 ## Concepts
 
@@ -812,7 +827,9 @@ fs.readFile("file.txt", () => {
 
 ## Interview Ready Answer
 
-The reactor pattern is a design pattern where a single thread waits for events and dispatches handlers when events occur. Node.js implements this pattern through its event loop and non-blocking I/O system, enabling efficient handling of concurrent operations.
+The reactor pattern is a design pattern where a single thread waits for events and dispatches handlers when events occur. Node.js implements this pattern through its event loop and non-blocking I/O system, enabling efficient handling of concurrent operations
+
+- The Reactor pattern is the fundamental architectural pattern that powers the asynchronous, non-blocking I/O model of Node.js. It allows Node.js to handle a high volume of concurrent I/O operations (like network requests or file access) efficiently on a single main thread, preventing the application from blocking
 
 ---
 
@@ -899,31 +916,73 @@ When require() is called, Node resolves the module path, loads and executes it i
 
 ---
 
-# 16. What is the difference between exports and module.exports?
+# 16. What is the difference between `exports` and `module.exports`?
 
-## Concepts
+---
 
-`exports` is reference to `module.exports`.
+# Concepts
 
-Correct:
+In **Node.js (CommonJS modules)** every file is treated as a **module**.
 
-```js
-module.exports = function () {};
+Node internally creates an object called:
+
+```
+module
 ```
 
-Wrong:
+Inside this object there is a property:
+
+```
+module.exports
+```
+
+This property is what **gets returned when another file requires the module**.
+
+Example:
 
 ```js
-exports = function () {};
+const math = require("./math");
+```
+
+The variable `math` receives whatever is inside:
+
+```
+module.exports
 ```
 
 ---
 
-## Code Example
+## Important Relationship
+
+`exports` is simply a **reference (shortcut)** to `module.exports`.
+
+Internally Node does something like:
+
+```js
+var exports = module.exports;
+```
+
+So initially:
+
+```
+exports === module.exports
+```
+
+Both point to the **same object in memory**.
+
+---
+
+# Correct Usage
+
+When you want to **add properties** to exports.
+
+Example:
 
 ```js
 exports.add = (a, b) => a + b;
 ```
+
+This works because we are **modifying the same object**.
 
 Equivalent to:
 
@@ -931,11 +990,196 @@ Equivalent to:
 module.exports.add = (a, b) => a + b;
 ```
 
+Both modify the same export object.
+
+---
+
+# Wrong Usage
+
+This breaks the reference:
+
+```js
+exports = function () {};
+```
+
+Why?
+
+Because now `exports` points to a **new object**, while `module.exports` still points to the old one.
+
+So Node will export:
+
+```
+module.exports
+```
+
+not the reassigned `exports`.
+
+Result:
+
+```
+Your function will NOT be exported
+```
+
+---
+
+# Correct Way to Export a Function
+
+When exporting **one function or object**, use:
+
+```js
+module.exports = function () {
+  console.log("Hello");
+};
+```
+
+or
+
+```js
+module.exports = {
+  add,
+  subtract,
+};
+```
+
+This replaces the whole export object.
+
+---
+
+# Code Example
+
+### math.js
+
+```js
+exports.add = (a, b) => a + b;
+exports.subtract = (a, b) => a - b;
+```
+
+---
+
+### app.js
+
+```js
+const math = require("./math");
+
+console.log(math.add(5, 3));
+```
+
+---
+
+### Output
+
+```
+8
+```
+
+---
+
+## Internal Working (Mental Model)
+
+Node wraps every module like this:
+
+```js
+(function (exports, require, module, __filename, __dirname) {});
+```
+
+Inside the wrapper:
+
+```
+exports → reference to module.exports
+```
+
+So when you modify `exports`, you are modifying `module.exports`.
+
+But when you **reassign exports**, you break the link.
+
+---
+
+## Visual Explanation
+
+Initial state:
+
+```
+exports  ──┐
+           │
+           ▼
+       module.exports
+           │
+           ▼
+        {}
+```
+
+After property assignment:
+
+```
+exports.add = fn
+
+exports  ──┐
+           │
+           ▼
+       module.exports
+           │
+           ▼
+       { add: fn }
+```
+
+After reassignment:
+
+```
+exports = fn
+
+exports → fn
+
+module.exports → {}
+```
+
+Node returns:
+
+```
+module.exports
+```
+
+So your function is lost.
+
+---
+
+## When to Use Each
+
+Use **exports** when exporting **multiple properties**:
+
+```js
+exports.login = login;
+exports.logout = logout;
+```
+
+Use **module.exports** when exporting **one thing**:
+
+```js
+module.exports = UserService;
+```
+
+---
+
+## Common Pattern in Real Projects
+
+Multiple exports:
+
+```js
+exports.createUser = createUser;
+exports.deleteUser = deleteUser;
+exports.updateUser = updateUser;
+```
+
+Single export:
+
+```js
+module.exports = UserController;
+```
+
 ---
 
 ## Interview Ready Answer
 
-exports is simply a reference to module.exports. If you assign directly to exports, it breaks the reference. To export a function or object, you should use module.exports.
+`exports` is simply a reference to `module.exports`. Both initially point to the same object. When we add properties to `exports`, they are added to `module.exports`. However, if we reassign `exports`, the reference breaks and Node will still export `module.exports`. Therefore, to export a function or object directly, we should use `module.exports`.
 
 ---
 
@@ -964,54 +1208,533 @@ Node.js resolves modules by first checking if it is a core module, then resolvin
 
 ---
 
-# 18. What is the purpose of require.resolve()?
-
-## Concepts
-
-Returns:
-
-- Absolute path of module
-- Does not load module
+# 18. What is the purpose of `require.resolve()`?
 
 ---
 
-## Code Example
+# Concepts
+
+In **Node.js**, `require.resolve()` is used to:
+
+```text
+Find the exact file path Node.js will use for a module
+```
+
+Important points:
+
+- Returns **absolute path**
+- Uses **Node's module resolution algorithm**
+- **Does NOT load or execute the module**
+
+So unlike `require()`, it **only resolves the path**.
+
+---
+
+## Why It Exists
+
+Normally when we write:
+
+```js
+require("express");
+```
+
+Node searches for the module using its **module resolution system**:
+
+```
+Current folder
+↓
+node_modules
+↓
+Parent folder node_modules
+↓
+Global modules
+```
+
+But sometimes we want to know:
+
+```
+Which file Node actually resolved?
+```
+
+That is where `require.resolve()` helps.
+
+---
+
+# Code Example
 
 ```js
 console.log(require.resolve("fs"));
 ```
 
+Output example:
+
+```text
+fs
+```
+
+Why?
+
+Because `fs` is a **core module**, not a file path.
+
 ---
 
-## Interview Ready Answer
+### Example with a local module
 
-require.resolve() returns the resolved absolute path of a module without loading or executing it. It is useful for debugging module resolution paths.
+Project structure:
+
+```
+project
+ ├ app.js
+ └ math.js
+```
+
+### math.js
+
+```js
+exports.add = (a, b) => a + b;
+```
 
 ---
 
-# 19. Explain the module wrapper function in Node.js.
+### app.js
 
-## Concepts
+```js
+console.log(require.resolve("./math"));
+```
 
-Every module wrapped as:
+Output:
+
+```
+/Users/tanish/project/math.js
+```
+
+This is the **absolute path Node resolved**.
+
+---
+
+# Difference Between `require()` and `require.resolve()`
+
+| Feature       | require()      | require.resolve()  |
+| ------------- | -------------- | ------------------ |
+| Loads module  | Yes            | No                 |
+| Executes code | Yes            | No                 |
+| Returns       | module exports | resolved file path |
+| Purpose       | use module     | find module path   |
+
+Example:
+
+```js
+require("./math");
+```
+
+returns:
+
+```
+{ add: [Function] }
+```
+
+But:
+
+```js
+require.resolve("./math");
+```
+
+returns:
+
+```
+/project/math.js
+```
+
+---
+
+# Real Use Cases
+
+### 1. Debugging module resolution
+
+If a module cannot be found:
+
+```
+Cannot find module 'xyz'
+```
+
+You can test:
+
+```js
+require.resolve("xyz");
+```
+
+This helps debug **where Node is looking**.
+
+---
+
+### 2. Clearing module cache
+
+Node caches modules in:
+
+```
+require.cache
+```
+
+Example:
+
+```js
+delete require.cache[require.resolve("./config")];
+```
+
+This forces Node to **reload the module next time**.
+
+---
+
+### 3. Finding module location
+
+Sometimes libraries want to know **where another package is installed**.
+
+Example:
+
+```js
+const path = require.resolve("express");
+```
+
+---
+
+# Internal Mental Model
+
+Node does this when resolving modules:
+
+```
+require("module")
+↓
+resolve module path
+↓
+check cache
+↓
+load module
+↓
+execute module
+↓
+return exports
+```
+
+But `require.resolve()` stops early:
+
+```
+resolve module path
+↓
+return path
+```
+
+No execution happens.
+
+---
+
+# Visual Flow
+
+### require()
+
+```
+Find module
+↓
+Resolve path
+↓
+Load module
+↓
+Execute module
+↓
+Return exports
+```
+
+---
+
+### require.resolve()
+
+```
+Find module
+↓
+Resolve path
+↓
+Return absolute path
+```
+
+---
+
+# Interview Ready Answer
+
+`require.resolve()` returns the absolute path that Node.js resolves for a module using its module resolution algorithm. Unlike `require()`, it does not load or execute the module. It is mainly used for debugging module paths or interacting with the module cache.
+
+---
+
+# 19. Explain the Module Wrapper Function in Node.js
+
+---
+
+# Concepts
+
+In **Node.js**, every file is treated as a **module**.
+
+Before Node executes your file, it **wraps the entire code inside a function**.
+
+The wrapper looks like this:
 
 ```js
 (function (exports, require, module, __filename, __dirname) {
-  // module code
+  // Your module code is placed here
 });
 ```
 
-Purpose:
+This is called the **Module Wrapper Function**.
 
-- Encapsulation
-- Local scope
-- Avoid global pollution
+Node automatically applies this wrapper to every file.
 
 ---
 
-## Interview Ready Answer
+# Why Node Uses the Wrapper
 
-Node.js wraps every module inside a function before execution. This wrapper provides local variables like exports, require, module, **filename, and **dirname. It ensures module-level scope and prevents global namespace pollution.
+The wrapper function exists for **three important reasons**:
+
+```
+Encapsulation
+Local variables
+Avoid global pollution
+```
+
+---
+
+## 1. Encapsulation
+
+Encapsulation means:
+
+```
+Each file runs in its own scope
+```
+
+Variables inside a module **do not leak to other files**.
+
+Example:
+
+### file1.js
+
+```js
+const name = "Tanish";
+```
+
+### file2.js
+
+```js
+console.log(name);
+```
+
+Result:
+
+```
+ReferenceError: name is not defined
+```
+
+Why?
+
+Because each file runs inside its **own wrapper function scope**.
+
+---
+
+## 2. Provides Useful Local Variables
+
+The wrapper injects **five important variables**.
+
+```
+exports
+require
+module
+__filename
+__dirname
+```
+
+These are **not global variables**.
+They are provided by the wrapper.
+
+---
+
+### exports
+
+Used to **export functions or objects** from the module.
+
+Example:
+
+```js
+exports.add = (a, b) => a + b;
+```
+
+---
+
+### require
+
+Used to **import other modules**.
+
+Example:
+
+```js
+const math = require("./math");
+```
+
+---
+
+### module
+
+Represents the current module.
+
+Example:
+
+```js
+module.exports = function () {};
+```
+
+---
+
+### \_\_filename
+
+Gives the **absolute path of the current file**.
+
+Example:
+
+```js
+console.log(__filename);
+```
+
+Output example:
+
+```
+/Users/tanish/project/app.js
+```
+
+---
+
+### \_\_dirname
+
+Gives the **directory path of the current file**.
+
+Example:
+
+```js
+console.log(__dirname);
+```
+
+Output example:
+
+```
+/Users/tanish/project
+```
+
+---
+
+# Example of Module Wrapper Behavior
+
+Your code:
+
+```js
+const name = "Node";
+console.log(name);
+```
+
+Node internally executes it like this:
+
+```js
+(function (exports, require, module, __filename, __dirname) {
+  const name = "Node";
+  console.log(name);
+});
+```
+
+This is **invisible to developers**, but it always happens.
+
+---
+
+# How This Prevents Global Pollution
+
+Without wrapper:
+
+```
+All variables would go into global scope
+```
+
+With wrapper:
+
+```
+Variables remain inside module scope
+```
+
+Example:
+
+```
+Module A → variable a
+Module B → variable a
+```
+
+No conflict occurs.
+
+---
+
+# Visual Mental Model
+
+Without wrapper:
+
+```
+Global Scope
+ ├ file1 variables
+ ├ file2 variables
+ ├ file3 variables
+```
+
+With wrapper:
+
+```
+Module 1
+ (function scope)
+
+Module 2
+ (function scope)
+
+Module 3
+ (function scope)
+```
+
+Each module is **isolated**.
+
+---
+
+# Internal Execution Flow
+
+When Node runs a file:
+
+```
+Read file
+↓
+Wrap inside module function
+↓
+Compile module
+↓
+Execute module
+↓
+Return module.exports
+```
+
+---
+
+# Why This Design Is Powerful
+
+The module wrapper enables:
+
+```
+Module isolation
+Reusable code
+Dependency management
+Cleaner architecture
+```
+
+This is the **foundation of Node.js module system**.
+
+---
+
+# Interview Ready Answer
+
+Node.js wraps every module inside a function called the **module wrapper function** before executing it. The wrapper looks like `(function(exports, require, module, __filename, __dirname) { ... })`. This provides local variables like `exports`, `require`, `module`, `__filename`, and `__dirname`, ensures module-level scope, and prevents global namespace pollution.
 
 ---
 
