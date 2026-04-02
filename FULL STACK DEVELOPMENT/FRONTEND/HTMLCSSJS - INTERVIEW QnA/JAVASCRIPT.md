@@ -1,9 +1,218 @@
-<p align="center">
-
-![](https://www.tutorialrepublic.com/lib/images/javascript-illustration.png)
-
+<p align="center" style="color:yellow; font-size:50px;">
+  JavaScript Interview Questions
 </p>
 
+## JavaScript Fundamentals
+
+- [ ] 1. What is JavaScript?
+- [ ] 2. What are the data types present in JavaScript?
+- [ ] 3. What is the difference between null and undefined?
+- [ ] 4. How does JavaScript handle type coercion?
+- [ ] 5. What is the difference between == and ===?
+- [ ] 6. Is JavaScript compiled or interpreted?
+- [ ] 7. Are JavaScript and Java related?
+- [ ] 8. Is JavaScript statically typed or dynamically typed?
+- [ ] 9. Does JavaScript support automatic type conversion?
+- [ ] 10. What is called Variable typing in JavaScript?
+- [ ] 11. What is negative infinity in JavaScript?
+- [ ] 12. Why is typeof null === "object"?
+- [ ] 13. What are undeclared and undefined variables?
+- [ ] 14. What's the return-value difference between x++ and ++x?
+- [ ] 15. What does this code log? const arr = [1, 2, 3]; arr[10] = 99; console.log(arr.length);
+- [ ] 16. What will be the result of null ?? 'default'?
+- [ ] 17. What is the use of isNaN, and how is it different from Number.isNaN?
+- [ ] 18. Is it possible to break JavaScript code into several lines?
+- [ ] 19. What would be the result of 3 + 2 + "7"?
+
+## Variables and Scope
+
+- [ ] 20. Explain the concept of hoisting in JavaScript.
+- [ ] 21. What is the Temporal Dead Zone (TDZ) in JavaScript?
+- [ ] 22. What is scope in JavaScript?
+- [ ] 23. What is the difference between Lexical and Dynamic Scoping?
+- [ ] 24. What are global variables? What problems are associated with them?
+- [ ] 25. Explain the use of const and let keywords.
+- [ ] 26. How are variables stored in JavaScript memory? (Value vs Reference)
+- [ ] 27. What are Stack and Heap memory in JavaScript?
+- [ ] 28. Where are variables stored? How Global Execution Context fits?
+
+## Functions
+
+- [ ] 29. What are arrow functions and how do they differ from regular functions?
+- [ ] 30. What are the types of functions in JavaScript?
+- [ ] 31. What is a higher-order function in JavaScript?
+- [ ] 32. Can functions be assigned as values to variables in JavaScript?
+- [ ] 33. What are default parameters in JavaScript functions?
+- [ ] 34. What are IIFEs (Immediately Invoked Function Expressions)?
+- [ ] 35. What is a callback function in JavaScript?
+- [ ] 36. Describe closure in JavaScript. Can you give an example?
+- [ ] 37. Can closures leak memory?
+- [ ] 38. What is Strict Mode in JavaScript and how can it be enabled?
+
+## The this Keyword
+
+- [ ] 39. What is the this keyword and how does its context change?
+- [ ] 40. What are call, apply, and bind?
+
+## Objects and Prototypes
+
+- [ ] 41. How do you create an object in JavaScript?
+- [ ] 42. What are prototypes in JavaScript?
+- [ ] 43. Explain prototypal inheritance.
+- [ ] 44. What is the difference between object literals and constructor functions?
+- [ ] 45. How do you add or remove properties from an object?
+- [ ] 46. How do you create private variables in JavaScript?
+- [ ] 47. What is the difference between deep copy and shallow copy in JavaScript?
+
+## ES6+ Features
+
+- [ ] 48. What are the major ES6 (ES2015) features in JavaScript?
+- [ ] 49. What are template literals in JavaScript?
+- [ ] 50. How do you use destructuring assignments in ES6?
+- [ ] 51. Explain the concept of modules in ES6.
+- [ ] 52. Explain import and export in JavaScript (ES6 Modules)
+
+## Asynchronous JavaScript
+
+- [ ] 53. What is the event loop in JavaScript?
+- [ ] 54. Explain how callbacks work in JavaScript.
+- [ ] 55. What are promises and how do they manage asynchronous code?
+- [ ] 56. Explain async/await in JavaScript and how it differs from Promises.
+- [ ] 57. What is the Job Queue (Microtask Queue)?
+- [ ] 58. What are Microtasks (Jobs) and Macrotasks in JavaScript?
+
+## DOM Manipulation
+
+- [ ] 59. What is the Document Object Model (DOM)?
+- [ ] 60. How do you select DOM elements using JavaScript?
+- [ ] 61. How do you create, append, or remove an element from the DOM?
+- [ ] 62. Describe different ways to find or access HTML elements in the DOM.
+- [ ] 63. Explain the difference between innerHTML and textContent.
+- [ ] 64. Why is textContent safe and innerHTML unsafe?
+
+## Events
+
+- [ ] 65. How do you handle events in JavaScript?
+- [ ] 66. Explain event propagation in the DOM.
+- [ ] 67. What is event delegation and why is it useful?
+- [ ] 68. How do you add and remove an event listener from an element?
+- [ ] 69. Can you explain how this works in event handlers?
+- [ ] 70. What is the difference between event.preventDefault() and event.stopPropagation()?
+- [ ] 71. How do you prevent a form from submitting using JavaScript?
+
+## Web Storage & Security
+
+- [ ] 72. What is the difference between localStorage, sessionStorage, and cookies?
+- [ ] 73. What is Cross-Site Scripting (XSS) and how can you prevent it?
+- [ ] 74. What is Cross-Origin Resource Sharing (CORS) and how does it work?
+- [ ] 75. How does Content Security Policy (CSP) help in preventing security attacks?
+
+## Browser APIs
+
+- [ ] 76. What are Web APIs in the context of JavaScript?
+- [ ] 77. How can you manipulate the browser history using JavaScript?
+- [ ] 78. What is the Window object and its significance?
+- [ ] 79. Explain the Document object.
+- [ ] 80. What new features does HTML5 bring to JavaScript development?
+
+## Debugging & Error Handling
+
+- [ ] 81. What tools and techniques do you use for debugging JavaScript code?
+- [ ] 82. How do you debug a JavaScript application in the browser?
+- [ ] 83. Explain the concept and use of breakpoints.
+- [ ] 84. How do you handle exceptions in JavaScript?
+
+## Performance Optimization
+
+- [ ] 85. What techniques can be used to improve JavaScript performance?
+- [ ] 86. How does JavaScript minification and bundling contribute to performance?
+- [ ] 87. Discuss the importance of web page loading time and performance.
+- [ ] 88. Explain how lazy loading works in JavaScript.
+
+## Debouncing & Throttling
+
+- [ ] 89. What is debouncing in JavaScript?
+- [ ] 90. What is throttling in JavaScript?
+- [ ] 91. What is the difference between debouncing and throttling?
+- [ ] 92. Why do we need debouncing and throttling?
+- [ ] 93. In which scenarios would you use debouncing?
+- [ ] 94. In which scenarios would you use throttling?
+- [ ] 95. What problem do debouncing and throttling solve?
+- [ ] 96. How does debouncing work internally?
+- [ ] 97. How does throttling work internally?
+- [ ] 98. What happens if debouncing delay is too high/low?
+- [ ] 99. What happens if throttling interval is too high/low?
+- [ ] 100. Implement debounce function from scratch.
+- [ ] 101. Implement throttle function from scratch.
+- [ ] 102. What is the difference between leading vs trailing in debounce/throttle?
+- [ ] 103. Implement debounce with immediate execution (leading).
+- [ ] 104. Implement throttle using timestamp approach.
+- [ ] 105. Implement throttle using setTimeout approach.
+- [ ] 106. How is debouncing used in search input (API calls)?
+- [ ] 107. How is throttling used in scroll events?
+- [ ] 108. How would you optimize a resize event listener?
+- [ ] 109. How to cancel a debounced/throttled function?
+- [ ] 110. What happens to this in debounce/throttle implementations?
+- [ ] 111. How to preserve arguments in debounce/throttle?
+- [ ] 112. What are memory leaks related to debounce/throttle?
+- [ ] 113. How to handle async functions with debounce?
+- [ ] 114. Can debounce/throttle cause missed executions?
+- [ ] 115. Debounce vs Throttle in UX perspective.
+- [ ] 116. Which is better for API calls and why?
+- [ ] 117. Which is better for scroll performance and why?
+- [ ] 118. Can we combine debounce and throttle?
+- [ ] 119. Why does debounce sometimes feel "laggy"?
+- [ ] 120. Why does throttle sometimes miss last event?
+- [ ] 121. How to ensure last call is always executed?
+- [ ] 122. Difference between debounce and setTimeout directly.
+- [ ] 123. Can we implement debounce using closures?
+- [ ] 124. How do debounce/throttle improve performance?
+- [ ] 125. How do they reduce API load?
+- [ ] 126. What is impact on event loop and call stack?
+- [ ] 127. How do they help avoid browser freezing?
+
+## JavaScript Testing
+
+- [ ] 128. What are some JavaScript testing frameworks you know?
+- [ ] 129. How can you write unit tests for JavaScript code?
+- [ ] 130. What is Test-Driven Development (TDD) in JavaScript?
+- [ ] 131. Can you explain the difference between unit and integration testing?
+
+## Networking with JavaScript
+
+- [ ] 132. How do you make HTTP requests in JavaScript?
+- [ ] 133. What is the difference between XMLHttpRequest and Fetch API?
+- [ ] 134. What is AJAX, and how does it work?
+- [ ] 135. How do you use WebSockets in a web application?
+
+## Functional Programming
+
+- [ ] 136. How do functional programming concepts apply in JavaScript?
+- [ ] 137. What does it mean that JavaScript functions are first-class citizens?
+- [ ] 138. What is Functional Programming in JavaScript?
+
+## Modern JavaScript & Beyond
+
+- [ ] 139. What are the new features introduced in ES6?
+- [ ] 140. Discuss the role of JavaScript in Progressive Web Apps (PWAs).
+
+## JavaScript & Mobile Development
+
+- [ ] 141. Explain how to use JavaScript for mobile development.
+- [ ] 142. What is React Native and how does it differ from traditional web apps?
+- [ ] 143. How does JavaScript interact with native mobile components?
+
+## Build Tools & Environment
+
+- [ ] 144. What is npm, and how do you use it?
+- [ ] 145. Discuss the role of Webpack in modern JavaScript development.
+- [ ] 146. What is a source map?
+- [ ] 147. How do you use ESLint for maintaining JavaScript code quality?
+- [ ] 148. What is continuous integration/continuous deployment (CI/CD) in the context of JS development?
+
+<p align="center" style="color:yellow; font-size:50px;">
+  JavaScript Interview Questions and Answers
+</p>
 # Q1. What is JavaScript?
 
 ---
@@ -8930,5 +9139,3495 @@ console.log(user, score);
 `let` is used when the value of a variable needs to change, while `const` is used when the variable should not be reassigned after initialization. However, in the case of objects and arrays, `const` allows modification of internal properties but prevents reassignment of the reference.
 
 Both `let` and `const` are hoisted but exist in the temporal dead zone, meaning they cannot be accessed before declaration. These features help write safer and more predictable JavaScript code.
+
+---
+
+# Q46. How can you manipulate the browser history using JavaScript?
+
+---
+
+## Concepts (with example + walkthrough)
+
+### 1. Browser History API
+
+JavaScript provides the **History API** to interact with the browser session history.
+
+Main object:
+
+```javascript
+window.history;
+```
+
+This allows you to:
+
+- Navigate backward/forward
+- Add new history entries
+- Modify current URL (without reload)
+
+---
+
+### 2. Moving in History
+
+#### (A) Go Back
+
+```javascript
+history.back(); // same as clicking browser back button
+```
+
+#### (B) Go Forward
+
+```javascript
+history.forward();
+```
+
+#### (C) Go to specific position
+
+```javascript
+history.go(-1); // back
+history.go(1); // forward
+```
+
+---
+
+### 3. `pushState()` (Add new history entry)
+
+Used in **Single Page Applications (SPA)**
+
+```javascript
+history.pushState(state, title, url);
+```
+
+#### Example
+
+```javascript
+history.pushState({ page: 1 }, "Page 1", "/page1");
+```
+
+- Adds new entry in history
+- Changes URL without page reload
+
+---
+
+### 4. `replaceState()` (Modify current entry)
+
+```javascript
+history.replaceState(state, title, url);
+```
+
+#### Example
+
+```javascript
+history.replaceState({ page: 2 }, "Page 2", "/page2");
+```
+
+- Replaces current history entry
+- No new entry added
+
+---
+
+### 5. Handling Navigation (`popstate` event)
+
+Triggered when user navigates history (back/forward)
+
+```javascript
+window.addEventListener("popstate", (event) => {
+  console.log(event.state);
+});
+```
+
+---
+
+### Walkthrough (Important Flow)
+
+```javascript
+// Step 1: Add new page
+history.pushState({ page: "home" }, "Home", "/home");
+
+// Step 2: Add another page
+history.pushState({ page: "about" }, "About", "/about");
+
+// Step 3: User clicks back
+// popstate event triggers
+window.addEventListener("popstate", (event) => {
+  console.log("Current state:", event.state);
+});
+```
+
+#### Flow:
+
+- URL changes without reload
+- State object helps track page data
+- Used heavily in React Router / Next.js
+
+---
+
+## Example
+
+Real-world:
+
+- When you navigate inside a React app:
+  - URL changes (`/home → /about`)
+  - Page does NOT reload
+  - History API is used internally
+
+---
+
+## Code Example
+
+```javascript
+// Simulating navigation in SPA
+
+// Go to page1
+document.getElementById("btn1").onclick = () => {
+  history.pushState({ page: "page1" }, "Page 1", "/page1");
+};
+
+// Go to page2
+document.getElementById("btn2").onclick = () => {
+  history.pushState({ page: "page2" }, "Page 2", "/page2");
+};
+
+// Listen for back/forward
+window.addEventListener("popstate", (event) => {
+  console.log("Navigated to:", event.state);
+});
+```
+
+---
+
+## Interview-Level Answer
+
+JavaScript provides the History API through the `window.history` object to manipulate the browser's session history. It allows navigation using methods like `back()`, `forward()`, and `go()`.
+
+Additionally, `pushState()` and `replaceState()` enable developers to modify the URL and history stack without reloading the page, which is essential for building Single Page Applications. The `popstate` event is used to handle back and forward navigation actions.
+
+---
+
+# Q48. How do you use destructuring assignments in ES6?
+
+---
+
+## Concepts (with example + walkthrough)
+
+### 1. Definition
+
+Destructuring in ES6 allows you to **extract values from arrays or objects** and assign them to variables in a **clean and concise way**.
+
+---
+
+### 2. Array Destructuring
+
+#### Basic Example
+
+```javascript
+const arr = [10, 20, 30];
+
+const [a, b, c] = arr;
+
+console.log(a, b, c); // 10 20 30
+```
+
+---
+
+#### Skipping Values
+
+```javascript
+const arr = [10, 20, 30];
+
+const [a, , c] = arr;
+
+console.log(a, c); // 10 30
+```
+
+---
+
+#### Default Values
+
+```javascript
+const arr = [10];
+
+const [a, b = 50] = arr;
+
+console.log(a, b); // 10 50
+```
+
+---
+
+### 3. Object Destructuring
+
+#### Basic Example
+
+```javascript
+const user = {
+  name: "Tanish",
+  age: 22,
+};
+
+const { name, age } = user;
+
+console.log(name, age);
+```
+
+---
+
+#### Renaming Variables
+
+```javascript
+const user = {
+  name: "Tanish",
+};
+
+const { name: userName } = user;
+
+console.log(userName); // Tanish
+```
+
+---
+
+#### Default Values
+
+```javascript
+const user = {
+  name: "Tanish",
+};
+
+const { age = 18 } = user;
+
+console.log(age); // 18
+```
+
+---
+
+### 4. Nested Destructuring
+
+```javascript
+const user = {
+  name: "Tanish",
+  address: {
+    city: "Delhi",
+  },
+};
+
+const {
+  address: { city },
+} = user;
+
+console.log(city); // Delhi
+```
+
+---
+
+### 5. Destructuring in Function Parameters
+
+```javascript
+function greet({ name, age }) {
+  console.log(`Hello ${name}, Age: ${age}`);
+}
+
+greet({ name: "Tanish", age: 22 });
+```
+
+---
+
+### 6. Using with Rest Operator
+
+```javascript
+const arr = [1, 2, 3, 4];
+
+const [a, ...rest] = arr;
+
+console.log(a); // 1
+console.log(rest); // [2, 3, 4]
+```
+
+---
+
+### Walkthrough
+
+```javascript
+const user = {
+  name: "Tanish",
+  age: 22,
+};
+
+const { name, age } = user;
+
+// Instead of:
+// let name = user.name;
+// let age = user.age;
+
+console.log(name, age);
+```
+
+---
+
+## Example
+
+Real-world usage:
+
+- React props destructuring
+
+```javascript
+function Profile({ name, age }) {
+  return `${name} is ${age}`;
+}
+```
+
+- API response handling
+
+```javascript
+const { data, status } = response;
+```
+
+---
+
+## Code Example
+
+```javascript
+// Combining array + object destructuring
+
+const user = {
+  name: "Tanish",
+  skills: ["JS", "Node", "React"],
+};
+
+// Object destructuring
+const { name, skills } = user;
+
+// Array destructuring
+const [firstSkill, secondSkill] = skills;
+
+console.log(name); // Tanish
+console.log(firstSkill); // JS
+console.log(secondSkill); // Node
+```
+
+---
+
+## Interview-Level Answer
+
+Destructuring assignment in ES6 allows extracting values from arrays or properties from objects into individual variables in a concise way. It improves code readability and reduces boilerplate code.
+
+It supports features like default values, renaming variables, nested destructuring, and usage in function parameters. Destructuring is widely used in modern JavaScript, especially in frameworks like React and when handling API responses.
+
+---
+
+# Q45. Explain the use of `const` and `let` keywords?
+
+---
+
+## Concepts (with example + walkthrough)
+
+### 1. Why `let` and `const` were introduced
+
+Before ES6, JavaScript only had `var`, which caused issues:
+
+- Function scope (not block scope)
+- Hoisting confusion
+- Re-declaration allowed
+
+To solve this, ES6 introduced:
+
+- `let` → for changeable values
+- `const` → for fixed references
+
+Both are **block-scoped**
+
+---
+
+### 2. `let` (Mutable Variable)
+
+#### Use case:
+
+When the value **needs to change**
+
+```javascript id="x9u3b2"
+let count = 10;
+
+count = 20; // allowed
+```
+
+#### Block Scope
+
+```javascript id="n2k8q1"
+if (true) {
+  let x = 5;
+}
+
+// console.log(x); // Error (block scope)
+```
+
+---
+
+### 3. `const` (Constant Reference)
+
+#### Use case:
+
+When variable **should NOT be reassigned**
+
+```javascript id="l4c7pz"
+const PI = 3.14;
+
+// PI = 3.141; // Error
+```
+
+---
+
+### 4. Important Interview Concept (Tricky Part)
+
+#### `const` does NOT mean fully immutable
+
+It means:
+
+- Reference cannot change
+- But internal data **can change**
+
+```javascript id="z8v1rq"
+const user = { name: "Tanish" };
+
+user.name = "Kumar"; // allowed
+
+console.log(user.name); // Kumar
+```
+
+#### Not allowed:
+
+```javascript id="t5d0mj"
+const user = { name: "Tanish" };
+
+// user = { name: "New" }; // Error
+```
+
+---
+
+### 5. Difference between `let` and `const`
+
+| Feature        | `let`           | `const`                     |
+| -------------- | --------------- | --------------------------- |
+| Reassignment   | Allowed         | Not allowed                 |
+| Initialization | Optional        | Mandatory                   |
+| Scope          | Block           | Block                       |
+| Use case       | Changing values | Fixed reference / constants |
+
+---
+
+### 6. Hoisting + Temporal Dead Zone (TDZ)
+
+Both are hoisted but:
+
+- Cannot be accessed before declaration
+
+```javascript id="u7n4sb"
+// console.log(a); // Error
+
+let a = 10;
+```
+
+---
+
+### Walkthrough
+
+```javascript id="y2k6vp"
+let score = 10;
+score += 5; // allowed
+
+const arr = [1, 2];
+arr.push(3); // allowed (mutation)
+
+console.log(score); // 15
+console.log(arr); // [1, 2, 3]
+```
+
+---
+
+## Example
+
+Real-world usage:
+
+```javascript id="g8m2xp"
+const API_URL = "https://api.com"; // fixed
+
+let page = 1;
+page++; // changes over time
+```
+
+---
+
+## Code Example
+
+```javascript id="q3v8ld"
+// Combining let and const
+
+const user = {
+  name: "Tanish",
+};
+
+let score = 0;
+
+// update score
+score += 10;
+
+// modify object (allowed)
+user.name = "Kumar";
+
+console.log(user, score);
+```
+
+---
+
+## Interview-Level Answer
+
+`let` and `const` are block-scoped variable declarations introduced in ES6 to replace `var`.
+
+`let` is used when the variable value needs to change, while `const` is used when the variable should not be reassigned. However, `const` does not make objects or arrays immutable; it only prevents reassignment of the reference.
+
+Both are hoisted but exist in the temporal dead zone, meaning they cannot be accessed before declaration. These features help in writing safer and more predictable JavaScript code.
+
+---
+
+# Q49. What are default parameters in JavaScript functions?
+
+---
+
+## Concepts (with example + walkthrough)
+
+### 1. Definition
+
+Default parameters allow you to **assign default values to function parameters** if no value (or `undefined`) is passed.
+
+---
+
+### 2. Basic Usage
+
+```javascript
+function greet(name = "Guest") {
+  return `Hello ${name}`;
+}
+
+console.log(greet()); // Hello Guest
+console.log(greet("Tanish")); // Hello Tanish
+```
+
+---
+
+### 3. How it works
+
+- If argument is **missing** → default value used
+- If argument is **undefined** → default value used
+- If argument is **null or any value** → that value is used
+
+---
+
+### 4. Important Edge Cases
+
+#### (A) `undefined` triggers default
+
+```javascript
+function test(a = 10) {
+  console.log(a);
+}
+
+test(undefined); // 10
+```
+
+---
+
+#### (B) `null` does NOT trigger default
+
+```javascript
+function test(a = 10) {
+  console.log(a);
+}
+
+test(null); // null
+```
+
+---
+
+### 5. Default values can be expressions
+
+```javascript
+function sum(a, b = a + 5) {
+  return a + b;
+}
+
+console.log(sum(5)); // 5 + (5+5) = 15
+```
+
+---
+
+### 6. Using functions as default values
+
+```javascript
+function getDefault() {
+  return 100;
+}
+
+function test(a = getDefault()) {
+  console.log(a);
+}
+
+test(); // 100
+```
+
+---
+
+### 7. Default with destructuring
+
+```javascript
+function createUser({ name = "Guest", age = 18 } = {}) {
+  console.log(name, age);
+}
+
+createUser(); // Guest 18
+```
+
+---
+
+### Walkthrough
+
+```javascript
+function greet(name = "Guest") {
+  return `Hello ${name}`;
+}
+
+// Case 1: No argument
+greet(); // uses default
+
+// Case 2: Argument passed
+greet("Tanish"); // overrides default
+```
+
+---
+
+## Example
+
+Real-world usage:
+
+```javascript
+function fetchData(url = "https://api.com/default") {
+  console.log("Fetching from:", url);
+}
+
+fetchData(); // default API
+fetchData("https://api.com/users"); // custom API
+```
+
+---
+
+## Code Example
+
+```javascript
+// Example combining multiple default parameters
+
+function calculatePrice(price, tax = 0.1, discount = 0) {
+  let total = price + price * tax - discount;
+  return total;
+}
+
+console.log(calculatePrice(100)); // 110
+console.log(calculatePrice(100, 0.2)); // 120
+console.log(calculatePrice(100, 0.2, 10)); // 110
+```
+
+---
+
+## Interview-Level Answer
+
+Default parameters in JavaScript allow functions to have predefined values for parameters when no argument or `undefined` is passed. This feature, introduced in ES6, helps avoid manual checks inside functions and makes code cleaner and more readable.
+
+Default values can be simple values, expressions, or even function calls. They are commonly used in APIs, configuration functions, and optional arguments handling.
+
+---
+
+# Q50. Explain the concept of modules in ES6?
+
+---
+
+## Concepts (with example + walkthrough)
+
+### 1. Definition
+
+ES6 Modules allow you to **split code into multiple files** and **export/import functionality** between them.
+
+Goal:
+
+- Improve **code organization**
+- Enable **reusability**
+- Avoid global scope pollution
+
+---
+
+### 2. Why Modules are needed
+
+Without modules:
+
+- Everything in one file → messy
+- Variables/functions conflict
+- Hard to maintain large apps
+
+Modules solve this by:
+
+- Keeping code **isolated**
+- Allowing controlled sharing
+
+---
+
+### 3. `export` (Making things available)
+
+#### (A) Named Export
+
+```javascript
+// math.js
+
+export const add = (a, b) => a + b;
+
+export const sub = (a, b) => a - b;
+```
+
+---
+
+#### (B) Default Export
+
+```javascript
+// greet.js
+
+export default function greet(name) {
+  return `Hello ${name}`;
+}
+```
+
+---
+
+### 4. `import` (Using exported things)
+
+#### (A) Import Named Exports
+
+```javascript
+import { add, sub } from "./math.js";
+
+console.log(add(2, 3));
+```
+
+---
+
+#### (B) Import Default Export
+
+```javascript
+import greet from "./greet.js";
+
+console.log(greet("Tanish"));
+```
+
+---
+
+#### (C) Rename while importing
+
+```javascript
+import { add as sum } from "./math.js";
+
+console.log(sum(2, 3));
+```
+
+---
+
+#### (D) Import everything
+
+```javascript
+import * as math from "./math.js";
+
+console.log(math.add(2, 3));
+```
+
+---
+
+### 5. Important Rules
+
+- Each file is treated as a **separate module**
+- Variables are **private by default**
+- Must use `type="module"` in HTML
+
+```html
+<script type="module" src="app.js"></script>
+```
+
+---
+
+### 6. Behind the scenes (Important for Interview)
+
+- Modules are:
+  - **Strict mode by default**
+  - Loaded **once (cached)**
+  - Support **static analysis** (better optimization)
+
+---
+
+### Walkthrough
+
+#### math.js
+
+```javascript
+export const multiply = (a, b) => a * b;
+```
+
+#### app.js
+
+```javascript
+import { multiply } from "./math.js";
+
+console.log(multiply(2, 5)); // 10
+```
+
+Flow:
+
+- Export from one file
+- Import into another
+- Use functionality
+
+---
+
+## Example
+
+Real-world:
+
+- React apps:
+  - Each component = module
+
+- Backend:
+  - Controllers, services, utils separated
+
+---
+
+## Code Example
+
+```javascript
+// utils.js
+export const PI = 3.14;
+
+export function area(radius) {
+  return PI * radius * radius;
+}
+```
+
+```javascript
+// main.js
+import { PI, area } from "./utils.js";
+
+console.log(PI);
+console.log(area(5));
+```
+
+---
+
+## Interview-Level Answer
+
+ES6 modules provide a way to organize JavaScript code into separate files using `export` and `import` statements. This helps in maintaining modular, reusable, and maintainable code.
+
+There are two types of exports: named exports and default exports. Modules are scoped by default, run in strict mode, and are loaded once and cached. They are widely used in modern JavaScript applications such as React, Node.js, and large-scale systems.
+
+---
+
+# Q51. Explain `import` and `export` in JavaScript (ES6 Modules)
+
+---
+
+## Concepts (with example + walkthrough)
+
+### 1. What is `export`?
+
+`export` is used to **make variables, functions, or classes available outside a file (module)**.
+
+Think:
+
+- "I want to share this code with other files"
+
+---
+
+### 2. Types of `export`
+
+---
+
+#### (A) Named Export
+
+You can export **multiple things** from a file.
+
+```javascript
+// math.js
+
+export const add = (a, b) => a + b;
+
+export const multiply = (a, b) => a * b;
+```
+
+---
+
+#### (B) Default Export
+
+Only **one default export per file**
+
+```javascript
+// greet.js
+
+export default function greet(name) {
+  return `Hello ${name}`;
+}
+```
+
+---
+
+### 3. What is `import`?
+
+`import` is used to **bring exported things into another file**.
+
+Think:
+
+- "I want to use code from another file"
+
+---
+
+### 4. Types of `import`
+
+---
+
+#### (A) Import Named Exports
+
+```javascript
+import { add, multiply } from "./math.js";
+
+console.log(add(2, 3));
+```
+
+---
+
+#### (B) Import Default Export
+
+```javascript
+import greet from "./greet.js";
+
+console.log(greet("Tanish"));
+```
+
+---
+
+#### (C) Rename while importing
+
+```javascript
+import { add as sum } from "./math.js";
+
+console.log(sum(2, 3));
+```
+
+---
+
+#### (D) Import Everything
+
+```javascript
+import * as math from "./math.js";
+
+console.log(math.add(2, 3));
+```
+
+---
+
+### 5. Key Differences
+
+| Feature        | Named Export    | Default Export     |
+| -------------- | --------------- | ------------------ |
+| Number allowed | Multiple        | Only one           |
+| Import syntax  | `{ add }`       | Any name (no `{}`) |
+| Rename needed? | Optional (`as`) | Direct naming      |
+
+---
+
+### 6. Important Rules
+
+- File path must be correct (`./`, `../`)
+- Use `.js` extension in browser
+- Modules are **strict mode by default**
+- Each file is its **own scope**
+
+---
+
+### Walkthrough
+
+#### math.js
+
+```javascript
+export const add = (a, b) => a + b;
+```
+
+#### app.js
+
+```javascript
+import { add } from "./math.js";
+
+console.log(add(5, 5)); // 10
+```
+
+Flow:
+
+- `export` → makes function available
+- `import` → uses it in another file
+
+---
+
+## Example
+
+Real-world:
+
+- React:
+  - Components exported and imported across files
+
+- Backend:
+  - Controllers, services, utils modularized
+
+---
+
+## Code Example
+
+```javascript
+// utils.js
+export const PI = 3.14;
+
+export function area(radius) {
+  return PI * radius * radius;
+}
+```
+
+```javascript
+// main.js
+import { PI, area } from "./utils.js";
+
+console.log(PI); // 3.14
+console.log(area(2)); // 12.56
+```
+
+---
+
+## Interview-Level Answer
+
+`export` and `import` are part of ES6 modules used to share code between files. `export` is used to expose variables, functions, or classes from a module, while `import` is used to bring them into another file.
+
+There are two types of exports: named exports (multiple per file) and default export (only one per file). This system helps in organizing code, improving reusability, and maintaining clean project structure in modern JavaScript applications.
+
+---
+
+# Q52. How do you handle events in JavaScript?
+
+---
+
+## Concepts (with example + walkthrough)
+
+### 1. What are Events?
+
+Events are **actions or occurrences** that happen in the browser:
+
+- User actions → click, input, submit
+- Browser actions → page load, resize
+
+JavaScript **listens to these events** and executes code in response.
+
+---
+
+### 2. Ways to Handle Events
+
+#### (A) Inline Event Handling (Not Recommended)
+
+```html
+<button onclick="handleClick()">Click Me</button>
+
+<script>
+  function handleClick() {
+    console.log("Button clicked");
+  }
+</script>
+```
+
+##### Problem:
+
+- Mixes HTML + JS → bad practice
+- Hard to maintain
+
+---
+
+#### (B) Using DOM Property
+
+```javascript
+// Select element
+const btn = document.getElementById("btn");
+
+// Assign event
+btn.onclick = function () {
+  console.log("Clicked using property");
+};
+```
+
+##### Limitation:
+
+- Only **one handler at a time**
+
+---
+
+#### (C) addEventListener (Best Practice)
+
+```javascript
+const btn = document.getElementById("btn");
+
+// Add event listener
+btn.addEventListener("click", function () {
+  console.log("Clicked using addEventListener");
+});
+```
+
+##### Advantages:
+
+- Multiple handlers allowed
+- Cleaner and scalable
+- Supports event phases (advanced)
+
+---
+
+### 3. Event Object
+
+Whenever an event occurs, JS passes an **event object**
+
+```javascript
+btn.addEventListener("click", function (event) {
+  console.log(event); // contains info about event
+});
+```
+
+#### Common properties:
+
+- `event.target` → element that triggered event
+- `event.type` → type of event (click, input)
+- `event.preventDefault()` → stop default behavior
+
+---
+
+### 4. Event Propagation (Flow)
+
+Two phases:
+
+#### (A) Capturing Phase (Top → Bottom)
+
+#### (B) Bubbling Phase (Bottom → Top)
+
+```javascript
+document.getElementById("child").addEventListener("click", () => {
+  console.log("Child clicked");
+});
+
+document.getElementById("parent").addEventListener("click", () => {
+  console.log("Parent clicked");
+});
+```
+
+#### Output (default = bubbling):
+
+```
+Child clicked
+Parent clicked
+```
+
+---
+
+### 5. Event Delegation (Important)
+
+Instead of adding event to multiple elements, add it to parent.
+
+```javascript
+document.getElementById("list").addEventListener("click", function (e) {
+  if (e.target.tagName === "LI") {
+    console.log("Item clicked:", e.target.innerText);
+  }
+});
+```
+
+##### Why?
+
+- Better performance
+- Works for dynamically added elements
+
+---
+
+## Example
+
+Real-world:
+
+- Clicking "Submit" button
+- Typing in input field
+- Hovering over menu
+
+All handled using **event listeners**
+
+---
+
+## Code Example
+
+```javascript
+// Select button
+const button = document.getElementById("myBtn");
+
+// Add click event
+button.addEventListener("click", function () {
+  console.log("Button was clicked");
+});
+```
+
+---
+
+## Interview-Level Answer
+
+Events in JavaScript are handled using event listeners, which allow us to execute code when a specific action occurs, such as a click, input, or submit.
+
+The most common and recommended way is using `addEventListener`, which attaches a handler to an element without overriding existing ones. JavaScript also provides access to an event object that contains details about the event.
+
+Additionally, concepts like event propagation (bubbling and capturing) and event delegation are important for building efficient and scalable applications.
+
+---
+
+# Q53. What is Event Delegation and why is it useful?
+
+---
+
+## Concepts (with example + walkthrough)
+
+### 1. What is Event Delegation?
+
+Event Delegation is a technique where you:
+
+- Attach **one event listener to a parent element**
+- Instead of adding listeners to multiple child elements
+- Use **event bubbling** to catch events from children
+
+---
+
+### 2. Why it works (Core Idea)
+
+When an event happens on a child:
+
+- It first triggers on the child
+- Then **bubbles up** to parent
+
+So parent can "listen" to child events.
+
+---
+
+### 3. Basic Example (Without Delegation)
+
+```javascript id="zqk8rc"
+// BAD APPROACH: multiple listeners
+
+const items = document.querySelectorAll("li");
+
+items.forEach((item) => {
+  item.addEventListener("click", () => {
+    console.log(item.innerText);
+  });
+});
+```
+
+#### Problem:
+
+- Too many event listeners
+- Not efficient
+- Won’t work for dynamically added elements
+
+---
+
+### 4. With Event Delegation (Correct Approach)
+
+```javascript id="htbh7y"
+// GOOD APPROACH: single listener on parent
+
+const list = document.getElementById("list");
+
+list.addEventListener("click", function (event) {
+  // Check if clicked element is LI
+  if (event.target.tagName === "LI") {
+    console.log(event.target.innerText);
+  }
+});
+```
+
+---
+
+### Walkthrough
+
+```html id="8t9mns"
+<ul id="list">
+  <li>Item 1</li>
+  <li>Item 2</li>
+</ul>
+```
+
+- User clicks "Item 1"
+- Event happens on `<li>`
+- It bubbles to `<ul>`
+- Parent handler catches it
+- `event.target` tells which item was clicked
+
+---
+
+### 5. Key Concepts Used
+
+#### (A) event.target
+
+```javascript id="grq2h3"
+console.log(event.target); // actual clicked element
+```
+
+#### (B) event.currentTarget
+
+```javascript id="2nrcbx"
+console.log(event.currentTarget); // element with listener (parent)
+```
+
+---
+
+### 6. Dynamic Elements (Important)
+
+```javascript id="f4bc9m"
+// Add new item dynamically
+const newItem = document.createElement("li");
+newItem.innerText = "New Item";
+list.appendChild(newItem);
+```
+
+- No new event listener needed
+- Delegation automatically works
+
+---
+
+## Example
+
+Real-world:
+
+- E-commerce product list
+- Chat message list
+- Todo app items
+
+Instead of adding listeners to each item → use one parent listener
+
+---
+
+## Code Example
+
+```javascript id="1ejy2r"
+// Event delegation example
+
+const container = document.getElementById("container");
+
+container.addEventListener("click", function (e) {
+  if (e.target.classList.contains("btn")) {
+    console.log("Button clicked:", e.target.innerText);
+  }
+});
+```
+
+---
+
+## Interview-Level Answer
+
+Event delegation is a technique in JavaScript where a single event listener is attached to a parent element to handle events for its child elements using event bubbling.
+
+It is useful because it improves performance by reducing the number of event listeners, simplifies code, and automatically supports dynamically added elements. It relies on properties like `event.target` to identify which child element triggered the event.
+
+---
+
+# Q54. How do you add and remove an event listener from an element?
+
+---
+
+## Concepts (with example + walkthrough)
+
+### 1. Adding an Event Listener
+
+We use **`addEventListener()`** to attach an event to an element.
+
+#### Syntax:
+
+```javascript id="q7q2gl"
+element.addEventListener(eventType, handlerFunction);
+```
+
+---
+
+### Example
+
+```javascript id="h1y0xq"
+// Step 1: select element
+const btn = document.getElementById("btn");
+
+// Step 2: define handler
+function handleClick() {
+  console.log("Button clicked");
+}
+
+// Step 3: attach event
+btn.addEventListener("click", handleClick);
+```
+
+---
+
+### 2. Removing an Event Listener
+
+We use **`removeEventListener()`** to remove an attached event.
+
+#### Syntax:
+
+```javascript id="i2qj4y"
+element.removeEventListener(eventType, handlerFunction);
+```
+
+---
+
+### Important Rule
+
+The **same function reference** must be used.
+
+---
+
+### Correct Way
+
+```javascript id="fsf2zv"
+const btn = document.getElementById("btn");
+
+function handleClick() {
+  console.log("Clicked");
+}
+
+// Add event
+btn.addEventListener("click", handleClick);
+
+// Remove event
+btn.removeEventListener("click", handleClick);
+```
+
+---
+
+### Wrong Way (Common Mistake)
+
+```javascript id="l6p8gq"
+// This will NOT work
+
+btn.addEventListener("click", function () {
+  console.log("Clicked");
+});
+
+btn.removeEventListener("click", function () {
+  console.log("Clicked");
+});
+```
+
+#### Why?
+
+- Functions are different in memory
+- JS cannot match them
+
+---
+
+### 3. Using Options (Advanced)
+
+```javascript id="b6fxp8"
+btn.addEventListener("click", handleClick, { once: true });
+```
+
+#### Meaning:
+
+- Event runs only **one time**
+- Automatically removed after execution
+
+---
+
+### 4. Removing via AbortController (Modern Approach)
+
+```javascript id="p3g3h2"
+const controller = new AbortController();
+
+btn.addEventListener("click", handleClick, {
+  signal: controller.signal,
+});
+
+// Remove all linked listeners
+controller.abort();
+```
+
+---
+
+### Walkthrough
+
+```javascript id="q5d2e1"
+function sayHello() {
+  console.log("Hello");
+}
+
+btn.addEventListener("click", sayHello);
+
+// User clicks → "Hello"
+
+// Now remove
+btn.removeEventListener("click", sayHello);
+
+// Click again → nothing happens
+```
+
+---
+
+## Example
+
+Real-world:
+
+- Add click listener to "Submit"
+- Remove it after form submission
+- Prevent duplicate actions
+
+---
+
+## Code Example
+
+```javascript id="ylh6q1"
+// Example: toggle event listener
+
+const btn = document.getElementById("btn");
+
+function handleClick() {
+  console.log("Clicked!");
+}
+
+// Add listener
+btn.addEventListener("click", handleClick);
+
+// Remove after 5 seconds
+setTimeout(() => {
+  btn.removeEventListener("click", handleClick);
+  console.log("Listener removed");
+}, 5000);
+```
+
+---
+
+## Interview-Level Answer
+
+Event listeners in JavaScript are added using `addEventListener()`, which attaches a function to a specific event on an element. To remove an event listener, `removeEventListener()` is used, and it requires the exact same function reference that was used أثناء adding.
+
+Using named functions instead of anonymous ones is important for removal. Additionally, modern approaches like the `{ once: true }` option or `AbortController` can automatically manage event removal.
+
+---
+
+# Q55. Can you explain how "this" works in event handlers?
+
+---
+
+## Concepts (with example + walkthrough)
+
+### 1. What is `this` in JavaScript?
+
+`this` refers to the **context (who is calling the function)**
+
+Its value **changes depending on how a function is called**
+
+---
+
+### 2. `this` in Event Handlers (Normal Function)
+
+When using a **regular function** inside `addEventListener`:
+
+👉 `this` refers to the **element on which the event listener is attached**
+
+---
+
+### Example
+
+```javascript id="p6g9s2"
+const btn = document.getElementById("btn");
+
+btn.addEventListener("click", function () {
+  console.log(this); // refers to button element
+});
+```
+
+---
+
+### Walkthrough
+
+- Button is clicked
+- Function is executed
+- `this` → button element (`btn`)
+
+Same as:
+
+```javascript id="k2h4mn"
+console.log(event.currentTarget);
+```
+
+---
+
+### 3. Arrow Function Behavior (Important)
+
+Arrow functions **DO NOT have their own `this`**
+
+They inherit `this` from **parent scope**
+
+---
+
+### Example
+
+```javascript id="c9x3pq"
+btn.addEventListener("click", () => {
+  console.log(this);
+});
+```
+
+#### Output:
+
+- `this` is **NOT the button**
+- It is the outer context (usually `window` in browser)
+
+---
+
+### 4. Comparing Both
+
+```javascript id="r4m8zn"
+btn.addEventListener("click", function () {
+  console.log("Normal:", this); // button
+});
+
+btn.addEventListener("click", () => {
+  console.log("Arrow:", this); // window / undefined
+});
+```
+
+---
+
+### 5. Best Practice
+
+If you need access to element:
+
+#### Option 1: Use normal function
+
+```javascript id="1z7fqp"
+btn.addEventListener("click", function () {
+  this.style.background = "red";
+});
+```
+
+#### Option 2: Use event object (recommended)
+
+```javascript id="v8y2hk"
+btn.addEventListener("click", (e) => {
+  e.target.style.background = "red";
+});
+```
+
+---
+
+### 6. `this` vs `event.target`
+
+| Feature             | `this`                | `event.target`         |
+| ------------------- | --------------------- | ---------------------- |
+| Refers to           | Element with listener | Actual clicked element |
+| Changes in bubbling | No                    | Yes                    |
+| Works in arrow fn   | No                    | Yes                    |
+
+---
+
+### Walkthrough Example
+
+```html id="z3n2ax"
+<div id="parent">
+  <button id="child">Click Me</button>
+</div>
+```
+
+```javascript id="n7q4pl"
+document.getElementById("parent").addEventListener("click", function (e) {
+  console.log("this:", this); // parent
+  console.log("target:", e.target); // child if clicked
+});
+```
+
+---
+
+## Example
+
+Real-world:
+
+- Clicking a button → change its color
+- Using `this` or `event.target` to access element
+
+---
+
+## Code Example
+
+```javascript id="k9x2wp"
+// Example showing this behavior
+
+const button = document.getElementById("btn");
+
+button.addEventListener("click", function () {
+  console.log("Using this:", this.innerText);
+});
+
+button.addEventListener("click", (e) => {
+  console.log("Using target:", e.target.innerText);
+});
+```
+
+---
+
+## Interview-Level Answer
+
+In event handlers, the value of `this` depends on how the function is defined. In a normal function used with `addEventListener`, `this` refers to the element on which the event listener is attached.
+
+However, in arrow functions, `this` does not refer to the element but instead inherits from the surrounding lexical scope, often resulting in `window` or `undefined`.
+
+Because of this, developers often prefer using the event object (`event.target` or `event.currentTarget`) for more predictable behavior.
+
+---
+
+# Q56. What is the difference between `event.preventDefault()` and `event.stopPropagation()`?
+
+---
+
+## Concepts (with example + walkthrough)
+
+### 1. `event.preventDefault()`
+
+#### What it does:
+
+Stops the **default browser behavior** of an element
+
+---
+
+### Example
+
+```html id="j2k4lp"
+<a href="https://google.com" id="link">Go to Google</a>
+```
+
+```javascript id="m9x3qp"
+const link = document.getElementById("link");
+
+link.addEventListener("click", function (e) {
+  e.preventDefault(); // stops navigation
+  console.log("Link click prevented");
+});
+```
+
+---
+
+### Walkthrough
+
+- User clicks link
+- Default → browser navigates to Google
+- With `preventDefault()` → navigation is stopped
+
+---
+
+### Common Use Cases
+
+- Form submission control
+- Prevent page reload
+- Custom validation before submit
+
+---
+
+### 2. `event.stopPropagation()`
+
+#### What it does:
+
+Stops the event from **bubbling (or capturing) to parent elements**
+
+---
+
+### Example
+
+```html id="g7p2kl"
+<div id="parent">
+  <button id="child">Click Me</button>
+</div>
+```
+
+```javascript id="q8r5vn"
+document.getElementById("child").addEventListener("click", function (e) {
+  e.stopPropagation(); // stops bubbling
+  console.log("Child clicked");
+});
+
+document.getElementById("parent").addEventListener("click", function () {
+  console.log("Parent clicked");
+});
+```
+
+---
+
+### Walkthrough
+
+- Click button
+
+- Without `stopPropagation()` →
+
+  ```
+  Child clicked
+  Parent clicked
+  ```
+
+- With `stopPropagation()` →
+
+  ```
+  Child clicked
+  ```
+
+---
+
+### 3. Key Difference
+
+| Feature | preventDefault()                   | stopPropagation()                     |
+| ------- | ---------------------------------- | ------------------------------------- |
+| Purpose | Stops default browser behavior     | Stops event flow (bubbling/capturing) |
+| Affects | Element’s default action           | Parent/child event flow               |
+| Example | Stop form submit / link navigation | Stop parent click from triggering     |
+
+---
+
+### 4. Important Note
+
+They are **independent**
+
+```javascript id="y6n3xa"
+e.preventDefault();
+e.stopPropagation();
+```
+
+You can use both together when needed.
+
+---
+
+### Walkthrough Combined
+
+```javascript id="x2p9wl"
+form.addEventListener("submit", function (e) {
+  e.preventDefault(); // stop reload
+  e.stopPropagation(); // stop bubbling
+
+  console.log("Handled safely");
+});
+```
+
+---
+
+## Example
+
+Real-world:
+
+- Prevent form reload → `preventDefault()`
+- Stop click from affecting parent UI → `stopPropagation()`
+
+---
+
+## Code Example
+
+```javascript id="c8z4nm"
+// Example showing both
+
+const btn = document.getElementById("btn");
+
+btn.addEventListener("click", function (e) {
+  e.preventDefault(); // stop default action (if any)
+  e.stopPropagation(); // stop bubbling
+
+  console.log("Handled click safely");
+});
+```
+
+---
+
+## Interview-Level Answer
+
+`event.preventDefault()` is used to stop the default behavior of an element, such as preventing a form from submitting or a link from navigating.
+
+`event.stopPropagation()` is used to stop the event from propagating through the DOM, meaning it prevents the event from reaching parent or child elements during the event flow.
+
+In short, `preventDefault()` controls browser behavior, while `stopPropagation()` controls event flow.
+
+---
+
+# Q57. What is the difference between localStorage, sessionStorage, and cookies?
+
+---
+
+## Concepts (with example + walkthrough)
+
+### 1. What are these?
+
+All three are used for **storing data in the browser**, but differ in:
+
+- Lifetime
+- Storage size
+- Accessibility
+- Use cases
+
+---
+
+### 2. localStorage
+
+#### Key Points:
+
+- Stores data **permanently (no expiry)**
+- Data persists even after browser is closed
+- Storage limit ≈ **5–10 MB**
+- Accessible via JavaScript only
+
+---
+
+#### Example
+
+```javascript id="l1s2t3"
+// Store data
+localStorage.setItem("user", "Tanish");
+
+// Get data
+let user = localStorage.getItem("user");
+
+console.log(user); // Tanish
+
+// Remove data
+localStorage.removeItem("user");
+```
+
+---
+
+### 3. sessionStorage
+
+#### Key Points:
+
+- Data exists only for **one browser session**
+- Cleared when tab/browser is closed
+- Storage limit ≈ **5 MB**
+- Accessible via JavaScript only
+
+---
+
+#### Example
+
+```javascript id="s4e5s6"
+// Store data
+sessionStorage.setItem("sessionUser", "Tanish");
+
+// Get data
+let user = sessionStorage.getItem("sessionUser");
+
+console.log(user); // Tanish
+```
+
+---
+
+### 4. Cookies
+
+#### Key Points:
+
+- Stored as **small key-value pairs**
+- Sent automatically with **every HTTP request**
+- Can have **expiry date**
+- Storage limit ≈ **4 KB**
+- Accessible via both **JavaScript and server**
+
+---
+
+#### Example
+
+```javascript id="c7o8o9"
+// Set cookie
+document.cookie =
+  "username=Tanish; expires=Fri, 31 Dec 2026 12:00:00 UTC; path=/";
+
+// Read cookies
+console.log(document.cookie);
+```
+
+---
+
+### 5. Key Differences
+
+| Feature        | localStorage   | sessionStorage    | Cookies                  |
+| -------------- | -------------- | ----------------- | ------------------------ |
+| Lifetime       | Permanent      | Till tab closed   | Expiry-based             |
+| Storage Size   | ~5–10 MB       | ~5 MB             | ~4 KB                    |
+| Sent to Server | No             | No                | Yes (every request)      |
+| Accessibility  | JS only        | JS only           | JS + Server              |
+| Use Case       | Long-term data | Temporary session | Authentication, tracking |
+
+---
+
+### Walkthrough
+
+```javascript id="w1r2k3"
+// localStorage persists
+localStorage.setItem("theme", "dark");
+
+// sessionStorage clears after tab close
+sessionStorage.setItem("temp", "123");
+
+// cookie goes to server
+document.cookie = "token=abc123";
+```
+
+---
+
+## Example
+
+Real-world:
+
+- localStorage → Save user preferences (theme, settings)
+- sessionStorage → Temporary data (form steps)
+- cookies → Authentication tokens, session IDs
+
+---
+
+## Code Example
+
+```javascript id="x9y8z7"
+// localStorage example
+localStorage.setItem("theme", "dark");
+
+// sessionStorage example
+sessionStorage.setItem("step", "2");
+
+// cookie example
+document.cookie = "user=Tanish";
+```
+
+---
+
+## Interview-Level Answer
+
+localStorage, sessionStorage, and cookies are all used for storing data in the browser, but they differ in scope and behavior.
+
+localStorage stores data permanently until explicitly removed, while sessionStorage stores data only for the duration of a browser session. Both are accessible only through JavaScript and are not sent to the server.
+
+Cookies, on the other hand, are small pieces of data that can have an expiry time and are automatically sent with every HTTP request, making them useful for authentication and tracking purposes.
+
+---
+
+# Q58. Can you explain Cross-Site Scripting (XSS) and how to prevent it?
+
+---
+
+## Concepts (with example + walkthrough)
+
+### 1. What is XSS?
+
+Cross-Site Scripting (XSS) is a **security vulnerability** where an attacker injects **malicious JavaScript code** into a web application.
+
+👉 That code runs in the **victim’s browser**
+
+---
+
+### 2. Why is it dangerous?
+
+- Steal cookies / session tokens
+- Access user data
+- Perform actions on behalf of user
+- Redirect to malicious sites
+
+---
+
+### 3. Types of XSS
+
+#### (A) Stored XSS (Persistent)
+
+- Malicious script is stored in DB
+- Served to every user
+
+```javascript id="s1t2x3"
+// User comment stored in DB
+<script>alert("Hacked")</script>
+```
+
+When page loads → script runs for everyone
+
+---
+
+#### (B) Reflected XSS
+
+- Script comes from URL/request
+- Immediately reflected in response
+
+```javascript id="r4x5y6"
+// URL example
+https://site.com/search?q=<script>alert(1)</script>
+```
+
+---
+
+#### (C) DOM-Based XSS
+
+- Happens entirely in frontend (JS)
+- Unsafe DOM manipulation
+
+```javascript id="d7o8m9"
+// BAD: directly inserting user input
+document.getElementById("output").innerHTML = userInput;
+```
+
+---
+
+### 4. How XSS Happens (Core Problem)
+
+👉 Injecting **untrusted input into HTML without sanitization**
+
+---
+
+### Walkthrough
+
+```javascript id="w1x2s3"
+let userInput = '<img src=x onerror="alert(1)">';
+
+// Dangerous
+document.body.innerHTML = userInput;
+```
+
+- Browser parses HTML
+- Executes `onerror`
+- Attack successful
+
+---
+
+## Example
+
+Real-world:
+
+- Comment section
+- Search bar
+- Profile input fields
+
+If not sanitized → attacker injects script
+
+---
+
+## Code Example
+
+```javascript id="safe123"
+// SAFE approach using textContent
+
+let userInput = '<script>alert("hack")</script>';
+
+// Safe: does NOT execute script
+document.getElementById("output").textContent = userInput;
+```
+
+---
+
+## Prevention Techniques
+
+### 1. Escape / Sanitize Input
+
+```javascript id="san456"
+// Avoid innerHTML
+element.textContent = userInput;
+```
+
+---
+
+### 2. Use Trusted Libraries
+
+- DOMPurify (for sanitization)
+
+```javascript id="dom789"
+const clean = DOMPurify.sanitize(userInput);
+```
+
+---
+
+### 3. Avoid innerHTML (Critical)
+
+```javascript id="bad111"
+// NEVER do this with user input
+element.innerHTML = userInput;
+```
+
+---
+
+### 4. Use Content Security Policy (CSP)
+
+- Restricts script execution
+
+```http id="csp222"
+Content-Security-Policy: default-src 'self';
+```
+
+---
+
+### 5. Validate Input (Frontend + Backend)
+
+- Always treat user input as unsafe
+
+---
+
+### 6. HttpOnly Cookies
+
+- Prevent JS from accessing cookies
+
+```http id="cookie333"
+Set-Cookie: token=abc; HttpOnly;
+```
+
+---
+
+## Key Difference (Unsafe vs Safe)
+
+| Unsafe               | Safe                    |
+| -------------------- | ----------------------- |
+| innerHTML            | textContent / innerText |
+| No sanitization      | Sanitized input         |
+| Direct DOM injection | Controlled rendering    |
+
+---
+
+## Interview-Level Answer
+
+Cross-Site Scripting (XSS) is a security vulnerability where attackers inject malicious scripts into a web application, which then execute in the victim’s browser. It can lead to data theft, session hijacking, and unauthorized actions.
+
+There are three main types: stored, reflected, and DOM-based XSS. The root cause is inserting untrusted user input into the DOM without proper sanitization.
+
+To prevent XSS, developers should avoid using `innerHTML` with user input, sanitize and validate inputs, use safer alternatives like `textContent`, implement Content Security Policy (CSP), and use security measures like HttpOnly cookies.
+
+---
+
+# Q59. What is Cross-Origin Resource Sharing (CORS) and how does it work?
+
+---
+
+## Concepts (with example + walkthrough)
+
+### 1. What is CORS?
+
+CORS (Cross-Origin Resource Sharing) is a **browser security mechanism** that controls how resources (APIs, data) can be requested from **different origins**.
+
+---
+
+### 2. What is an Origin?
+
+An origin = combination of:
+
+- Protocol → `http / https`
+- Domain → `example.com`
+- Port → `:3000`
+
+#### Example:
+
+```
+http://localhost:3000   → Origin A
+http://localhost:5000   → Origin B (different port)
+```
+
+👉 These are considered **different origins**
+
+---
+
+### 3. Same-Origin Policy (Problem)
+
+Browsers follow **Same-Origin Policy (SOP)**:
+
+- JS can only make requests to **same origin**
+- Prevents malicious sites from accessing sensitive data
+
+---
+
+### 4. Where CORS Comes In
+
+CORS allows servers to say:
+
+👉 "I trust this origin, allow access"
+
+---
+
+### 5. How CORS Works
+
+#### Step-by-step:
+
+1. Frontend sends request
+
+```javascript id="c1r2s3"
+fetch("http://api.com/data");
+```
+
+2. Browser checks:
+   - Is origin same? → allow
+   - If different → apply CORS rules
+
+3. Server responds with headers:
+
+```http id="h4e5a6"
+Access-Control-Allow-Origin: http://localhost:3000
+```
+
+4. Browser decides:
+   - If allowed → response available
+   - Else → blocked
+
+---
+
+### 6. Types of Requests
+
+#### (A) Simple Request
+
+- GET / POST (basic)
+- No special headers
+
+👉 Direct request sent
+
+---
+
+#### (B) Preflight Request (IMPORTANT)
+
+Before actual request, browser sends:
+
+```http id="p7r8e9"
+OPTIONS /data
+```
+
+Server must respond with:
+
+```http id="a1b2c3"
+Access-Control-Allow-Origin: http://localhost:3000
+Access-Control-Allow-Methods: GET, POST
+Access-Control-Allow-Headers: Content-Type
+```
+
+Then actual request is sent
+
+---
+
+### Walkthrough
+
+```javascript id="w9x8y7"
+// Frontend (localhost:3000)
+fetch("http://api.com/data", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+```
+
+- Browser sends OPTIONS request first
+- Server approves → real request sent
+
+---
+
+## Example
+
+Real-world:
+
+- Frontend: `http://localhost:3000`
+- Backend API: `http://localhost:5000`
+
+Without CORS → blocked
+With proper headers → allowed
+
+---
+
+## Code Example
+
+### Backend (Node.js - Express)
+
+```javascript id="cors123"
+// Enable CORS
+
+const express = require("express");
+const app = express();
+
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*"); // allow all origins
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  next();
+});
+
+app.get("/data", (req, res) => {
+  res.json({ message: "CORS enabled" });
+});
+
+app.listen(5000);
+```
+
+---
+
+## Key Points Summary
+
+| Concept           | Meaning                                |
+| ----------------- | -------------------------------------- |
+| SOP               | Blocks cross-origin requests           |
+| CORS              | Allows controlled cross-origin access  |
+| Header-based      | Controlled via server response headers |
+| Preflight request | OPTIONS request before actual call     |
+
+---
+
+## Interview-Level Answer
+
+CORS (Cross-Origin Resource Sharing) is a browser security mechanism that allows or restricts web applications from making requests to a different origin than the one that served the web page.
+
+By default, browsers enforce the Same-Origin Policy, which blocks such requests. CORS works by using HTTP headers like `Access-Control-Allow-Origin`, which are set by the server to specify which origins are allowed to access the resources.
+
+For certain requests, the browser sends a preflight OPTIONS request to check permissions before making the actual request. This ensures secure and controlled cross-origin communication between client and server.
+
+---
+
+# Q60. How does Content Security Policy (CSP) help in preventing security attacks?
+
+---
+
+## Concepts (with example + walkthrough)
+
+### 1. What is CSP?
+
+Content Security Policy (CSP) is a **browser security feature** that helps prevent attacks like:
+
+- XSS (Cross-Site Scripting)
+- Data injection attacks
+
+👉 It works by **restricting what resources can be loaded and executed**
+
+---
+
+### 2. Core Idea
+
+Instead of trusting everything, CSP says:
+
+👉 "Only allow scripts/styles/resources from trusted sources"
+
+---
+
+### 3. How CSP is Applied
+
+CSP is set using **HTTP headers**
+
+```http id="csp001"
+Content-Security-Policy: default-src 'self';
+```
+
+#### Meaning:
+
+- Only allow resources from same origin
+- Block everything else
+
+---
+
+### 4. How CSP Prevents XSS
+
+#### Without CSP (Danger)
+
+```javascript id="xss001"
+// Injected malicious script
+<script>alert("Hacked")</script>
+```
+
+Browser executes it → attack successful
+
+---
+
+#### With CSP
+
+```http id="csp002"
+Content-Security-Policy: script-src 'self';
+```
+
+👉 Only scripts from same origin allowed
+👉 Inline/malicious scripts blocked
+
+---
+
+### Walkthrough
+
+1. Attacker injects script
+2. Browser checks CSP rules
+3. Script source not allowed
+4. Script is blocked
+
+---
+
+### 5. Common CSP Directives
+
+#### (A) default-src
+
+```http id="csp003"
+default-src 'self';
+```
+
+- Default rule for all resources
+
+---
+
+#### (B) script-src
+
+```http id="csp004"
+script-src 'self' https://trusted-cdn.com;
+```
+
+- Only allow scripts from:
+  - Same origin
+  - Trusted CDN
+
+---
+
+#### (C) style-src
+
+```http id="csp005"
+style-src 'self' 'unsafe-inline';
+```
+
+---
+
+#### (D) img-src
+
+```http id="csp006"
+img-src 'self' https://images.com;
+```
+
+---
+
+### 6. Blocking Inline Scripts (Important)
+
+```http id="csp007"
+script-src 'self';
+```
+
+```html id="inline001"
+<script>
+  alert("hack");
+</script>
+```
+
+👉 Blocked by CSP
+
+---
+
+### 7. Advanced: Nonce (Secure Way)
+
+```http id="csp008"
+Content-Security-Policy: script-src 'nonce-abc123';
+```
+
+```html id="nonce001"
+<script nonce="abc123">
+  console.log("safe");
+</script>
+```
+
+👉 Only scripts with correct nonce allowed
+
+---
+
+### 8. Benefits of CSP
+
+- Prevents execution of injected scripts
+- Reduces XSS risk significantly
+- Controls external resource loading
+- Adds extra security layer (defense-in-depth)
+
+---
+
+## Example
+
+Real-world:
+
+- Only allow scripts from your domain
+- Block unknown CDN scripts
+- Prevent malicious inline scripts
+
+---
+
+## Code Example
+
+```javascript id="cspnode"
+// Express example
+
+const express = require("express");
+const app = express();
+
+app.use((req, res, next) => {
+  res.setHeader(
+    "Content-Security-Policy",
+    "default-src 'self'; script-src 'self' https://trusted-cdn.com",
+  );
+  next();
+});
+
+app.get("/", (req, res) => {
+  res.send("CSP Enabled");
+});
+
+app.listen(3000);
+```
+
+---
+
+## Key Points Summary
+
+| Feature     | Description                           |
+| ----------- | ------------------------------------- |
+| Purpose     | Prevent XSS and injection attacks     |
+| Mechanism   | Restrict resource loading via headers |
+| Enforced by | Browser                               |
+| Works with  | Trusted sources only                  |
+
+---
+
+## Interview-Level Answer
+
+Content Security Policy (CSP) is a browser security feature that helps prevent attacks like Cross-Site Scripting (XSS) by restricting which resources can be loaded and executed on a web page.
+
+It works by defining rules through HTTP headers, such as specifying allowed sources for scripts, styles, and images. If a script or resource violates these rules, the browser blocks it from executing.
+
+CSP provides an additional layer of security by ensuring that only trusted content is allowed, reducing the risk of malicious code injection and improving overall application security.
+
+---
+
+# Q61. What tools and techniques do you use for debugging JavaScript code?
+
+---
+
+## Concepts (with example + walkthrough)
+
+### 1. What is Debugging?
+
+Debugging is the process of:
+
+- Finding bugs (errors)
+- Understanding why they occur
+- Fixing them efficiently
+
+---
+
+### 2. Common Types of Errors
+
+#### (A) Syntax Errors
+
+```javascript
+let a = ; // Missing value → syntax error
+```
+
+---
+
+#### (B) Runtime Errors
+
+```javascript
+console.log(x); // x is not defined
+```
+
+---
+
+#### (C) Logical Errors
+
+```javascript
+// Wrong logic
+function add(a, b) {
+  return a - b; // bug
+}
+```
+
+---
+
+### 3. Tools for Debugging
+
+---
+
+#### (A) Console (Basic but Powerful)
+
+```javascript
+console.log("Value:", x);
+console.error("Error occurred");
+console.warn("Warning");
+```
+
+---
+
+#### (B) Browser DevTools (Most Important)
+
+Chrome DevTools → Sources tab
+
+Features:
+
+- Breakpoints
+- Step execution
+- Watch variables
+- Call stack
+
+---
+
+### Breakpoint Example
+
+```javascript
+function test() {
+  let a = 10;
+  let b = 20;
+  let sum = a + b; // set breakpoint here
+  return sum;
+}
+
+test();
+```
+
+---
+
+### Walkthrough
+
+- Set breakpoint on `sum`
+- Execution pauses
+- Inspect values of `a`, `b`
+- Step line-by-line
+
+---
+
+#### (C) `debugger` Keyword
+
+```javascript
+function calculate() {
+  let x = 5;
+  debugger; // pauses execution
+  let y = x * 2;
+  return y;
+}
+```
+
+---
+
+#### (D) Network Tab
+
+- Debug API calls
+- Check:
+  - Request/Response
+  - Status codes
+  - Headers
+
+---
+
+#### (E) Performance Tab
+
+- Analyze slow code
+- Detect bottlenecks
+
+---
+
+### 4. Techniques for Debugging
+
+---
+
+#### (A) Divide and Conquer
+
+- Break code into smaller parts
+- Test each part separately
+
+---
+
+#### (B) Logging Strategy
+
+```javascript
+console.log("Before API call");
+console.log("Response:", data);
+```
+
+---
+
+#### (C) Check Assumptions
+
+- Validate inputs
+- Check null/undefined
+
+```javascript
+if (!user) {
+  console.log("User not found");
+}
+```
+
+---
+
+#### (D) Reproduce the Bug
+
+- Always try to recreate issue consistently
+
+---
+
+#### (E) Read Error Messages Carefully
+
+```javascript
+Uncaught TypeError: Cannot read property 'name' of undefined
+```
+
+👉 Means object is undefined
+
+---
+
+### 5. Debugging Async Code
+
+```javascript
+async function fetchData() {
+  try {
+    const res = await fetch("/api");
+    const data = await res.json();
+    console.log(data);
+  } catch (err) {
+    console.error(err);
+  }
+}
+```
+
+---
+
+## Example
+
+Real-world:
+
+- API not working → check Network tab
+- UI not updating → use console logs
+- Logic bug → use breakpoints
+
+---
+
+## Code Example
+
+```javascript
+// Debugging example
+
+function divide(a, b) {
+  console.log("a:", a, "b:", b);
+
+  if (b === 0) {
+    console.error("Cannot divide by zero");
+    return;
+  }
+
+  return a / b;
+}
+
+divide(10, 0);
+```
+
+---
+
+## Interview-Level Answer
+
+For debugging JavaScript code, I primarily use browser developer tools like Chrome DevTools, which allow me to set breakpoints, inspect variables, and step through code execution. I also use console methods like `console.log`, `console.error`, and `console.warn` for quick debugging.
+
+Additionally, I use the `debugger` keyword to pause execution, the Network tab to debug API calls, and structured techniques like breaking down the problem, validating assumptions, and carefully reading error messages. For asynchronous code, I use try-catch blocks and proper logging to handle errors effectively.
+
+---
+
+# Q62. How do you debug a JavaScript application in the browser?
+
+---
+
+## Concepts (with example + walkthrough)
+
+### 1. Main Tool → Browser DevTools
+
+Every browser (Chrome, Firefox, Edge) provides **Developer Tools**
+
+👉 Open using:
+
+- Right click → Inspect
+- `F12`
+
+---
+
+### 2. Key Tabs Used for Debugging
+
+---
+
+### (A) Console Tab
+
+Used for:
+
+- Logs
+- Errors
+- Testing code
+
+```javascript id="c1d2e3"
+console.log("Debug value:", x);
+console.error("Something went wrong");
+```
+
+---
+
+### (B) Sources Tab (Most Important)
+
+Used for:
+
+- Setting breakpoints
+- Step-by-step execution
+- Inspect variables
+
+---
+
+### Breakpoint Example
+
+```javascript id="s4t5u6"
+function add(a, b) {
+  let sum = a + b; // breakpoint here
+  return sum;
+}
+
+add(5, 10);
+```
+
+---
+
+### Walkthrough
+
+- Set breakpoint on `sum`
+- Execution pauses
+- Inspect:
+  - `a = 5`
+  - `b = 10`
+
+- Step through code
+
+---
+
+### Step Controls
+
+- ▶ Resume
+- ⏭ Step Over (next line)
+- ⏬ Step Into (inside function)
+- ⏏ Step Out (exit function)
+
+---
+
+### (C) Network Tab
+
+Used for debugging APIs
+
+Check:
+
+- Request URL
+- Status (200, 404, 500)
+- Response data
+- Headers
+
+---
+
+### Example
+
+```javascript id="n7e8t9"
+fetch("/api/data")
+  .then((res) => res.json())
+  .then((data) => console.log(data));
+```
+
+👉 If API fails → check Network tab
+
+---
+
+### (D) Elements Tab
+
+Used for:
+
+- Inspect DOM
+- Modify HTML/CSS live
+
+---
+
+### (E) Application Tab
+
+Used for:
+
+- localStorage
+- sessionStorage
+- Cookies
+
+---
+
+### 3. Using `debugger` Keyword
+
+```javascript id="d1e2b3"
+function test() {
+  let x = 10;
+  debugger; // pauses here
+  let y = x * 2;
+  return y;
+}
+```
+
+👉 Same as breakpoint
+
+---
+
+### 4. Debugging Async Code
+
+```javascript id="a4s5y6"
+async function getData() {
+  try {
+    const res = await fetch("/api");
+    const data = await res.json();
+    console.log(data);
+  } catch (err) {
+    console.error(err);
+  }
+}
+```
+
+---
+
+### 5. Watch Variables
+
+- Add variables to **Watch panel**
+- Track value changes in real-time
+
+---
+
+### 6. Call Stack
+
+- Shows function execution order
+- Helps trace where error occurred
+
+---
+
+### Walkthrough (Full Flow)
+
+1. Open DevTools
+2. Go to Sources
+3. Set breakpoint
+4. Trigger event (click/API call)
+5. Execution pauses
+6. Inspect variables + call stack
+7. Step through code
+
+---
+
+## Example
+
+Real-world:
+
+- Button not working → check Console + breakpoint
+- API failing → check Network tab
+- UI bug → inspect Elements tab
+
+---
+
+## Code Example
+
+```javascript id="f7g8h9"
+// Example with debugging
+
+function divide(a, b) {
+  debugger; // pause execution
+
+  if (b === 0) {
+    console.error("Division by zero");
+    return;
+  }
+
+  return a / b;
+}
+
+divide(10, 0);
+```
+
+---
+
+## Interview-Level Answer
+
+To debug a JavaScript application in the browser, I use Developer Tools, especially the Sources tab to set breakpoints and step through code execution. I use the Console tab for logging values and checking errors, and the Network tab to debug API requests and responses.
+
+I also use the `debugger` keyword to pause execution, inspect variables using the watch panel, and analyze the call stack to trace issues. This combination helps in identifying and fixing bugs efficiently in both synchronous and asynchronous code.
+
+---
+
+# Q63. Explain the concept and use of breakpoints?
+
+---
+
+## Concepts (with example + walkthrough)
+
+### 1. What is a Breakpoint?
+
+A breakpoint is a **debugging tool** that:
+
+- **Pauses the execution** of JavaScript code at a specific line
+- Allows you to inspect what’s happening at that moment
+
+---
+
+### 2. Why Breakpoints are Important
+
+Instead of guessing with logs:
+
+- You can **see actual values**
+- Track how code executes step-by-step
+- Find bugs faster
+
+---
+
+### 3. How Breakpoints Work
+
+👉 When execution reaches the breakpoint:
+
+- Code stops
+- You can:
+  - Inspect variables
+  - Check call stack
+  - Step through code
+
+---
+
+### 4. Example
+
+```javascript id="b1p2t3"
+function calculateTotal(price, tax) {
+  let total = price + tax; // breakpoint here
+  return total;
+}
+
+calculateTotal(100, 20);
+```
+
+---
+
+### Walkthrough
+
+1. Set breakpoint on `total` line
+2. Run code
+3. Execution pauses
+4. Inspect:
+   - `price = 100`
+   - `tax = 20`
+
+5. Step to next line
+
+---
+
+### 5. Types of Breakpoints
+
+---
+
+#### (A) Line Breakpoint
+
+- Pause at a specific line
+
+---
+
+#### (B) Conditional Breakpoint
+
+```javascript id="c4o5n6"
+// Pause only if condition is true
+if (total > 100) {
+  console.log(total);
+}
+```
+
+👉 Set condition: `total > 100`
+
+---
+
+#### (C) Event Breakpoint
+
+- Pause when event occurs (click, DOM change)
+
+---
+
+#### (D) XHR/Fetch Breakpoint
+
+- Pause on API request
+
+---
+
+#### (E) DOM Breakpoint
+
+- Pause when DOM changes
+
+---
+
+### 6. Step Controls (Very Important)
+
+After breakpoint hits:
+
+- ▶ Resume → continue execution
+- ⏭ Step Over → next line
+- ⏬ Step Into → go inside function
+- ⏏ Step Out → exit function
+
+---
+
+### 7. Using `debugger` Keyword
+
+```javascript id="d7e8b9"
+function test() {
+  let x = 10;
+  debugger; // acts like breakpoint
+  let y = x * 2;
+  return y;
+}
+```
+
+---
+
+### 8. Real Debugging Flow
+
+```javascript id="f1l2o3"
+function divide(a, b) {
+  let result = a / b; // breakpoint
+  return result;
+}
+
+divide(10, 0);
+```
+
+👉 Check:
+
+- Is `b` zero?
+- Why result is `Infinity`?
+
+---
+
+## Example
+
+Real-world:
+
+- Wrong calculation → use breakpoint
+- API data issue → pause before processing
+- UI bug → inspect values during click
+
+---
+
+## Code Example
+
+```javascript id="z4x5y6"
+// Debugging using breakpoint
+
+function findUser(user) {
+  if (!user) {
+    console.error("User not found");
+    return;
+  }
+
+  debugger; // pause here
+
+  console.log(user.name);
+}
+
+findUser(null);
+```
+
+---
+
+## Interview-Level Answer
+
+A breakpoint is a debugging tool that pauses the execution of JavaScript code at a specific line, allowing developers to inspect variables, analyze the call stack, and understand the flow of execution.
+
+Breakpoints are mainly used in browser developer tools to step through code line-by-line, making it easier to identify bugs and incorrect logic. They are more effective than console logging because they provide real-time insights into program execution.
+
+---
+
+# Q64. How do you handle exceptions in JavaScript?
+
+---
+
+## Concepts (with example + walkthrough)
+
+### 1. What are Exceptions?
+
+Exceptions are **runtime errors** that occur during code execution.
+
+Examples:
+
+- Accessing undefined variable
+- Invalid operations
+- API failures
+
+---
+
+### 2. try...catch (Main Mechanism)
+
+Used to **handle errors gracefully** without crashing the program
+
+---
+
+### Syntax
+
+```javascript
+try {
+  // risky code
+} catch (error) {
+  // handle error
+}
+```
+
+---
+
+### Example
+
+```javascript id="t1r2y3"
+try {
+  let result = x + 10; // x is not defined
+} catch (error) {
+  console.log("Error occurred:", error.message);
+}
+```
+
+---
+
+### Walkthrough
+
+- `try` block runs
+- Error occurs (`x is not defined`)
+- Control jumps to `catch`
+- Program continues safely
+
+---
+
+### 3. finally Block
+
+Runs **always**, whether error occurs or not
+
+```javascript id="f4i5n6"
+try {
+  console.log("Try block");
+} catch (err) {
+  console.log("Error");
+} finally {
+  console.log("Always runs");
+}
+```
+
+---
+
+### 4. Throwing Custom Errors
+
+You can manually throw errors
+
+```javascript id="t7h8r9"
+function checkAge(age) {
+  if (age < 18) {
+    throw new Error("Underage not allowed");
+  }
+  return "Access granted";
+}
+```
+
+---
+
+### Usage
+
+```javascript id="u1s2e3"
+try {
+  checkAge(15);
+} catch (err) {
+  console.log(err.message);
+}
+```
+
+---
+
+### 5. Error Object
+
+```javascript id="e4r5r6"
+try {
+  JSON.parse("invalid json");
+} catch (err) {
+  console.log(err.name); // SyntaxError
+  console.log(err.message); // error details
+}
+```
+
+---
+
+### 6. Handling Async Errors (Important)
+
+#### (A) Using async/await
+
+```javascript id="a7s8y9"
+async function fetchData() {
+  try {
+    const res = await fetch("/api");
+    const data = await res.json();
+    console.log(data);
+  } catch (err) {
+    console.error("API error:", err);
+  }
+}
+```
+
+---
+
+#### (B) Using .catch()
+
+```javascript id="p1r2m3"
+fetch("/api")
+  .then((res) => res.json())
+  .then((data) => console.log(data))
+  .catch((err) => console.error(err));
+```
+
+---
+
+### 7. Important Notes
+
+- `try...catch` works only for **synchronous code**
+- For async → use `await` or `.catch()`
+- Always handle errors gracefully
+
+---
+
+### Walkthrough Example
+
+```javascript id="w4o5r6"
+function divide(a, b) {
+  try {
+    if (b === 0) {
+      throw new Error("Cannot divide by zero");
+    }
+    return a / b;
+  } catch (err) {
+    console.log(err.message);
+  }
+}
+
+divide(10, 0);
+```
+
+---
+
+## Example
+
+Real-world:
+
+- API fails → show error message
+- Invalid user input → throw error
+- JSON parsing fails → catch error
+
+---
+
+## Code Example
+
+```javascript id="c7o8d9"
+// Complete example
+
+function processData(data) {
+  try {
+    let parsed = JSON.parse(data);
+    console.log(parsed);
+  } catch (err) {
+    console.error("Invalid JSON:", err.message);
+  } finally {
+    console.log("Execution completed");
+  }
+}
+
+processData("invalid");
+```
+
+---
+
+## Interview-Level Answer
+
+Exceptions in JavaScript are handled using the `try...catch` statement, which allows developers to catch runtime errors and prevent the application from crashing. The `finally` block can be used to execute code regardless of whether an error occurs.
+
+Custom errors can be thrown using the `throw` keyword. For asynchronous operations, errors are handled using `async/await` with try-catch or using `.catch()` with promises.
+
+Proper exception handling ensures better stability, error reporting, and user experience in applications.
 
 ---
