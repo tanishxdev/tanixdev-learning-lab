@@ -20,8 +20,6 @@ Why used:
 
 - Reusable components
 - Fast rendering with Virtual DOM
-- Large ecosystem
-- Strong community support
 
 ---
 
@@ -56,63 +54,136 @@ React is a JavaScript library used to build interactive user interfaces using a 
 
 ---
 
-# 2. Differentiate between React and other frameworks (Angular, Vue)
+# 2. What problem does React solve and how?
 
 ## Concepts
 
-| Feature        | React           | Angular        | Vue             |
-| -------------- | --------------- | -------------- | --------------- |
-| Type           | Library         | Full Framework | Framework       |
-| Language       | JavaScript      | TypeScript     | JavaScript      |
-| Learning Curve | Moderate        | High           | Easy            |
-| DOM            | Virtual DOM     | Real DOM       | Virtual DOM     |
-| Architecture   | Component-based | MVC            | Component-based |
+### Problem (Before React)
 
-React:
+Traditional web development had major issues:
 
-- Only handles UI
-- Flexible
-- Requires additional libraries
+- **Manual DOM manipulation**
+  - Developer had to update UI manually
 
-Angular:
+- **UI inconsistency**
+  - Hard to sync data with UI
 
-- Complete solution
-- Opinionated
-- Built-in routing, HTTP, forms
+- **Performance issues**
+  - Updating full DOM is slow
 
-Vue:
+- **Complex state management**
+  - Difficult to track changes across app
 
-- Lightweight
-- Easy syntax
-- Two-way binding
+- **Code not reusable**
+  - Repeating UI logic again and again
+
+---
+
+### How React Solves These Problems
+
+| Problem            | React Solution                     |
+| ------------------ | ---------------------------------- |
+| Manual DOM updates | Virtual DOM + automatic updates    |
+| UI inconsistency   | Declarative UI                     |
+| Performance issues | Efficient diffing (reconciliation) |
+| Code duplication   | Component-based architecture       |
+| Complex state      | State + props system               |
+
+---
+
+### Core Ideas in React
+
+#### 1. Declarative UI
+
+- You describe **what UI should look like**
+- React handles **how to update it**
+
+```js
+UI = f(state);
+```
+
+---
+
+#### 2. Component-Based Architecture
+
+- UI split into **small reusable pieces**
+
+Example:
+
+- Navbar
+- Card
+- Button
+
+---
+
+#### 3. Virtual DOM
+
+- React creates a **virtual copy of DOM**
+- Compares:
+  - Old vs New (diffing)
+
+- Updates only changed parts
+
+---
+
+#### 4. State Management
+
+- UI is driven by **state**
+- When state changes → UI updates automatically
 
 ---
 
 ## Code Example
 
-### React (Component)
+### Without React (Problem)
+
+```js
+// Manual DOM update
+
+const btn = document.getElementById("btn");
+
+btn.addEventListener("click", () => {
+  document.getElementById("text").innerText = "Updated";
+});
+```
+
+Problems:
+
+- Manual update
+- Hard to scale
+
+---
+
+### With React (Solution)
 
 ```jsx
-function Greeting() {
-  return <h1>Hello</h1>;
+import { useState } from "react";
+
+function App() {
+  const [text, setText] = useState("Hello");
+
+  return (
+    <div>
+      <h1>{text}</h1>
+      <button onClick={() => setText("Updated")}>Change Text</button>
+    </div>
+  );
 }
 ```
 
-### Angular (Component - TypeScript)
+---
 
-```ts
-@Component({
-  selector: "app-root",
-  template: `<h1>Hello</h1>`,
-})
-export class AppComponent {}
+## Flow (What Actually Happens)
+
+```text
+User Action → State Change → Virtual DOM Update → Diffing → Real DOM Update
 ```
 
 ---
 
 ## Interview Ready Answer
 
-React is a UI library focused only on the view layer, while Angular is a full-fledged framework with built-in solutions. Vue is also a framework but lightweight and beginner-friendly. React provides flexibility, Angular provides structure, and Vue balances both.
+React solves the problem of complex and inefficient UI updates in traditional web development. Instead of manually manipulating the DOM, React uses a declarative approach where the UI is a function of state. It introduces a virtual DOM to efficiently update only the changed parts of the UI, improving performance. Additionally, its component-based architecture promotes reusability and better code organization, making large applications easier to build and maintain.
 
 ---
 
@@ -193,6 +264,8 @@ Advantages include fast rendering through Virtual DOM, reusable components, and 
 ---
 
 # 5. Explain React's component-based architecture.
+
+![](https://www.c-sharpcorner.com/article/react-introduction-advantages-and-disadvantages/Images/2.%20Component.JPG)
 
 ## Concepts
 
