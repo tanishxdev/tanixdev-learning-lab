@@ -1,780 +1,1587 @@
-### **1. Basic Concepts**
-
-#### **1. What is a computer network? Explain its purpose and importance.**
-
-A computer network is a collection of interconnected devices (computers, servers, printers, routers, etc.) that communicate with each other to share data and resources.
-
-Purpose:
-
-- Resource sharing (files, printers, internet)
-- Communication (email, video calls, messaging)
-- Centralized data management
-- Remote access
-
-Importance:
-
-- Reduces cost by sharing hardware/software
-- Enables real-time communication
-- Supports distributed systems
-- Foundation of internet and modern applications
+# Q1. What is a Computer Network? Explain its Purpose and Importance
 
 ---
 
-#### **2. Differentiate between network and internet.**
+## Concepts (with example + walkthrough)
 
-Network:
+### 1. Definition
 
-- A group of connected devices.
-- Can be private.
-- Example: Office LAN.
+A **Computer Network** is a group of interconnected devices (computers, servers, phones, etc.) that can **communicate and share resources** with each other.
 
-Internet:
-
-- Global network of networks.
-- Public and worldwide.
-- Uses TCP/IP protocol.
-
-Difference:
-
-| Network                    | Internet                             |
-| -------------------------- | ------------------------------------ |
-| Limited scope              | Global scope                         |
-| Can exist without internet | Internet is a collection of networks |
-| May use any protocol       | Uses TCP/IP                          |
+- Connected using wired (cables) or wireless (Wi-Fi)
+- Uses protocols like HTTP, TCP/IP for communication
 
 ---
 
-#### **3. What are the components of a computer network? (Nodes, Links, Media, Protocols)**
+### 2. Basic Components of a Network
 
-1. Nodes:
-   Devices connected in the network.
-   Example: Computer, server, printer.
-
-2. Links:
-   Communication paths between nodes.
-   Example: Ethernet cable, wireless link.
-
-3. Transmission Media:
-   Physical or wireless medium used to transfer data.
-   Example: Fiber optic, twisted pair, radio waves.
-
-4. Protocols:
-   Rules that govern communication.
-   Example: TCP, IP, HTTP.
-
-All components work together to enable reliable communication.
+- **Devices (Nodes)** → Computers, phones, servers
+- **Transmission Medium** → Cable, Wi-Fi
+- **Protocols** → Rules of communication
+- **Network Devices** → Router, Switch
 
 ---
 
-#### **4. Explain the terms: node, host, server, client, and peer.**
-
-Node:
-Any device connected to a network.
-
-Host:
-A node with an IP address that can send/receive data.
-
-Server:
-A system that provides services or resources.
-Example: Web server.
-
-Client:
-A system that requests services.
-Example: Browser requesting webpage.
-
-Peer:
-In peer-to-peer network, each device can act as both client and server.
+### 3. Purpose of Computer Network
 
 ---
 
-#### **5. What is network topology? Why is it important?**
+### (A) Resource Sharing
 
-Network topology refers to the physical or logical arrangement of devices and connections in a network.
+- Share files, printers, storage
 
-Types include:
+#### Example:
 
-- Bus
-- Star
-- Ring
-- Mesh
-- Tree
-- Hybrid
-
-Importance:
-
-- Affects performance
-- Affects fault tolerance
-- Determines scalability
-- Impacts cost
-- Simplifies troubleshooting
-
-Topology design directly impacts network efficiency and reliability.
-
-#### **6. Explain different types of network topologies:**
-
-**Bus Topology**
-
-- All devices connected to a single backbone cable.
-- Data travels in both directions.
-- Simple and low cost.
-- Failure of main cable brings entire network down.
-
-**Star Topology**
-
-- All devices connected to a central hub/switch.
-- Easy to manage and troubleshoot.
-- If central device fails, entire network fails.
-- Most commonly used topology in LAN.
-
-**Ring Topology**
-
-- Devices connected in circular form.
-- Data travels in one direction (usually).
-- Failure of one node can affect entire network.
-
-**Mesh Topology**
-
-- Every device connected to every other device (Full Mesh).
-- Partial mesh connects only some devices.
-- High reliability and fault tolerance.
-- Expensive and complex.
-
-**Tree Topology**
-
-- Combination of star and bus.
-- Hierarchical structure.
-- Used in large networks.
-
-**Hybrid Topology**
-
-- Combination of two or more topologies.
-- Flexible and scalable.
+- Office computers using one shared printer
 
 ---
 
-#### **7. What is bandwidth? How is it measured?**
+### (B) Communication
 
-Bandwidth is the maximum data transfer capacity of a network.
+- Enables messaging, video calls, emails
 
-Measured in:
+#### Example:
 
-- Bits per second (bps)
-- Kbps, Mbps, Gbps
-
-Higher bandwidth means more data can be transmitted per second.
-
-It represents capacity, not actual speed.
+- WhatsApp, Zoom, Email
 
 ---
 
-#### **8. What is throughput? Differentiate between bandwidth and throughput.**
+### (C) Data Sharing
 
-Throughput is the actual amount of data successfully transferred over the network in a given time.
+- Transfer data between systems
 
-Difference:
+#### Example:
 
-| Bandwidth                    | Throughput                      |
-| ---------------------------- | ------------------------------- |
-| Theoretical maximum capacity | Actual data transferred         |
-| Fixed limit                  | Affected by traffic, congestion |
-| Measured in bps              | Measured in bps                 |
-
-Throughput is usually less than bandwidth.
+- Sending files via Google Drive
 
 ---
 
-#### **9. What is latency? Explain types of delays in networks.**
+### (D) Remote Access
 
-Latency is the time taken for data to travel from source to destination.
+- Access system from another location
 
-Types of delays:
+#### Example:
 
-1. Transmission Delay
-   Time to push all bits onto the link.
-
-2. Propagation Delay
-   Time for signal to travel through medium.
-
-3. Processing Delay
-   Time router takes to process packet.
-
-4. Queuing Delay
-   Time packet waits in queue.
-
-Total Latency = Transmission + Propagation + Processing + Queuing.
+- Remote login to a server
 
 ---
 
-#### **10. What is jitter? Why is it important?**
+### (E) Centralized Management
 
-Jitter is the variation in packet arrival time.
+- Manage users, data, and security centrally
 
-If packets do not arrive at equal intervals, jitter occurs.
+#### Example:
 
-Important because:
-
-- Affects VoIP calls
-- Impacts video streaming
-- Causes lag in gaming
-
-High jitter leads to poor real-time communication quality.
-
-#### **11. Explain different types of networks based on geographical area:**
-
-**PAN (Personal Area Network)**
-
-- Very small area (within 10 meters).
-- Example: Bluetooth between phone and laptop.
-
-**LAN (Local Area Network)**
-
-- Covers small area like office, school, building.
-- High speed and low latency.
-
-**MAN (Metropolitan Area Network)**
-
-- Covers a city.
-- Connects multiple LANs.
-
-**WAN (Wide Area Network)**
-
-- Covers large geographical area (country/continent).
-- Uses leased lines, satellites.
-
-**GAN (Global Area Network)**
-
-- Worldwide coverage.
-- Example: Internet.
+- Company server controlling all employee access
 
 ---
 
-#### **12. What is LAN? Explain its characteristics and uses.**
+## 4. Importance of Computer Networks
 
-LAN (Local Area Network) connects devices within a limited area.
+---
 
-Characteristics:
+### (A) Improves Efficiency
 
-- High data transfer speed
-- Low latency
-- Privately owned
+- Faster communication
+- Quick data access
+
+---
+
+### (B) Cost Reduction
+
+- Shared resources reduce cost
+- No need for separate hardware for each user
+
+---
+
+### (C) Scalability
+
+- Easy to add more devices
+
+---
+
+### (D) Reliability
+
+- Backup systems available
+- Data can be stored on multiple systems
+
+---
+
+### (E) Global Connectivity
+
+- Connects people worldwide via Internet
+
+---
+
+### Walkthrough
+
+Real scenario:
+
+You send a message on WhatsApp:
+
+1. Message goes from your phone
+2. Through Wi-Fi/ISP
+3. Reaches server
+4. Delivered to another device
+
+This entire process happens via a **computer network**
+
+---
+
+## Example
+
+Real-world analogy:
+
+Computer Network = **Road system**
+
+- Devices = Vehicles
+- Data = Goods
+- Routes = Roads
+- Protocols = Traffic rules
+
+Ensures safe and efficient movement
+
+---
+
+## Code Example
+
+(Not required as per instruction — conceptual topic)
+
+---
+
+## Interview-Level Answer
+
+A computer network is a collection of interconnected devices that communicate and share resources using communication protocols. It enables data exchange, resource sharing, and communication between systems.
+
+The main purpose of a network is to allow efficient sharing of data, hardware, and services. Its importance lies in improving communication, reducing costs through shared resources, enabling remote access, ensuring scalability, and providing global connectivity through the Internet.
+
+---
+
+# Q2. Differentiate Between Network and Internet
+
+---
+
+## Concepts (with example + walkthrough)
+
+### 1. What is a Network?
+
+#### Definition:
+
+A **Network** is a group of **connected devices** that can communicate and share resources.
+
+- Can be small or large
+- Limited to a specific area (home, office, campus)
+
+---
+
+### 2. What is the Internet?
+
+#### Definition:
+
+The **Internet** is a **global network of networks**.
+
+- Connects millions of networks worldwide
+- Uses standard protocols (TCP/IP)
+
+---
+
+### 3. Key Idea
+
+- Network = **Local or private connection**
+- Internet = **Global public connection**
+
+---
+
+## 4. Key Differences
+
+| Feature    | Network                    | Internet                         |
+| ---------- | -------------------------- | -------------------------------- |
+| Definition | Group of connected devices | Network of networks              |
+| Scope      | Limited (LAN, MAN, WAN)    | Global                           |
+| Ownership  | Private / Organization     | No single owner (distributed)    |
+| Access     | Restricted / Controlled    | Public (via ISP)                 |
+| Example    | Office network             | World Wide Web (Google, YouTube) |
+| Dependency | Can exist without internet | Depends on multiple networks     |
+
+---
+
+## 5. Relationship Between Network and Internet
+
+- Internet is built using **many smaller networks**
+- Every internet connection is part of a network
+- But not every network is connected to the internet
+
+---
+
+### Walkthrough
+
+Real scenario:
+
+- Your home Wi-Fi connects:
+  - Laptop + Phone → **This is a Network**
+
+- When Wi-Fi connects to ISP:
+  - Your network joins global system → **Internet**
+
+---
+
+## Example
+
+Real-world analogy:
+
+- **Network = Local roads inside a city**
+- **Internet = Highway system connecting all cities**
+
+---
+
+## Code Example
+
+(Not required as per instruction — conceptual topic)
+
+---
+
+## Interview-Level Answer
+
+A network is a collection of interconnected devices that communicate and share resources within a limited area, such as a home, office, or campus. It can exist independently and is often privately managed.
+
+The internet, on the other hand, is a global system that connects millions of such networks using standard communication protocols like TCP/IP. It enables worldwide communication and access to services like websites, email, and cloud platforms.
+
+In short, a network is a smaller, localized system, while the internet is a global network of interconnected networks.
+
+---
+
+# Q3. What are the Components of a Computer Network? (Nodes, Links, Media, Protocols)
+
+---
+
+## Concepts (with example + walkthrough)
+
+### 1. Overview
+
+A computer network is built using **four core components**:
+
+1. Nodes
+2. Links
+3. Transmission Media
+4. Protocols
+
+Each plays a specific role in enabling communication.
+
+---
+
+## 2. Nodes
+
+### Definition:
+
+Nodes are **devices connected in a network** that can send, receive, or process data.
+
+---
+
+### Types of Nodes:
+
+- End Devices → Laptop, Mobile, Server
+- Intermediate Devices → Router, Switch
+
+---
+
+### Example:
+
+- Your phone, laptop, and router are all nodes
+
+---
+
+### Key Point:
+
+Every communication starts and ends at nodes
+
+---
+
+## 3. Links
+
+### Definition:
+
+Links are the **connections between nodes**.
+
+---
+
+### Types of Links:
+
+#### (A) Wired Links
+
+- Ethernet cable, Fiber optic
+
+#### (B) Wireless Links
+
+- Wi-Fi, Bluetooth
+
+---
+
+### Example:
+
+- Cable between router and PC
+- Wi-Fi connection between phone and router
+
+---
+
+### Key Point:
+
+Links define how devices are connected
+
+---
+
+## 4. Transmission Media
+
+### Definition:
+
+Transmission media is the **physical or wireless path** through which data travels.
+
+---
+
+### Types:
+
+#### (A) Guided Media (Wired)
+
+- Twisted Pair Cable
+- Coaxial Cable
+- Fiber Optic
+
+---
+
+#### (B) Unguided Media (Wireless)
+
+- Radio waves
+- Microwave
+- Infrared
+
+---
+
+### Example:
+
+- Internet through fiber cable
+- Wi-Fi signals in air
+
+---
+
+### Key Point:
+
+Media carries the actual data signals
+
+---
+
+## 5. Protocols
+
+### Definition:
+
+Protocols are **rules and standards** that define how data is transmitted and received.
+
+---
+
+### Why Needed:
+
+- Ensure proper communication
+- Maintain data format and order
+- Handle errors
+
+---
+
+### Common Protocols:
+
+- HTTP → Web communication
+- TCP/IP → Internet communication
+- FTP → File transfer
+
+---
+
+### Example:
+
+- When you open a website → HTTP + TCP/IP used
+
+---
+
+## 6. How All Components Work Together (Flow)
+
+---
+
+### Walkthrough
+
+You open a website:
+
+1. **Node (Laptop)** sends request
+2. Data travels via **Link (Wi-Fi)**
+3. Moves through **Media (radio waves)**
+4. Follows **Protocols (HTTP, TCP/IP)**
+5. Reaches another **Node (Server)**
+6. Response comes back same way
+
+---
+
+## Example
+
+Real-world analogy:
+
+- **Nodes = People**
+- **Links = Roads between people**
+- **Media = Vehicles/transport medium**
+- **Protocols = Traffic rules**
+
+Together they ensure smooth communication
+
+---
+
+## Code Example
+
+(Not required as per instruction — conceptual topic)
+
+---
+
+## Interview-Level Answer
+
+The main components of a computer network are nodes, links, transmission media, and protocols.
+
+Nodes are the devices such as computers, servers, and routers that participate in communication. Links are the connections between these devices, either wired or wireless. Transmission media is the physical or wireless medium through which data travels, such as cables or radio waves. Protocols are the set of rules that govern how data is transmitted, received, and interpreted.
+
+These components work together to enable reliable and efficient communication across a network.
+
+---
+
+# Q5. What is Network Topology? Why is it Important?
+
+---
+
+## Concepts (with example + walkthrough)
+
+### 1. Definition
+
+Network Topology refers to the **arrangement or layout of devices (nodes) and connections (links)** in a computer network.
+
+It defines:
+
+- How devices are connected
+- How data flows in the network
+
+---
+
+### 2. Types of Network Topology (Basic Overview)
+
+#### (A) Bus Topology
+
+- All devices connected to a single cable (backbone)
+
+#### (B) Star Topology
+
+- All devices connected to a central hub/switch
+
+#### (C) Ring Topology
+
+- Devices connected in a circular manner
+
+#### (D) Mesh Topology
+
+- Every device connected to every other device
+
+#### (E) Hybrid Topology
+
+- Combination of multiple topologies
+
+---
+
+### 3. Why Network Topology is Important
+
+---
+
+### (A) Performance
+
+- Determines data flow efficiency
+- Affects speed and latency
+
+#### Example:
+
+- Mesh → faster but complex
+- Bus → slower due to shared medium
+
+---
+
+### (B) Reliability
+
+- Defines how failures affect network
+
+#### Example:
+
+- Star → one node failure doesn’t affect others
+- Bus → backbone failure affects entire network
+
+---
+
+### (C) Scalability
+
+- Easy or difficult to add new devices
+
+#### Example:
+
+- Star → easy to add new nodes
+- Mesh → difficult (too many connections)
+
+---
+
+### (D) Cost
+
+- Different topologies have different setup costs
+
+#### Example:
+
+- Bus → cheap
+- Mesh → expensive
+
+---
+
+### (E) Maintenance & Troubleshooting
+
+- Helps identify faults easily
+
+#### Example:
+
+- Star → easy to detect issue
+- Ring → harder to isolate problems
+
+---
+
+## 4. How Topology Affects Data Flow
+
+---
+
+### Walkthrough
+
+Star Topology example:
+
+1. Device A sends data
+2. Data goes to central switch
+3. Switch forwards to Device B
+
+---
+
+Ring Topology example:
+
+1. Data travels in one direction
+2. Passes through each node
+3. Reaches destination
+
+---
+
+## 5. Important Concepts
+
+---
+
+### (A) Logical vs Physical Topology
+
+- **Physical** → Actual connection layout
+- **Logical** → How data flows
+
+---
+
+### (B) Single Point of Failure
+
+- A point where failure stops entire network
+
+#### Example:
+
+- Star → central hub failure
+
+---
+
+### (C) Overhead
+
+- Extra cost/complexity due to design
+
+#### Example:
+
+- Mesh → high connection overhead
+
+---
+
+## Example
+
+Real-world analogy:
+
+- Network topology = **City road map**
+
+- Star → central junction
+
+- Ring → circular road
+
+- Mesh → all roads connected
+
+It determines how traffic (data) moves
+
+---
+
+## Code Example
+
+(Not required as per instruction — conceptual topic)
+
+---
+
+## Interview-Level Answer
+
+Network topology refers to the physical or logical arrangement of devices and connections in a computer network. It defines how nodes are interconnected and how data flows between them.
+
+It is important because it directly affects network performance, reliability, scalability, cost, and ease of maintenance. Choosing the right topology ensures efficient communication, fault tolerance, and optimal resource utilization in a network.
+
+---
+
+# Q6. Explain Different Types of Network Topologies
+
+---
+
+## Concepts (with example + walkthrough)
+
+## 1. Bus Topology
+
+### Concept
+
+All devices are connected to a **single central cable (backbone)**.
+
+---
+
+### How it works
+
+- Data is sent across the backbone
+- All devices receive it, but only intended one processes it
+
+---
+
+### Key Points
+
+- Simple design
+- Cheap
+- Single point of failure (backbone)
+
+---
+
+### Example
+
+- Early LAN setups
+
+---
+
+### Overhead / Issue
+
+- **Collision problem** (multiple devices sending at same time)
+- Performance decreases as devices increase
+
+---
+
+## 2. Star Topology
+
+### Concept
+
+All devices are connected to a **central hub/switch**
+
+---
+
+### How it works
+
+- Device → sends data to hub
+- Hub → forwards to destination
+
+---
+
+### Key Points
+
 - Easy to manage
-
-Uses:
-
-- File sharing
-- Printer sharing
-- Internal communication
-- Office automation
+- Highly scalable
+- Failure of one node doesn’t affect others
 
 ---
 
-#### **13. What is WAN? How is it different from LAN?**
+### Example
 
-WAN connects devices over large geographical areas.
-
-Differences:
-
-| LAN             | WAN                         |
-| --------------- | --------------------------- |
-| Small area      | Large area                  |
-| High speed      | Lower speed compared to LAN |
-| Privately owned | Often uses public telecom   |
-| Low latency     | Higher latency              |
-
-WAN connects multiple LANs together.
+- Modern LAN (Wi-Fi router based networks)
 
 ---
 
-#### **14. What is wireless network? Explain its types.**
+### Overhead / Issue
 
-Wireless network transmits data using radio waves instead of cables.
-
-Types:
-
-- WLAN (Wi-Fi)
-- WPAN (Bluetooth)
-- Cellular network (4G/5G)
-- Satellite network
-
-Used where cable installation is difficult.
+- Central hub is **single point of failure**
 
 ---
 
-#### **15. What is VPN (Virtual Private Network)? Explain its types and advantages.**
+## 3. Ring Topology
 
-VPN creates a secure encrypted connection over public internet.
+### Concept
 
-Types:
-
-- Remote Access VPN
-- Site-to-Site VPN
-
-Advantages:
-
-- Secure communication
-- Data encryption
-- Remote access to private network
-- Protects privacy on public Wi-Fi
-
-#### **16. What is intranet and extranet?**
-
-Intranet:
-
-- A private network used within an organization.
-- Accessible only to employees.
-- Used for internal communication, file sharing, internal portals.
-
-Extranet:
-
-- Extension of intranet that allows limited access to external users (vendors, partners).
-- Controlled and secure access.
-
-Difference:
-Intranet is internal-only; Extranet allows controlled external access.
+Devices are connected in a **circular loop**
 
 ---
 
-#### **17. What is the Internet? How does it differ from the World Wide Web?**
+### How it works
 
-Internet:
-
-- Global network of interconnected networks.
-- Infrastructure that connects devices worldwide.
-- Uses TCP/IP protocol.
-
-World Wide Web (WWW):
-
-- Collection of web pages accessible via Internet.
-- Uses HTTP/HTTPS protocol.
-
-Difference:
-Internet is the network infrastructure.
-WWW is a service running on top of the Internet.
+- Data travels in one direction
+- Passes through each node until destination
 
 ---
 
-#### **18. Explain different network devices:**
+### Key Concept: Token Passing
 
-Hub:
-
-- Layer 1 device.
-- Broadcasts data to all connected devices.
-
-Switch:
-
-- Layer 2 device.
-- Forwards data based on MAC address.
-
-Router:
-
-- Layer 3 device.
-- Routes data between different networks using IP address.
-
-Bridge:
-
-- Connects two LAN segments.
-- Filters traffic using MAC address.
-
-Gateway:
-
-- Connects different network architectures.
-- Protocol converter.
-
-Repeater:
-
-- Regenerates signal to extend network range.
-
-Modem:
-
-- Converts digital signal to analog and vice versa.
-
-NIC (Network Interface Card):
-
-- Hardware that connects device to network.
-- Has MAC address.
-
-Access Point:
-
-- Connects wireless devices to wired network.
+- Only node with token can send data
+- Prevents collision
 
 ---
 
-#### **19. Differentiate between hub and switch.**
+### Example
 
-| Hub               | Switch                   |
-| ----------------- | ------------------------ |
-| Layer 1 device    | Layer 2 device           |
-| Broadcasts to all | Sends to specific device |
-| No MAC table      | Maintains MAC table      |
-| More collisions   | Fewer collisions         |
-| Slower            | Faster                   |
+- Token Ring networks
 
 ---
 
-#### **20. Differentiate between router and gateway.**
+### Overhead / Issue
 
-| Router                    | Gateway                        |
-| ------------------------- | ------------------------------ |
-| Connects similar networks | Connects different networks    |
-| Works at Network Layer    | Can operate at multiple layers |
-| Routes packets using IP   | Performs protocol conversion   |
-| Example: Home router      | Example: Email gateway         |
-
-#### **21. Differentiate between router and switch.**
-
-| Router                                 | Switch                               |
-| -------------------------------------- | ------------------------------------ |
-| Works at Layer 3 (Network Layer)       | Works at Layer 2 (Data Link Layer)   |
-| Uses IP address for forwarding         | Uses MAC address for forwarding      |
-| Connects different networks            | Connects devices within same network |
-| Maintains routing table                | Maintains MAC address table          |
-| Slower than switch (due to processing) | Faster inside LAN                    |
-
-Router is used for inter-network communication.
-Switch is used for intra-network communication.
+- Failure of one node breaks network
+- Hard to troubleshoot
 
 ---
 
-#### **22. Differentiate between bridge and switch.**
-
-| Bridge                    | Switch                       |
-| ------------------------- | ---------------------------- |
-| Connects two LAN segments | Connects multiple devices    |
-| Fewer ports (2–4)         | Many ports (24, 48 etc.)     |
-| Software-based            | Hardware-based               |
-| Slower                    | Faster                       |
-| Older technology          | Modern replacement of bridge |
-
-Switch is essentially a multi-port bridge.
+## 4. Mesh Topology
 
 ---
 
-#### **23. What is a load balancer? How does it work?**
+### Concept
 
-A load balancer distributes incoming network traffic across multiple servers.
-
-Purpose:
-
-- Improve performance
-- Increase availability
-- Prevent server overload
-
-Working:
-
-- Receives client request
-- Selects server using algorithm (Round Robin, Least Connections, etc.)
-- Forwards request to selected server
-- Returns response to client
-
-Types:
-
-- Hardware load balancer
-- Software load balancer
+Every device is connected to **multiple or all other devices**
 
 ---
 
-#### **24. What is a firewall? Explain its types and working.**
+### Types
 
-Firewall is a security device/software that monitors and controls incoming and outgoing network traffic.
+#### (A) Full Mesh
 
-Working:
+- Every node connected to every other node
 
-- Uses predefined rules
-- Allows or blocks traffic
+#### (B) Partial Mesh
 
-Types:
-
-- Packet Filtering Firewall
-- Stateful Inspection Firewall
-- Proxy Firewall
-- Next-Generation Firewall (NGFW)
-
-Purpose:
-
-- Protect network from unauthorized access
-- Prevent attacks
+- Only some nodes are interconnected
 
 ---
 
-#### **25. What is a proxy server?**
+### How it works
 
-Proxy server acts as an intermediary between client and internet.
-
-Working:
-
-- Client sends request to proxy
-- Proxy forwards request to server
-- Server response goes back to proxy
-- Proxy returns response to client
-
-Uses:
-
-- Security
-- Caching
-- Content filtering
-- Hiding client IP address
-
-## **4. OSI Model**
-
-### **26. What is the OSI model? Why was it created?**
-
-OSI (Open Systems Interconnection) model is a conceptual framework that standardizes network communication into 7 layers.
-
-It was created by ISO to:
-
-- Standardize communication between different systems
-- Ensure interoperability between vendors
-- Simplify troubleshooting
-- Provide modular network design
-
-It divides communication into layers so each layer has a specific responsibility.
+- Multiple paths available for data
 
 ---
 
-### **27. Explain all 7 layers of the OSI model:**
+### Key Points
 
-**Layer 7: Application Layer**
-Provides network services to end users.
-Examples: HTTP, FTP, SMTP.
-
-**Layer 6: Presentation Layer**
-Handles data formatting, encryption, compression.
-
-**Layer 5: Session Layer**
-Manages sessions between applications.
-Handles session establishment and termination.
-
-**Layer 4: Transport Layer**
-Provides end-to-end communication.
-Handles reliability and flow control.
-Protocols: TCP, UDP.
-
-**Layer 3: Network Layer**
-Handles logical addressing and routing.
-Protocol: IP.
-
-**Layer 2: Data Link Layer**
-Handles framing and MAC addressing.
-Protocol: Ethernet.
-
-**Layer 1: Physical Layer**
-Transmits raw bits over physical medium.
-Deals with cables, voltage levels.
+- High reliability
+- No single point of failure
 
 ---
 
-### **28. What is the function of each OSI layer?**
+### Example
 
-Application – Interface for user applications
-Presentation – Data translation, encryption
-Session – Session management
-Transport – Reliable delivery, segmentation
-Network – Routing and logical addressing
-Data Link – Framing and error detection
-Physical – Bit transmission over medium
-
-Each layer performs a specific function and passes data to the next layer.
+- Internet backbone networks
 
 ---
 
-### **29. What protocols operate at each OSI layer?**
+### Overhead / Issue
 
-Application Layer: HTTP, FTP, SMTP, DNS
-Presentation Layer: SSL/TLS
-Session Layer: NetBIOS
-Transport Layer: TCP, UDP
-Network Layer: IP, ICMP
-Data Link Layer: Ethernet (IEEE 802.3), Wi-Fi (IEEE 802.11)
-Physical Layer: Fiber, Twisted Pair standards
+#### (A) Connection Overhead
 
-Protocols are mapped based on their functionality.
+- Too many cables/connections
+
+#### (B) Cost
+
+- Very expensive
 
 ---
 
-### **30. What is encapsulation and de-capsulation in OSI model?**
+## 5. Tree Topology
 
-Encapsulation:
-When data moves from Application Layer to Physical Layer, each layer adds its own header.
+### Concept
 
-Example flow:
-Data → Segment → Packet → Frame → Bits
+Combination of **star + bus topology**
 
-De-capsulation:
-At receiver side, each layer removes its corresponding header while moving upward.
-
-Encapsulation ensures structured and reliable communication across network layers.
-
-### **31. What are PDUs (Protocol Data Units) at each layer?**
-
-Application Layer: Data
-Presentation Layer: Data
-Session Layer: Data
-Transport Layer: Segment (TCP) / Datagram (UDP)
-Network Layer: Packet
-Data Link Layer: Frame
-Physical Layer: Bits
-
-Each layer adds its own header, changing the name of the data unit.
+- Hierarchical structure
+- Root node → branches → sub-nodes
 
 ---
 
-## **5. TCP/IP Model**
+### How it works
 
-### **32. What is the TCP/IP model? Explain its layers.**
-
-TCP/IP model is a practical networking model used in the Internet.
-
-It has 4 layers:
-
-1. Application Layer
-2. Transport Layer
-3. Internet Layer
-4. Network Access (Link) Layer
-
-It is simpler and implementation-based compared to OSI model.
+- Data flows from root to branches
 
 ---
 
-### **33. Differentiate between OSI model and TCP/IP model.**
+### Key Points
 
-<p align="center">
-  <img src="https://www.swissns.ch/site/wp-content/uploads/2016/11/osi-model.gif" />
-</p>
-
-| OSI Model                              | TCP/IP Model                  |
-| -------------------------------------- | ----------------------------- |
-| 7 layers                               | 4 layers                      |
-| Theoretical model                      | Practical model               |
-| Developed by ISO                       | Developed by DARPA            |
-| Separate Presentation & Session layers | Combined in Application layer |
-| Clear layer separation                 | Less strict separation        |
-
-TCP/IP is widely used in real-world networking.
+- Scalable
+- Organized structure
 
 ---
 
-### **34. Explain the four layers of TCP/IP model:**
+### Example
 
-Application Layer
-Provides services like HTTP, FTP, SMTP, DNS.
-
-Transport Layer
-Provides end-to-end communication.
-Protocols: TCP, UDP.
-
-Internet Layer
-Handles logical addressing and routing.
-Protocol: IP.
-
-Network Access (Link) Layer
-Handles framing and physical transmission.
-Protocols: Ethernet, Wi-Fi.
+- Corporate networks
 
 ---
 
-### **35. How does TCP/IP model map to OSI model?**
+### Overhead / Issue
 
-Application (TCP/IP)
-= Application + Presentation + Session (OSI)
-
-Transport (TCP/IP)
-= Transport (OSI)
-
-Internet (TCP/IP)
-= Network (OSI)
-
-Network Access (TCP/IP)
-= Data Link + Physical (OSI)
-
-TCP/IP combines some OSI layers for practical implementation.
-
-### **36. What is the hybrid model (5-layer model)?**
-
-Hybrid model (also called 5-layer Internet model) is a practical combination of OSI and TCP/IP models.
-
-Layers:
-
-1. Application
-2. Transport
-3. Network
-4. Data Link
-5. Physical
-
-It separates Data Link and Physical layers (like OSI) but keeps fewer layers than OSI.
-
-Used commonly for academic explanations.
+- Root failure affects entire network
 
 ---
 
-## **6. Transmission Media**
+## 6. Hybrid Topology
 
-### **37. What is transmission media? Explain its types.**
+### Concept
 
-Transmission media is the physical path through which data travels between sender and receiver.
-
-Types:
-
-1. Guided Media (Wired)
-2. Unguided Media (Wireless)
-
-Guided uses cables.
-Unguided uses electromagnetic waves.
+Combination of **two or more topologies**
 
 ---
 
-### **38. Differentiate between guided and unguided media.**
+### How it works
 
-| Guided Media                  | Unguided Media             |
-| ----------------------------- | -------------------------- |
-| Uses physical cables          | Uses air/space             |
-| More secure                   | Less secure                |
-| Less interference             | More interference          |
-| Examples: Fiber, Twisted Pair | Examples: Radio, Microwave |
-
-Guided is more stable; unguided offers mobility.
+- Uses best features of different topologies
 
 ---
 
-### **39. Explain guided media:**
+### Example
 
-Twisted Pair Cable
-
-- Two copper wires twisted together
-- Types: UTP, STP
-- Used in LAN
-
-Coaxial Cable
-
-- Central conductor with insulation
-- Used in cable TV
-
-Fiber Optic Cable
-
-- Uses light signals
-- Very high speed
-- Long-distance communication
-- Immune to electromagnetic interference
+- Star + Mesh in large companies
 
 ---
 
-### **40. Explain unguided/wireless media:**
+### Key Points
 
-Radio Waves
+- Flexible
+- Customizable
 
-- Used in Wi-Fi, Bluetooth
-- Can pass through walls
+---
 
-Microwaves
+### Overhead / Issue
 
-- Line-of-sight communication
-- Used in satellite and cellular
+- Complex design
+- High cost
 
-Infrared
+---
 
-- Short range
-- Cannot pass through walls
+## 7. Key Comparison Summary
 
-Satellite Communication
+| Topology | Structure       | Reliability | Cost   | Scalability | Main Issue                  |
+| -------- | --------------- | ----------- | ------ | ----------- | --------------------------- |
+| Bus      | Single cable    | Low         | Low    | Low         | Backbone failure            |
+| Star     | Central hub     | Medium      | Medium | High        | Hub failure                 |
+| Ring     | Circular        | Low         | Medium | Low         | Node failure breaks network |
+| Mesh     | Fully connected | Very High   | High   | Low         | High cost                   |
+| Tree     | Hierarchical    | Medium      | Medium | High        | Root failure                |
+| Hybrid   | Mixed           | High        | High   | High        | Complex                     |
 
-- Uses satellites for long-distance transmission
-- Covers large geographical areas
+---
+
+## Example
+
+Real-world analogy:
+
+- **Bus** → Single road shared by all
+- **Star** → Central traffic junction
+- **Ring** → Circular road
+- **Mesh** → Every place connected to every other
+- **Tree** → Hierarchical organization
+- **Hybrid** → Smart city layout combining all
+
+---
+
+## Code Example
+
+(Not required as per instruction — conceptual topic)
+
+---
+
+## Interview-Level Answer
+
+Network topologies define how devices are arranged and connected in a network. Bus topology uses a single shared cable, making it simple but less reliable. Star topology connects all devices to a central hub, offering better scalability and fault isolation. Ring topology forms a circular structure where data flows in one direction, often using token passing.
+
+Mesh topology provides high reliability by connecting devices with multiple paths, either fully or partially. Tree topology organizes devices hierarchically, combining features of star and bus. Hybrid topology combines multiple topologies to optimize performance and flexibility.
+
+Each topology has trade-offs in terms of cost, performance, reliability, and scalability.
+
+---
+
+# Q7. What is Bandwidth? How is it Measured?
+
+---
+
+## Concepts (with example + walkthrough)
+
+### 1. Definition
+
+Bandwidth refers to the **maximum amount of data that can be transmitted over a network in a given amount of time**.
+
+- It represents the **capacity of a network**
+- Higher bandwidth → more data can flow
+
+---
+
+### 2. Key Idea
+
+- Bandwidth = **Data carrying capacity**
+- It does NOT always mean actual speed, but **maximum possible speed**
+
+---
+
+### 3. How Bandwidth is Measured
+
+Bandwidth is measured in **bits per second (bps)**
+
+---
+
+### Common Units:
+
+| Unit | Value             |
+| ---- | ----------------- |
+| bps  | bits per second   |
+| Kbps | 1,000 bps         |
+| Mbps | 1,000,000 bps     |
+| Gbps | 1,000,000,000 bps |
+
+---
+
+### Important Note
+
+- 8 bits = 1 byte
+- Internet speed is usually shown in **Mbps (megabits/sec)**
+- File size is in **MB (megabytes)**
+
+---
+
+## 4. Bandwidth vs Speed (Common Confusion)
+
+### Bandwidth
+
+- Maximum capacity
+
+### Speed (Throughput)
+
+- Actual data transfer rate
+
+---
+
+### Example:
+
+- Bandwidth = 100 Mbps
+- Actual speed = 60 Mbps
+
+Reason:
+
+- Network congestion
+- Overhead
+- Latency
+
+---
+
+## 5. Factors Affecting Bandwidth
+
+- Network congestion
+- Hardware limitations
+- Transmission media (fiber vs copper)
+- Distance
+
+---
+
+## 6. Important Concepts
+
+---
+
+### (A) Throughput
+
+- Actual data transferred per second
+- Always ≤ bandwidth
+
+---
+
+### (B) Latency
+
+- Time delay in data transfer
+
+---
+
+### (C) Overhead
+
+#### Definition:
+
+Extra data used for control (headers, protocols)
+
+#### Impact:
+
+- Reduces effective bandwidth
+
+---
+
+## Walkthrough
+
+Real scenario:
+
+You have 100 Mbps internet:
+
+1. Downloading a file
+2. Network adds protocol headers (overhead)
+3. Due to congestion → only 70 Mbps achieved
+
+---
+
+## Example
+
+Real-world analogy:
+
+- Bandwidth = **Width of a highway**
+
+- Data = **Vehicles**
+
+- Wider highway → more vehicles can pass
+
+- Traffic (congestion) → reduces actual speed
+
+---
+
+## Code Example
+
+(Not required as per instruction — conceptual topic)
+
+---
+
+## Interview-Level Answer
+
+Bandwidth is the maximum rate at which data can be transmitted over a network in a given time period. It represents the capacity of the communication channel rather than the actual speed.
+
+It is measured in bits per second (bps), commonly expressed in units such as Kbps, Mbps, and Gbps. While bandwidth defines the upper limit of data transfer, the actual speed (throughput) may be lower due to factors like network congestion, latency, and protocol overhead.
+
+---
+
+# Q8. What is Throughput? Differentiate Between Bandwidth and Throughput
+
+---
+
+## Concepts (with example + walkthrough)
+
+### 1. What is Throughput?
+
+#### Definition:
+
+Throughput is the **actual amount of data successfully transferred over a network per unit time**.
+
+- It represents **real performance**
+- Always ≤ bandwidth
+
+---
+
+### 2. Key Idea
+
+- Throughput = **Actual data transfer rate**
+- Depends on real-world conditions
+
+---
+
+### 3. How Throughput is Measured
+
+Same as bandwidth:
+
+- bits per second (bps)
+- Mbps, Gbps
+
+---
+
+### 4. Why Throughput is Less Than Bandwidth
+
+Because of:
+
+---
+
+#### (A) Network Congestion
+
+- Too many users sharing network
+
+---
+
+#### (B) Latency
+
+- Delay in data transmission
+
+---
+
+#### (C) Packet Loss
+
+- Data needs retransmission
+
+---
+
+#### (D) Overhead (Important)
+
+- Extra data added by protocols (headers, control info)
+
+---
+
+## 5. Bandwidth vs Throughput
+
+| Feature     | Bandwidth              | Throughput                    |
+| ----------- | ---------------------- | ----------------------------- |
+| Definition  | Maximum data capacity  | Actual data transferred       |
+| Nature      | Theoretical            | Practical                     |
+| Value       | Always higher or equal | Always lower or equal         |
+| Depends on  | Network design         | Real-world conditions         |
+| Affected by | Hardware limits        | Congestion, latency, overhead |
+| Example     | 100 Mbps connection    | 60 Mbps actual speed          |
+
+---
+
+## 6. Relationship (Very Important)
+
+Bandwidth sets the **upper limit**
+
+Throughput is the **actual achieved performance**
+
+---
+
+### Formula Thinking:
+
+Throughput = Bandwidth − Losses (congestion + overhead + delay)
+
+---
+
+## Walkthrough
+
+Real scenario:
+
+You have 100 Mbps internet:
+
+1. Data starts transferring
+2. Network congestion occurs
+3. Protocol adds headers (overhead)
+4. Some packets lost → retransmitted
+
+Final throughput = 65 Mbps
+
+---
+
+## 7. Important Concepts
+
+---
+
+### (A) Goodput (Advanced)
+
+- Actual useful data (excluding overhead)
+
+---
+
+### (B) Overhead
+
+- Control data reduces effective throughput
+
+---
+
+### (C) Efficiency
+
+Efficiency = Throughput / Bandwidth
+
+---
+
+## Example
+
+Real-world analogy:
+
+- **Bandwidth = Width of pipe**
+
+- **Throughput = Actual water flowing**
+
+- Pipe may be wide
+
+- But blockage reduces water flow
+
+---
+
+## Code Example
+
+(Not required as per instruction — conceptual topic)
+
+---
+
+## Interview-Level Answer
+
+Throughput is the actual rate at which data is successfully transmitted over a network, measured in bits per second. It reflects real-world performance and is usually lower than the maximum capacity.
+
+Bandwidth, on the other hand, is the theoretical maximum data transfer capacity of a network. The key difference is that bandwidth represents the upper limit, while throughput represents the actual achieved data transfer rate, which is affected by factors like congestion, latency, and protocol overhead.
+
+---
+
+# Q9. What is Latency? Explain Types of Delays in Networks
+
+---
+
+## Concepts (with example + walkthrough)
+
+### 1. What is Latency?
+
+#### Definition:
+
+Latency is the **total time taken for data to travel from source to destination** in a network.
+
+- Measured in **milliseconds (ms)**
+- Represents **delay**, not speed
+
+---
+
+### 2. Key Idea
+
+- Lower latency → faster response
+- Higher latency → noticeable delay
+
+---
+
+### 3. Types of Delays in Networks
+
+Latency is made up of **four main delays**:
+
+---
+
+## (A) Transmission Delay
+
+### Definition:
+
+Time required to **push all bits of a packet onto the network**
+
+---
+
+### Formula Thinking:
+
+Transmission Delay = Packet Size / Bandwidth
+
+---
+
+### Example:
+
+- Large file → more time to send
+- Slow bandwidth → higher delay
+
+---
+
+### Key Point:
+
+Depends on:
+
+- Data size
+- Network bandwidth
+
+---
+
+## (B) Propagation Delay
+
+### Definition:
+
+Time taken for signal to **travel from sender to receiver**
+
+---
+
+### Formula Thinking:
+
+Propagation Delay = Distance / Signal Speed
+
+---
+
+### Example:
+
+- Data traveling through fiber cable across cities
+
+---
+
+### Key Point:
+
+Depends on:
+
+- Distance
+- Medium (fiber, copper, air)
+
+---
+
+## (C) Processing Delay
+
+### Definition:
+
+Time routers/systems take to **process packet header and decide routing**
+
+---
+
+### Example:
+
+- Router checking destination IP
+
+---
+
+### Key Point:
+
+- Usually small
+- Depends on device performance
+
+---
+
+## (D) Queuing Delay
+
+### Definition:
+
+Time packet waits in **queue before being transmitted**
+
+---
+
+### Example:
+
+- Network congestion → packets wait in buffer
+
+---
+
+### Key Point:
+
+- Highly variable
+- Biggest cause of latency in real networks
+
+---
+
+## 4. Total Latency Formula
+
+Total Latency =
+Transmission Delay + Propagation Delay + Processing Delay + Queuing Delay
+
+---
+
+## 5. Important Concepts
+
+---
+
+### (A) Jitter
+
+- Variation in latency over time
+- Important for video calls/gaming
+
+---
+
+### (B) Round Trip Time (RTT)
+
+- Time taken for request → response
+
+---
+
+### (C) Overhead Impact
+
+- Protocol headers increase processing + transmission delay
+
+---
+
+## Walkthrough
+
+Real scenario (opening a website):
+
+1. Request sent → transmission delay
+2. Travels to server → propagation delay
+3. Router processes → processing delay
+4. Waits in queue → queuing delay
+
+Total = Latency
+
+---
+
+## Example
+
+Real-world analogy:
+
+- Sending a courier:
+
+| Delay Type   | Meaning                 |
+| ------------ | ----------------------- |
+| Transmission | Packing the parcel      |
+| Propagation  | Travel time             |
+| Processing   | Checking at checkpoints |
+| Queuing      | Waiting in line         |
+
+---
+
+## Code Example
+
+(Not required as per instruction — conceptual topic)
+
+---
+
+## Interview-Level Answer
+
+Latency is the total time taken for data to travel from the source to the destination in a network, usually measured in milliseconds. It represents the delay experienced in communication.
+
+It consists of four main components: transmission delay (time to send data onto the network), propagation delay (time for the signal to travel), processing delay (time taken by devices to process the data), and queuing delay (time spent waiting in queues due to congestion). These delays together determine the overall responsiveness of a network.
+
+---
+
+# Q10. What is Jitter? Why is it Important?
+
+---
+
+## Concepts (with example + walkthrough)
+
+### 1. What is Jitter?
+
+#### Definition:
+
+Jitter is the **variation in latency (delay) between packets** in a network.
+
+- It measures **inconsistency in packet arrival time**
+- Even if latency is low, high jitter can cause problems
+
+---
+
+### 2. Key Idea
+
+- Latency = total delay
+- Jitter = **variation in delay**
+
+---
+
+### Example Understanding:
+
+Packets sent every 10ms:
+
+| Packet | Expected Time | Actual Time |
+| ------ | ------------- | ----------- |
+| 1      | 10ms          | 10ms        |
+| 2      | 20ms          | 25ms        |
+| 3      | 30ms          | 18ms        |
+
+→ Delay is inconsistent → **Jitter present**
+
+---
+
+### 3. Why Jitter Occurs
+
+---
+
+#### (A) Network Congestion
+
+- Packets take different routes or wait in queues
+
+---
+
+#### (B) Queuing Delay Variation
+
+- Some packets wait longer than others
+
+---
+
+#### (C) Route Changes
+
+- Dynamic routing changes path
+
+---
+
+#### (D) Hardware Limitations
+
+- Routers handling uneven loads
+
+---
+
+## 4. Why Jitter is Important
+
+---
+
+### (A) Real-Time Applications
+
+Jitter directly affects:
+
+- Video calls
+- Online gaming
+- Voice calls (VoIP)
+
+---
+
+### (B) Impact on User Experience
+
+#### Low Jitter:
+
+- Smooth audio/video
+- Stable connection
+
+#### High Jitter:
+
+- Voice breaks
+- Video lag
+- Game delays
+
+---
+
+### (C) Packet Loss Handling
+
+- High jitter can lead to:
+  - Out-of-order packets
+  - Dropped packets
+
+---
+
+## 5. Important Concepts
+
+---
+
+### (A) Jitter vs Latency
+
+| Feature | Latency             | Jitter              |
+| ------- | ------------------- | ------------------- |
+| Meaning | Total delay         | Variation in delay  |
+| Impact  | Slow response       | Unstable experience |
+| Nature  | Constant or average | Fluctuating         |
+
+---
+
+### (B) Jitter Buffer
+
+#### Definition:
+
+- Temporary storage to smooth out delay variations
+
+#### Use:
+
+- Used in video/voice streaming
+
+---
+
+### (C) Overhead Impact
+
+- Retransmissions due to jitter increase network overhead
+
+---
+
+## Walkthrough
+
+Real scenario (video call):
+
+1. Packets sent continuously
+2. Some arrive quickly, others delayed
+3. Audio/video becomes out of sync
+
+→ Due to **high jitter**
+
+---
+
+## Example
+
+Real-world analogy:
+
+- Jitter = **Irregular traffic flow**
+
+- Cars (packets) should arrive at regular intervals
+
+- If traffic is uneven → delays vary
+
+---
+
+## Code Example
+
+(Not required as per instruction — conceptual topic)
+
+---
+
+## Interview-Level Answer
+
+Jitter is the variation in the delay of packet delivery in a network. It measures how inconsistent the latency is over time.
+
+It is important because high jitter can disrupt real-time applications such as video calls, online gaming, and voice communication by causing delays, packet loss, and poor synchronization. Maintaining low jitter ensures a smooth and stable network experience.
+
+---
